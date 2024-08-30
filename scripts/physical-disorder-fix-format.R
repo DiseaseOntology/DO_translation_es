@@ -31,3 +31,12 @@ es_files_orig <- list.files(pd_dir, pattern = ".*TSG-Es.*\\.csv", full.names = T
 es_files <- stringr::str_remove(es_files_orig, "-original")
 
 purrr::walk2(es_files_orig, es_files, reformat_file)
+
+
+
+# drop accidental inclusion of English in spanish file --------------------
+
+es_files[1] |>
+    readr::read_csv(col_types = "c") |>
+    dplyr::filter(!stringr::str_detect(etiqueta, "syndrome")) |>
+    readr::write_csv(es_files[1])
