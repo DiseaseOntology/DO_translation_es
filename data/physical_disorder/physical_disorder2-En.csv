@@ -1,0 +1,1100 @@
+class,syn
+http://purl.obolibrary.org/obo/DOID_0080015,congenital disorder
+http://purl.obolibrary.org/obo/DOID_2490,congenital neurologic anomaly
+http://purl.obolibrary.org/obo/DOID_0050454,periventricular heterotopia
+http://purl.obolibrary.org/obo/DOID_0050534,congenital essential nyctalopia
+http://purl.obolibrary.org/obo/DOID_0050545,heterotaxia
+http://purl.obolibrary.org/obo/DOID_0050545,situs ambiguus
+http://purl.obolibrary.org/obo/DOID_0050546,"ADRENAL INSUFFICIENCY, CONGENITAL, WITH 46,XY SEX REVERSAL, PARTIAL OR COMPLETE"
+http://purl.obolibrary.org/obo/DOID_0050546,"Adrenal insufficiency, congenital, with 46,XY sex reversal"
+http://purl.obolibrary.org/obo/DOID_0050546,P450scc DEFICIENCY
+http://purl.obolibrary.org/obo/DOID_0050558,ULLRICH DISEASE
+http://purl.obolibrary.org/obo/DOID_0050558,Ullrich scleroatonic muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0111229,MDDGA
+http://purl.obolibrary.org/obo/DOID_0111229,congenital muscular alpha-dystroglycanopathy with brain and eye anomalies
+http://purl.obolibrary.org/obo/DOID_0111229,klissencephaly type 2 with muscular and ocular involvement
+http://purl.obolibrary.org/obo/DOID_0050560,HARD syndrome
+http://purl.obolibrary.org/obo/DOID_0050560,cerebroocular dysplasia-muscular dystrophy syndrome
+http://purl.obolibrary.org/obo/DOID_5212,carbohydrate-deficient glycoprotein syndrome
+http://purl.obolibrary.org/obo/DOID_0050588,CMD due to dystroglycanopathy
+http://purl.obolibrary.org/obo/DOID_0050588,Muscular dystrophy-dystroglycanopathy congenital with impaired intellectual development B1
+http://purl.obolibrary.org/obo/DOID_0112375,MDDGB
+http://purl.obolibrary.org/obo/DOID_0050651,AVCD
+http://purl.obolibrary.org/obo/DOID_0050651,AVSD
+http://purl.obolibrary.org/obo/DOID_0050651,ECD
+http://purl.obolibrary.org/obo/DOID_0050651,atrioventricular canal defect
+http://purl.obolibrary.org/obo/DOID_0050651,endocardial cushion defect
+http://purl.obolibrary.org/obo/DOID_1681,Cardiac septal defects
+http://purl.obolibrary.org/obo/DOID_1681,Congenital septal defect of heart
+http://purl.obolibrary.org/obo/DOID_1681,septal defect
+http://purl.obolibrary.org/obo/DOID_0050663,benign congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0050674,3-beta-hydroxy-delta-5-C27-steroid oxidoreductase deficiency
+http://purl.obolibrary.org/obo/DOID_0050674,CBA
+http://purl.obolibrary.org/obo/DOID_0050674,cholestasis with delta(4)-3-oxosteroid-5-beta-reductase deficiency
+http://purl.obolibrary.org/obo/DOID_0050734,hereditary intrinsic factor deficiency
+http://purl.obolibrary.org/obo/DOID_10907,Microcephalus
+http://purl.obolibrary.org/obo/DOID_10907,microencephaly
+http://purl.obolibrary.org/obo/DOID_0050811,adrenal hyperplasia 1
+http://purl.obolibrary.org/obo/DOID_0050811,congenital lipoid adrenal hyperplasia
+http://purl.obolibrary.org/obo/DOID_0050811,lipoid CAH
+http://purl.obolibrary.org/obo/DOID_0050813,CHONDRODYSPLASIA WITH MULTIPLE DISLOCATIONS
+http://purl.obolibrary.org/obo/DOID_0050813,CHST3-Related Skeletal Dysplasia
+http://purl.obolibrary.org/obo/DOID_0050813,Humero-spinal dysostosis with congenital heart disease
+http://purl.obolibrary.org/obo/DOID_0050813,Kozlowski Celermajer Tink syndrome
+http://purl.obolibrary.org/obo/DOID_0050813,Omani Type
+http://purl.obolibrary.org/obo/DOID_0050813,Spondyloepiphyseal Dysplasia
+http://purl.obolibrary.org/obo/DOID_0050813,humero-spinal dysostosis
+http://purl.obolibrary.org/obo/DOID_0050813,humerospinal dysostosis
+http://purl.obolibrary.org/obo/DOID_0060259,Ivemark's syndrome
+http://purl.obolibrary.org/obo/DOID_0060285,Caitlin marks
+http://purl.obolibrary.org/obo/DOID_0060285,enlarged parietal foramina
+http://purl.obolibrary.org/obo/DOID_0060285,hereditary cranium bifidum
+http://purl.obolibrary.org/obo/DOID_0060296,congenital chloride diarrhea finnish type
+http://purl.obolibrary.org/obo/DOID_0060296,congenital chloride diarrhoea finnish type
+http://purl.obolibrary.org/obo/DOID_0060296,congenital chloridorrhea
+http://purl.obolibrary.org/obo/DOID_0060296,congenital secretory chloride diarrhoea 1
+http://purl.obolibrary.org/obo/DOID_0060327,omphalocoele
+http://purl.obolibrary.org/obo/DOID_0060341,agnathia-holoprosencephaly-situs inversus syndrome
+http://purl.obolibrary.org/obo/DOID_0060341,dysgnathia complex agnathia-holoprosencephaly
+http://purl.obolibrary.org/obo/DOID_0060341,holoprosencephaly-agnathia
+http://purl.obolibrary.org/obo/DOID_0060341,otocephaly
+http://purl.obolibrary.org/obo/DOID_0060445,CSCD
+http://purl.obolibrary.org/obo/DOID_0060445,congenital hereditary stromal dystrophy
+http://purl.obolibrary.org/obo/DOID_0060559,LCCS1
+http://purl.obolibrary.org/obo/DOID_0060559,"multiple contracture syndrome, Finnish type"
+http://purl.obolibrary.org/obo/DOID_0060560,LCCS2
+http://purl.obolibrary.org/obo/DOID_0060560,"multiple contracture syndrome, Israeli-Bedouin type"
+http://purl.obolibrary.org/obo/DOID_13832,Patent ductus Botalli
+http://purl.obolibrary.org/obo/DOID_13832,"ductus arteriosus, Patent"
+http://purl.obolibrary.org/obo/DOID_0060613,X-linked cleft palate and ankyloglossia
+http://purl.obolibrary.org/obo/DOID_674,Palatoschisis
+http://purl.obolibrary.org/obo/DOID_0060638,NDH syndrome
+http://purl.obolibrary.org/obo/DOID_0060649,CHED
+http://purl.obolibrary.org/obo/DOID_0060653,Israeli Bedouin type B multiple contracture syndrome
+http://purl.obolibrary.org/obo/DOID_0060655,ARCI
+http://purl.obolibrary.org/obo/DOID_0060655,lamellar ichthyosis
+http://purl.obolibrary.org/obo/DOID_0060655,non bullous congenital ichthyosiform erythroderma
+http://purl.obolibrary.org/obo/DOID_0060656,ARCI1
+http://purl.obolibrary.org/obo/DOID_0060656,bathing suit ichthyosis
+http://purl.obolibrary.org/obo/DOID_0060710,ARCI2
+http://purl.obolibrary.org/obo/DOID_0060710,BROCQ congenital ichthyosiform erythroderma nonbullous form
+http://purl.obolibrary.org/obo/DOID_0060710,NCIE1
+http://purl.obolibrary.org/obo/DOID_0060710,nonbullous congenital ichthyosiform erythroderma 1
+http://purl.obolibrary.org/obo/DOID_0060711,ARCI3
+http://purl.obolibrary.org/obo/DOID_0060711,lamellar ichthyosis 5
+http://purl.obolibrary.org/obo/DOID_0060712,ARCI4A
+http://purl.obolibrary.org/obo/DOID_0060712,ICR2B
+http://purl.obolibrary.org/obo/DOID_0060712,ichthyosis congenita IIB
+http://purl.obolibrary.org/obo/DOID_0060712,lamellar ichthyosis 2
+http://purl.obolibrary.org/obo/DOID_0060713,ARCI4B
+http://purl.obolibrary.org/obo/DOID_0060713,harlequin ichthyosis
+http://purl.obolibrary.org/obo/DOID_0060713,harlequin type ichthyosis congenita
+http://purl.obolibrary.org/obo/DOID_0060713,harlequin type ichthyosis fetalis
+http://purl.obolibrary.org/obo/DOID_0060714,ARCI5
+http://purl.obolibrary.org/obo/DOID_0060714,autosomal recessive congenital nonlamellar and nonerythrodermic ichthyosis
+http://purl.obolibrary.org/obo/DOID_0060715,ARCI6
+http://purl.obolibrary.org/obo/DOID_0060716,ARCI7
+http://purl.obolibrary.org/obo/DOID_0060717,ARCI8
+http://purl.obolibrary.org/obo/DOID_0060717,lamellar ichthyosis 4
+http://purl.obolibrary.org/obo/DOID_0060717,late-onset lamellar ichthyosis
+http://purl.obolibrary.org/obo/DOID_0060718,ARCI9
+http://purl.obolibrary.org/obo/DOID_0060719,ARCI10
+http://purl.obolibrary.org/obo/DOID_0060720,IFAH syndrome
+http://purl.obolibrary.org/obo/DOID_0060720,IHS
+http://purl.obolibrary.org/obo/DOID_0060720,autosomal recessive ichthyosis with hypotrichosis
+http://purl.obolibrary.org/obo/DOID_0060720,hypotrichosis-congenital ichthyosis syndrome
+http://purl.obolibrary.org/obo/DOID_0060720,ichthyosis and follicular atrophoderma with hypotrichosis and hypohidrosis
+http://purl.obolibrary.org/obo/DOID_0060720,ichthyosis-follicular atrophoderma-hypotrichosis syndrome
+http://purl.obolibrary.org/obo/DOID_0060720,ichthyosis-follicular atrophoderma-hypotrichosis-hypohidrosis syndrome
+http://purl.obolibrary.org/obo/DOID_0060720,ichthyosis-hypotrichosis syndrome
+http://purl.obolibrary.org/obo/DOID_0060731,CCHS
+http://purl.obolibrary.org/obo/DOID_0060731,Ondine curse
+http://purl.obolibrary.org/obo/DOID_0060731,Ondine syndrome
+http://purl.obolibrary.org/obo/DOID_0060731,central congenital hypoventilation syndrome
+http://purl.obolibrary.org/obo/DOID_0060731,congenital central alveolar hypoventilation syndrome
+http://purl.obolibrary.org/obo/DOID_0060769,alymphoid cystic thymic dysgenesis
+http://purl.obolibrary.org/obo/DOID_0060769,severe T-cell immunodeficiency-congenital alopecia-nail dystrophy syndrome
+http://purl.obolibrary.org/obo/DOID_0060769,winged helix deficiency
+http://purl.obolibrary.org/obo/DOID_0060770,D-TGA
+http://purl.obolibrary.org/obo/DOID_0060770,DTGA1
+http://purl.obolibrary.org/obo/DOID_0060770,congenitally uncorrected transposition of the great arteries
+http://purl.obolibrary.org/obo/DOID_0060770,congenitally uncorrected transposition of the great vessels
+http://purl.obolibrary.org/obo/DOID_0060770,isolated ventriculoarterial discordance
+http://purl.obolibrary.org/obo/DOID_0060770,ventriculoarterial discordance with atrioventricular concordance
+http://purl.obolibrary.org/obo/DOID_1682,Congenital Heart Defects
+http://purl.obolibrary.org/obo/DOID_1682,Congenital anomaly of heart
+http://purl.obolibrary.org/obo/DOID_1682,Heart Malformation
+http://purl.obolibrary.org/obo/DOID_1682,congenital heart defect
+http://purl.obolibrary.org/obo/DOID_1682,heart defect
+http://purl.obolibrary.org/obo/DOID_1682,Heart-congenital defect
+http://purl.obolibrary.org/obo/DOID_0060772,DTGA3
+http://purl.obolibrary.org/obo/DOID_0060772,dextro-looped transposition of the great arteries 3
+http://purl.obolibrary.org/obo/DOID_0060775,Davidson disease
+http://purl.obolibrary.org/obo/DOID_0060775,MVD
+http://purl.obolibrary.org/obo/DOID_0060775,congenital familial protracted diarrhea with enterocyte brush-border abnormalities
+http://purl.obolibrary.org/obo/DOID_0060775,congenital microvillus atrophy
+http://purl.obolibrary.org/obo/DOID_0060775,diarrhea 2 with microvillus atrophy
+http://purl.obolibrary.org/obo/DOID_0060775,intractable diarrhea of infancy
+http://purl.obolibrary.org/obo/DOID_0060776,DIAR5
+http://purl.obolibrary.org/obo/DOID_0060776,congenital diarrhoea 5 with tufting enteropathy
+http://purl.obolibrary.org/obo/DOID_0060776,congenital familial intractable diarrhea with epithelial or epithelium abnormalities
+http://purl.obolibrary.org/obo/DOID_0060776,congenital familial intractable diarrhoea with epithelial or epithelium abnormalities
+http://purl.obolibrary.org/obo/DOID_0060776,congenital tufting enteropathy
+http://purl.obolibrary.org/obo/DOID_0060776,tufting enteropathy
+http://purl.obolibrary.org/obo/DOID_0060777,DIAR8
+http://purl.obolibrary.org/obo/DOID_0060778,congenital chronic diarrhea with exudative enteropathy
+http://purl.obolibrary.org/obo/DOID_0060778,congenital chronic diarrhea with protein-losing enteropathy
+http://purl.obolibrary.org/obo/DOID_0060778,congenital chronic diarrhoea with exudative enteropathy
+http://purl.obolibrary.org/obo/DOID_0060778,congenital chronic diarrhoea with protein-losing enteropathy
+http://purl.obolibrary.org/obo/DOID_0060778,congenital diarrhoea 7 with exudative enteropathy
+http://purl.obolibrary.org/obo/DOID_0060779,congenital malabsorptive diarrhea due to paucity of enteroendocrine cells
+http://purl.obolibrary.org/obo/DOID_0060779,congenital malabsorptive diarrhoea 4
+http://purl.obolibrary.org/obo/DOID_0060779,congenital malabsorptive diarrhoea due to paucity of enteroendocrine cells
+http://purl.obolibrary.org/obo/DOID_0060779,enteric anendocrinosis
+http://purl.obolibrary.org/obo/DOID_0060780,chronic diarrhea due to guanylate cyclase 2C overactivity
+http://purl.obolibrary.org/obo/DOID_0060780,chronic diarrhoea due to guanylate cyclase 2C overactivity
+http://purl.obolibrary.org/obo/DOID_0060780,congenital diarrhoea 6
+http://purl.obolibrary.org/obo/DOID_0060781,congenital secretory sodium diarrhea 3 syndromic
+http://purl.obolibrary.org/obo/DOID_0060781,congenital secretory sodium diarrhea 3 with or without other congenital anomalies
+http://purl.obolibrary.org/obo/DOID_0060781,congenital secretory sodium diarrhoea 3
+http://purl.obolibrary.org/obo/DOID_0060781,congenital secretory sodium diarrhoea 3 syndromic
+http://purl.obolibrary.org/obo/DOID_0060781,congenital secretory sodium diarrhoea 3 with or without other congenital anomalies
+http://purl.obolibrary.org/obo/DOID_0060856,Ivemark syndrome
+http://purl.obolibrary.org/obo/DOID_0060856,asplenia with cardiovascular anomalies
+http://purl.obolibrary.org/obo/DOID_0060902,lissencephaly 2
+http://purl.obolibrary.org/obo/DOID_0060902,"lissencephaly syndrome, Norman-Roberts type"
+http://purl.obolibrary.org/obo/DOID_0070123,CHNG4
+http://purl.obolibrary.org/obo/DOID_0070123,isolated thyrotropin deficiency
+http://purl.obolibrary.org/obo/DOID_0070124,CHNG2
+http://purl.obolibrary.org/obo/DOID_0070124,congenital hypothyroidism due to thyroid dysgenesis or hypoplasia
+http://purl.obolibrary.org/obo/DOID_0070125,CHNG5
+http://purl.obolibrary.org/obo/DOID_0070126,CHNG1
+http://purl.obolibrary.org/obo/DOID_0070126,TSH resistance
+http://purl.obolibrary.org/obo/DOID_0070127,CHNG3
+http://purl.obolibrary.org/obo/DOID_0070128,CHNG6
+http://purl.obolibrary.org/obo/DOID_0070253,Alkuraya syndrome
+http://purl.obolibrary.org/obo/DOID_0070253,CDG IIa
+http://purl.obolibrary.org/obo/DOID_0070253,CDG2A
+http://purl.obolibrary.org/obo/DOID_0070253,CDGIIa
+http://purl.obolibrary.org/obo/DOID_0070253,CDGS2
+http://purl.obolibrary.org/obo/DOID_0070253,"carbohydrate-deficient glycoprotein syndrome, type II"
+http://purl.obolibrary.org/obo/DOID_0070253,"congenital disorder of glycosylation, type IIa"
+http://purl.obolibrary.org/obo/DOID_0070253,"mental retardation, growth retardation, prominent columella, and open mouth"
+http://purl.obolibrary.org/obo/DOID_0070254,CDG IIb
+http://purl.obolibrary.org/obo/DOID_0070254,CDG2B
+http://purl.obolibrary.org/obo/DOID_0070254,CDGIIb
+http://purl.obolibrary.org/obo/DOID_0070254,glucosidase I deficiency
+http://purl.obolibrary.org/obo/DOID_0070255,CDG IIc
+http://purl.obolibrary.org/obo/DOID_0070255,CDG2C
+http://purl.obolibrary.org/obo/DOID_0070255,CDGIIc
+http://purl.obolibrary.org/obo/DOID_0070255,Rambam-Hasharon syndrome
+http://purl.obolibrary.org/obo/DOID_0070256,CDG IId
+http://purl.obolibrary.org/obo/DOID_0070256,CDG2D
+http://purl.obolibrary.org/obo/DOID_0070256,CDGIId
+http://purl.obolibrary.org/obo/DOID_0070257,CDG IIe
+http://purl.obolibrary.org/obo/DOID_0070257,CDG syndrome type IIe
+http://purl.obolibrary.org/obo/DOID_0070257,CDG2E
+http://purl.obolibrary.org/obo/DOID_0070257,CDGIIde
+http://purl.obolibrary.org/obo/DOID_0070257,COG7-CDG
+http://purl.obolibrary.org/obo/DOID_0070257,Carbohydrate deficient glycoprotein syndrome type IIe
+http://purl.obolibrary.org/obo/DOID_0070258,CDG IIf
+http://purl.obolibrary.org/obo/DOID_0070258,CDG2F
+http://purl.obolibrary.org/obo/DOID_0070258,CDGIIdf
+http://purl.obolibrary.org/obo/DOID_0070258,CMP-sialic acid transporter deficiency
+http://purl.obolibrary.org/obo/DOID_0070258,Carbohydrate deficient glycoprotein syndrome type IIf
+http://purl.obolibrary.org/obo/DOID_0070258,SLC35A1-CDG
+http://purl.obolibrary.org/obo/DOID_0070259,CDG IIg
+http://purl.obolibrary.org/obo/DOID_0070259,CDG2G
+http://purl.obolibrary.org/obo/DOID_0070259,CDGII/COG1 cerebrocostomandibular-like syndrome
+http://purl.obolibrary.org/obo/DOID_0070259,CDGIIg
+http://purl.obolibrary.org/obo/DOID_0070259,Carbohydrate deficient glycoprotein syndrome type IIg
+http://purl.obolibrary.org/obo/DOID_0070260,CDG IIh
+http://purl.obolibrary.org/obo/DOID_0070260,CDG2H
+http://purl.obolibrary.org/obo/DOID_0070260,CDGIIdh
+http://purl.obolibrary.org/obo/DOID_0070260,COG8-CDG
+http://purl.obolibrary.org/obo/DOID_0070260,Carbohydrate deficient glycoprotein syndrome type IIh
+http://purl.obolibrary.org/obo/DOID_0070260,Congenital disorder of glycosylation type 2h
+http://purl.obolibrary.org/obo/DOID_0070261,CDG IIi
+http://purl.obolibrary.org/obo/DOID_0070261,CDG syndrome type IIi
+http://purl.obolibrary.org/obo/DOID_0070261,CDG2I
+http://purl.obolibrary.org/obo/DOID_0070261,CDGIIdi
+http://purl.obolibrary.org/obo/DOID_0070261,COG5-CDG
+http://purl.obolibrary.org/obo/DOID_0070261,Carbohydrate deficient glycoprotein syndrome type IIi
+http://purl.obolibrary.org/obo/DOID_0070261,Congenital disorder of glycosylation type 2i
+http://purl.obolibrary.org/obo/DOID_0070262,CDG IIj
+http://purl.obolibrary.org/obo/DOID_0070262,CDG syndrome type IIj
+http://purl.obolibrary.org/obo/DOID_0070262,CDG2J
+http://purl.obolibrary.org/obo/DOID_0070262,CDGIIdj
+http://purl.obolibrary.org/obo/DOID_0070262,COG4-CDG
+http://purl.obolibrary.org/obo/DOID_0070262,Carbohydrate deficient glycoprotein syndrome type IIj
+http://purl.obolibrary.org/obo/DOID_0070262,Congenital disorder of glycosylation type 2j
+http://purl.obolibrary.org/obo/DOID_0070263,CDG IIk
+http://purl.obolibrary.org/obo/DOID_0070263,CDG syndrome type IIk
+http://purl.obolibrary.org/obo/DOID_0070263,CDG2K
+http://purl.obolibrary.org/obo/DOID_0070263,CDGIIdk
+http://purl.obolibrary.org/obo/DOID_0070263,Carbohydrate deficient glycoprotein syndrome type IIk
+http://purl.obolibrary.org/obo/DOID_0070263,Congenital disorder of glycosylation type 2k
+http://purl.obolibrary.org/obo/DOID_0070263,TMEM165-CDG
+http://purl.obolibrary.org/obo/DOID_0070264,CDG IIl
+http://purl.obolibrary.org/obo/DOID_0070264,CDG syndrome type IIL
+http://purl.obolibrary.org/obo/DOID_0070264,CDG2L
+http://purl.obolibrary.org/obo/DOID_0070264,CDGIIdl
+http://purl.obolibrary.org/obo/DOID_0070264,COG6-CGD
+http://purl.obolibrary.org/obo/DOID_0070264,Congenital disorder of glycosylation type 2l
+http://purl.obolibrary.org/obo/DOID_0070265,SLC35A2-CDG
+http://purl.obolibrary.org/obo/DOID_0070265,congenital disorder of glycosylation type 2m
+http://purl.obolibrary.org/obo/DOID_0070265,developmental and epileptic encephalopathy 22
+http://purl.obolibrary.org/obo/DOID_0070265,"epileptic encephalopathy, early infantile, 22"
+http://purl.obolibrary.org/obo/DOID_0070266,CDG IIn
+http://purl.obolibrary.org/obo/DOID_0070266,CDG syndrome type IIn
+http://purl.obolibrary.org/obo/DOID_0070266,CDG2N
+http://purl.obolibrary.org/obo/DOID_0070266,CDGIIdn
+http://purl.obolibrary.org/obo/DOID_0070266,Carbohydrate deficient glycoprotein syndrome type IIn
+http://purl.obolibrary.org/obo/DOID_0070266,Congenital disorder of glycosylation type 2n
+http://purl.obolibrary.org/obo/DOID_0070266,SLC39A8-CDG
+http://purl.obolibrary.org/obo/DOID_0070267,CCDC115-CDG
+http://purl.obolibrary.org/obo/DOID_0070267,CDG IIo
+http://purl.obolibrary.org/obo/DOID_0070267,CDG syndrome type IIo
+http://purl.obolibrary.org/obo/DOID_0070267,CDG2O
+http://purl.obolibrary.org/obo/DOID_0070267,CDGIIdo
+http://purl.obolibrary.org/obo/DOID_0070267,Carbohydrate deficient glycoprotein syndrome type IIo
+http://purl.obolibrary.org/obo/DOID_0070267,Congenital disorder of glycosylation type 2o
+http://purl.obolibrary.org/obo/DOID_0070268,CDG IIp
+http://purl.obolibrary.org/obo/DOID_0070268,CDG syndrome type IIp
+http://purl.obolibrary.org/obo/DOID_0070268,CDG2P
+http://purl.obolibrary.org/obo/DOID_0070268,CDGIIdp
+http://purl.obolibrary.org/obo/DOID_0070268,Carbohydrate deficient glycoprotein syndrome type IIp
+http://purl.obolibrary.org/obo/DOID_0070268,Congenital disorder of glycosylation type 2p
+http://purl.obolibrary.org/obo/DOID_0070268,TMEM199-CDG
+http://purl.obolibrary.org/obo/DOID_0070269,CDG IIq
+http://purl.obolibrary.org/obo/DOID_0070269,CDG2Q
+http://purl.obolibrary.org/obo/DOID_0070269,CDGIIdq
+http://purl.obolibrary.org/obo/DOID_0070269,COG2-CDG
+http://purl.obolibrary.org/obo/DOID_0070269,COG2-related congenital disorder of glycosylation
+http://purl.obolibrary.org/obo/DOID_0070277,MCPH15
+http://purl.obolibrary.org/obo/DOID_0070277,NEDMISBA
+http://purl.obolibrary.org/obo/DOID_0070277,"neurodevelopmental disorder with progressive microcephaly, spasticity, and brain imaging abnormalities"
+http://purl.obolibrary.org/obo/DOID_0070296,MCPH
+http://purl.obolibrary.org/obo/DOID_0070278,MCPH7
+http://purl.obolibrary.org/obo/DOID_0070279,MCPH14
+http://purl.obolibrary.org/obo/DOID_0070280,MCPH5
+http://purl.obolibrary.org/obo/DOID_0070281,MCPH19
+http://purl.obolibrary.org/obo/DOID_0070282,MCPH8
+http://purl.obolibrary.org/obo/DOID_0070283,MCPH13
+http://purl.obolibrary.org/obo/DOID_0070284,MCPH12
+http://purl.obolibrary.org/obo/DOID_0070285,MCPH1
+http://purl.obolibrary.org/obo/DOID_0070286,MCPH3
+http://purl.obolibrary.org/obo/DOID_0070287,MCPH11
+http://purl.obolibrary.org/obo/DOID_0070288,MCPH17
+http://purl.obolibrary.org/obo/DOID_0070289,MCPH16
+http://purl.obolibrary.org/obo/DOID_0070290,MCPH6
+http://purl.obolibrary.org/obo/DOID_0070291,MCPH4
+http://purl.obolibrary.org/obo/DOID_0070292,MCPH9
+http://purl.obolibrary.org/obo/DOID_0070293,MCPH2
+http://purl.obolibrary.org/obo/DOID_0070294,MCPH10
+http://purl.obolibrary.org/obo/DOID_0070295,MCPH18
+http://purl.obolibrary.org/obo/DOID_0070297,true microcephaly
+http://purl.obolibrary.org/obo/DOID_0070315,Right hypoplastic heart syndrome
+http://purl.obolibrary.org/obo/DOID_0080079,nonsyndromic congenital nail disorder 10
+http://purl.obolibrary.org/obo/DOID_0080079,twenty-nail dystrophy
+http://purl.obolibrary.org/obo/DOID_0080082,HYPONYCHIA CONGENITA
+http://purl.obolibrary.org/obo/DOID_0080082,anonychia congenita
+http://purl.obolibrary.org/obo/DOID_0080086,isolated toenail dystrophy
+http://purl.obolibrary.org/obo/DOID_0080101,congenital myopathy 12
+http://purl.obolibrary.org/obo/DOID_0080102,CFTD
+http://purl.obolibrary.org/obo/DOID_0080102,congenital fiber-type disproportion
+http://purl.obolibrary.org/obo/DOID_0080139,developmental and epileptic encephalopathy 20
+http://purl.obolibrary.org/obo/DOID_0080139,early infantile epileptic encephalopathy 20
+http://purl.obolibrary.org/obo/DOID_0080139,glycosylphosphatidylinositol biosynthesis defect 4
+http://purl.obolibrary.org/obo/DOID_0080140,M syndrome
+http://purl.obolibrary.org/obo/DOID_0080140,light fixation seizure syndrome
+http://purl.obolibrary.org/obo/DOID_0080173,exstrophy-epispadias complex
+http://purl.obolibrary.org/obo/DOID_0080180,ZIKV congenital infection
+http://purl.obolibrary.org/obo/DOID_0080313,CPLS syndrome
+http://purl.obolibrary.org/obo/DOID_0080313,syngnathia
+http://purl.obolibrary.org/obo/DOID_0080395,nonsyndromic cleft lip with or without cleft palate 1
+http://purl.obolibrary.org/obo/DOID_0080396,nonsyndromic cleft lip with or without cleft palate 2
+http://purl.obolibrary.org/obo/DOID_0080397,nonsyndromic cleft lip with or without cleft palate 3
+http://purl.obolibrary.org/obo/DOID_0080398,nonsyndromic cleft lip with or without cleft palate 4
+http://purl.obolibrary.org/obo/DOID_0080399,nonsyndromic cleft lip with or without cleft palate 5
+http://purl.obolibrary.org/obo/DOID_0080400,Zlotogora-Ogur syndrome
+http://purl.obolibrary.org/obo/DOID_0080402,nonsyndromic cleft lip with or without cleft palate 9
+http://purl.obolibrary.org/obo/DOID_0080403,nonsyndromic cleft lip with or without cleft palate 10
+http://purl.obolibrary.org/obo/DOID_0080404,nonsyndromic cleft lip with or without cleft palate 11
+http://purl.obolibrary.org/obo/DOID_0080405,nonsyndromic cleft lip with or without cleft palate 12
+http://purl.obolibrary.org/obo/DOID_0080552,PMM2-congenital disorder of glycosylation
+http://purl.obolibrary.org/obo/DOID_0080552,congenital disorder of glycosylation 1a
+http://purl.obolibrary.org/obo/DOID_0080553,congenital disorder of glycosylation 1aa
+http://purl.obolibrary.org/obo/DOID_0080554,congenital disorder of glycosylation 1b
+http://purl.obolibrary.org/obo/DOID_0080555,congenital disorder of glycosylation 1c
+http://purl.obolibrary.org/obo/DOID_0080556,congenital disorder of glycosylation 1d
+http://purl.obolibrary.org/obo/DOID_0080557,congenital disorder of glycosylation 1e
+http://purl.obolibrary.org/obo/DOID_0080558,congenital disorder of glycosylation 1f
+http://purl.obolibrary.org/obo/DOID_0080559,ALG12-congenital disorder of glycosylation
+http://purl.obolibrary.org/obo/DOID_0080559,congenital disorder of glycosylation 1g
+http://purl.obolibrary.org/obo/DOID_0080560,congenital disorder of glycosylation 1h
+http://purl.obolibrary.org/obo/DOID_0080561,congenital disorder of glycosylation 1i
+http://purl.obolibrary.org/obo/DOID_0080562,Congenital disorder of glycosylation 1j
+http://purl.obolibrary.org/obo/DOID_0080563,congenital disorder of glycosylation 1k
+http://purl.obolibrary.org/obo/DOID_0080564,congenital disorder of glycosylation 1l
+http://purl.obolibrary.org/obo/DOID_0080565,DOLK-congenital disorder of glycosylation
+http://purl.obolibrary.org/obo/DOID_0080565,congenital disorder of glycosylation 1m
+http://purl.obolibrary.org/obo/DOID_0080565,dolichol kinase deficiency
+http://purl.obolibrary.org/obo/DOID_0080566,congenital disorder of glycosylation 1n
+http://purl.obolibrary.org/obo/DOID_0080567,congenital disorder of glycosylation 1p
+http://purl.obolibrary.org/obo/DOID_0080568,congenital disorder of glycosylation 1q
+http://purl.obolibrary.org/obo/DOID_0080569,congenital disorder of glycosylation 1r
+http://purl.obolibrary.org/obo/DOID_0080570,congenital disorder of glycosylation 1t
+http://purl.obolibrary.org/obo/DOID_0080571,congenital disorder of glycosylation 1u
+http://purl.obolibrary.org/obo/DOID_0080572,congenital disorder of glycosylation 1w
+http://purl.obolibrary.org/obo/DOID_0080573,congenital disorder of glycosylation 1x
+http://purl.obolibrary.org/obo/DOID_0080574,congenital disorder of glycosylation 1y
+http://purl.obolibrary.org/obo/DOID_10426,Klippel-Feil and Turner syndrome
+http://purl.obolibrary.org/obo/DOID_10426,"Klippel-Feil deformity, deafness and facial asymmetry"
+http://purl.obolibrary.org/obo/DOID_10426,autosomal dominant Klippel-Feil syndrome
+http://purl.obolibrary.org/obo/DOID_10426,congenital dystrophia brevicollis
+http://purl.obolibrary.org/obo/DOID_10426,congenital synostosis of cervical vertebrae
+http://purl.obolibrary.org/obo/DOID_0080700,caudal dysgenesis syndrome
+http://purl.obolibrary.org/obo/DOID_0080700,caudal dysplasia sequence
+http://purl.obolibrary.org/obo/DOID_0080700,caudal regression sequence
+http://purl.obolibrary.org/obo/DOID_0080700,sacral agenesis
+http://purl.obolibrary.org/obo/DOID_0080700,sacral defect with anterior meningocele
+http://purl.obolibrary.org/obo/DOID_0080833,congenital laryngomalacia
+http://purl.obolibrary.org/obo/DOID_0080980,Zain syndrome
+http://purl.obolibrary.org/obo/DOID_0081021,congenital fibrosis of the extraocular muscles 4
+http://purl.obolibrary.org/obo/DOID_14791,LCA
+http://purl.obolibrary.org/obo/DOID_14791,Leber's amaurosis
+http://purl.obolibrary.org/obo/DOID_14791,Leber's congenital amaurosis
+http://purl.obolibrary.org/obo/DOID_14791,Leber's disease
+http://purl.obolibrary.org/obo/DOID_0081266,PAMDDFS
+http://purl.obolibrary.org/obo/DOID_2106,Batten Turner congenital myopathy
+http://purl.obolibrary.org/obo/DOID_2106,Thomsen and Becker disease
+http://purl.obolibrary.org/obo/DOID_0081336,"Congenital myotonia, autosomal dominant form"
+http://purl.obolibrary.org/obo/DOID_0081336,Thomsen's disease
+http://purl.obolibrary.org/obo/DOID_0090101,fatal congenital hypertrophic cardiomyopathy due to GSD
+http://purl.obolibrary.org/obo/DOID_0090101,fatal congenital hypertrophic cardiomyopathy due to glycogenosis
+http://purl.obolibrary.org/obo/DOID_0090101,fatal congenital nonlysosomal cardiac glycogenosis
+http://purl.obolibrary.org/obo/DOID_0090101,phosphorylase kinase deficiency of heart
+http://purl.obolibrary.org/obo/DOID_0090118,CAMT
+http://purl.obolibrary.org/obo/DOID_0090118,congenital amegakaryocytic thrombocytopenic purpura
+http://purl.obolibrary.org/obo/DOID_0090124,AMC neurogenic type
+http://purl.obolibrary.org/obo/DOID_0090124,AMC2
+http://purl.obolibrary.org/obo/DOID_0090124,AMCN
+http://purl.obolibrary.org/obo/DOID_0090124,"arthrogryposis multiplex congenita 2, neurogenic type"
+http://purl.obolibrary.org/obo/DOID_0090124,arthrogryposis multiplex congenita neurogenic type
+http://purl.obolibrary.org/obo/DOID_0110005,LCA9
+http://purl.obolibrary.org/obo/DOID_0110016,LCA2
+http://purl.obolibrary.org/obo/DOID_0110016,amaurosis congenita of Leber II
+http://purl.obolibrary.org/obo/DOID_0110078,LCA1
+http://purl.obolibrary.org/obo/DOID_0110078,amaurosis congenita of Leber I
+http://purl.obolibrary.org/obo/DOID_0110079,LCA8
+http://purl.obolibrary.org/obo/DOID_0110080,LCA12
+http://purl.obolibrary.org/obo/DOID_0110106,ASD1
+http://purl.obolibrary.org/obo/DOID_0110106,atrial septal defect 1
+http://purl.obolibrary.org/obo/DOID_1882,atrial septal defect
+http://purl.obolibrary.org/obo/DOID_1882,atrioseptal defect
+http://purl.obolibrary.org/obo/DOID_1882,auricular septal defect
+http://purl.obolibrary.org/obo/DOID_1882,congenital atrial septal defect
+http://purl.obolibrary.org/obo/DOID_1882,interatrial septal defect
+http://purl.obolibrary.org/obo/DOID_1882,interauricular septal defect
+http://purl.obolibrary.org/obo/DOID_0110107,ASD2
+http://purl.obolibrary.org/obo/DOID_0110107,atrial septal defect 2
+http://purl.obolibrary.org/obo/DOID_0110108,ASD3
+http://purl.obolibrary.org/obo/DOID_0110108,atrial septal defect 3
+http://purl.obolibrary.org/obo/DOID_0110109,ASD4
+http://purl.obolibrary.org/obo/DOID_0110109,atrial septal defect 4
+http://purl.obolibrary.org/obo/DOID_0110110,ASD5
+http://purl.obolibrary.org/obo/DOID_0110110,atrial septal defect 5
+http://purl.obolibrary.org/obo/DOID_0110111,ASD6
+http://purl.obolibrary.org/obo/DOID_0110111,atrial septal defect 6
+http://purl.obolibrary.org/obo/DOID_0110112,ASD with or without atrioventricular conduction defects
+http://purl.obolibrary.org/obo/DOID_0110112,"atrial septal defect 7, with or without AV conduction defects"
+http://purl.obolibrary.org/obo/DOID_0110112,atrial septal defect-atrioventricular conduction defects syndrome
+http://purl.obolibrary.org/obo/DOID_0110113,ASD8
+http://purl.obolibrary.org/obo/DOID_0110113,atrial septal defect 8
+http://purl.obolibrary.org/obo/DOID_0110114,ASD9
+http://purl.obolibrary.org/obo/DOID_0110114,atrial septal defect 9
+http://purl.obolibrary.org/obo/DOID_0110118,LCA16
+http://purl.obolibrary.org/obo/DOID_0110188,LCA14
+http://purl.obolibrary.org/obo/DOID_0110189,LCA15
+http://purl.obolibrary.org/obo/DOID_0110214,cleft velum
+http://purl.obolibrary.org/obo/DOID_0110214,cleft velum palatinum
+http://purl.obolibrary.org/obo/DOID_0110214,soft cleft palate
+http://purl.obolibrary.org/obo/DOID_0110215,LCA5
+http://purl.obolibrary.org/obo/DOID_0110216,LCA11
+http://purl.obolibrary.org/obo/DOID_0110217,LCA17
+http://purl.obolibrary.org/obo/DOID_0110291,LCA10
+http://purl.obolibrary.org/obo/DOID_0110329,LCA6
+http://purl.obolibrary.org/obo/DOID_0110330,LCA13
+http://purl.obolibrary.org/obo/DOID_0110331,LCA3
+http://purl.obolibrary.org/obo/DOID_0110332,LCA4
+http://purl.obolibrary.org/obo/DOID_0110333,LCA7
+http://purl.obolibrary.org/obo/DOID_0110632,congenital megaconial myopathy
+http://purl.obolibrary.org/obo/DOID_0110632,congenital muscular dystrophy due to phosphatidylcholine biosynthesis defect
+http://purl.obolibrary.org/obo/DOID_0110632,congenital muscular dystrophy with mitochondrial structural abnormalities
+http://purl.obolibrary.org/obo/DOID_0110632,megaconial congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0110633,Eichsfeld type congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0110633,MDRS1
+http://purl.obolibrary.org/obo/DOID_0110633,RSMD1
+http://purl.obolibrary.org/obo/DOID_0110633,RSS
+http://purl.obolibrary.org/obo/DOID_0110633,SEPN1-related myopathy
+http://purl.obolibrary.org/obo/DOID_0110633,classic MmD
+http://purl.obolibrary.org/obo/DOID_0110633,classic multiminicore disease
+http://purl.obolibrary.org/obo/DOID_0110633,classic multiminicore myopathy
+http://purl.obolibrary.org/obo/DOID_0110633,congenital merosin-positive muscular dystrophy with early spine rigidity
+http://purl.obolibrary.org/obo/DOID_0110633,desmin-related myopathy with Mallory bodies
+http://purl.obolibrary.org/obo/DOID_0110633,desmin-related myopathy with Mallory body-like inclusions
+http://purl.obolibrary.org/obo/DOID_0110633,early-onset desmin-related myopathy
+http://purl.obolibrary.org/obo/DOID_0110633,rigid spine syndrome
+http://purl.obolibrary.org/obo/DOID_0110633,severe classic form minicore myopathy
+http://purl.obolibrary.org/obo/DOID_0110633,severe classic form multicore myopathy
+http://purl.obolibrary.org/obo/DOID_0110633,severe classic form multiminicore disease
+http://purl.obolibrary.org/obo/DOID_0110634,CMD1B
+http://purl.obolibrary.org/obo/DOID_0110634,MDC1B
+http://purl.obolibrary.org/obo/DOID_0110634,congenital muscular dystrophy type 1B
+http://purl.obolibrary.org/obo/DOID_0110635,FKRP-related congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0110635,MDC1C
+http://purl.obolibrary.org/obo/DOID_0110635,MDDGB5
+http://purl.obolibrary.org/obo/DOID_0110635,congenital muscular dystrophy 1C
+http://purl.obolibrary.org/obo/DOID_0110635,"muscular dystrophy-dystroglycanopathy (congenital with or without impaired intellectual development), type B, 5"
+http://purl.obolibrary.org/obo/DOID_0110635,"muscular dystrophy-dystroglycanopathy (congenital with or without mental retardation), type B, 5"
+http://purl.obolibrary.org/obo/DOID_0110636,CMD1A
+http://purl.obolibrary.org/obo/DOID_0110636,MDC1A
+http://purl.obolibrary.org/obo/DOID_0110636,Merosin-negative congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0110636,congenital muscular dystrophy due to laminin alpha2 deficiency
+http://purl.obolibrary.org/obo/DOID_0110637,MDC1D
+http://purl.obolibrary.org/obo/DOID_0110637,MDDGB6
+http://purl.obolibrary.org/obo/DOID_0110637,congenital muscular dystrophy LARGE-related
+http://purl.obolibrary.org/obo/DOID_0110637,congenital muscular dystrophy type 1D
+http://purl.obolibrary.org/obo/DOID_0110637,"muscular dystrophy-dystroglycanopathy (congenital with impaired intellectual development), type B, 6"
+http://purl.obolibrary.org/obo/DOID_0110637,"muscular dystrophy-dystroglycanopathy (congenital with mental retardation), type B, 6"
+http://purl.obolibrary.org/obo/DOID_0110668,CMS10
+http://purl.obolibrary.org/obo/DOID_0110668,LGM
+http://purl.obolibrary.org/obo/DOID_0110668,congenital muscular dystrophy merosin-positive
+http://purl.obolibrary.org/obo/DOID_0110668,familial limb-girdle myasthenia
+http://purl.obolibrary.org/obo/DOID_0110639,congenital muscular dystrophy with ITGA7 deficiency
+http://purl.obolibrary.org/obo/DOID_0110639,congenital muscular dystrophy with integrin alpha-7 deficiency
+http://purl.obolibrary.org/obo/DOID_0110639,congenital myopathy due to integrin alpha-7 deficiency
+http://purl.obolibrary.org/obo/DOID_0110640,L-CMD
+http://purl.obolibrary.org/obo/DOID_0110640,LMNA-related congenital muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0110640,congenital muscular dystrophy LMNA-related
+http://purl.obolibrary.org/obo/DOID_0110657,CMS8
+http://purl.obolibrary.org/obo/DOID_0110657,congenital myasthenic syndrome 8 with pre- and postsynaptic defects
+http://purl.obolibrary.org/obo/DOID_0110657,congenital myasthenic syndrome due to agrin deficiency
+http://purl.obolibrary.org/obo/DOID_0110658,CMS15
+http://purl.obolibrary.org/obo/DOID_0110658,congenital myasthenic syndrome 15 without tubular aggregates
+http://purl.obolibrary.org/obo/DOID_0110659,CMS7
+http://purl.obolibrary.org/obo/DOID_0110659,congenital myasthenic syndrome 7 presynaptic
+http://purl.obolibrary.org/obo/DOID_0110660,CMS12
+http://purl.obolibrary.org/obo/DOID_0110660,congenital myasthenia 12 with tubular aggregates
+http://purl.obolibrary.org/obo/DOID_0110661,CMS20
+http://purl.obolibrary.org/obo/DOID_0110661,congenital myasthenic syndrome 20 presynaptic
+http://purl.obolibrary.org/obo/DOID_0110662,CMS1B
+http://purl.obolibrary.org/obo/DOID_0110662,"congenital myasthenic syndrome 1B, fast-channel"
+http://purl.obolibrary.org/obo/DOID_0110663,CMS IIa
+http://purl.obolibrary.org/obo/DOID_0110663,CMS1A
+http://purl.obolibrary.org/obo/DOID_0110663,"congenital myasthenic syndrome 1A, slow-channel"
+http://purl.obolibrary.org/obo/DOID_0110663,congenital myasthenic syndrome type IIa
+http://purl.obolibrary.org/obo/DOID_0110664,congenital myasthenic syndrome 3C associated with acetylcholine receptor deficiency
+http://purl.obolibrary.org/obo/DOID_0110665,CMS3B
+http://purl.obolibrary.org/obo/DOID_0110665,"congenital myasthenic syndrome 3B, fast-channel"
+http://purl.obolibrary.org/obo/DOID_0110666,CMS3A
+http://purl.obolibrary.org/obo/DOID_0110666,"congenital myasthenic syndrome 3A, slow-channel"
+http://purl.obolibrary.org/obo/DOID_0110667,CMS Ic
+http://purl.obolibrary.org/obo/DOID_0110667,CMS5
+http://purl.obolibrary.org/obo/DOID_0110667,EAD
+http://purl.obolibrary.org/obo/DOID_0110667,Engel congenital myasthenic syndrome
+http://purl.obolibrary.org/obo/DOID_0110667,congenital myasthenic syndrome Engel type
+http://purl.obolibrary.org/obo/DOID_0110667,congenital myasthenic syndrome type Ic
+http://purl.obolibrary.org/obo/DOID_0110667,end plate acetylcholinesterase deficiency
+http://purl.obolibrary.org/obo/DOID_0110669,CMS14
+http://purl.obolibrary.org/obo/DOID_0110669,CMSTA3
+http://purl.obolibrary.org/obo/DOID_0110669,"congenital myasthenic syndrome 14, with tubular aggregates"
+http://purl.obolibrary.org/obo/DOID_0110669,congenital myasthenic syndrome with tubular aggregates 3
+http://purl.obolibrary.org/obo/DOID_0110670,CMS9
+http://purl.obolibrary.org/obo/DOID_0110670,"congenital myasthenic syndrome 9, associated with acetylcholine receptor deficiency"
+http://purl.obolibrary.org/obo/DOID_0110671,CMS Ia2
+http://purl.obolibrary.org/obo/DOID_0110671,CMS1A2
+http://purl.obolibrary.org/obo/DOID_0110671,CMS6
+http://purl.obolibrary.org/obo/DOID_0110671,CMSEA
+http://purl.obolibrary.org/obo/DOID_0110671,FIM
+http://purl.obolibrary.org/obo/DOID_0110671,FIMG2
+http://purl.obolibrary.org/obo/DOID_0110671,"congenital myasthenic syndrome 6, presynaptic"
+http://purl.obolibrary.org/obo/DOID_0110671,congenital myasthenic syndrome type Ia2
+http://purl.obolibrary.org/obo/DOID_0110671,congenital presynaptic myasthenic syndrome associated with episodic apnea
+http://purl.obolibrary.org/obo/DOID_0110671,familial infantile myasthenia
+http://purl.obolibrary.org/obo/DOID_0110671,familial infantile myasthenia gravis 2
+http://purl.obolibrary.org/obo/DOID_0110672,CMS21
+http://purl.obolibrary.org/obo/DOID_0110672,"congenital myasthenic syndrome 21, presynaptic"
+http://purl.obolibrary.org/obo/DOID_0110673,CMS19
+http://purl.obolibrary.org/obo/DOID_0110674,CMS17
+http://purl.obolibrary.org/obo/DOID_0110675,CMS Ie
+http://purl.obolibrary.org/obo/DOID_0110675,CMS11
+http://purl.obolibrary.org/obo/DOID_0110675,CMS1E
+http://purl.obolibrary.org/obo/DOID_0110675,congenital myasthenic syndrome 11 associated with acetylcholine receptor deficiency
+http://purl.obolibrary.org/obo/DOID_0110675,congenital myasthenic syndrome 1e
+http://purl.obolibrary.org/obo/DOID_0110676,CMS13
+http://purl.obolibrary.org/obo/DOID_0110676,CMSTA2
+http://purl.obolibrary.org/obo/DOID_0110676,congenital myasthenic syndrome 13 with tubular aggregates
+http://purl.obolibrary.org/obo/DOID_0110676,congenital myasthenic syndrome with tubular aggregates 2
+http://purl.obolibrary.org/obo/DOID_0110677,CMS4B
+http://purl.obolibrary.org/obo/DOID_0110677,congenital myasthenic syndrome 4B fast-channel
+http://purl.obolibrary.org/obo/DOID_0110678,CMS Ia1
+http://purl.obolibrary.org/obo/DOID_0110678,CMS1A1
+http://purl.obolibrary.org/obo/DOID_0110678,CMS4A
+http://purl.obolibrary.org/obo/DOID_0110678,congenital myasthenic syndrome 4A slow-channel
+http://purl.obolibrary.org/obo/DOID_0110678,congenital myasthenic syndrometype Ia1
+http://purl.obolibrary.org/obo/DOID_0110679,CMS Id
+http://purl.obolibrary.org/obo/DOID_0110679,CMS1D
+http://purl.obolibrary.org/obo/DOID_0110679,CMS4C
+http://purl.obolibrary.org/obo/DOID_0110679,FIM1
+http://purl.obolibrary.org/obo/DOID_0110679,congenital myasthenic syndrome 4C associated with acetylcholine receptor deficiency
+http://purl.obolibrary.org/obo/DOID_0110679,congenital myasthenic syndrome type Id
+http://purl.obolibrary.org/obo/DOID_0110679,familial infantile myasthenia 1
+http://purl.obolibrary.org/obo/DOID_0110680,CMS2C
+http://purl.obolibrary.org/obo/DOID_0110680,congenital myasthenic syndrome 2C associated with acetylcholine receptor deficiency
+http://purl.obolibrary.org/obo/DOID_0110681,CMS2A
+http://purl.obolibrary.org/obo/DOID_0110681,congenital myasthenic syndrome 2A slow-channel
+http://purl.obolibrary.org/obo/DOID_0110682,CMS16
+http://purl.obolibrary.org/obo/DOID_0110682,congenital myasthenic syndrome acetazolamide-responsive
+http://purl.obolibrary.org/obo/DOID_0110683,CMS18
+http://purl.obolibrary.org/obo/DOID_0110711,Hjmd
+http://purl.obolibrary.org/obo/DOID_0110711,hypotrichosis with cone-rod dystrophy
+http://purl.obolibrary.org/obo/DOID_0110712,CSNBO1
+http://purl.obolibrary.org/obo/DOID_0110712,congenital stationary night blindness Oguchi type 1
+http://purl.obolibrary.org/obo/DOID_0110713,CSNBO2
+http://purl.obolibrary.org/obo/DOID_0110713,congenital stationary night blindness Oguchi type 2
+http://purl.obolibrary.org/obo/DOID_0110714,CSNB1G
+http://purl.obolibrary.org/obo/DOID_0110714,congenital stationary night blindness type 1G
+http://purl.obolibrary.org/obo/DOID_0110715,CSNBAD3
+http://purl.obolibrary.org/obo/DOID_0110715,Nougaret type congenital stationary night blindness
+http://purl.obolibrary.org/obo/DOID_0110862,CSNBAD1
+http://purl.obolibrary.org/obo/DOID_0110862,rhodopsin-related congenital stationary night blindness
+http://purl.obolibrary.org/obo/DOID_0110863,CSNBAD2
+http://purl.obolibrary.org/obo/DOID_0110863,Rambusch type congenital stationary night blindness
+http://purl.obolibrary.org/obo/DOID_0110864,CSNB1F
+http://purl.obolibrary.org/obo/DOID_0110864,congenital stationary night blindness 1F autosomal recessive
+http://purl.obolibrary.org/obo/DOID_0110865,CSNB1B
+http://purl.obolibrary.org/obo/DOID_0110865,autosomal recessive complete congenital stationary night blindness
+http://purl.obolibrary.org/obo/DOID_0110865,congenital stationary night blindness 1B autosomal recessive
+http://purl.obolibrary.org/obo/DOID_0110866,CSNB1H
+http://purl.obolibrary.org/obo/DOID_0110866,congenital stationary night blindness type 1H
+http://purl.obolibrary.org/obo/DOID_0110867,CSNB1C
+http://purl.obolibrary.org/obo/DOID_0110867,congenital stationary night blindness 1C autosomal recessive
+http://purl.obolibrary.org/obo/DOID_0110868,CSNB1D
+http://purl.obolibrary.org/obo/DOID_0110868,congenital stationary night blindness 1D autosomal recessive
+http://purl.obolibrary.org/obo/DOID_0110869,CSNB1E
+http://purl.obolibrary.org/obo/DOID_0110869,congenital stationary night blindness 1E autosomal recessive
+http://purl.obolibrary.org/obo/DOID_0110870,CSNB1A
+http://purl.obolibrary.org/obo/DOID_0110870,NBMI
+http://purl.obolibrary.org/obo/DOID_0110870,complete CSNB X-linked
+http://purl.obolibrary.org/obo/DOID_0110870,congenital stationary night blindness 1A X-linked
+http://purl.obolibrary.org/obo/DOID_0110870,congenital stationary night blindness with myopia
+http://purl.obolibrary.org/obo/DOID_0110870,hemeralopia-myopia
+http://purl.obolibrary.org/obo/DOID_0110870,myopia-night blindness
+http://purl.obolibrary.org/obo/DOID_0110871,congenital stationary night blindness 2A X-linked
+http://purl.obolibrary.org/obo/DOID_0110872,HPE2
+http://purl.obolibrary.org/obo/DOID_4621,Holoprosencephaly sequence
+http://purl.obolibrary.org/obo/DOID_0110873,HPE9
+http://purl.obolibrary.org/obo/DOID_0110873,holoprosencephaly with microphthalmia and first branchial arch anomalies
+http://purl.obolibrary.org/obo/DOID_0110873,pituitary anomalies with holoprosencephaly-like features
+http://purl.obolibrary.org/obo/DOID_0110874,HPE6
+http://purl.obolibrary.org/obo/DOID_0110875,HLP3
+http://purl.obolibrary.org/obo/DOID_0110875,HPE3
+http://purl.obolibrary.org/obo/DOID_0110876,HPE7
+http://purl.obolibrary.org/obo/DOID_0110877,HPE11
+http://purl.obolibrary.org/obo/DOID_0110878,HPE5
+http://purl.obolibrary.org/obo/DOID_0110879,HPE8
+http://purl.obolibrary.org/obo/DOID_0110880,HPE4
+http://purl.obolibrary.org/obo/DOID_0110881,HPE1
+http://purl.obolibrary.org/obo/DOID_0110916,HS1
+http://purl.obolibrary.org/obo/DOID_0110916,SPH1
+http://purl.obolibrary.org/obo/DOID_0110916,hereditary spherocytosis 1
+http://purl.obolibrary.org/obo/DOID_12971,Congenital spherocytic hemolytic anemia
+http://purl.obolibrary.org/obo/DOID_12971,Minkowski Chauffard syndrome
+http://purl.obolibrary.org/obo/DOID_12971,spherocytic anemia
+http://purl.obolibrary.org/obo/DOID_0110917,HS2
+http://purl.obolibrary.org/obo/DOID_0110917,SPH2
+http://purl.obolibrary.org/obo/DOID_0110917,hereditary spherocytosis 2
+http://purl.obolibrary.org/obo/DOID_0110918,HS3
+http://purl.obolibrary.org/obo/DOID_0110918,SPH3
+http://purl.obolibrary.org/obo/DOID_0110918,hereditary spherocytosis 3
+http://purl.obolibrary.org/obo/DOID_0110919,HS4
+http://purl.obolibrary.org/obo/DOID_0110919,SPH4
+http://purl.obolibrary.org/obo/DOID_0110919,hereditary spherocytosis 4
+http://purl.obolibrary.org/obo/DOID_0110920,HS5
+http://purl.obolibrary.org/obo/DOID_0110920,SPH5
+http://purl.obolibrary.org/obo/DOID_0110920,hereditary spherocytosis 5
+http://purl.obolibrary.org/obo/DOID_0111066,CBAS5
+http://purl.obolibrary.org/obo/DOID_0111067,CBAS6
+http://purl.obolibrary.org/obo/DOID_0111068,CBAS4
+http://purl.obolibrary.org/obo/DOID_0111068,intrahepatic cholestasis with defective conversion of trihydroxycoprostanic acid to cholic acid
+http://purl.obolibrary.org/obo/DOID_0111068,trihydroxycoprostanic acid in bile
+http://purl.obolibrary.org/obo/DOID_0111069,CBAS2
+http://purl.obolibrary.org/obo/DOID_0111069,cholestasis with delta(4)-3-oxosteroid 5-beta-reductase deficiency
+http://purl.obolibrary.org/obo/DOID_0111070,CBAS3
+http://purl.obolibrary.org/obo/DOID_0111070,oxysterol 7-alpha-hydroxylase deficiency
+http://purl.obolibrary.org/obo/DOID_0111071,CBAS1
+http://purl.obolibrary.org/obo/DOID_0111077,PK deficiency
+http://purl.obolibrary.org/obo/DOID_0111077,hemolytic anemia due to red cell pyruvate kinase deficiency
+http://purl.obolibrary.org/obo/DOID_0111077,pyruvate kinase deficiency of erythrocyte
+http://purl.obolibrary.org/obo/DOID_2861,HNSHA
+http://purl.obolibrary.org/obo/DOID_2861,congenital nonspherocytic hemolytic anaemia
+http://purl.obolibrary.org/obo/DOID_2861,hereditary nonspherocytic hemolytic anaemia
+http://purl.obolibrary.org/obo/DOID_2861,hereditary nonspherocytic hemolytic anemia
+http://purl.obolibrary.org/obo/DOID_0111080,FANCV
+http://purl.obolibrary.org/obo/DOID_13636,Fanconi anaemia
+http://purl.obolibrary.org/obo/DOID_13636,Fanconi pancytopenia
+http://purl.obolibrary.org/obo/DOID_13636,Fanconi panmyelopathy
+http://purl.obolibrary.org/obo/DOID_13636,Fanconi's anaemia
+http://purl.obolibrary.org/obo/DOID_13636,Fanconi's anemia
+http://purl.obolibrary.org/obo/DOID_0111081,FANCT
+http://purl.obolibrary.org/obo/DOID_0111082,FANCL
+http://purl.obolibrary.org/obo/DOID_0111083,FA4
+http://purl.obolibrary.org/obo/DOID_0111083,FAD2
+http://purl.obolibrary.org/obo/DOID_0111083,FANCD2
+http://purl.obolibrary.org/obo/DOID_0111083,Fanconi pancytopenia type 4
+http://purl.obolibrary.org/obo/DOID_0111084,FACE
+http://purl.obolibrary.org/obo/DOID_0111084,FANCE
+http://purl.obolibrary.org/obo/DOID_0111085,FANCU
+http://purl.obolibrary.org/obo/DOID_0111086,FANCG
+http://purl.obolibrary.org/obo/DOID_0111087,FA3
+http://purl.obolibrary.org/obo/DOID_0111087,FACC
+http://purl.obolibrary.org/obo/DOID_0111087,FANCC
+http://purl.obolibrary.org/obo/DOID_0111087,Fanconi pancytopenia type 3
+http://purl.obolibrary.org/obo/DOID_0111088,FANCF
+http://purl.obolibrary.org/obo/DOID_0111089,FAD1
+http://purl.obolibrary.org/obo/DOID_0111089,FANCD1
+http://purl.obolibrary.org/obo/DOID_0111090,FANCR
+http://purl.obolibrary.org/obo/DOID_0111091,FANCI
+http://purl.obolibrary.org/obo/DOID_0111092,FANCP
+http://purl.obolibrary.org/obo/DOID_0111093,FANCQ
+http://purl.obolibrary.org/obo/DOID_0111094,FANCN
+http://purl.obolibrary.org/obo/DOID_0111095,FANCA
+http://purl.obolibrary.org/obo/DOID_0111096,FANCO
+http://purl.obolibrary.org/obo/DOID_0111097,FANCJ
+http://purl.obolibrary.org/obo/DOID_0111098,FACB
+http://purl.obolibrary.org/obo/DOID_0111098,FANCB
+http://purl.obolibrary.org/obo/DOID_0111098,Fanconi pancytopenia type 2
+http://purl.obolibrary.org/obo/DOID_0111135,"Berardinelli-Seip Congenital Lipodystrophy, Type 1"
+http://purl.obolibrary.org/obo/DOID_0111135,Brunzell syndrome AGPAT2-related
+http://purl.obolibrary.org/obo/DOID_0111136,Berardinelli-Seip congenital lipodystrophy type 2
+http://purl.obolibrary.org/obo/DOID_0111136,Berardinelli-Seip syndrome
+http://purl.obolibrary.org/obo/DOID_0111136,Brunzell syndrome BSCL2-related
+http://purl.obolibrary.org/obo/DOID_0111136,CGL2
+http://purl.obolibrary.org/obo/DOID_0111136,congenital lipoatrophic diabetes
+http://purl.obolibrary.org/obo/DOID_0111136,total lipodystrophy and acromegaloid gigantism
+http://purl.obolibrary.org/obo/DOID_0111137,Berardinelli-Seip congenital lipodystrophy type 3
+http://purl.obolibrary.org/obo/DOID_0111138,Berardinelli-Seip congenital lipodystrophy type 4 with muscular dystrophy
+http://purl.obolibrary.org/obo/DOID_0111138,congenital generalised lipodystrophy type 4
+http://purl.obolibrary.org/obo/DOID_0111138,generalised congenital lipodystrophy type 4
+http://purl.obolibrary.org/obo/DOID_0111138,generalised congenital lipodystrophy with myopathy
+http://purl.obolibrary.org/obo/DOID_0111138,generalized congenital lipodystrophy type 4
+http://purl.obolibrary.org/obo/DOID_0111138,generalized congenital lipodystrophy with myopathy
+http://purl.obolibrary.org/obo/DOID_0111153,familial congenital controlateral synkinesia
+http://purl.obolibrary.org/obo/DOID_0111153,familial congenital mirror movements
+http://purl.obolibrary.org/obo/DOID_0111153,hereditary congenital controlateral synkinesia
+http://purl.obolibrary.org/obo/DOID_0111153,hereditary congenital mirror movements
+http://purl.obolibrary.org/obo/DOID_0111153,isolated congenital controlateral synkinesia
+http://purl.obolibrary.org/obo/DOID_0111153,isolated congenital mirror movements
+http://purl.obolibrary.org/obo/DOID_0111169,HeCo
+http://purl.obolibrary.org/obo/DOID_0111169,band heterotopia
+http://purl.obolibrary.org/obo/DOID_0111169,double cortex syndrome
+http://purl.obolibrary.org/obo/DOID_0111169,heterotopic cortex
+http://purl.obolibrary.org/obo/DOID_0111169,subcortical laminar heterotopia
+http://purl.obolibrary.org/obo/DOID_0111216,AR-CNM
+http://purl.obolibrary.org/obo/DOID_14717,myotubular myopathy
+http://purl.obolibrary.org/obo/DOID_0111217,AD-CNM
+http://purl.obolibrary.org/obo/DOID_0111220,CNM2
+http://purl.obolibrary.org/obo/DOID_0111221,CNM6
+http://purl.obolibrary.org/obo/DOID_0111222,CNM5
+http://purl.obolibrary.org/obo/DOID_0111223,CNM1
+http://purl.obolibrary.org/obo/DOID_0111224,CNM4
+http://purl.obolibrary.org/obo/DOID_0111225,CNMX
+http://purl.obolibrary.org/obo/DOID_0111225,MTM1
+http://purl.obolibrary.org/obo/DOID_0111225,X-linked myotubular myopathy
+http://purl.obolibrary.org/obo/DOID_0111225,XLCNM
+http://purl.obolibrary.org/obo/DOID_0111225,XLMTM
+http://purl.obolibrary.org/obo/DOID_0111225,myotubular myopathy 1
+http://purl.obolibrary.org/obo/DOID_0111226,CFTDX
+http://purl.obolibrary.org/obo/DOID_0112374,CMD due to dystroglycanopathy
+http://purl.obolibrary.org/obo/DOID_0112374,MDDG
+http://purl.obolibrary.org/obo/DOID_0112374,congenital muscular dystrophy due to dystroglycanopathy
+http://purl.obolibrary.org/obo/DOID_0111230,MDDGA11
+http://purl.obolibrary.org/obo/DOID_0111230,Walker-Warburg syndrome or muscle-eye-brain disease B3GALNT2-related
+http://purl.obolibrary.org/obo/DOID_0111230,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A11
+http://purl.obolibrary.org/obo/DOID_0111231,MDDGA8
+http://purl.obolibrary.org/obo/DOID_0111231,Walker-Warburg syndrome or muscle-eye-brain disease GTDC2-related
+http://purl.obolibrary.org/obo/DOID_0111231,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A8
+http://purl.obolibrary.org/obo/DOID_0111232,MDDGA9
+http://purl.obolibrary.org/obo/DOID_0111232,Walker-Warburg syndrome or muscle-eye-brain disease DAG1-related
+http://purl.obolibrary.org/obo/DOID_0111232,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A9
+http://purl.obolibrary.org/obo/DOID_0111233,MDDGA14
+http://purl.obolibrary.org/obo/DOID_0111233,Walker-Warburg syndrome or muscle-eye-brain disease GMPPB-related
+http://purl.obolibrary.org/obo/DOID_0111233,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A14
+http://purl.obolibrary.org/obo/DOID_0111234,MDDGA7
+http://purl.obolibrary.org/obo/DOID_0111234,Walker-Warburg syndrome or muscle-eye-brain disease ISPD-related
+http://purl.obolibrary.org/obo/DOID_0111234,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A7
+http://purl.obolibrary.org/obo/DOID_0111235,MDDGA12
+http://purl.obolibrary.org/obo/DOID_0111235,Walker-Warburg syndrome or muscle-eye-brain disease POMK-related
+http://purl.obolibrary.org/obo/DOID_0111235,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A12
+http://purl.obolibrary.org/obo/DOID_0111236,MDDGA3
+http://purl.obolibrary.org/obo/DOID_0111236,"Walker-Warburg syndrome or muscle-eye-brain disease, POMGNT1-related"
+http://purl.obolibrary.org/obo/DOID_0111236,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A3
+http://purl.obolibrary.org/obo/DOID_0111237,MDDGA1
+http://purl.obolibrary.org/obo/DOID_0111237,"Walker-Warburg syndrome or muscle-eye-brain disease, POMT1-related"
+http://purl.obolibrary.org/obo/DOID_0111237,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A1
+http://purl.obolibrary.org/obo/DOID_0111238,MDDGA13
+http://purl.obolibrary.org/obo/DOID_0111238,"Walker-Warburg syndrome or muscle-eye-brain disease, B3GNT1-related"
+http://purl.obolibrary.org/obo/DOID_0111238,"Walker-Warburg syndrome or muscle-eye-brain disease, B4GNT1-related"
+http://purl.obolibrary.org/obo/DOID_0111238,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A13
+http://purl.obolibrary.org/obo/DOID_0111239,MDDGA10
+http://purl.obolibrary.org/obo/DOID_0111239,"Walker-Warburg syndrome or muscle-eye-brain disease, TMEM5-related"
+http://purl.obolibrary.org/obo/DOID_0111239,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A10
+http://purl.obolibrary.org/obo/DOID_0111240,MDDGA2
+http://purl.obolibrary.org/obo/DOID_0111240,"Walker-Warburg syndrome or muscle-eye-brain disease, POMT2-related"
+http://purl.obolibrary.org/obo/DOID_0111240,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A2
+http://purl.obolibrary.org/obo/DOID_0111241,MDDGA5
+http://purl.obolibrary.org/obo/DOID_0111241,"Walker-Warburg syndrome or muscle-eye-brain disease, FKRP-related"
+http://purl.obolibrary.org/obo/DOID_0111241,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A5
+http://purl.obolibrary.org/obo/DOID_0111242,MDDGA6
+http://purl.obolibrary.org/obo/DOID_0111242,"Walker-Warburg syndrome or muscle-eye-brain disease, LARGE-related"
+http://purl.obolibrary.org/obo/DOID_0111242,congenital muscular dystrophy-dystroglycanopathy with brain and eye anomalies type A6
+http://purl.obolibrary.org/obo/DOID_0111244,"PPK-CA, Stevanovic type"
+http://purl.obolibrary.org/obo/DOID_0111244,PPKCA Stevanovic type
+http://purl.obolibrary.org/obo/DOID_0111244,PPKCA1
+http://purl.obolibrary.org/obo/DOID_0111244,autosomal dominant palmoplantar hyperkeratosis and congenital alopecia
+http://purl.obolibrary.org/obo/DOID_0111244,autosomal dominant palmoplantar keratoderma and congenital alopecia
+http://purl.obolibrary.org/obo/DOID_0111244,keratoderma-hypotrichosis-leukonychia totalis syndrome
+http://purl.obolibrary.org/obo/DOID_0111244,"palmoplantar keratoderma and congenital alopecia, Stevanovic type"
+http://purl.obolibrary.org/obo/DOID_0111245,CASS
+http://purl.obolibrary.org/obo/DOID_0111245,"PPK-CA, Wallis type"
+http://purl.obolibrary.org/obo/DOID_0111245,PPKCA Wallis type
+http://purl.obolibrary.org/obo/DOID_0111245,PPKCA2
+http://purl.obolibrary.org/obo/DOID_0111245,autosomal recessive palmoplantar hyperkeratosis and congenital alopecia
+http://purl.obolibrary.org/obo/DOID_0111245,autosomal recessive palmoplantar keratoderma and congenital alopecia
+http://purl.obolibrary.org/obo/DOID_0111245,cataract-alopecia-sclerodactyly syndrome
+http://purl.obolibrary.org/obo/DOID_0111245,"palmoplantar keratoderma and congenital alopecia, Wallis type"
+http://purl.obolibrary.org/obo/DOID_0111334,LEPD
+http://purl.obolibrary.org/obo/DOID_0111334,leptin deficiency or dysfunction
+http://purl.obolibrary.org/obo/DOID_0111334,morbid obesity
+http://purl.obolibrary.org/obo/DOID_0111334,obesity due to congenital leptin deficiency
+http://purl.obolibrary.org/obo/DOID_0111347,"EBD, Bart type"
+http://purl.obolibrary.org/obo/DOID_0111347,"epidermolysis bullosa dystrophica, Bart type"
+http://purl.obolibrary.org/obo/DOID_0111359,Congenital pigmented nevus
+http://purl.obolibrary.org/obo/DOID_0111359,GMN
+http://purl.obolibrary.org/obo/DOID_0111359,Giant congenital melanocytic nevus
+http://purl.obolibrary.org/obo/DOID_0111359,Giant pigmented hairy nevus
+http://purl.obolibrary.org/obo/DOID_0111359,LCMN
+http://purl.obolibrary.org/obo/DOID_0111396,CDA I
+http://purl.obolibrary.org/obo/DOID_0111396,CDA type 1
+http://purl.obolibrary.org/obo/DOID_0111396,CDA type I
+http://purl.obolibrary.org/obo/DOID_0111396,Congenital dyserythropoietic anaemia type 1
+http://purl.obolibrary.org/obo/DOID_0111396,Congenital dyserythropoietic anemia type 1
+http://purl.obolibrary.org/obo/DOID_0111396,congenital dyserythropoietic anaemia type I
+http://purl.obolibrary.org/obo/DOID_1338,congenital dyshaematopoietic anaemia
+http://purl.obolibrary.org/obo/DOID_0111397,"CDA, type Ib"
+http://purl.obolibrary.org/obo/DOID_0111397,CDAN1B
+http://purl.obolibrary.org/obo/DOID_0111398,CDA Ia
+http://purl.obolibrary.org/obo/DOID_0111398,CDAN1A
+http://purl.obolibrary.org/obo/DOID_0111399,CDA III
+http://purl.obolibrary.org/obo/DOID_0111399,CDA type 3
+http://purl.obolibrary.org/obo/DOID_0111399,CDA type III
+http://purl.obolibrary.org/obo/DOID_0111399,CDAN3
+http://purl.obolibrary.org/obo/DOID_0111399,Congenital dyserythropoietic anaemia type 3
+http://purl.obolibrary.org/obo/DOID_0111399,Congenital dyserythropoietic anemia type 3
+http://purl.obolibrary.org/obo/DOID_0111399,anaemia with multinucleated erythroblasts
+http://purl.obolibrary.org/obo/DOID_0111399,anemia with multinucleated erythroblasts
+http://purl.obolibrary.org/obo/DOID_0111399,congenital dyserythropoietic anaemia type III
+http://purl.obolibrary.org/obo/DOID_0111399,hereditary benign erythroreticulosis
+http://purl.obolibrary.org/obo/DOID_0111400,CDA IV
+http://purl.obolibrary.org/obo/DOID_0111400,CDA due to KLF1 mutation
+http://purl.obolibrary.org/obo/DOID_0111400,CDA type 4
+http://purl.obolibrary.org/obo/DOID_0111400,CDA type IV
+http://purl.obolibrary.org/obo/DOID_0111400,CDAN4
+http://purl.obolibrary.org/obo/DOID_0111400,Congenital dyserythropoietic anaemia due to KLF1 mutation
+http://purl.obolibrary.org/obo/DOID_0111400,Congenital dyserythropoietic anaemia type 4
+http://purl.obolibrary.org/obo/DOID_0111400,Congenital dyserythropoietic anemia due to KLF1 mutation
+http://purl.obolibrary.org/obo/DOID_0111400,Congenital dyserythropoietic anemia type 4
+http://purl.obolibrary.org/obo/DOID_0111400,congenital dyserythropoietic anaemia type IV
+http://purl.obolibrary.org/obo/DOID_0111401,CDA II
+http://purl.obolibrary.org/obo/DOID_0111401,CDA type 2
+http://purl.obolibrary.org/obo/DOID_0111401,CDA type II
+http://purl.obolibrary.org/obo/DOID_0111401,CDAN2
+http://purl.obolibrary.org/obo/DOID_0111401,Congenital dyserythropoietic anaemia type 2
+http://purl.obolibrary.org/obo/DOID_0111401,Congenital dyserythropoietic anemia type 2
+http://purl.obolibrary.org/obo/DOID_0111401,Hereditary erythroblastic multinuclearity with a positive acidified-serum test (hempas)
+http://purl.obolibrary.org/obo/DOID_0111401,SEC23B-CDG
+http://purl.obolibrary.org/obo/DOID_0111401,congenital dyserythropoietic anaemia type II
+http://purl.obolibrary.org/obo/DOID_0111568,CVT
+http://purl.obolibrary.org/obo/DOID_0111568,congenital convex foot
+http://purl.obolibrary.org/obo/DOID_0111568,congenital convex pes valgus
+http://purl.obolibrary.org/obo/DOID_0111568,congenital rocker-bottom foot
+http://purl.obolibrary.org/obo/DOID_0111568,rocker-bottom foot deformity
+http://purl.obolibrary.org/obo/DOID_0111591,CHDTHP
+http://purl.obolibrary.org/obo/DOID_0111591,Ostravik-Lindemann-Solberg syndrome
+http://purl.obolibrary.org/obo/DOID_0111591,heart defect-tongue hamartoma-polysyndactyly syndrome
+http://purl.obolibrary.org/obo/DOID_0111595,Beals syndrome
+http://purl.obolibrary.org/obo/DOID_0111595,Beals-Hecht syndrome
+http://purl.obolibrary.org/obo/DOID_0111595,CCA
+http://purl.obolibrary.org/obo/DOID_0111595,"arachnodactyly, contractural Beals type"
+http://purl.obolibrary.org/obo/DOID_0111595,"contractures, multiple with arachnodactyly"
+http://purl.obolibrary.org/obo/DOID_0111595,distal arthrogryposis type 9
+http://purl.obolibrary.org/obo/DOID_0111595,ear anomalies-contractures-dysplasia of bone with kyphoscoliosis
+http://purl.obolibrary.org/obo/DOID_0111633,CSID
+http://purl.obolibrary.org/obo/DOID_0111633,SI deficiency
+http://purl.obolibrary.org/obo/DOID_0111633,congenital sucrase-isomaltose malabsorption
+http://purl.obolibrary.org/obo/DOID_0111633,congenital sucrose intolerance
+http://purl.obolibrary.org/obo/DOID_0111633,disaccharide intolerance
+http://purl.obolibrary.org/obo/DOID_0111646,CLD
+http://purl.obolibrary.org/obo/DOID_0111646,congenital alactasia
+http://purl.obolibrary.org/obo/DOID_0111646,congenital alactasia syndrome
+http://purl.obolibrary.org/obo/DOID_0111646,congenital lactose intolerance
+http://purl.obolibrary.org/obo/DOID_0111646,congenital lactose malabsorption
+http://purl.obolibrary.org/obo/DOID_0111646,disaccharide intolerance II
+http://purl.obolibrary.org/obo/DOID_0111706,Tessier number 4 facial cleft
+http://purl.obolibrary.org/obo/DOID_0111716,cryptophthalmos
+http://purl.obolibrary.org/obo/DOID_0111717,CRYPTOP
+http://purl.obolibrary.org/obo/DOID_0111717,unilateral or bilateral isolated cryptophthalmos
+http://purl.obolibrary.org/obo/DOID_0111718,incomplete cryptophthalmos
+http://purl.obolibrary.org/obo/DOID_0111733,HDCA
+http://purl.obolibrary.org/obo/DOID_0111733,PACHD
+http://purl.obolibrary.org/obo/DOID_0111733,Yorifuji-Okuno syndrome
+http://purl.obolibrary.org/obo/DOID_0111733,congenital heart defects and other congenital anomalies
+http://purl.obolibrary.org/obo/DOID_0111733,congenital pancreatic hypoplasia with diabetes mellitus and congenital heart disease
+http://purl.obolibrary.org/obo/DOID_0111733,pancreatic agenesis and congenital heart defects
+http://purl.obolibrary.org/obo/DOID_0111790,NYS1
+http://purl.obolibrary.org/obo/DOID_0111790,X-linked infantile nystagmus 1
+http://purl.obolibrary.org/obo/DOID_0111790,congenital motor nystagmus 1
+http://purl.obolibrary.org/obo/DOID_0111791,NYS7
+http://purl.obolibrary.org/obo/DOID_0111791,autosomal dominant congenital nystagmus 7
+http://purl.obolibrary.org/obo/DOID_0111792,NYS2
+http://purl.obolibrary.org/obo/DOID_0111792,autosomal dominant congenital nystagmus 2
+http://purl.obolibrary.org/obo/DOID_0111792,congenital motor nystagmus 2
+http://purl.obolibrary.org/obo/DOID_0111793,NYS3
+http://purl.obolibrary.org/obo/DOID_0111793,autosomal dominant congenital nystagmus 3
+http://purl.obolibrary.org/obo/DOID_0111795,NYS6
+http://purl.obolibrary.org/obo/DOID_0111795,X-linked congenital nystagmus 6
+http://purl.obolibrary.org/obo/DOID_0111796,NYS5
+http://purl.obolibrary.org/obo/DOID_0111796,X-linked congenital nystagmus 5
+http://purl.obolibrary.org/obo/DOID_0111797,autosomal recessive congenital motor nystagmus
+http://purl.obolibrary.org/obo/DOID_0111808,MCOPS7
+http://purl.obolibrary.org/obo/DOID_0111808,MIDAS syndrome
+http://purl.obolibrary.org/obo/DOID_0111808,Microphthalmia with linear skin defect syndrome
+http://purl.obolibrary.org/obo/DOID_0111808,microphthalmia-dermal aplasia-sclerocornea syndrome
+http://purl.obolibrary.org/obo/DOID_0111808,syndromic microphthalmia 7
+http://purl.obolibrary.org/obo/DOID_0111808,syndromic microphthalmia type 7
+http://purl.obolibrary.org/obo/DOID_0111835,CHNG9
+http://purl.obolibrary.org/obo/DOID_0111836,CHNG7
+http://purl.obolibrary.org/obo/DOID_0111836,TRH resistance syndrome
+http://purl.obolibrary.org/obo/DOID_0111836,central hypothyroidism due to TRH receptor deficiency
+http://purl.obolibrary.org/obo/DOID_0111836,resistance to thyrotropin-releasing hormone syndrome
+http://purl.obolibrary.org/obo/DOID_0111837,CHNG8
+http://purl.obolibrary.org/obo/DOID_0111839,congenital disorder of glycosylation type Icc
+http://purl.obolibrary.org/obo/DOID_589,congenital hemolytic anaemia
+http://purl.obolibrary.org/obo/DOID_589,hereditary hemolytic anaemia
+http://purl.obolibrary.org/obo/DOID_589,hereditary hemolytic anemia
+http://purl.obolibrary.org/obo/DOID_0111862,CAVD
+http://purl.obolibrary.org/obo/DOID_0111862,CBAVD
+http://purl.obolibrary.org/obo/DOID_0111862,congenital bilateral agenesis of vas deferens
+http://purl.obolibrary.org/obo/DOID_0111862,congenital bilateral aplasia of vas deferens
+http://purl.obolibrary.org/obo/DOID_0111863,CBAVDX
+http://purl.obolibrary.org/obo/DOID_0111876,LSDMCA3
+http://purl.obolibrary.org/obo/DOID_0111876,linear skin defects with cardiomyopathy and other congenital anomalies
+http://purl.obolibrary.org/obo/DOID_0111877,APLCC
+http://purl.obolibrary.org/obo/DOID_0111877,LSDMCA2
+http://purl.obolibrary.org/obo/DOID_0111877,"aplasia cutis congenita, reticulolinear, with microcephaly, facial dysmorphism, and other congenital anomalies"
+http://purl.obolibrary.org/obo/DOID_0111878,DBA7
+http://purl.obolibrary.org/obo/DOID_0111878,RPL11-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_1339,Blackfan - Diamond syndrome
+http://purl.obolibrary.org/obo/DOID_1339,chronic constitutional pure red cell anaemia
+http://purl.obolibrary.org/obo/DOID_0111879,DBA6
+http://purl.obolibrary.org/obo/DOID_0111879,RPL5-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111880,DBA17
+http://purl.obolibrary.org/obo/DOID_0111880,RPS27-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111881,DBA8
+http://purl.obolibrary.org/obo/DOID_0111881,RPS7-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111882,DBA12
+http://purl.obolibrary.org/obo/DOID_0111882,RPL15-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111883,DBA5
+http://purl.obolibrary.org/obo/DOID_0111883,RPL35A-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111884,DBA9
+http://purl.obolibrary.org/obo/DOID_0111884,RPS10-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111885,DBA2
+http://purl.obolibrary.org/obo/DOID_0111886,DBA19
+http://purl.obolibrary.org/obo/DOID_0111886,RPL35-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111887,DBA3
+http://purl.obolibrary.org/obo/DOID_0111887,RPS24-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111888,DBA10
+http://purl.obolibrary.org/obo/DOID_0111888,RPS26-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111889,DBA13
+http://purl.obolibrary.org/obo/DOID_0111889,RPS29-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111890,DBA4
+http://purl.obolibrary.org/obo/DOID_0111890,RPS17-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111891,DBA20
+http://purl.obolibrary.org/obo/DOID_0111891,RPS15A-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111892,DBA11
+http://purl.obolibrary.org/obo/DOID_0111892,RPL26-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111893,DBA16
+http://purl.obolibrary.org/obo/DOID_0111893,RPL27-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111894,DBA15
+http://purl.obolibrary.org/obo/DOID_0111895,DBA1
+http://purl.obolibrary.org/obo/DOID_0111895,RPS19-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111896,DBA18
+http://purl.obolibrary.org/obo/DOID_0111896,RPL18-related Diamond-Blackfan anemia
+http://purl.obolibrary.org/obo/DOID_0111897,DBA14
+http://purl.obolibrary.org/obo/DOID_0111932,neonatal severe encephalopathy due to MECP2 mutations
+http://purl.obolibrary.org/obo/DOID_0111932,severe neonatal-onset encephalopathy with microcephaly
+http://purl.obolibrary.org/obo/DOID_0112002,CDG IIs
+http://purl.obolibrary.org/obo/DOID_0112002,CDG2S
+http://purl.obolibrary.org/obo/DOID_0112002,CDGIIs
+http://purl.obolibrary.org/obo/DOID_0112002,IMD47
+http://purl.obolibrary.org/obo/DOID_0112002,congenital disorder of glycosylation type IIs
+http://purl.obolibrary.org/obo/DOID_0112002,immunodeficiency and hepatopathy with or without neurologic features
+http://purl.obolibrary.org/obo/DOID_0112014,MGBL
+http://purl.obolibrary.org/obo/DOID_0112128,SCNX
+http://purl.obolibrary.org/obo/DOID_0112128,XLN
+http://purl.obolibrary.org/obo/DOID_0112129,SCN7
+http://purl.obolibrary.org/obo/DOID_0112129,autosomal recessive severe congenital neutropenia due to CSF3R deficiency
+http://purl.obolibrary.org/obo/DOID_0112131,SCN2
+http://purl.obolibrary.org/obo/DOID_0112132,SCN5
+http://purl.obolibrary.org/obo/DOID_0112132,VPS45 deficiency
+http://purl.obolibrary.org/obo/DOID_0112132,congenital neutropenia-bone marrow fibrosis-nephromegaly syndrome
+http://purl.obolibrary.org/obo/DOID_0112132,congenital neutropenia-myelofibrosis-nephromegaly syndrome
+http://purl.obolibrary.org/obo/DOID_0112133,Kostmann disease
+http://purl.obolibrary.org/obo/DOID_0112133,Kostmann syndrome
+http://purl.obolibrary.org/obo/DOID_0112133,SCN3
+http://purl.obolibrary.org/obo/DOID_0112133,infantile agranulocytosis
+http://purl.obolibrary.org/obo/DOID_0112134,SCN6
+http://purl.obolibrary.org/obo/DOID_0112134,autosomal recessive severe congenital neutropenia due to JAGN1 deficiency
+http://purl.obolibrary.org/obo/DOID_0112135,SCN8
+http://purl.obolibrary.org/obo/DOID_0112135,SDSL
+http://purl.obolibrary.org/obo/DOID_0112135,Shwachman-Diamond syndrome-like
+http://purl.obolibrary.org/obo/DOID_0112135,autosomal dominant severe congenital neutropenia 8 with or without pancreatic dysfunction and/or neurological abnormalities
+http://purl.obolibrary.org/obo/DOID_0112136,Dursun syndrome
+http://purl.obolibrary.org/obo/DOID_0112136,SCN4
+http://purl.obolibrary.org/obo/DOID_0112136,autosomal recessive severe congenital neutropenia due to G6PC3 deficiency
+http://purl.obolibrary.org/obo/DOID_0112136,severe congenital neutropenia-pulmonary hypertension-superficial venous angiectasis syndrome
+http://purl.obolibrary.org/obo/DOID_0112184,TDH5
+http://purl.obolibrary.org/obo/DOID_0112184,genetic defect in thyroid hormonogenesis 5
+http://purl.obolibrary.org/obo/DOID_0112185,TDH1
+http://purl.obolibrary.org/obo/DOID_0112185,genetic defect in thyroid hormonogenesis 1
+http://purl.obolibrary.org/obo/DOID_0112185,"iodide accumulation, transport, or trapping defect"
+http://purl.obolibrary.org/obo/DOID_0112186,TDH2A
+http://purl.obolibrary.org/obo/DOID_0112186,genetic defect in thyroid hormonogenesis 2A
+http://purl.obolibrary.org/obo/DOID_0112186,iodide peroxidase deficiency
+http://purl.obolibrary.org/obo/DOID_0112186,thyroid peroxidase deficiency
+http://purl.obolibrary.org/obo/DOID_0112187,TDH3
+http://purl.obolibrary.org/obo/DOID_0112187,genetic defect in thyroid hormonogenesis 3
+http://purl.obolibrary.org/obo/DOID_0112188,TDH4
+http://purl.obolibrary.org/obo/DOID_0112188,deiodinase deficiency
+http://purl.obolibrary.org/obo/DOID_0112188,genetic defect in thyroid hormonogenesis 4
+http://purl.obolibrary.org/obo/DOID_0112188,iodotyrosine dehalogenase deficiency
+http://purl.obolibrary.org/obo/DOID_0112189,TDH6
+http://purl.obolibrary.org/obo/DOID_0112189,genetic defect in thyroid hormonogenesis 6
+http://purl.obolibrary.org/obo/DOID_0112213,DEE77
+http://purl.obolibrary.org/obo/DOID_0112213,GPIBD19
+http://purl.obolibrary.org/obo/DOID_0112213,MCAHS4
+http://purl.obolibrary.org/obo/DOID_0112213,developmental and epileptic encephalopathy 77
+http://purl.obolibrary.org/obo/DOID_0112213,early infantile epileptic encephalopathy 77
+http://purl.obolibrary.org/obo/DOID_0112213,glycosylphosphatidylinositol biosynthesis defect 19
+http://purl.obolibrary.org/obo/DOID_0112228,LIS9
+http://purl.obolibrary.org/obo/DOID_0112228,posterior-predominant lissencephaly-broad flat pons and medulla-midline crossing defects syndrome
+http://purl.obolibrary.org/obo/DOID_0112229,LIS10
+http://purl.obolibrary.org/obo/DOID_0112230,LIS5
+http://purl.obolibrary.org/obo/DOID_0112231,LIS7
+http://purl.obolibrary.org/obo/DOID_0112232,LIS3
+http://purl.obolibrary.org/obo/DOID_0112233,LIS8
+http://purl.obolibrary.org/obo/DOID_0112235,LIS4
+http://purl.obolibrary.org/obo/DOID_0112235,lissencephaly 4 with microcephaly
+http://purl.obolibrary.org/obo/DOID_0112236,LIS6
+http://purl.obolibrary.org/obo/DOID_0112237,LIS1
+http://purl.obolibrary.org/obo/DOID_0112237,PAFAH1B1-related lissencephaly
+http://purl.obolibrary.org/obo/DOID_0112238,X-linked lissencephaly with abnormal genitalia
+http://purl.obolibrary.org/obo/DOID_0112238,X-linked lissencephaly with ambiguous genitalia
+http://purl.obolibrary.org/obo/DOID_0112238,X-linked lissencephaly-corpus callosum agenesis-genital anomalies syndrome
+http://purl.obolibrary.org/obo/DOID_0112238,XLAG
+http://purl.obolibrary.org/obo/DOID_0112238,XLAG (X-linked lissencephaly with abnormal genitalia) syndrome
+http://purl.obolibrary.org/obo/DOID_0112238,XLIS2
+http://purl.obolibrary.org/obo/DOID_0112239,XLIS1
+http://purl.obolibrary.org/obo/DOID_0112239,lissencephaly type 1 due to doublecortin gene mutation
+http://purl.obolibrary.org/obo/DOID_0112321,AAMR
+http://purl.obolibrary.org/obo/DOID_0112321,"alacrima, achalasia, and mental retardation syndrome"
+http://purl.obolibrary.org/obo/DOID_0112376,MDDGB15
+http://purl.obolibrary.org/obo/DOID_0112376,congenital muscular dystrophy DPM3-related
+http://purl.obolibrary.org/obo/DOID_0112377,MDDGB14
+http://purl.obolibrary.org/obo/DOID_0112377,congenital muscular dystrophy GMPPB-related
+http://purl.obolibrary.org/obo/DOID_0112378,MDDGB3
+http://purl.obolibrary.org/obo/DOID_0112378,congenital muscular dystrophy POMGNT1-related
+http://purl.obolibrary.org/obo/DOID_0112379,MDDGB4
+http://purl.obolibrary.org/obo/DOID_0112379,congenital muscular dystrophy FKTN-related
+http://purl.obolibrary.org/obo/DOID_0112380,MDDGB2
+http://purl.obolibrary.org/obo/DOID_0112380,congenital muscular dystrophy POMT2-related
+http://purl.obolibrary.org/obo/DOID_0112381,LGMD due to POMK deficiency
+http://purl.obolibrary.org/obo/DOID_0112381,Limb-girdle muscular dystrophy due to POMK deficiency
+http://purl.obolibrary.org/obo/DOID_0112381,MDDGC12
+http://purl.obolibrary.org/obo/DOID_0112381,"muscular dystrophy-dystroglycanopathy, limb-girdle, POMK-related"
+http://purl.obolibrary.org/obo/DOID_0112382,LGMDR24
+http://purl.obolibrary.org/obo/DOID_0112382,MDDGC2
+http://purl.obolibrary.org/obo/DOID_0112382,autosomal recessive limb-girdle muscular dystrophy 24
+http://purl.obolibrary.org/obo/DOID_0112382,"muscular dystrophy-dystroglycanopathy (limb-girdle) type C, 8"
+http://purl.obolibrary.org/obo/DOID_0112382,"muscular dystrophy-dystroglycanopathy, limb-girdle, POMGNT2-related"
+http://purl.obolibrary.org/obo/DOID_10039,juvenile neurosyphilis
+http://purl.obolibrary.org/obo/DOID_10488,Congenital atresia of anus
+http://purl.obolibrary.org/obo/DOID_10488,Congenital or infantile occlusion of anus
+http://purl.obolibrary.org/obo/DOID_10488,anal atresia
+http://purl.obolibrary.org/obo/DOID_2860,hemoglobinopathies
+http://purl.obolibrary.org/obo/DOID_10892,familial hypospadias
+http://purl.obolibrary.org/obo/DOID_11211,primary congenital glaucoma 3A
+http://purl.obolibrary.org/obo/DOID_11211,simple buphthalmos
+http://purl.obolibrary.org/obo/DOID_11367,"APHAKIA, CONGENITAL PRIMARY"
+http://purl.obolibrary.org/obo/DOID_11367,Congenital absence of lens
+http://purl.obolibrary.org/obo/DOID_1148,postaxial polydactyly
+http://purl.obolibrary.org/obo/DOID_1148,Supernumerary digit
+http://purl.obolibrary.org/obo/DOID_12961,Poland's syndactyly
+http://purl.obolibrary.org/obo/DOID_13336,Toxoplasmosis - congen.
+http://purl.obolibrary.org/obo/DOID_1342,congenital aplastic anaemia
+http://purl.obolibrary.org/obo/DOID_1342,congenital aplastic anemia
+http://purl.obolibrary.org/obo/DOID_1342,congenital hypoplastic anaemia
+http://purl.obolibrary.org/obo/DOID_1342,Constitutional aplastic anaemia
+http://purl.obolibrary.org/obo/DOID_13620,Atrial septal defect within oval fossa
+http://purl.obolibrary.org/obo/DOID_13620,"Defect, Patent or persistent, ostium secundum"
+http://purl.obolibrary.org/obo/DOID_13620,Ostium secundum type atrial septal defect
+http://purl.obolibrary.org/obo/DOID_13620,Persistent ostium secundum
+http://purl.obolibrary.org/obo/DOID_13620,foramen ovale patent
+http://purl.obolibrary.org/obo/DOID_14177,Congenital hypogammaglobulinaemia
+http://purl.obolibrary.org/obo/DOID_14681,Silver Russell Dwarfism
+http://purl.obolibrary.org/obo/DOID_1657,Interventricular septal defect
+http://purl.obolibrary.org/obo/DOID_1657,Ventricular septal abnormality
+http://purl.obolibrary.org/obo/DOID_1998,Lutembacher syndrome
+http://purl.obolibrary.org/obo/DOID_1998,Lutembacher's anomaly
+http://purl.obolibrary.org/obo/DOID_2236,Factor I deficiency
+http://purl.obolibrary.org/obo/DOID_2236,Fibrinogen deficiency
+http://purl.obolibrary.org/obo/DOID_2859,Hb-C disease
+http://purl.obolibrary.org/obo/DOID_3827,Diaphragmatic Hernia
+http://purl.obolibrary.org/obo/DOID_4297,Halasz syndrome
+http://purl.obolibrary.org/obo/DOID_4297,congenital venolobar syndrome
+http://purl.obolibrary.org/obo/DOID_4297,hypogenetic lung syndrome
+http://purl.obolibrary.org/obo/DOID_4297,mirror-image lung syndrome
+http://purl.obolibrary.org/obo/DOID_4297,pulmonary venolobar syndrome
+http://purl.obolibrary.org/obo/DOID_4297,total anomalous pulmonary venous return
+http://purl.obolibrary.org/obo/DOID_4297,vena cava bronchovascular syndrome
+http://purl.obolibrary.org/obo/DOID_5378,Hb-D disease
+http://purl.obolibrary.org/obo/DOID_5379,Hb-E disease
+http://purl.obolibrary.org/obo/DOID_6406,Dextrotransposition of aorta
+http://purl.obolibrary.org/obo/DOID_6406,Double outlet right ventricle with subpulmonary ventricular septal defect
+http://purl.obolibrary.org/obo/DOID_6406,Taussig-Bing syndrome or defect
+http://purl.obolibrary.org/obo/DOID_6419,"Ventricular septal defect with pulmonary stenosis or atresia, dextraposition of aorta, and hypertrophy of right ventricle"
+http://purl.obolibrary.org/obo/DOID_7280,Congenital Epulides
+http://purl.obolibrary.org/obo/DOID_758,Complete transposition
+http://purl.obolibrary.org/obo/DOID_758,Laterality sequence
+http://purl.obolibrary.org/obo/DOID_758,situs inversus viscerum
+http://purl.obolibrary.org/obo/DOID_8418,Infantile fibrosarcoma
+http://purl.obolibrary.org/obo/DOID_9296,Labium leporinum
+http://purl.obolibrary.org/obo/DOID_9296,cheiloschisis
+http://purl.obolibrary.org/obo/DOID_9296,"cleft lip, unilateral, complete"
+http://purl.obolibrary.org/obo/DOID_9296,complete unilateral cleft lip
+http://purl.obolibrary.org/obo/DOID_9296,hare lip
+http://purl.obolibrary.org/obo/DOID_9487,Meckel Diverticulum
+http://purl.obolibrary.org/obo/DOID_9487,Persistent vitelline duct
+http://purl.obolibrary.org/obo/DOID_9565,Heart predominantly in right hemithorax
