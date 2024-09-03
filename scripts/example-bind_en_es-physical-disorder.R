@@ -9,6 +9,7 @@ library(here)
 library(purrr)
 library(readr)
 source(here::here("scripts/function-bind_en_es.R"))
+source(here::here("scripts/function-create_gs_review.R"))
 
 pd_dir <- here::here("data/physical_disorder")
 en_files <- list.files(pd_dir, pattern = ".*En.csv", full.names = TRUE)
@@ -18,4 +19,13 @@ en_es_files <- stringr::str_replace(en_files, "En", "En-Es")
 en_es <- purrr::pmap(
     list(en_files, es_files, en_es_files),
     function(.en, .es, .out) bind_en_es(.en, .es, .out)
+)
+
+gs_out <- purrr::map(
+    en_es_files,
+    ~ create_gs_review(
+        .x,
+        gs = "https://docs.google.com/spreadsheets/d/1Fvnmz_3KNXuLvLtJGm9eKkqvV33mIZUESsPWv28uUAg",
+        "disorder"
+    )
 )
