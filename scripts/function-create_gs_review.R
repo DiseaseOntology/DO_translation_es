@@ -9,8 +9,44 @@ col_en_es <- c(
 )
 
 
-
 # functions ---------------------------------------------------------------
+
+# form cell references using specified column input (letter) and row numbers,
+#   as they will appear in google sheet
+form_cell_ref <- function(col_letter) {
+    paste0(col_letter, dplyr::row_number() + 1)
+}
+
+# Adds Google Sheets formulas to calculate translation in both directions
+#   (one column each) using the GOOGLTRANSLATE function
+#
+# REQUIRED: Input must have 4 columns in a set order. The order is "class",
+#   a column with a single type of English data directly from DO (label,
+#   definition, or synonym), "clase", and a column with the Spanish translation
+#   by The Spanish Group corresponding to the English data (etiqueta,
+#   definición, or sinónimo).
+add_gs_translate_cols <- function(df) {
+    df |>
+        dplyr::mutate(
+            google_translate_to_en = googlesheets4::gs4_formula(
+                glue::glue(
+                    '=GOOGLETRANSLATE({cell_ref}, "es", "en")',
+                    cell_ref = form_cell_ref("E")
+                )
+            ),
+            .after = 2
+        ) |>
+        dplyr::mutate(
+            google_translate_to_es = googlesheets4::gs4_formula(
+                glue::glue(
+                    '=GOOGLETRANSLATE({cell_ref}, "en", "es")',
+                    cell_ref = form_cell_ref("C")
+                )
+            ),
+            .after = dplyr::last_col()
+        )
+}
+
 
 #' @param gs URL to google sheet or another identifier recognizable by
 #' googledrive::as_id()
@@ -29,10 +65,8 @@ create_gs_review <- function(en_es_file, gs, ss_prefix) {
     df_split <- purrr::map2(
         names(col_present),
         col_present,
-        ~ dplyr::select(
-            en_es,
-            dplyr::all_of(c("class", .x, "clase", .y))
-        )
+        ~ dplyr::select(en_es, dplyr::all_of(c("class", .x, "clase", .y))) |>
+            add_gs_translate_cols()
     )
 
     ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
