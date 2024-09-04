@@ -1,9 +1,12 @@
-# Example script for combining EN and ES files using physical disorder files)
+# Example script for combining EN and ES files and generating a Google Sheet
+# for review, including the automatic addition of GOOGLETRANSLATE formulas,
+# using physical disorder files -- first submitted to TSG company
+#
 # ASSUMPTIONS:
 #   1. File order (due to file numbering/naming) will be the same for equivalent
 #       English & Spanish files.
 #   2. Row order of data will be the same for equivalent English & Spanish
-#       files.
+#       files. A basic check comparing class URI across languages is included.
 
 library(here)
 library(purrr)
