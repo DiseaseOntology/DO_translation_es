@@ -1,0 +1,884 @@
+---
+title: "Explore Translation Comparison Approaches"
+author: "J. Allen Baron"
+format: 
+    html:
+        self-contained: true
+        df-print: paged
+        code-fold: true
+        toc: true
+        toc-title: Contents
+        toc-location: left
+        toc-expand: 2
+engine: knitr
+---
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show R packages, source functions, and google sheet input"
+#| output: false
+library(here)
+library(googlesheets4)
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(purrr)
+library(stringdist)
+library(pwalign) # install using BiocManager v3.19
+library(tokenizers)
+library(stopwords)
+
+source(here::here("scripts/function-str_similar.R"))
+source(here::here("scripts/function-word_similar.R"))
+source(here::here("scripts/function-utils-numeric.R"))
+
+# Disorder_compare_en_es google sheet with translation data
+gs <- "1Fvnmz_3KNXuLvLtJGm9eKkqvV33mIZUESsPWv28uUAg"
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the qgram_vary() function, used to calculate string distances at multiple q values."
+qgram_vary <- function(df, col1, col2, q) {
+    stringdist_methods <- c("qgram", "cos", "jaccard")
+
+    .c1 <- tidyselect::eval_select(dplyr::enquo(col1), data = df)
+    .c2 <- tidyselect::eval_select(dplyr::enquo(col2), data = df)
+
+    .l <- purrr::map(
+        stringdist_methods,
+        function(.m) {
+            purrr::map(
+                q,
+                ~ stringdist::stringsim(df[[.c1]], df[[.c2]], q = .x, method = .m)
+            ) |>
+                purrr::set_names(q)
+        }
+    ) |>
+        purrr::set_names(paste0("en_", stringdist_methods)) |>
+        unlist(recursive = FALSE)
+
+    dplyr::bind_cols(df, .l)
+}
+```
+
+# LABELS
+
+## String-based Comparisons
+
+I suspect some differences are related to case, spacing, number formats, or punctuation and will identify any of those strings that match after one or more of these transformations as high quality, along with noting in a column named `match_en` what transformations were needed to make them exact matches. Those that truly are exact, will be labelled as such.
+
+Additionally, I will explore string-based distance metrics as a way to calculate translation quality, though I suspect these measures will not perform well.
+
+I calculate a few different distance measures using the `stringdist` package and save the file so I can take a look at them.
+
+```{r}
+#| message: false
+# label data from google sheet
+label_init <- googlesheets4::with_gs4_quiet(
+    googlesheets4::read_sheet(gs, "disorder_en_es_label")
+)
+```
+
+```{r}
+# file to save to
+scomp_file <- here::here("data/research/explore_stringdist_metrics.csv")
+
+label_scomp <- label_init |>
+    dplyr::mutate(
+        # good for single substitution errors
+        en_osa = stringdist::stringsim(label, google_translate_to_en),
+         # should be better than osa where more transpositions occur
+        en_dl = stringdist::stringsim(label, google_translate_to_en, method = "dl"),
+        # should be better for translation, most changes will be at substring level
+        en_qgram = stringdist::stringsim(
+            label,
+            google_translate_to_en,
+            method = "qgram"
+        ), 
+        en_cos = stringdist::stringsim(
+            label,
+            google_translate_to_en,
+            method = "cosine"
+        ),
+        en_jaccard = stringdist::stringsim(
+            label,
+            google_translate_to_en,
+            method = "jaccard"
+        ),
+        .after = google_translate_to_en
+    ) |>
+    dplyr::mutate(
+        review_notes = NA,
+        cause = NA,
+        match_en = str_similar(label, google_translate_to_en),
+        quality = dplyr::if_else(!is.na(match_en), 5, NA_integer_),
+        .before = 1
+    )
+
+# save only first time script is run, to avoid overwriting manually added info
+if (!file.exists(scomp_file)) {
+    readr::write_csv(label_scomp, scomp_file, na = "")
+}
+```
+
+```{r}
+#| echo: false
+pct_exact <- round(
+    sum(label_scomp$match_en == "exact", na.rm = TRUE) / nrow(label_scomp) * 100,
+    2
+)
+```
+
+Since most matches are exact (`{r} pct_exact`%), I'll quickly review those that aren't so I have a better ground truth for translation accuracy and issues...
+
+I added quality scores manually in the existing `quality` column and added curate match info to a new column nmaed `cur_match_en`. Now I reload the data and calculate the difference between the string distances and the manually curated quality (by calculating R^2^).
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show read_scomp_file() function"
+read_scomp_file <- function() {
+    readr::read_csv(
+        scomp_file,
+        col_types = readr::cols(
+            review_notes = readr::col_character(),
+            cause = readr::col_character(),
+            match_en = readr::col_character(),
+            quality = readr::col_double(),
+            class = readr::col_character(),
+            label = readr::col_character(),
+            google_translate_to_en = readr::col_character(),
+            en_osa = readr::col_double(),
+            en_dl = readr::col_double(),
+            en_qgram = readr::col_double(),
+            en_cos = readr::col_double(),
+            en_jaccard = readr::col_double(),
+            compare_en = readr::col_character(),
+            clase = readr::col_character(),
+            etiqueta = readr::col_character(),
+            google_translate_to_es = readr::col_character(),
+            compare_es = readr::col_character()
+        )
+    )
+}
+```
+
+```{r}
+label_smetric <- read_scomp_file()
+
+# calculate difference of string measures to manual curation (R^2)
+label_smetric |>
+    dplyr::summarize(
+        dplyr::across(
+            dplyr::starts_with("en_"),
+            ~ cor(.x, quality) ^ 2
+        )
+    ) |>
+    tidyr::pivot_longer(
+        cols = dplyr::everything(),
+        names_to = "method",
+        values_to = "r-squared",
+        names_prefix = "en_"
+    )
+```
+
+The string-based approach doesn't work very well, as expected. In order of goodness in prediction: qgram > jaccard > cos ~ osa ~ dl (none of these last are very good). The high number of exact matches are likely affecting this calculation. It is probably also heavily affected by a few big discrepancies (partially due to undesirable rearrangements).
+
+
+### Plot
+
+```{r}
+label_smetric |>
+    tidyr::pivot_longer(
+        cols = dplyr::starts_with("en_"),
+        names_to = "method",
+        values_to = "dist",
+        names_prefix = "en_"
+    ) |>
+    ggplot2::ggplot(ggplot2::aes(x = quality, y = dist, color = method)) +
+    ggplot2::geom_point() +
+    stat_smooth(method = "lm", formula = y ~ x) +
+    ggplot2::facet_wrap(~ method)
+```
+The plot makes it clear that there's not a good relationship between my manual rating and the string distance metrics.
+
+
+### Q-value Exploration
+
+**QUESTION:** qgram, jaccard, & cosine are all dependent on qgram size (default: 1); what happens if the qgram size is increased?
+
+_Instead of a single character-based comparison, this becomes more of a character set-based comparison, though not word-based._
+
+```{r}
+label_qgram <- label_smetric |>
+    qgram_vary(label, google_translate_to_en, q = 1:10) |>
+    dplyr::select(quality, dplyr::matches("en_[^.]+.[0-9]+$")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::starts_with("en_"),
+        names_to = c("method", "q"),
+        values_to = "dist",
+        names_pattern = "en_([^.]+).([0-9]+)",
+        names_transform = list(q = as.integer)
+    ) |>
+    dplyr::mutate(dist = dplyr::if_else(is.na(dist), 0, dist))
+
+label_qgram |>
+    dplyr::summarize(
+        "r-squared" = stats::cor(quality, dist) ^ 2,
+        .by = c(method, q)
+    ) |>
+    tidyr::pivot_wider(
+        names_from = method,
+        values_from = "r-squared"
+    )
+```
+
+The best R^2^ value exists when q = 4 for all 3 measures. None even break 0.5 though.
+
+
+#### Plot
+
+The data is clearly more spread out, but not in the pattern you'd expect. The correlation between my manual scoring and the string distance metrics just isn't there and brute-force attempts to improve it are not going to be meaningful.
+
+```{r}
+ggplot2::ggplot(label_qgram) +
+    ggplot2::geom_jitter(
+        ggplot2::aes(x = quality, y = dist, color = method),
+        height = 0, width = 0.1
+    ) +
+    ggplot2::facet_grid(method ~ q)
+```
+I wonder if we should train an ML model to identify problematic translations for us?
+
+
+## Alignment
+
+Given the rearrangements and high exact matches, it seemed that text alignment might be a good option for comparison. It makes sense to do a global alignment to include everything.
+
+```{r}
+label_scomp2 <- read_scomp_file() |>
+    dplyr::select(-dplyr::starts_with("en_")) |>
+    # no point in aligning exact matches
+    dplyr::filter(match_en != "exact" | is.na(match_en)) 
+
+g_alignment <- pwalign::pairwiseAlignment(
+    label_scomp2$label,
+    label_scomp2$google_translate_to_en,
+    type = "global"
+)
+
+label_align <- label_scomp2 |>
+    dplyr::mutate(
+        g_align = paste0(
+            as.character(pwalign::alignedPattern(g_alignment)), "\n",
+            as.character(pwalign::alignedSubject(g_alignment))
+        ),
+        g_score = pwalign::score(g_alignment)
+    )
+```
+
+The first few alignments look as expected but it seems like there are more spaces than necessary because these are character-based alignments and not word-based alignments. I don't know of any algorithms for word-based alignments.
+
+```{r}
+#| echo: false
+paste0(label_align$g_align, "\n\n") |>
+    head() |>
+    cat()
+```
+
+Since alignment scores are length dependent, it's probably a good idea when trying to identify those that are best to institute some sort of length correction.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show r-squared code"
+galign_r2 <- label_align |>
+    dplyr::summarize(accuracy = cor(quality, g_score) ^ 2) |>
+    dplyr::pull(accuracy) |>
+    round(digits = 6) |>
+    format(scientific = FALSE)
+```
+
+The R^2^ value for these alignments is way worse than for the string distance metrics (R^2^ = `{r} galign_r2`).
+
+
+#### Plot
+
+Yep, the line fit on the plot is flat. Not good.
+
+```{r}
+ggplot2::ggplot(label_align, ggplot2::aes(x = quality, y = g_score)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_smooth(method = "lm", formula = y ~ x)
+```
+
+Well, that doesn't seem to work well, maybe primarily because of rearrangements that occur. 
+
+
+### Varying Alignment Type
+
+It's possible that other alignment types might work better. I'm going to test that really quickly, using various alignments provided by `pwalign::pairwiseAlignment()`.
+
+```{r}
+align_type <- c("global", "local", "overlap", "global-local", "local-global")
+
+label_all_pw <- purrr::map(
+    align_type,
+    ~ pwalign::pairwiseAlignment(
+        label_scomp2$label,
+        label_scomp2$google_translate_to_en,
+        type = .x
+    )
+)
+
+label_alignments <- purrr::map(
+    label_all_pw,
+    ~ paste0(
+        as.character(pwalign::alignedPattern(.x)), "\n",
+        as.character(pwalign::alignedSubject(.x))
+    )
+)|>
+    purrr::set_names(paste0(align_type, "_alignment"))
+
+label_align_scores <- purrr::map(label_all_pw, pwalign::score) |>
+    purrr::set_names(paste0(align_type, "_score"))
+
+label_align_all <- label_scomp2 |>
+    dplyr::bind_cols(label_alignments, label_align_scores)
+```
+
+
+This doesn't look any better.
+
+```{r}
+label_align_all |>
+    dplyr::select(quality, dplyr::ends_with("score")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::ends_with("score"),
+        names_to = c("type", ".value"),
+        names_pattern = "([^_]+)_(.+)"
+    ) |>
+    ggplot2::ggplot(ggplot2::aes(x = quality, y = score)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_smooth(method = "lm", formula = y ~ x) +
+    ggplot2::facet_wrap(~ type)
+```
+
+### Attempting Length Normalization
+
+I wonder if a simple length correction would improve the situation at all? I'll use the sum of the label lengths.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show sl_normalize() function."
+
+#' @param ... The strings to use for the correction. All string lengths will be
+#' calculated and summed.
+sl_normalize <- function(score, ...) {
+    .l <- list(...)
+    .l_len <- purrr::map(.l, length) |>
+        unique()
+    stopifnot(
+        "`score` and all inputs to `...` must be the same length" = 
+            length(.l_len) == 1 && .l_len == length(score)
+    )
+    str_len <- purrr::map(.l, stringr::str_length)
+    denom <- purrr::pmap(str_len, sum) |>
+        unlist()
+    score / denom
+}
+```
+
+```{r}
+label_align_all <- label_align_all |>
+    dplyr::mutate(
+        dplyr::across(
+            dplyr::ends_with("score"),
+            ~ sl_normalize(.x, .data$label, .data$google_translate_to_en),
+            .names = "{.col}.std"
+        )
+    )
+
+label_align_all |>
+    dplyr::select(quality, dplyr::ends_with(".std")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::ends_with(".std"),
+        names_to = c("type", ".value"),
+        names_pattern = "([^_]+)_(.+).std"
+    ) |>
+    ggplot2::ggplot(ggplot2::aes(x = quality, y = score)) +
+    ggplot2::geom_jitter(width = 0.2, height = 0) +
+    ggplot2::geom_smooth(method = "lm", formula = y ~ x) +
+    ggplot2::facet_wrap(~ type)
+```
+Not in any significant way.
+
+
+## Word-based Comparison
+
+For word-based comparison, I'll calculate the percentage of words in common. This approach does not account for word order and will be calculated as the count of words in the intersection of the original and backtranslated English divided by the count of the union between the two.
+
+$$
+\frac{c(original \cap backtranslation)}{c(original \cup backtranslation)} \%
+$$
+There may be differences due to "stop words" (common words that add little meaning) and conjugation, so I'll look into how comparisons after dropping stop words and/or stemming change the results.
+
+I'll also attempt to identify "exact matches", meaning they have all words in common, after any combination of the transformations listed above (and will indicate which is needed to generate the "exact match").
+
+```{r}
+label_wcomp <- read_scomp_file() |> 
+    dplyr::select(-dplyr::starts_with("en_")) |>
+    dplyr::mutate(id = dplyr::row_number(), .before = 1) |>
+    dplyr::mutate(
+        pct = word_similar(
+            label,
+            google_translate_to_en,
+        ),
+        pct_no_sw = word_similar(
+            label,
+            google_translate_to_en,
+            stopwords = stopwords::stopwords()
+        ),
+        pct_stem = word_similar(
+            label,
+            google_translate_to_en,
+            stem_words = TRUE
+        ),
+        pct_stem_no_sw = word_similar(
+            label,
+            google_translate_to_en,
+            stopwords = stopwords::stopwords(),
+            stem_words = TRUE
+        ),
+        # retain automated string matches first, then automated word matches,
+        #   drop manually curated matches for this column at the moment (to be
+        #   able to see more easily what automated approaches can't identify)
+        wmatch_en = dplyr::case_when(
+            !is.na(label_scomp$match_en) ~ "str_matched",
+            pct == 100 ~ "all_words",
+            pct_no_sw == 100 ~ "stopwords|all_words",
+            pct_stem == 100 ~ "stemmed|all_words",
+            pct_stem_no_sw == 100 ~ "stemmed|stopwords|all_words",
+            .default = NA_character_
+        )
+    )
+```
+
+
+Grouping all the previous string-based transformation matches into a `str_matched` category, it looks like about 2/3 of the label matches are near-exact based on word transformations, with stop word removal being more important than stemming.
+
+```{r}
+dplyr::count(label_wcomp, wmatch_en)
+```
+
+I want to note here that **punctuation is also removed and case ignored** for these word matches. It would be more complete to distinguish these but it's a lot of effort for little gain.
+
+The distribution of word match percentages, again ignoring string-based matches, shows improvement with each modification and that most matches contain 2/3 or more words (based on q25, percent stemmed without stop words... but similar in all).
+```{r}
+label_wcomp |>
+    dplyr::filter(is.na(wmatch_en) | wmatch_en != "str_matched") |>
+    col_summary(dplyr::starts_with("pct"), digits = 2)
+```
+
+Using all word-based similarity scores, including those for previous string-based matches, doesn't produce very good results.
+
+```{r}
+label_wcomp |>
+    dplyr::summarize(
+        dplyr::across(
+            dplyr::starts_with("pct"),
+            ~ cor(.x, quality) ^ 2
+        )
+    ) |>
+    tidyr::pivot_longer(
+        cols = dplyr::everything(),
+        names_to = "transformation",
+        values_to = "r-squared",
+        names_pattern = "pct_?(.+)"
+    )
+```
+
+If I try removing the string-based matches, the correlations get even worse.
+```{r}
+label_wcomp |>
+    dplyr::filter(is.na(wmatch_en) | wmatch_en != "str_matched") |>
+    dplyr::summarize(
+        dplyr::across(
+            dplyr::starts_with("pct"),
+            ~ cor(.x, quality) ^ 2
+        )
+    ) |>
+    tidyr::pivot_longer(
+        cols = dplyr::everything(),
+        names_to = "transformation",
+        values_to = "r-squared",
+        names_pattern = "pct_?(.+)"
+    )
+```
+
+
+#### Plot
+
+The data is clearly more spread out, but not in the pattern you'd expect. The correlation between my manual scoring and the string distance metrics just isn't there and brute-force attempts to improve it are not going to be meaningful.
+
+```{r}
+label_wcomp |>
+    dplyr::select(quality, dplyr::starts_with("pct")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::starts_with("pct"),
+        names_to = "transformation",
+        values_to = "word_match_pct",
+        names_pattern = "pct_?(.+)"
+    ) |>
+    dplyr::mutate(
+        transformation = dplyr::if_else(
+            is.na(transformation),
+            "case|punct only",
+            transformation
+        )
+    ) |>
+    ggplot2::ggplot(
+        ggplot2::aes(x = quality, y = word_match_pct, color = transformation)
+    ) +
+    ggplot2::geom_jitter(height = 0, width = 0.1) +
+    ggplot2::geom_smooth(method = "lm", formula = y ~ x) +
+    ggplot2::facet_wrap(~ transformation)
+```
+
+At least the expected trend is there. But, it really just doesn't seem that any of these measures reflect my manual review well.
+
+Best to see what happens for definitions, where very few exact matches exist between the original and backtranslated English. 
+
+
+# DEFINITIONS
+
+## String-based Comparisons
+
+First, I check to see how well string transformations identify near-exact matches and how well string-based comparisons perform for definitions. I'll test `q` values of 1 & 4 for those qgram-based methods, since 1 is a true character-by-character measure and 4 performed the best with labels.
+
+```{r}
+def_init <- googlesheets4::with_gs4_quiet(
+    googlesheets4::read_sheet(gs, "disorder_en_es_definition")
+) |>
+    # drop empty lines
+    dplyr::filter(!dplyr::if_all(c("definition", "definición"), is.na))
+
+
+# file to save to
+sdef_file <- here::here("data/research/explore_stringdist_metrics-defs.csv")
+
+def_scomp <- def_init |>
+    dplyr::mutate(
+        review_notes = NA,
+        cause = NA,
+        match_en = str_similar(definition, google_translate_to_en),
+        quality = dplyr::if_else(!is.na(match_en), 5, NA_integer_),
+        .before = 1
+    ) |>
+    dplyr::mutate(
+        en_osa = stringdist::stringsim(definition, google_translate_to_en),
+        en_dl = stringdist::stringsim(
+            definition,
+            google_translate_to_en,
+            method = "dl"
+        ),
+        .after = google_translate_to_en
+    ) |>
+    qgram_vary(definition, google_translate_to_en, q = c(1, 4))
+
+# save only first time script is run, to avoid overwriting manually added info
+if (!file.exists(sdef_file)) {
+    readr::write_csv(def_scomp, sdef_file, na = "")
+}
+```
+
+No string transformations generated an exact match for definitions.
+```{r}
+dplyr::count(def_scomp, match_en)
+```
+
+It's not feasible to review all `{r} sum(is.na(def_scomp$match_en))` non-exact definition matches. So I'll first take a look at the distribution of the string distance metrics.
+
+### Plot
+
+```{r}
+def_scomp |>
+    dplyr::select(dplyr::starts_with("en_")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::starts_with("en_"),
+        names_to = "method",
+        values_to = "dist"
+    ) |>
+    ggplot2::ggplot(ggplot2::aes(x = method, y = dist)) +
+    ggplot2::geom_violin()
+```
+Those violin plots just look similar to the previous distribution for labels. String distance metrics are just not likely to work well.
+
+
+## Alignment
+
+I just want to take a quick glance at alignments. They are likely to be better because definitions are longer... though the rearrangement of words may still be a big problem.
+
+```{r}
+def_galign <- pwalign::pairwiseAlignment(
+    def_scomp$definition,
+    def_scomp$google_translate_to_en,
+    type = "global"
+)
+
+def_align <- def_scomp |>
+    dplyr::mutate(
+        g_align = paste0(
+            as.character(pwalign::alignedPattern(def_galign)), "\n",
+            as.character(pwalign::alignedSubject(def_galign))
+        ),
+        g_score = pwalign::score(def_galign)
+    )
+```
+
+The first few alignments look as expected but it seems like there are more spaces than necessary because these are character-based alignments and not word-based alignments. I don't know of any algorithms for word-based alignments, local alignment would probably handle it better but still not as desired.
+
+```{r}
+paste0(def_align$g_align, "\n\n") |>
+    head() |>
+    cat()
+```
+
+Alignments definitely _look_ better for the definitions. 
+
+### Plot
+
+I'm not sure if the distribution of alignment scores is meaningful since scores are higher for longer alignments. I wonder how it would look after length correction?
+
+```{r}
+ggplot2::ggplot(def_align, ggplot2::aes(x = "all", y = g_score)) +
+    ggplot2::geom_violin()
+```
+
+That certainly changed the distribution.
+
+```{r}
+def_align <- def_align |>
+    dplyr::mutate(
+        std_score = sl_normalize(
+            g_score,
+            .data$definition,
+            .data$google_translate_to_en
+        )
+    )
+
+splits <- c(-Inf, 0.6, 1.6, 2.75)
+glabel_y_pos <- (c(splits[-1], 3.25) - c(-1, splits[-1])) / 2 + c(-1, splits[-1])
+
+ggplot2::ggplot(def_align, ggplot2::aes(x = "all", y = std_score)) +
+    ggplot2::geom_violin() +
+    ggplot2::scale_y_continuous(n.breaks = 20) +
+    ggplot2::geom_hline(
+        yintercept = splits,
+        color = "red",
+        linetype = "dashed"
+    ) +
+    ggplot2::annotate(
+        geom = "text",
+        x = rep(0.5, 4), y = glabel_y_pos,
+        label = paste("pgroup", 1:4),
+        size = 4, fontface = "bold", color = "red"
+    )
+```
+I wonder if I partition these at normalized alignment scores as indicated on the plot if I'd notice any obvious patterns (groups 1-4 identified by lowest value: `{r} paste(splits, sep = ", ")`).
+
+Most of these examples actually look pretty good, maybe alignment is a decent approach after all. It looks like the number of mismatches does vary by group with the fewest errors in group 4 (highest scores). At least this could help us identify which definitions to focus on for correction. It's definitely not perfect because I saw the substitution in a group 3 of "acanthosis" for "ichthyosis". That change does open a gap but the lack of meaning doesn't allow it to be as big of a hit to the score as it should be.
+
+```{r}
+def_align <- def_align |>
+    dplyr::mutate(pgroup = findInterval(.data$std_score, splits))
+```
+
+```{r}
+dplyr::count(def_align, pgroup)
+```
+
+```{r}
+pgroup_print <- def_align |>
+    dplyr::select(pgroup, g_align) |>
+    dplyr::group_by(.data$pgroup) |>
+    dplyr::slice_sample(n = 5) |>
+    dplyr::group_split(.keep = FALSE)
+
+for (i in 1:length(pgroup_print)) {
+    print(paste0("pgroup", i))
+    cat(paste0(pgroup_print[[i]]$g_align, "\n\n"))
+}
+```
+
+
+## Word-based Comparison
+
+### Examining Stop Words
+
+Wording in definitions is quite important so, before I do any testing, I'll try to develop a meaningful list of stop words.
+
+```{r}
+def_words <- def_init |>
+    dplyr::select(class, definition) |>
+    tidytext::unnest_tokens(output = word, input = definition) |>
+    dplyr::count(word, sort = TRUE) |>
+    dplyr::mutate(pct = round(n / sum(n) * 100, 2))
+
+def_words
+```
+
+Some of the most common words (e.g. has_material_basis_in) are really important. It looks like most of the high count words that we'd consider removing are similar to those in `stopwords::stopwords()` anyway... so maybe we should just use that?
+
+Overlap in frequent words in definitions and `stopwords()`:
+
+```{r}
+def_words[def_words$word %in% stopwords::stopwords(), ]
+```
+
+Frequent words that do NOT occur in `stopwords()`:
+```{r}
+def_words[!def_words$word %in% stopwords::stopwords(), ]
+```
+
+Full set of stopwords():
+```{r}
+stopwords::stopwords()
+```
+
+After looking at these sets of words, I don't think any of the words in `stopwords()` will likely be important, so I'll just stick with that.
+
+
+### Word Similarity
+
+Calculating the word similarity percentage (including punctuation removal and case-insensitivity, of course).
+```{r}
+def_wcomp <- def_scomp |>
+    dplyr::select(-dplyr::starts_with("en_")) |>
+    dplyr::mutate(id = dplyr::row_number(), .before = 1) |>
+    dplyr::mutate(
+        pct = word_similar(
+            definition,
+            google_translate_to_en,
+        ),
+        pct_no_sw = word_similar(
+            definition,
+            google_translate_to_en,
+            stopwords = stopwords::stopwords()
+        ),
+        pct_stem = word_similar(
+            definition,
+            google_translate_to_en,
+            stem_words = TRUE
+        ),
+        pct_stem_no_sw = word_similar(
+            definition,
+            google_translate_to_en,
+            stopwords = stopwords::stopwords(),
+            stem_words = TRUE
+        ),
+        match_en = dplyr::case_when(
+            !is.na(match_en) ~ match_en,
+            pct == 100 ~ "all_words",
+            pct_no_sw == 100 ~ "stopwords|all_words",
+            pct_stem == 100 ~ "stemmed|all_words",
+            pct_stem_no_sw == 100 ~ "stemmed|stopwords|all_words",
+            .default = NA_character_
+        )
+    )
+```
+
+Like labels, no exact matches are identified by word transformations.
+```{r}
+dplyr::count(def_wcomp, match_en)
+```
+
+Very few definitions are exact or near-exact matches for words, even with all word transformations.
+
+```{r}
+col_summary(def_wcomp, dplyr::starts_with("pct"), digits = 2)
+```
+
+#### Plot
+
+There's a sort of bimodal distribution here that's dependent on the presence of stop words, which is interesting.
+
+```{r}
+wsplits <- c(-Inf, 50, 83, 92)
+glabel_y_pos <- (c(wsplits[-1], 100) - c(0, wsplits[-1])) / 2 + c(0, wsplits[-1])
+
+def_wcomp |>
+    dplyr::select(dplyr::starts_with("pct")) |>
+    tidyr::pivot_longer(
+        cols = dplyr::everything(),
+        names_to = "transformation",
+        values_to = "word_match_pct",
+        names_pattern = "pct_?(.+)"
+    ) |>
+    dplyr::mutate(
+        transformation = dplyr::if_else(
+            is.na(transformation),
+            "case|punct only",
+            transformation
+        )
+    ) |>
+    ggplot2::ggplot(ggplot2::aes(x = transformation, y = word_match_pct)) +
+    ggplot2::geom_violin() +
+    ggplot2::geom_hline(
+        yintercept = wsplits,
+        color = "red",
+        linetype = "dashed"
+    ) +
+    ggplot2::annotate(
+        geom = "text",
+        x = rep(1.5, 4), y = glabel_y_pos,
+        label = paste("pgroup", 1:4),
+        size = 3, fontface = "bold", color = "red"
+    ) +
+    ggplot2::ylim(0, 100)
+```
+
+If I group definitions based on the `case|punct only` transformation (which is the word comparison without stemming or stop word removal) at the dashed lines (groups 1-4 identified by lowest value: `{r} paste(splits, sep = ", ")`) and look at a few definitions in each group, I wonder if I'll see a pattern at all?
+
+
+```{r}
+def_wcomp <- def_wcomp |>
+    dplyr::mutate(pgroup = findInterval(.data$pct, wsplits))
+```
+
+```{r}
+dplyr::count(def_wcomp, pgroup)
+```
+
+Hmm... as I review all the examples, I cannot really tell a great difference between the groups. Almost across the board, translation is pretty good. This of course, suggests that percent word similarity is not very meaningful.
+
+```{r}
+pgroup_print <- def_wcomp |>
+    dplyr::group_by(.data$pgroup) |>
+    dplyr::slice_sample(n = 5) |>
+    dplyr::mutate(out = paste(definition, google_translate_to_en, sep = "\n---\n")) |>
+    dplyr::group_split(.keep = FALSE)
+    
+                   
+for (i in 1:length(pgroup_print)) {
+    print(paste0("pgroup", i))
+    cat(paste0(pgroup_print[[i]]$out, "\n\n"))
+}
+```
+# SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+```{r}
+#| include: false
+#| eval: false
+# a limited set of stopwords, created by using most common stop words in
+# definitions that also exist in stopwords::stopwords() 
+sw <- def_words |>
+    dplyr::filter(pct > 0.5, word %in% stopwords::stopwords()) |>
+    dplyr::pull(word)
+
+sw
+```
