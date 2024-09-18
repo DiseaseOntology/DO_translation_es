@@ -33,7 +33,7 @@ to_roman_lc <- function(x) {
     )
 }
 
-# compares 2 strings and specifies how they are similar (i.e. 'exact' or one or
+# compares 2 strings and specifies the type of match (i.e. 'exact' or one or
 # more of 'case', 'space', 'punct', 'num_format' with multiple pipe delimited)
 str_similar <- function(x, y) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
