@@ -66,6 +66,7 @@ create_gs_review <- function(en_es_file, gs, ss_prefix) {
         names(col_present),
         col_present,
         ~ dplyr::select(en_es, dplyr::all_of(c("class", .x, "clase", .y))) |>
+            dplyr::filter(!dplyr::if_all(c(.x, .y), is.na)) |>
             add_gs_translate_cols()
     )
 
