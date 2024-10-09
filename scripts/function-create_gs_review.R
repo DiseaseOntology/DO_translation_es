@@ -48,6 +48,7 @@ add_gs_translate_cols <- function(df) {
 }
 
 
+#' Create Initial GS Translation Review
 #' @param gs URL to google sheet or another identifier recognizable by
 #' googledrive::as_id()
 #' @param ss_prefix (OPTIONAL) A prefix to append before "en_es" & the column
@@ -56,7 +57,12 @@ add_gs_translate_cols <- function(df) {
 #' Example:
 #' - prefix = "disorder"
 #' - column in data.frame that matches `col_en_es` = "definition"
-#' - sheet name would become "disorder-definition"
+#' - sheet name would become "disorder_en_es_definition"
+#'
+#' @returns List with information to access the new GS review, including `gs`
+#' and the names of the 3 sheets created.
+#'
+#' information.
 create_gs_review <- function(en_es_file, gs, ss_prefix) {
     en_es <- readr::read_csv(en_es_file, col_types = "c")
 
@@ -76,5 +82,7 @@ create_gs_review <- function(en_es_file, gs, ss_prefix) {
         ss_nm,
         ~ googlesheets4::write_sheet(data = .x, ss = gs, sheet = .y)
     )
+
+    list(gs = gs, ss = ss_nm)
 }
 
