@@ -1,40 +1,12 @@
-# converts numbers to lowercase roman numerals (identifying roman numerals and
-#   converting to numbers is much harder and less precise)
-to_roman_lc <- function(x) {
-    has_number <- stringr::str_detect(x, "[0-9]+")
-    numbers <- stringr::str_extract_all(x, "[0-9]+")
-    rn <- purrr::map(
-        numbers,
-        ~ stringr::str_to_lower(utils::as.roman(.x))
-    )
-    replace_list <- purrr::map2(
-        numbers,
-        rn,
-        function(num, rn) {
-            if (length(num) == 0) {
-                NA
-            } else {
-                pattern <- paste0("(^|[^0-9])", num, "([^0-9]|$)")
-                purrr::set_names(rn, num)
-            }
-        }
-    )
-
-    purrr::map2_chr(
-        x,
-        replace_list,
-        function(input, patt_repl) {
-            if (all(is.na(patt_repl))) {
-                input
-            } else {
-                stringr::str_replace_all(input, patt_repl)
-            }
-        }
-    )
-}
-
-# compares 2 strings and specifies the type of match (i.e. 'exact' or one or
-# more of 'case', 'space', 'punct', 'num_format' with multiple pipe delimited)
+#' Describe String Similarity
+#'
+#' Compares strings in 2 vectors and returns the type of match (i.e. 'exact' or
+#' one or more of 'case', 'space', 'punct', 'num_format' with multiple pipe
+#' delimited).
+#'
+#' @param x,y A character vector.
+#'
+#' @export
 str_similar <- function(x, y) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
 
@@ -152,4 +124,44 @@ str_similar <- function(x, y) {
         )
 
     df$comp
+}
+
+
+#' Convert to Roman Numerals (Lowercase)
+#' Converts numbers to lowercase roman numerals. _Intended to make comparing
+#' arabic & roman numerals possible._ Converting roman numerals to arabic is
+#' much harder and less precise, given the overlap of roman numerals with
+#' letters.
+#' @param x A character vector.
+to_roman_lc <- function(x) {
+    has_number <- stringr::str_detect(x, "[0-9]+")
+    numbers <- stringr::str_extract_all(x, "[0-9]+")
+    rn <- purrr::map(
+        numbers,
+        ~ stringr::str_to_lower(utils::as.roman(.x))
+    )
+    replace_list <- purrr::map2(
+        numbers,
+        rn,
+        function(num, rn) {
+            if (length(num) == 0) {
+                NA
+            } else {
+                pattern <- paste0("(^|[^0-9])", num, "([^0-9]|$)")
+                purrr::set_names(rn, num)
+            }
+        }
+    )
+
+    purrr::map2_chr(
+        x,
+        replace_list,
+        function(input, patt_repl) {
+            if (all(is.na(patt_repl))) {
+                input
+            } else {
+                stringr::str_replace_all(input, patt_repl)
+            }
+        }
+    )
 }
