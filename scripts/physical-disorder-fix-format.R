@@ -27,7 +27,11 @@ reformat_file <- function(input, output) {
 # fix & save corrected data from translated files -------------------------
 
 pd_dir <- here::here("data/physical_disorder")
-es_files_orig <- list.files(pd_dir, pattern = ".*TSG-Es.*\\.csv", full.names = TRUE)
+es_files_orig <- list.files(
+    pd_dir,
+    pattern = ".*TSG-Es-original\\.csv",
+    full.names = TRUE
+)
 es_files <- stringr::str_remove(es_files_orig, "-original")
 
 purrr::walk2(es_files_orig, es_files, reformat_file)
