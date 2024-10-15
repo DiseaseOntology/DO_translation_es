@@ -1,8 +1,6 @@
 #' String Comparison
 #'
-#' Compare strings in 2 vectors and return the type of match (i.e. 'exact' or
-#' one or more of 'numeral', 'case', 'space', 'punct', 'diacritic' with multiple
-#' delimited).
+#' Compare strings in 2 vectors and return the type of match.
 #'
 #' @param x,y A character vector.
 #' @inheritParams str_mutate
@@ -11,7 +9,12 @@
 #' @inheritParams stringr::str_equal
 #' @param ... Arguments passed on to [stringr::str_equal()].
 #'
-#' @returns A character vector with the type of match.
+#' @returns A character vector with the match type for each string pair. If
+#' strings are identical the value will be 'exact'. For those string pairs that
+#' become identical after one or more transformations, the value will be the
+#' set of transformations required separated by `delim`. The possible
+#' transformations include 'numeral', 'case', 'space', 'punct', or 'diacritic'.
+#' If strings cannot be made identical, the value will be `NA`.
 #'
 #' @md
 #' @export
