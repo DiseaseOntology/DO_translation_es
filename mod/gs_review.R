@@ -25,7 +25,6 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
         purrr[map2, walk2],
         dplyr[select, filter, all_of, if_all],
         googlesheets4[write_sheet],
-        ./data[col_en_es]
     )
 
     en_es <- read_csv(en_es_file, col_types = "c")
@@ -63,7 +62,6 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
 #' @export
 read_gs_review <- function(gs, ss_prefix) {
     box::use(
-        ./data[col_en_es],
         purrr[map, set_names],
         googlesheets4[with_gs4_quiet, read_sheet]
     )
@@ -74,6 +72,16 @@ read_gs_review <- function(gs, ss_prefix) {
     map(ss_nm, ~ with_gs4_quiet(read_sheet(ss = gs, sheet = .x))) |>
         set_names(col_present)
 }
+
+
+### GENERAL gs_review helpers ################################################
+
+#' Full Column Names
+#'
+#' Full column names for English and Spanish (English = names, Spanish = values).
+col_en_es <- c(
+    "label" = "etiqueta", "definition" = "definición", "synonym" = "sinónimo"
+)
 
 
 ### create_gs_review() helpers ###############################################
