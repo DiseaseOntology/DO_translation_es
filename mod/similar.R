@@ -1,3 +1,48 @@
+#' String Comparison
+#'
+#' Compare strings in 2 vectors and return the type of match (i.e. 'exact' or
+#' one or more of 'numeral', 'case', 'space', 'punct', 'diacritic' with multiple
+#' delimited).
+#'
+#' @param x,y A character vector.
+#' @inheritParams str_mutate
+#' @param delim The separator to use when listing transformations needed to
+#' make the two strings identical (default: `"|"`).
+#' @inheritParams stringr::str_equal
+#'
+#' @returns A character vector with the type of match.
+#'
+#' @md
+#' @export
+str_compare <- function(x, y, how = "all", delim = "|", locale = "en") {
+    stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
+    box::use(
+        stringr, purrr, dplyr,
+        ./mutate
+    )
+
+    # mutate strings
+    xmut <- mutate$str_mutate_cum(x, how)
+    ymut <- mutate$str_mutate_cum(y, how)
+
+    # ensure comparison is done on the same transformed strings by using names
+    comparison <- purrr$map(
+        names(xmut),
+        function(.nm) {
+            .how <- stringr$str_replace_all(
+                .nm,
+                c("^x$" = "exact", "^x_" = "", "_" = "|")
+            )
+            lgl <- stringr$str_equal(xmut[[.nm]], ymut[[.nm]])
+            dplyr$if_else(lgl, .how, NA_character_)
+        }
+    )
+
+    out <- dplyr$coalesce(!!!comparison)
+    out
+}
+
+
 #' Describe String Similarity
 #'
 #' Compares strings in 2 vectors and returns the type of match (i.e. 'exact' or
@@ -131,87 +176,6 @@ str_similar <- function(x, y) {
     df$comp
 }
 
-#' String Comparison Functions
-box::use(
-    stringr[str_to_lower, str_remove_all],
-    stringi[stri_trans_general]
-)
-str_compare_fn <- c(
-    case = function(x) str_to_lower(x),
-    space = function(x) str_remove_all(x, "[[:space:]]+"),
-    punct = function(x) str_remove_all(x, "[[:punct:]]+"),
-    num_format = function(x) to_roman_lc(x),
-    diacritic = function(x) stri_trans_general(x, "Latin-ASCII")
-)
-
-#' String Comparison Function Mapper
-#'
-#' Applies the specified set of string comparison functions to a character
-#' vector. It ignores previously applied functions, as identified by name in
-#' `x_nm` (after splitting by `names_sep`) to support iterative execution and
-#' avoid repetition.
-#'
-#' @inheritParams str_compare
-#' @param x_nm The name of `x`, as a string.
-#' @param names_sep The separator to use when creating new column names, and for
-#' recognizing previously executed comparisons (to avoid unneeded repetition).
-map_str_compare_fn <- function(x, x_nm, how, names_sep) {
-    box::use(
-        stringr[str_split, coll, str_to_lower, str_remove_all],
-        stringi[stri_trans_general],
-        purrr[map]
-    )
-
-    # ignore functions that have already been applied (name-based)
-    how_ignore <- str_split(x_nm, coll(names_sep))[[1]]
-    how <- how[!how %in% how_ignore]
-
-    # select functions to apply
-    fn_exec <- str_compare_fn[how]
-
-    out <- map(fn_exec, function(.fn) .fn(x))
-    names(out) <- paste0(x_nm, names_sep, names(fn_exec))
-    out
-}
-
-#' String Comparison
-#'
-#' @param x,y A character vector.
-#' @param how A character vector of comparisons to apply. One or more of 'case',
-#' 'space', 'punct', 'num_format', 'diacritic', or 'all' (default; applies all
-#' comparisons).
-#'
-#' @export
-str_compare <- function(x, y, how = "all") {
-    box::use(
-        purrr[map2]
-    )
-    stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
-
-    how <- match.arg(
-        how,
-        choices = c("all", names(str_compare_fn)),
-        several.ok = TRUE
-    )
-    if ("all" %in% how) how <- names(str_compare_fn)
-
-    # establish name separator for coordinated use with map_str_compare_fn()
-    #  --> REQUIRED for proper function application and column naming
-    names_sep <- "_"
-
-    # iteratively apply functions (to output created in previous iteration only)
-    i <- 1
-    out <- list(list(x = x, y = y))
-    while (i <= length(how)) {
-        nm <- names(out[[i]])
-        out[[i + 1]] <<- map2(
-            out[[i]],
-            names(out[[i]]),
-            ~ map_str_compare_fn(.x, .y, how, names_sep)
-        )
-        i <<- i + 1
-    }
-
 #' Calculate Word Similarity
 #'
 #' Calculates the percent similarity between words in 2 vectors.
@@ -301,4 +265,46 @@ to_roman_lc <- function(x) {
             }
         }
     )
+}
+
+
+### TESTS ####################################################################
+# Use RStudio "Run Tests" button to execute these tests interactively
+if (is.null(box::name())) {
+    box::use(testthat[...])
+
+    test_that("str_compare() works for individual `how`", {
+        x <- c("a", "i", "1", "I", "i ", "i.", "í")
+        y <- c("b", "i", "I", "i", "i", "i", "i")
+        expect_equal(
+            str_compare(x, y, "numeral"),
+            c(NA_character_, "exact", "numeral", rep(NA_character_, 4))
+        )
+        expect_equal(
+            str_compare(x, y, "case"),
+            c(NA_character_, "exact", NA_character_, "case", rep(NA_character_, 3))
+        )
+        expect_equal(
+            str_compare(x, y, "space"),
+            c(NA_character_, "exact", rep(NA_character_, 2), "space" , rep(NA_character_, 2))
+        )
+        expect_equal(
+            str_compare(x, y, "punct"),
+            c(NA_character_, "exact", rep(NA_character_, 3), "punct" , NA_character_)
+        )
+        expect_equal(
+            str_compare(x, y, "diacritic"),
+            c(NA_character_, "exact", rep(NA_character_, 4), "diacritic")
+        )
+    })
+
+    test_that("str_compare() works for multiple `how`", {
+        x <- c("a", "i", "1", "  I.", "Ñ", "i1I .î")
+        y <- c("b", "i", "i", "I", "n", "iiii")
+        expect_equal(
+            str_compare(x, y, "all"),
+            c(NA_character_, "exact", "numeral|case", "space|punct",
+              "case|diacritic", "numeral|case|space|punct|diacritic")
+        )
+    })
 }
