@@ -3,7 +3,6 @@
 #' Applies specified changes to a character vector.
 #'
 #' @param x A character vector.
-#' create how documentation from str_mutate_opts
 #' @param how A character vector of transformations to apply to `x`. One of:
 #' "case", "space", "punct", "numeral", "diacritic" or "all".
 #' @inheritParams str_to_lower
@@ -17,12 +16,13 @@ str_mutate <- function(x, how, locale = "en") {
     str_mutate_ <- function(x, how) {
         box::use(stringr, stringi)
 
-        .fn <- switch(how,
-                      numeral = function(x) to_roman(x),
-                      case = function(x) stringr$str_to_lower(x, locale = locale),
-                      space = function(x) stringr$str_remove_all(x, "[[:space:]]+"),
-                      punct = function(x) stringr$str_remove_all(x, "[[:punct:]]+"),
-                      diacritic = function(x) stringi$stri_trans_general(x, "Latin-ASCII")
+        .fn <- switch(
+            how,
+            numeral = function(x) to_roman(x),
+            case = function(x) stringr$str_to_lower(x, locale = locale),
+            space = function(x) stringr$str_remove_all(x, "[[:space:]]+"),
+            punct = function(x) stringr$str_remove_all(x, "[[:punct:]]+"),
+            diacritic = function(x) stringi$stri_trans_general(x, "Latin-ASCII")
         )
         .fn(x)
     }
