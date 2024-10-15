@@ -9,12 +9,13 @@
 #' @param delim The separator to use when listing transformations needed to
 #' make the two strings identical (default: `"|"`).
 #' @inheritParams stringr::str_equal
+#' @param ... Arguments passed on to [stringr::str_equal()].
 #'
 #' @returns A character vector with the type of match.
 #'
 #' @md
 #' @export
-str_compare <- function(x, y, how = "all", delim = "|", locale = "en") {
+str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
     box::use(
         stringr, purrr, dplyr,
@@ -22,8 +23,8 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en") {
     )
 
     # mutate strings
-    xmut <- mutate$str_mutate_cum(x, how)
-    ymut <- mutate$str_mutate_cum(y, how)
+    xmut <- mutate$str_mutate_cum(x, how, locale = locale)
+    ymut <- mutate$str_mutate_cum(y, how, locale = locale)
 
     # ensure comparison is done on the same transformed strings by using names
     comparison <- purrr$map(
@@ -33,7 +34,12 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en") {
                 .nm,
                 c("^x$" = "exact", "^x_" = "", "_" = "|")
             )
-            lgl <- stringr$str_equal(xmut[[.nm]], ymut[[.nm]])
+            lgl <- stringr$str_equal(
+                xmut[[.nm]],
+                ymut[[.nm]],
+                locale = locale,
+                ...
+            )
             dplyr$if_else(lgl, .how, NA_character_)
         }
     )
@@ -303,6 +309,16 @@ if (is.null(box::name())) {
         y <- c("b", "i", "i", "I", "n", "iiii")
         expect_equal(
             str_compare(x, y, "all"),
+            c(NA_character_, "exact", "numeral|case", "space|punct",
+              "case|diacritic", "numeral|case|space|punct|diacritic")
+        )
+    })
+
+    test_that("str_compare(..., locale = 'es') works", {
+        x <- c("a", "i", "1", "  I.", "Ñ", "i1I .î")
+        y <- c("b", "i", "i", "I", "n", "iiii")
+        expect_equal(
+            str_compare(x, y, "all", locale = "es"),
             c(NA_character_, "exact", "numeral|case", "space|punct",
               "case|diacritic", "numeral|case|space|punct|diacritic")
         )

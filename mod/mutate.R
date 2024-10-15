@@ -6,6 +6,7 @@
 #' create how documentation from str_mutate_opts
 #' @param how A character vector of transformations to apply to `x`. One of:
 #' "case", "space", "punct", "numeral", "diacritic" or "all".
+#' @inheritParams str_to_lower
 #'
 #' @returns A character vector with the specified transformations applied.
 #'
@@ -62,7 +63,7 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     ) |>
         unlist(recursive = FALSE)
 
-    out <- purrr$map(how_list, ~ str_mutate(x, .x))
+    out <- purrr$map(how_list, ~ str_mutate(x, .x, locale = locale))
 
     # add names
     how_nm <- purrr$map_chr(how_list, ~ paste0(c(x_nm, .x), collapse = names_sep))
@@ -183,6 +184,24 @@ if (is.null(box::name())) {
         )
     })
 
+    test_that("str_mutate(..., locale = 'es') works", {
+        x <- c("i", "1", "I", "i ", "i.", "í")
+        expect_equal(
+            str_mutate(x, "case", locale = "es"),
+            c("i", "1", "i", "i ", "i.", "í")
+        )
+        expect_equal(
+            str_mutate(x, "diacritic", locale = "es"),
+            c("i", "1", "I", "i ", "i.", "i")
+        )
+
+        y <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
+        expect_equal(
+            str_mutate(y, "all", locale = "es"),
+            c("i", "i", "i", "i", "i", "i", "iiii")
+        )
+    })
+
     # str_mutate_cum()
     test_that("str_mutate_cum() works", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
@@ -238,6 +257,20 @@ if (is.null(box::name())) {
                 x_numeral_space_punct_diacritic = c("i",  "I", "I", "i", "i", "i", "iIIi"),
                 x_case_space_punct_diacritic = c("i",  "1", "i", "i", "i", "i", "i1ii"),
                 x_numeral_case_space_punct_diacritic = c("i",  "i", "i", "i", "i", "i", "iiii")
+            )
+        )
+    })
+
+    test_that("str_mutate_cum(..., locale = 'es') works", {
+        x <- c("i", "1", "I", "i ", "i.", "í", "i1I .îñéó")
+
+        expect_equal(
+            str_mutate_cum(x, c("diacritic", "numeral"), locale = "es"),
+            list(
+                x = c("i", "1", "I", "i ", "i.", "í", "i1I .îñéó"),
+                x_numeral = c("i",  "I", "I", "i ", "i.", "í", "iII .îñéó"),
+                x_diacritic = c("i",  "1", "I", "i ", "i.", "i", "i1I .ineo"),
+                x_numeral_diacritic = c("i",  "I", "I", "i ", "i.", "i", "iII .ineo")
             )
         )
     })
