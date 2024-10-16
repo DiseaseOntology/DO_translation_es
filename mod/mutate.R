@@ -569,7 +569,7 @@ if (is.null(box::name())) {
 
     test_that("str_homogenize() works for word tokenizations alone", {
         x <- c("1 word", "plus punct.", "and stopword", "need stemming",
-               "or applying total-1")
+               "or applying Total-1")
         expect_equal(
             str_homogenize(x, how = "wordToken"),
             tokenize_words(x, how = "wordToken")
@@ -587,14 +587,14 @@ if (is.null(box::name())) {
             tokenize_words(x, how = "stopwords")
         )
         expect_equal(
-            str_homogenize(x, how = c("wordToken", "wpunct", "stemmed", "stopwords")),
+            str_homogenize(x, how = c("wordToken", "case", "wpunct", "stemmed", "stopwords")),
             tokenize_words(x, how = "all")
         )
     })
 
     test_that("str_homogenize() works for mixed string & word transformations", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
-               "or applying total-1")
+               "or applying Total-1")
         expect_equal(
             str_homogenize(x, how = c("numeral", "wordToken")),
             list(
@@ -603,7 +603,7 @@ if (is.null(box::name())) {
                 c("plus", "punct", "."),
                 c("and", "stopword"),
                 c("need", "stemming"),
-                c("or", "applying", "total", "-", "I")
+                c("or", "applying", "Total", "-", "I")
             )
         )
         # NOTE: demonstrates loss of number 1 when both "numeral" and "stopwords"
