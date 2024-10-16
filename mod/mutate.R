@@ -148,7 +148,8 @@ tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
 #' options for `how` in [str_mutate()] or [tokenize_words()] can be used.
 #' @inheritParams toeknize_words
 #'
-#' @returns A character vector with the specified transformations applied.
+#' @returns A list the same length as `x` of character vectors with the
+#' specified transformations applied.
 #'
 #' @md
 #' @export
@@ -196,7 +197,7 @@ str_homogenize <- function(x, how = "all", locale = "en") {
         out <- str_mutate(x, str_how, locale = locale)
     }
 
-    if (length(w_how) == 0) return(out)
+    if (length(w_how) == 0) return(as.list(out))
 
     tokenize_words(out, w_how, locale = locale)
 }
@@ -499,28 +500,28 @@ if (is.null(box::name())) {
 
         expect_equal(
             str_homogenize(x, how = "numeral"),
-            str_mutate(x, how = "numeral")
+            as.list(str_mutate(x, how = "numeral"))
         )
         expect_equal(
             str_homogenize(x, how = "case"),
-            str_mutate(x, how = "case")
+            as.list(str_mutate(x, how = "case"))
         )
         expect_equal(
             str_homogenize(x, how = "punct"),
-            str_mutate(x, how = "punct")
+            as.list(str_mutate(x, how = "punct"))
         )
         expect_equal(
             str_homogenize(x, how = "diacritic"),
-            str_mutate(x, how = "diacritic")
+            as.list(str_mutate(x, how = "diacritic"))
         )
         expect_equal(
             str_homogenize(x, how = "diacritic"),
-            str_mutate(x, how = "diacritic")
+            as.list(str_mutate(x, how = "diacritic"))
         )
         # not 'all' because 'space' excluded
         expect_equal(
             str_homogenize(x, how = c("numeral", "case", "punct", "diacritic")),
-            str_mutate(x, how = c("numeral", "case", "punct", "diacritic"))
+            as.list(str_mutate(x, how = c("numeral", "case", "punct", "diacritic")))
         )
     })
 
