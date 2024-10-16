@@ -78,10 +78,133 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     out
 }
 
+#' Flexibly Tokenize Words
+#'
+#' Tokenize words in a character vector applying specified transformations.
+#'
+#' @param x A character vector.
+#' @param how A character vector of options from `tokenize_words_opts`, or `"all"`
+#' (default) to apply all of them.
+#' @param locale The locale to use for stemming (default: `"en"`). Only locales
+#' corresponding to the languages in [SnowballC::getStemLanguages()] are
+#' supported.
+#' @param stopwords A character vector of words to ignore, or `NULL` (default)
+#' to use words from [stopwords::stopwords()].
+#'
+#' @return A list of the same length as `x` with words tokenized as specified
+#' by `how`.
+#'
+#' @export
+tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
+    # alias for stopwords to prevent name collision of box using stopwords$stopwords()
+    box::use(sw = stopwords, tokenizers, SnowballC, purrr)
+
+    how <- match.arg(
+        how,
+        choices = c("all", tokenize_words_opts),
+        several.ok = TRUE
+    )
+    if ("all" %in% how) how <- tokenize_words_opts
+
+    if ("case" %in% how) {
+        lowercase <- TRUE
+    } else {
+        lowercase <- FALSE
+    }
+
+    if ("wpunct" %in% how) {
+        strip_punct <- TRUE
+    } else {
+        strip_punct <- FALSE
+    }
+
+    if ("stopwords" %in% how) {
+        if (is.null(stopwords)) stopwords <- sw$stopwords()
+        if (!lowercase) stopwords <- c(stopwords, toupper(stopwords))
+    } else {
+        stopwords <- NULL
+    }
+
+    out <- tokenizers$tokenize_words(
+        x,
+        lowercase = lowercase,
+        stopwords = stopwords,
+        strip_punct = strip_punct,
+        strip_numeric = FALSE
+    )
+
+    if (!"stemmed" %in% how) return(out)
+
+    purrr$map(out, ~ SnowballC$wordStem(.x, language = locale))
+}
+
+
+#' Mutate & Tokenize to Homogenize Strings
+#'
+#' Applies specified changes to a character vector.
+#'
+#' @param x A character vector.
+#' @param how A character vector of transformations to apply to `x`. Any of the
+#' options for `how` in [str_mutate()] or [tokenize_words()] can be used.
+#' @inheritParams toeknize_words
+#'
+#' @returns A character vector with the specified transformations applied.
+#'
+#' @md
+#' @export
+str_homogenize <- function(x, how = "all", locale = "en") {
+    how <- match.arg(how, choices = c("all", str_homogenize_opts), several.ok = TRUE)
+
+    # "space" str_compare_opts not supported because it's required for tokenizing
+    if ("space" %in% how) {
+        stop("`how` cannot include 'space' in str_homogenize. Did you mean to use `str_mutate*()` instead?")
+    }
+    # "punct" supported, but not in combination with "wpunct" (preferred), so it
+    # always must be called explicitly
+    # w_how includes checks to avoid repeat of "case"
+    if ("punct" %in% how) {
+        if ("wpunct" %in% how) {
+            stop("`how` cannot include both 'punct' and 'wpunct' (preferred) together")
+        }
+        # all will exclude "wpunct" if "punct" is explicitly included
+        if ("all" %in% how) {
+            str_how <- str_mutate_opts[str_mutate_opts != "space"]
+            w_how <- tokenize_words_opts[!tokenize_words_opts %in% c("wpunct", "case")]
+        } else {
+            str_how <- str_mutate_opts[str_mutate_opts %in% how]
+            w_how <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% str_how]
+        }
+        # all will include "wpunct" and exclude "punct" by default
+    } else if ("all" %in% how) {
+        str_how <- str_mutate_opts[!str_mutate_opts %in% c("space", "punct")]
+        w_how <- tokenize_words_opts[!tokenize_words_opts %in% str_how]
+    } else {
+        # "space" excluded & "punct"/"wpunct" handled, just need to avoid
+        # executing "case" (and possibly others) twice
+        str_how <- str_mutate_opts[str_mutate_opts %in% how]
+        w_how <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% str_how]
+    }
+
+    if (length(str_how) == 0) {
+        out <- x
+    } else {
+        # exclude "numeral" if "stopwords" is included because the numbers
+        # can be recognized as stopwords (e.g. I)
+        if ("stopwords" %in% w_how) {
+            str_how <- str_how[str_how != "numeral"]
+        }
+        out <- str_mutate(x, str_how, locale = locale)
+    }
+
+    if (length(w_how) == 0) return(out)
+
+    tokenize_words(out, w_how, locale = locale)
+}
+
 
 # str_mutate() helpers -------------------------------------------------
 
-# opts must match function names in str_mutate()
+#' str_mutate_opts must match function names in str_mutate
 str_mutate_opts <- c("numeral", "case", "space", "punct", "diacritic")
 
 
@@ -138,12 +261,26 @@ to_roman <- function(x) {
 }
 
 
+
+# tokenize_words() helpers ------------------------------------------------
+
+# tokenize_words() options
+tokenize_words_opts <- c("wordToken", "case", "wpunct", "stemmed", "stopwords")
+
+# str_homogenize() helpers ------------------------------------------------
+
+# str_homogenize() options; some must be variably excluded, only "space" not
+# allowed, but included for informative error message
+str_homogenize_opts <- c(str_mutate_opts, tokenize_words_opts)
+
+
 ### TESTS ####################################################################
+
 # Use RStudio "Run Tests" button to execute these tests interactively
 if (is.null(box::name())) {
     box::use(testthat[...])
 
-    # str_mutate()
+    # str_mutate() tests -----------------------------------------------------
     test_that("str_mutate() works for individual `how`", {
         x <- c("i", "1", "I", "i ", "i.", "í")
         expect_equal(
@@ -202,7 +339,7 @@ if (is.null(box::name())) {
         )
     })
 
-    # str_mutate_cum()
+    # str_mutate_cum() tests -------------------------------------------------
     test_that("str_mutate_cum() works", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
 
@@ -275,12 +412,180 @@ if (is.null(box::name())) {
         )
     })
 
-    # to_roman() tests
+    # to_roman() tests -------------------------------------------------------
     test_that("to_roman() works", {
         x <- c("1", "4", "5", "10", "1and10", "110by50", "2by125and11")
         expect_equal(
             to_roman(x),
             c("I", "IV", "V", "X", "IandX", "CXbyL", "IIbyCXXVandXI")
+        )
+    })
+
+    # tokenize_words() tests -------------------------------------------------
+    test_that("tokenize_words() works", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+        expect_equal(
+            tokenize_words(x, how = "wordToken"),
+            list(
+                c("1", "word"),
+                c("keep", "CASE"),
+                c("plus", "punct", "."),
+                c("and", "stopword"),
+                c("need", "stemming"),
+                c("or", "applying", "Total", "-", "1")
+            )
+        )
+        expect_equal(
+            tokenize_words(x, how = "case"),
+            list(
+                c("1", "word"),
+                c("keep", "case"),
+                c("plus", "punct", "."),
+                c("and", "stopword"),
+                c("need", "stemming"),
+                c("or", "applying", "total", "-", "1")
+            )
+        )
+        expect_equal(
+            tokenize_words(x, how = "wpunct"),
+            list(
+                c("1", "word"),
+                c("keep", "CASE"),
+                c("plus", "punct"),
+                c("and", "stopword"),
+                c("need", "stemming"),
+                c("or", "applying", "Total", "1")
+            )
+        )
+        expect_equal(
+            tokenize_words(x, how = "stopwords"),
+            list(
+                c("1", "word"),
+                c("keep", "CASE"),
+                c("plus", "punct", "."),
+                c("stopword"),
+                c("need", "stemming"),
+                c("applying", "Total", "-", "1")
+            )
+        )
+        expect_equal(
+            tokenize_words(x, how = "stemmed"),
+            list(
+                c("1", "word"),
+                c("keep", "CASE"),
+                c("plus", "punct", "."),
+                c("and", "stopword"),
+                c("need", "stem"),
+                c("or", "appli", "Total", "-", "1")
+            )
+        )
+        expect_equal(
+            tokenize_words(x, how = "all"),
+            list(
+                c("1", "word"),
+                c("keep", "case"),
+                c("plus", "punct"),
+                c("stopword"),
+                c("need", "stem"),
+                c("appli", "total", "1")
+            )
+        )
+    })
+
+    # str_homogenize() tests -------------------------------------------------
+    test_that("str_homogenize() works for string mutations alone", {
+        x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
+
+        expect_equal(
+            str_homogenize(x, how = "numeral"),
+            str_mutate(x, how = "numeral")
+        )
+        expect_equal(
+            str_homogenize(x, how = "case"),
+            str_mutate(x, how = "case")
+        )
+        expect_equal(
+            str_homogenize(x, how = "punct"),
+            str_mutate(x, how = "punct")
+        )
+        expect_equal(
+            str_homogenize(x, how = "diacritic"),
+            str_mutate(x, how = "diacritic")
+        )
+        expect_equal(
+            str_homogenize(x, how = "diacritic"),
+            str_mutate(x, how = "diacritic")
+        )
+        # not 'all' because 'space' excluded
+        expect_equal(
+            str_homogenize(x, how = c("numeral", "case", "punct", "diacritic")),
+            str_mutate(x, how = c("numeral", "case", "punct", "diacritic"))
+        )
+    })
+
+    test_that("str_homogenize() works for word tokenizations alone", {
+        x <- c("1 word", "plus punct.", "and stopword", "need stemming",
+               "or applying total-1")
+        expect_equal(
+            str_homogenize(x, how = "wordToken"),
+            tokenize_words(x, how = "wordToken")
+        )
+        expect_equal(
+            str_homogenize(x, how = "wpunct"),
+            tokenize_words(x, how = "wpunct")
+        )
+        expect_equal(
+            str_homogenize(x, how = "stemmed"),
+            tokenize_words(x, how = "stemmed")
+        )
+        expect_equal(
+            str_homogenize(x, how = "stopwords"),
+            tokenize_words(x, how = "stopwords")
+        )
+        expect_equal(
+            str_homogenize(x, how = c("wordToken", "wpunct", "stemmed", "stopwords")),
+            tokenize_words(x, how = "all")
+        )
+    })
+
+    test_that("str_homogenize() works for mixed string & word transformations", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying total-1")
+        expect_equal(
+            str_homogenize(x, how = c("numeral", "wordToken")),
+            list(
+                c("I", "word"),
+                c("keep", "CASE"),
+                c("plus", "punct", "."),
+                c("and", "stopword"),
+                c("need", "stemming"),
+                c("or", "applying", "total", "-", "I")
+            )
+        )
+        # NOTE: demonstrates loss of number 1 when both "numeral" and "stopwords"
+        #   are included in `how` --> currently prevented, fix?
+        expect_equal(
+            str_homogenize(x, how = "all"),
+            list(
+                c("1", "word"),
+                c("keep", "case"),
+                c("plus", "punct"),
+                c("stopword"),
+                c("need", "stem"),
+                c("appli", "total", "1")
+            )
+        )
+        expect_equal(
+            str_homogenize(x, how = c("all", "punct")),
+            list(
+                c("1", "word"),
+                c("keep", "case"),
+                c("plus", "punct"),
+                c("stopword"),
+                c("need", "stem"),
+                c("appli", "total1")
+            )
         )
     })
 }
