@@ -145,61 +145,38 @@ tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
 #'
 #' @param x A character vector.
 #' @param how A character vector of transformations to apply to `x`. Any of the
-#' options for `how` in [str_mutate()] or [tokenize_words()] can be used.
-#' @inheritParams toeknize_words
+#' options for `how` in [str_mutate()], except "space", or [tokenize_words()]
+#' can be used.
+#'
+#' Some transformation combinations are not allowed because they cannot be
+#' applied in combination. Those are "punct" with "wpunct" (not possible) and
+#' "numeral" with "stopwords" (1 -> I = stopword, and would get dropped).
+#'
+#' Also, "wpunct" is preferred over "punct" so "all" will use "wpunct" by
+#' default. If "punct" is desired instead, include it explicitly (i.e.
+#' `c("all", "punct")`).
+#'
+#' @inheritParams tokenize_words
+#' @param quiet A logical indicating whether to suppress warnings about
+#' dropping "numeral" when "stopwords" is used (default: `FALSE`).
 #'
 #' @returns A list the same length as `x` of character vectors with the
 #' specified transformations applied.
 #'
 #' @md
 #' @export
-str_homogenize <- function(x, how = "all", locale = "en") {
-    how <- match.arg(how, choices = c("all", str_homogenize_opts), several.ok = TRUE)
+str_homogenize <- function(x, how = "all", locale = "en", quiet = FALSE) {
+    how <- check_str_homogenize_how(how, quiet = quiet)
 
-    # "space" str_compare_opts not supported because it's required for tokenizing
-    if ("space" %in% how) {
-        stop("`how` cannot include 'space' in str_homogenize. Did you mean to use `str_mutate*()` instead?")
-    }
-    # "punct" supported, but not in combination with "wpunct" (preferred), so it
-    # always must be called explicitly
-    # w_how includes checks to avoid repeat of "case"
-    if ("punct" %in% how) {
-        if ("wpunct" %in% how) {
-            stop("`how` cannot include both 'punct' and 'wpunct' (preferred) together")
-        }
-        # all will exclude "wpunct" if "punct" is explicitly included
-        if ("all" %in% how) {
-            str_how <- str_mutate_opts[str_mutate_opts != "space"]
-            w_how <- tokenize_words_opts[!tokenize_words_opts %in% c("wpunct", "case")]
-        } else {
-            str_how <- str_mutate_opts[str_mutate_opts %in% how]
-            w_how <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% str_how]
-        }
-        # all will include "wpunct" and exclude "punct" by default
-    } else if ("all" %in% how) {
-        str_how <- str_mutate_opts[!str_mutate_opts %in% c("space", "punct")]
-        w_how <- tokenize_words_opts[!tokenize_words_opts %in% str_how]
-    } else {
-        # "space" excluded & "punct"/"wpunct" handled, just need to avoid
-        # executing "case" (and possibly others) twice
-        str_how <- str_mutate_opts[str_mutate_opts %in% how]
-        w_how <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% str_how]
-    }
-
-    if (length(str_how) == 0) {
+    if (length(how$str) == 0) {
         out <- x
     } else {
-        # exclude "numeral" if "stopwords" is included because the numbers
-        # can be recognized as stopwords (e.g. I)
-        if ("stopwords" %in% w_how) {
-            str_how <- str_how[str_how != "numeral"]
-        }
-        out <- str_mutate(x, str_how, locale = locale)
+        out <- str_mutate(x, how$str, locale = locale)
     }
 
-    if (length(w_how) == 0) return(as.list(out))
+    if (length(how$word) == 0) return(as.list(out))
 
-    tokenize_words(out, w_how, locale = locale)
+    tokenize_words(out, how$word, locale = locale)
 }
 
 
@@ -262,17 +239,82 @@ to_roman <- function(x) {
 }
 
 
-
 # tokenize_words() helpers ------------------------------------------------
 
 # tokenize_words() options
 tokenize_words_opts <- c("wordToken", "case", "wpunct", "stemmed", "stopwords")
 
+
 # str_homogenize() helpers ------------------------------------------------
 
 # str_homogenize() options; some must be variably excluded, only "space" not
 # allowed, but included for informative error message
-str_homogenize_opts <- c(str_mutate_opts, tokenize_words_opts)
+str_homogenize_opts <- c(
+    str_mutate_opts[str_mutate_opts != "space"],
+    tokenize_words_opts
+)
+
+
+#' Check `how` in str_mutate*() functions
+#'
+#' @inheritParams str_homogenize
+check_str_homogenize_how <- function(how, quiet = FALSE) {
+    # "space" str_compare_opts not supported because it's required for tokenizing
+    if ("space" %in% how) {
+        stop("`how` cannot include 'space' in str_homogenize. Did you mean to use `str_mutate*()` instead?")
+    }
+
+    if (!all(how %in% c("all", str_homogenize_opts)) || is.null(how)) {
+        stop(
+            paste0(
+                "`how` must be one or more of: ", ,
+                paste0(paste0("'", str_homogenize_opts, "'"), collapse = ", "),
+                ", or 'all'"
+            )
+        )
+    }
+
+    # "punct" supported, but not in combination with "wpunct" (preferred),
+    if (all(c("punct", "wpunct") %in% how)) {
+        stop("`how` cannot include both 'punct' and 'wpunct' (preferred) together")
+    }
+
+    out <- list()
+    if ("all" %in% how) {
+        out$str <- str_mutate_opts[str_mutate_opts %in% str_homogenize_opts]
+        out$word <- tokenize_words_opts[
+            tokenize_words_opts %in% str_homogenize_opts &
+                !tokenize_words_opts %in% out$str
+        ]
+    } else {
+        # "space" & "punct" + "wpunct" excluded,
+        # also need to avoid executing "case" (and possibly others) twice, all
+        # duplicates will be executed in str_mutate() first
+        out$str <- str_mutate_opts[str_mutate_opts %in% how]
+        out$word <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% out$str]
+    }
+
+    # to use "punct" include it explicitly; if used with "all" will override
+    # and exclude "wpunct"
+    if ("punct" %in% how) {
+        out$word <- out$word[out$word != "wpunct"]
+    } else {
+        out$str <- out$str[out$str != "punct"]
+    }
+
+    # UNACCEPTABLE OUTPUT: "numeral" converts 1 to I, which is removed by
+    # "stopwords"
+    # TEMPORARY FIX: exclude "numeral" if "stopwords"
+    if ("numeral" %in% out$str && "stopwords" %in% out$word) {
+        if (!quiet) {
+            warning("Excluding 'numeral' from `how` due to 'stopwords' (e.g. 1 -> I = stopword)")
+        }
+        out$str <- out$str[out$str != "numeral"]
+    }
+
+    out
+}
+
 
 
 ### TESTS ####################################################################
@@ -567,7 +609,7 @@ if (is.null(box::name())) {
         # NOTE: demonstrates loss of number 1 when both "numeral" and "stopwords"
         #   are included in `how` --> currently prevented, fix?
         expect_equal(
-            str_homogenize(x, how = "all"),
+            expect_warning(str_homogenize(x, how = "all")),
             list(
                 c("1", "word"),
                 c("keep", "case"),
@@ -578,7 +620,7 @@ if (is.null(box::name())) {
             )
         )
         expect_equal(
-            str_homogenize(x, how = c("all", "punct")),
+            str_homogenize(x, how = c("all", "punct"), quiet = TRUE),
             list(
                 c("1", "word"),
                 c("keep", "case"),
