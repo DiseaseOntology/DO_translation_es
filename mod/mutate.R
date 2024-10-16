@@ -180,6 +180,105 @@ str_homogenize <- function(x, how = "all", locale = "en", quiet = FALSE) {
 }
 
 
+#' Mutate & Tokenize to Homogenize Strings with All Possible Combinations
+#'
+#' Applies specified changes to a character vector generating all possible
+#' combinations.
+#'
+#' @inheritParams str_homogenize
+#' @param x_nm The original name to use to identify the input `x`. If `NULL`
+#' (default) no name will be used.
+#' @param names_sep The separator to use when creating new column names, and for
+#' recognizing previously executed comparisons to avoid unneeded repetition
+#' (default: `"."`).
+#'
+#' @section Note about `how`:
+#' The rules for `how` from [str_homogenize()] apply here, but are applied
+#' internally. Therefore, combinations that would result in [str_homogenize()]
+#' errors are automatically and _silently_ excluded.
+#'
+#' Additionally, `how` inputs that would result in ONLY errors, will return an
+#' error.
+#'
+#' @returns A named list of character vectors, including the original input `x`
+#' named as `x_nm` (unless `x_nm = NULL`) and each of the possible combinations
+#' of `how` named by the transformations applied and prefixed by `x_nm`,
+#' if provided, using `names_sep` as the separator.
+#'
+#' @md
+#' @export
+str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
+                               locale = "en", stopwords = NULL) {
+    box::use(purrr, utils)
+    how <- match.arg(
+        how,
+        choices = c("all", str_homogenize_cum_opts),
+        several.ok = TRUE
+    )
+
+    how_error <- dplyr::case_when(
+        all(how %in% c("numeral", "stopwords")) ~
+            "'numeral' and 'stopwords' cannot be used alone",
+        # just space and one other tokenize_word_opts = error
+        ("space" %in% how && any(how %in% tokenize_words_opts) && length(how) == 2) ~
+            "'space' cannot be used with only inputs to tokenize_words",
+        all(how %in% c("punct", "wpunct")) ~
+            "'punct' and 'wpunct' cannot be used alone",
+        TRUE ~ NA_character_
+    )
+    if (!is.na(how_error)) stop(how_error)
+
+    if ("all" %in% how) how <- str_homogenize_cum_opts
+
+    # get all possible combinations of how
+    how_list <- purrr$map(
+        1:length(how),
+        ~ utils$combn(how, .x, simplify = FALSE)
+    ) |>
+        unlist(recursive = FALSE)
+
+    # drop any where only errors would be produced
+    how_drop <- purrr$map_lgl(
+        how_list,
+            # "space" is included with tokenize_words_opts, take negative search
+            # approach because "case" in both
+        ~ "space" %in% .x && any(!.x %in% str_mutate_opts) ||
+            # only combinations which cannot be together
+            all(c("numeral", "stopwords") %in% .x) ||
+            all(c("punct", "wpunct") %in% .x) ||
+            # "wordToken" is redundant when used in combination with other tokenize_words_opts
+            "wordToken" %in% .x && sum(!.x %in% str_mutate_opts) > 1
+    )
+    how_list <- how_list[!how_drop]
+
+    out <- purrr$map(
+        how_list,
+        function(.h) {
+            if (all(.h %in% str_mutate_opts)) {
+                as.list(str_mutate(x, .h, locale = locale))
+            } else if (all(.h %in% tokenize_words_opts)) {
+                tokenize_words(x, .h, locale = locale, stopwords = stopwords)
+            } else {
+                str_homogenize(x, .h, locale = locale, stopwords = stopwords)
+            }
+        }
+    )
+
+    # add names
+    how_nm <- purrr$map_chr(how_list, ~ paste0(c(x_nm, .x), collapse = names_sep))
+    names(out) <- how_nm
+
+    # add original input at start (but converted to a list, so the format is the
+    # same
+    out <- c(list(as.list(x)), out)
+    if (!is.null(x_nm)) {
+        names(out)[1] <- x_nm
+    }
+
+    out
+}
+
+
 # str_mutate() helpers -------------------------------------------------
 
 #' str_mutate_opts must match function names in str_mutate
@@ -253,6 +352,9 @@ str_homogenize_opts <- c(
     str_mutate_opts[str_mutate_opts != "space"],
     tokenize_words_opts
 )
+
+# "space" allowed in str_homogenize_cum()
+str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 
 
 #' Check `how` in str_mutate*() functions
@@ -631,4 +733,54 @@ if (is.null(box::name())) {
             )
         )
     })
+
+    # str_homogenize_cum() tests ---------------------------------------------
+    test_that("str_homogenize_cum() errors for disallowed inputs", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+
+        expect_error(str_homogenize_cum(x, how = c("space", "stemmed")))
+        expect_error(str_homogenize_cum(x, how = c("punct", "wpunct")))
+        expect_error(str_homogenize_cum(x, how = c("numeral", "stopwords")))
+    })
+
+    test_that("str_homogenize_cum() works like str_mutate_cum()", {
+        box::use(purrr)
+
+        x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
+
+        expect_equal(
+            str_homogenize_cum(x, how = str_mutate_opts),
+            purrr$map(str_mutate_cum(x, how = "all"), ~ as.list(.x))
+        )
+    })
+
+    test_that("str_homogenize_cum() works when `how` has only word inputs", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+        expect_equal(
+            str_homogenize_cum(x, how = c("wpunct", "stemmed")),
+            list(
+                x = as.list(x),
+                x_wpunct = str_homogenize(x, how = "wpunct"),
+                x_stemmed = str_homogenize(x, how = "stemmed"),
+                x_wpunct_stemmed = str_homogenize(x, how = c("wpunct", "stemmed"))
+            )
+        )
+    })
+
+    test_that("str_homogenize_cum() works when `how` has both string & word inputs", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+        expect_equal(
+            str_homogenize_cum(x, how = c("numeral", "stemmed")),
+            list(
+                x = as.list(x),
+                x_numeral = str_homogenize(x, how = "numeral"),
+                x_stemmed = str_homogenize(x, how = "stemmed"),
+                x_numeral_stemmed = str_homogenize(x, how = c("numeral", "stemmed"))
+            )
+        )
+    })
+
 }
