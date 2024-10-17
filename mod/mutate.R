@@ -99,11 +99,7 @@ tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
     # alias for stopwords to prevent name collision of box using stopwords$stopwords()
     box::use(sw = stopwords, tokenizers, SnowballC, purrr, stringr)
 
-    how <- match.arg(
-        how,
-        choices = c("all", tokenize_words_opts),
-        several.ok = TRUE
-    )
+    how <- check_tokenize_words_how(how)
     if ("all" %in% how) how <- tokenize_words_opts
 
     if ("case" %in% how) {
@@ -363,14 +359,36 @@ to_roman <- function(x) {
 }
 
 
-# tokenize_words() helpers ------------------------------------------------
+# tokenize_words() helpers ---------------------------------------------------
 
 # tokenize_words() options
 #' @export
 tokenize_words_opts <- c("wordToken", "case", "wpunct", "stemmed", "stopwords")
 
 
-# str_homogenize() helpers ------------------------------------------------
+#' Check `how` in tokenize_words()
+#'
+#' @inheritParams str_mutate
+#' @param allow_mismatch A logical indicating whether to allow mismatches. If
+#' `FALSE` (default), a mismatch will result in an error. If `TRUE`, mismatches
+#' are dropped silently.
+check_tokenize_words_how <- function(how, allow_mismatch = FALSE) {
+    if (!allow_mismatch && !all(how %in% c("all", tokenize_words_opts)) || is.null(how)) {
+        stop(
+            paste0(
+                "`how` must be one or more of: ", ,
+                paste0(paste0("'", tokenize_words_opts, "'"), collapse = ", "),
+                ", or 'all'"
+            )
+        )
+    }
+    if ("all" %in% how) how <- tokenize_words_opts
+    # make order consistent with str_mutate_opts
+    tokenize_words_opts[tokenize_words_opts %in% how]
+}
+
+
+# str_homogenize_cum() helpers -----------------------------------------------
 
 # str_homogenize() options; some must be variably excluded, only "space" not
 # allowed, but included for informative error message
