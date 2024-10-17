@@ -97,7 +97,7 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
 #' @export
 tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
     # alias for stopwords to prevent name collision of box using stopwords$stopwords()
-    box::use(sw = stopwords, tokenizers, SnowballC, purrr)
+    box::use(sw = stopwords, tokenizers, SnowballC, purrr, stringr)
 
     how <- match.arg(
         how,
@@ -118,24 +118,33 @@ tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
         strip_punct <- FALSE
     }
 
-    if ("stopwords" %in% how) {
-        if (is.null(stopwords)) stopwords <- sw$stopwords()
-        if (!lowercase) stopwords <- c(stopwords, toupper(stopwords))
-    } else {
-        stopwords <- NULL
-    }
-
     out <- tokenizers$tokenize_words(
         x,
         lowercase = lowercase,
-        stopwords = stopwords,
+        stopwords = NULL,
         strip_punct = strip_punct,
         strip_numeric = FALSE
     )
 
-    if (!"stemmed" %in% how) return(out)
+    # stopwords case-insensitive without affecting output case
+    if ("stopwords" %in% how) {
+        if (is.null(stopwords)) {
+            w_rm <- sw$stopwords()
+        } else {
+            w_rm <- stringr$str_to_lower(stopwords, locale = locale)
+        }
+        sw_index <- purrr$map(
+            out,
+            ~ stringr$str_to_lower(.x, locale = locale) %in% w_rm
+        )
+        out <- purrr$map2(out, sw_index, ~ .x[!.y])
+    }
 
-    purrr$map(out, ~ SnowballC$wordStem(.x, language = locale))
+    if ("stemmed" %in% how) {
+        out <- purrr$map(out, ~ SnowballC$wordStem(.x, language = locale))
+    }
+
+    out
 }
 
 
@@ -643,6 +652,23 @@ if (is.null(box::name())) {
         )
     })
 
+    test_that("tokenize_words() stopwords argument works & is case-insensitive", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-here1")
+        sw <- c("case", "punct", "Stopword", "nEEd", "Total", "here")
+        expect_equal(
+            tokenize_words(x, how = c("wpunct", "stopwords"), stopwords = sw),
+            list(
+                c("1", "word"),
+                c("keep"),
+                c("plus"),
+                c("and"),
+                c("stemming"),
+                c("or", "applying", "here1")
+            )
+        )
+    })
+
     # str_homogenize() tests -------------------------------------------------
     test_that("str_homogenize() works for string mutations alone", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
@@ -739,19 +765,23 @@ if (is.null(box::name())) {
         )
     })
 
+    # test shows difference between "punct" which removes punctuation before
+    # word splitting (used here: "Total-here1" -> "Totalhere1", "Total" not
+    # removed) and "wpunct" which replaces it after (tokenize_words()
+    # "stopwords" test above)
     test_that("str_homogenize() stopwords argument works", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
-               "or applying Total-1")
-        sw <- c("word", "case", "punct", "stopword", "stem", "Total")
+               "or applying Total-here1")
+        sw <- c("case", "punct", "Stopword", "nEEd", "Total", "here")
         expect_equal(
             str_homogenize(x, how = c("punct", "stopwords"), stopwords = sw),
             list(
-                c("1"),
-                c("keep", "CASE"),
+                c("1", "word"),
+                c("keep"),
                 c("plus"),
                 c("and"),
-                c("need", "stemming"),
-                c("or", "applying", "Total1")
+                c("stemming"),
+                c("or", "applying", "Totalhere1")
             )
         )
     })
