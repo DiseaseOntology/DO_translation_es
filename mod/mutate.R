@@ -309,8 +309,11 @@ str_mutate_opts <- c("numeral", "case", "space", "punct", "diacritic")
 #' Check `how` in str_mutate*() functions
 #'
 #' @inheritParams str_mutate
-check_str_mutate_how <- function(how) {
-    if (!all(how %in% c("all", str_mutate_opts)) || is.null(how)) {
+#' @param allow_mismatch A logical indicating whether to allow mismatches. If
+#' `FALSE` (default), a mismatch will result in an error. If `TRUE`, mismatches
+#' are dropped silently.
+check_str_mutate_how <- function(how, allow_mismatch = FALSE) {
+    if (!allow_mismatch && !all(how %in% c("all", str_mutate_opts)) || is.null(how)) {
         stop(
             paste0(
                 "`how` must be one or more of: ", ,
