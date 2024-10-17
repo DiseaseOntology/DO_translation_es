@@ -53,15 +53,14 @@ str_mutate <- function(x, how, locale = "en") {
 #' @export
 str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
                            locale = "en") {
-    box::use(purrr, utils)
+    box::use(
+        purrr,
+        ./utils
+    )
     how <- check_str_mutate_how(how)
 
     # get all possible combinations of how
-    how_list <- purrr$map(
-        1:length(how),
-        ~ utils$combn(how, .x, simplify = FALSE)
-    ) |>
-        unlist(recursive = FALSE)
+    how_list <- utils$combn_all(how)
 
     out <- purrr$map(how_list, ~ str_mutate(x, .x, locale = locale))
 
@@ -215,7 +214,10 @@ str_homogenize <- function(x, how = "all", locale = "en", stopwords = NULL,
 #' @export
 str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
                                locale = "en", stopwords = NULL) {
-    box::use(purrr, utils)
+    box::use(
+        purrr,
+        ./utils
+    )
     how <- match.arg(
         how,
         choices = c("all", str_homogenize_cum_opts),
@@ -237,11 +239,7 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     if ("all" %in% how) how <- str_homogenize_cum_opts
 
     # get all possible combinations of how
-    how_list <- purrr$map(
-        1:length(how),
-        ~ utils$combn(how, .x, simplify = FALSE)
-    ) |>
-        unlist(recursive = FALSE)
+    how_list <- utils$combn_all(how)
 
     how_drop <- purrr$map_lgl(
         how_list,
@@ -389,6 +387,9 @@ check_tokenize_words_how <- function(how, allow_mismatch = FALSE) {
     # make order consistent with str_mutate_opts
     tokenize_words_opts[tokenize_words_opts %in% how]
 }
+
+
+
 
 
 # str_homogenize_cum() helpers -----------------------------------------------

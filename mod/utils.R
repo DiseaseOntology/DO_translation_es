@@ -30,10 +30,67 @@ col_summary <- function(.df, .cols, digits = NULL) {
     out
 }
 
+
 #' Test for whole numbers
 #' @param x A numeric vector.
 #' @param tol Tolerance for comparison.
 is_whole_number <- function(x, tol = .Machine$double.eps)  {
     stopifnot("`x` must be a number" = is.numeric(x))
     abs(x - round(x)) < tol
+}
+
+
+#' Generate All Possible Combinations
+#'
+#' @param x A vector or list. If a list, list elements are treated as though
+#' they are a single entity.
+#'
+#' @returns A list with all possible combinations of the elements in `x`
+#' represented.
+#'
+#' @export
+combn_all <- function(x) {
+    box::use(purrr, utils)
+    n <- length(x)
+    index <- purrr$map(1:n, ~ utils$combn(n, .x, simplify = FALSE)) |>
+        unlist(recursive = FALSE)
+    purrr$map(index, ~ unlist(x[.x], recursive = FALSE))
+}
+
+
+### TESTS ####################################################################
+
+if (is.null(box::name())) {
+    box::use(testthat[...])
+
+    # combn_all() tests ------------------------------------------------------
+    test_that("combn_all() works for vectors", {
+        expect_equal(combn_all(1:2), list(1, 2, c(1, 2)))
+        expect_equal(
+            combn_all(1:3),
+            list(1, 2, 3, c(1, 2), c(1, 3), c(2, 3), c(1, 2, 3))
+        )
+    })
+
+    test_that("combn_all() works for simple lists", {
+        expect_equal(combn_all(as.list(1:2)), list(1, 2, c(1, 2)))
+        expect_equal(
+            combn_all(as.list(1:3)),
+            list(1, 2, 3, c(1, 2), c(1, 3), c(2, 3), c(1, 2, 3))
+        )
+    })
+
+    test_that("combn_all() works for complex lists", {
+        # elements are on individual lines (x & y) => output: list(x, y, c(x, y))
+        .l <- list(
+            list(list(1, 2), list(3, 4)), # x -> has 2 list elements, each with 2 list elements
+            list(5, 6) # y -> has 2 list elements
+        )
+        .expect <- list(
+            list(list(1, 2), list(3, 4)), # x
+            list(5, 6), # y
+            list(list(1, 2), list(3, 4), 5, 6) # c(x, y) -> element level maintained
+        )
+        expect_equal(combn_all(.l), .expect)
+    })
 }
