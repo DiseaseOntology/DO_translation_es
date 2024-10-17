@@ -247,16 +247,17 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     ) |>
         unlist(recursive = FALSE)
 
-    # drop any where only errors would be produced
     how_drop <- purrr$map_lgl(
         how_list,
-            # "space" is included with tokenize_words_opts, take negative search
-            # approach because "case" in both
+            # drop any where only errors would be produced -------------------
+            # 1. drop where "space" is included with tokenize_words_opts
+            #   - take negative search approach because "case" in both
         ~ "space" %in% .x && any(!.x %in% str_mutate_opts) ||
-            # only combinations which cannot be together
+            # 2-3. only combinations which cannot be together
             all(c("numeral", "stopwords") %in% .x) ||
             all(c("punct", "wpunct") %in% .x) ||
-            # "wordToken" is redundant when used in combination with other tokenize_words_opts
+            # drop any where execution would be duplicated -------------------
+            # "wordToken" is redundant when used with other tokenize_words_opts
             "wordToken" %in% .x && sum(!.x %in% str_mutate_opts) > 1
     )
     how_list <- how_list[!how_drop]
@@ -276,10 +277,23 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
 
     # add names
     how_nm <- purrr$map_chr(how_list, ~ paste0(c(x_nm, .x), collapse = names_sep))
+    # ensure "wordToken" present wherever a word-based transformation was applied
+    how_nm <- stringr::str_replace(
+        how_nm,
+        paste0(
+            "(",
+            paste0(
+                tokenize_words_opts[!tokenize_words_opts %in% c("case", "wordToken")],
+                collapse = "|"
+                ),
+            ")"
+        ),
+        paste0("wordToken", names_sep, "\\1")
+    )
     names(out) <- how_nm
 
     # add original input at start (but converted to a list, so the format is the
-    # same
+    # same as all other output)
     out <- c(list(as.list(x)), out)
     if (!is.null(x_nm)) {
         names(out)[1] <- x_nm
@@ -814,9 +828,9 @@ if (is.null(box::name())) {
             str_homogenize_cum(x, how = c("wpunct", "stemmed")),
             list(
                 x = as.list(x),
-                x_wpunct = str_homogenize(x, how = "wpunct"),
-                x_stemmed = str_homogenize(x, how = "stemmed"),
-                x_wpunct_stemmed = str_homogenize(x, how = c("wpunct", "stemmed"))
+                x_wordToken_wpunct = str_homogenize(x, how = "wpunct"),
+                x_wordToken_stemmed = str_homogenize(x, how = "stemmed"),
+                x_wordToken_wpunct_stemmed = str_homogenize(x, how = c("wpunct", "stemmed"))
             )
         )
     })
@@ -829,8 +843,8 @@ if (is.null(box::name())) {
             list(
                 x = as.list(x),
                 x_numeral = str_homogenize(x, how = "numeral"),
-                x_stemmed = str_homogenize(x, how = "stemmed"),
-                x_numeral_stemmed = str_homogenize(x, how = c("numeral", "stemmed"))
+                x_wordToken_stemmed = str_homogenize(x, how = "stemmed"),
+                x_numeral_wordToken_stemmed = str_homogenize(x, how = c("numeral", "stemmed"))
             )
         )
     })
@@ -844,8 +858,8 @@ if (is.null(box::name())) {
             list(
                 x = as.list(x),
                 x_numeral = str_homogenize(x, how = "numeral", stopwords = sw),
-                x_stemmed = str_homogenize(x, how = "stemmed", stopwords = sw),
-                x_numeral_stemmed = str_homogenize(
+                x_wordToken_stemmed = str_homogenize(x, how = "stemmed", stopwords = sw),
+                x_numeral_wordToken_stemmed = str_homogenize(
                     x,
                     how = c("numeral", "stemmed"),
                     stopwords = sw
