@@ -165,7 +165,8 @@ tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
 #'
 #' @md
 #' @export
-str_homogenize <- function(x, how = "all", locale = "en", quiet = FALSE) {
+str_homogenize <- function(x, how = "all", locale = "en", stopwords = NULL,
+                           quiet = FALSE) {
     how <- check_str_homogenize_how(how, quiet = quiet)
 
     if (length(how$str) == 0) {
@@ -176,7 +177,7 @@ str_homogenize <- function(x, how = "all", locale = "en", quiet = FALSE) {
 
     if (length(how$word) == 0) return(as.list(out))
 
-    tokenize_words(out, how$word, locale = locale)
+    tokenize_words(out, how$word, locale = locale, stopwords = stopwords)
 }
 
 
@@ -734,6 +735,23 @@ if (is.null(box::name())) {
         )
     })
 
+    test_that("str_homogenize() stopwords argument works", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+        sw <- c("word", "case", "punct", "stopword", "stem", "Total")
+        expect_equal(
+            str_homogenize(x, how = c("punct", "stopwords"), stopwords = sw),
+            list(
+                c("1"),
+                c("keep", "CASE"),
+                c("plus"),
+                c("and"),
+                c("need", "stemming"),
+                c("or", "applying", "Total1")
+            )
+        )
+    })
+
     # str_homogenize_cum() tests ---------------------------------------------
     test_that("str_homogenize_cum() errors for disallowed inputs", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
@@ -783,4 +801,22 @@ if (is.null(box::name())) {
         )
     })
 
+    test_that("str_homogenize_cum() stopwords argument works", {
+        x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
+               "or applying Total-1")
+        sw <- c("word", "keep", "plus", "and", "need", "or")
+        expect_equal(
+            str_homogenize_cum(x, how = c("numeral", "stemmed"), stopwords = sw),
+            list(
+                x = as.list(x),
+                x_numeral = str_homogenize(x, how = "numeral", stopwords = sw),
+                x_stemmed = str_homogenize(x, how = "stemmed", stopwords = sw),
+                x_numeral_stemmed = str_homogenize(
+                    x,
+                    how = c("numeral", "stemmed"),
+                    stopwords = sw
+                )
+            )
+        )
+    })
 }
