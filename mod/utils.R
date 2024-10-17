@@ -42,12 +42,56 @@ is_whole_number <- function(x, tol = .Machine$double.eps)  {
 
 #' Generate All Possible Combinations
 #'
-#' @param x A vector or list. If a list, list elements are treated as though
-#' they are a single entity.
+#' Generate all possible combinations of input. See `Details` for a brief
+#' description of how each function handles inputs. How they work is best
+#' understood in the `Examples`.
 #'
-#' @returns A list with all possible combinations of the elements in `x`
-#' represented.
+#' @param x,y A vector or list.
 #'
+#' @returns A list with all possible combinations of the elements as described
+#' in `Details`.
+#'
+#' @section Details:
+#' - `combn_all()` treats all first level inputs as entities but peels off
+#' exactly one layer of inner lists _after_ combining them.
+#' - `combn_xy()` executes a cross join of its inputs and then merges the
+#' resulting elements together. Essentially, it does the same
+#' crosses as `combn_all()` but does not include the original elements in the
+#' output. The output is ordered such that every element in `y` is crossed with
+#' the first element in `x`, then the second element in `x`, and so on.
+#' `combn_xy()` is very much like [dplyr::cross_join()] followed by merging
+#' across rows, except `combn_xy` _always_ treats inputs as lists.
+#'
+#' @examples
+#' ### combn_all() examples ###
+#'
+#' # vectors & 1-element, 1-deep lists produce the same results
+#' x <- 1:2
+#' l <- as.list(1:2)
+#' combn_all(x)    # list(1, 2, c(1, 2))
+#' combn_all(l)    # list(1, 2, c(1, 2))
+#'
+#' # in deeper lists and 1-deep lists with longer vectors each inner element is
+#' maintained and combined with c()
+#' x <- list(
+#'     list(1, 2), # element1
+#'     list(3, 4)  # element2
+#' )
+#' combn_all(x)  # list(list(1, 2), list(3, 4), list(1, 2, 3, 4))
+#'
+#'
+#' ### combn_xy() examples ###
+#'
+#' # Same as combn_all(x), except original inputs are not preserved
+#' combn_xy(1, 2)
+#' combn_xy(list(1), list(2))
+#'
+#' # Easiest to see with 2 lists of vectors
+#' x <- list(a = 1:2, b = 3:4)
+#' y <- list(c = 5:6, d = 7:8)
+#' combn_xy(x, y)    # list(1, 2, c(1, 2))
+#'
+#' @md
 #' @export
 combn_all <- function(x) {
     box::use(purrr, utils)
@@ -55,6 +99,18 @@ combn_all <- function(x) {
     index <- purrr$map(1:n, ~ utils$combn(n, .x, simplify = FALSE)) |>
         unlist(recursive = FALSE)
     purrr$map(index, ~ unlist(x[.x], recursive = FALSE))
+}
+
+#' @rdname combn_all
+#' @export
+combn_xy <- function(x, y) {
+    box::use(purrr)
+
+    purrr$map(
+        x,
+        ~ purrr$map(y, function(.y) c(.x, .y))
+    ) |>
+        unlist(recursive = FALSE)
 }
 
 
