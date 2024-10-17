@@ -283,6 +283,7 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
 # str_mutate() helpers -------------------------------------------------
 
 #' str_mutate_opts must match function names in str_mutate
+#' @export
 str_mutate_opts <- c("numeral", "case", "space", "punct", "diacritic")
 
 
@@ -342,6 +343,7 @@ to_roman <- function(x) {
 # tokenize_words() helpers ------------------------------------------------
 
 # tokenize_words() options
+#' @export
 tokenize_words_opts <- c("wordToken", "case", "wpunct", "stemmed", "stopwords")
 
 
@@ -349,12 +351,14 @@ tokenize_words_opts <- c("wordToken", "case", "wpunct", "stemmed", "stopwords")
 
 # str_homogenize() options; some must be variably excluded, only "space" not
 # allowed, but included for informative error message
+#' @export
 str_homogenize_opts <- c(
     str_mutate_opts[str_mutate_opts != "space"],
     tokenize_words_opts
 )
 
 # "space" allowed in str_homogenize_cum()
+#' @export
 str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 
 
