@@ -143,7 +143,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         # 2. drop x_nm & delim from start
         paste0("^", x_nm, delim_esc),
         # 3. add "string:" before string transformations
-        paste0("((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", delim_esc, ")+"),
+        paste0("^((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", delim_esc, "?)+"),
         # 4. add percent similarity placeholder to "wordToken" (capture groups support next 2 changes)
         paste0("(", delim_esc, ")?wordToken(", delim_esc, ")?"),
         # 5. separate string and word tokenization with "; "
