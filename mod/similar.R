@@ -201,8 +201,9 @@ str_similar <- function(x, y) {
 word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
                          stem_words = FALSE, ...) {
     box::use(
-        tokenizers[tokenize_words, tokenize_word_stems],
-        purrr[map2_dbl, set_names]
+        tokenizers,
+        purrr,
+        ./utils
     )
     stopifnot("length of `y` must be the same as `x`" = length(y) == length(x))
 
@@ -210,27 +211,23 @@ word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
     ytest <- y[!ignore]
 
     if (stem_words) {
-        xw <- tokenize_word_stems(xtest, stopwords = stopwords, ...)
-        yw <- tokenize_word_stems(ytest, stopwords = stopwords, ...)
+        xw <- tokenizers$tokenize_word_stems(xtest, stopwords = stopwords, ...)
+        yw <- tokenizers$tokenize_word_stems(ytest, stopwords = stopwords, ...)
     } else {
-        xw <- tokenize_words(xtest, stopwords = stopwords, ...)
-        yw <- tokenize_words(ytest, stopwords = stopwords, ...)
+        xw <- tokenizers$tokenize_words(xtest, stopwords = stopwords, ...)
+        yw <- tokenizers$tokenize_words(ytest, stopwords = stopwords, ...)
     }
 
-    pct_sim <- map2_dbl(
-        xw,
-        yw,
-        function(.x, .y, .a) {
-            round(length(intersect(.x, .y)) / length(union(.x, .y)) * 100, 2)
-        }
-    ) |>
-        set_names(xtest)
+    # may not calculate similarity as desired
+    # example: x = 1:2, y = 2:3 --> 33.33; 50 seems more intuitive
+    pct_sim <- utils$pct_sim(x, y) |>
+        purrr$set_names(xtest)
 
     unname(pct_sim[x])
 }
 
 
-### str_similar() helpers ####################################################
+# str_similar() helpers ---------------------------------------------------
 
 #' Convert to Roman Numerals (Lowercase)
 #' Converts numbers to lowercase roman numerals. _Intended to make comparing
