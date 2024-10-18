@@ -430,12 +430,13 @@ create_how_list <- function(how) {
         }
     )
 
+    # add 'wordToken' to all vectors in out$word list
     if (!is.null(out$word)) {
-        # add list() for "wordToken" alone if it was in how (dropped earlier)
-        if ("wordToken" %in% how) out$word <- c(list(list()), out$word)
-        # add 'wordToken' to all vectors in out$word list
         out$word <- purrr::map(out$word, ~ c("wordToken", .x))
     }
+
+    # add "wordToken" back if it was in how (dropped earlier)
+    if ("wordToken" %in% how) out$word <- c(list("wordToken"), out$word)
 
     if (!is.null(out$str) && !is.null(out$word)) {
         # create homogenized combination list in desired order
@@ -914,6 +915,13 @@ if (is.null(box::name())) {
     test_that("str_homogenize_cum() works when `how` has only word inputs", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
                "or applying Total-1")
+        expect_equal(
+            str_homogenize_cum(x, how = "wordToken"),
+            list(
+                x = as.list(x),
+                x_wordToken = str_homogenize(x, how = "wordToken")
+            )
+        )
         expect_equal(
             str_homogenize_cum(x, how = c("wpunct", "stemmed")),
             list(
