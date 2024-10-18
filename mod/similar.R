@@ -110,6 +110,13 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         ./utils
     )
 
+    # always test "wordToken" before other word transformations; "case" always
+    # treated as string transformation
+    word_opts <- mutate$tokenize_words_opts[mutate$tokenize_words_opts != "case"]
+    if (any(word_opts %in% how)) {
+        how <- unique(c("wordToken", how))
+    }
+
     # apply transformations; x_nm & delim used later to set comparison output
     x_nm <- "x"
     xmod <- mutate$str_homogenize_cum(
