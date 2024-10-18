@@ -96,6 +96,7 @@ is_whole_number <- function(x, tol = .Machine$double.eps)  {
 combn_all <- function(x) {
     box::use(purrr, utils)
     n <- length(x)
+    if (n == 0) return(NULL) # prevents expanded lists with NULL elements
     index <- purrr$map(1:n, ~ utils$combn(n, .x, simplify = FALSE)) |>
         unlist(recursive = FALSE)
     purrr$map(index, ~ unlist(x[.x], recursive = FALSE))
