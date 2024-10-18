@@ -435,6 +435,7 @@ to_roman_lc <- function(x) {
 if (is.null(box::name())) {
     box::use(testthat[...])
 
+    # str_compare() tests ----------------------------------------------------
     test_that("str_compare() works for individual `how`", {
         x <- c("a", "i", "1", "I", "i ", "i.", "í")
         y <- c("b", "i", "I", "i", "i", "i", "i")
@@ -477,6 +478,87 @@ if (is.null(box::name())) {
             str_compare(x, y, "all", locale = "es"),
             c(NA_character_, "exact", "numeral|case", "space|punct",
               "case|diacritic", "numeral|case|space|punct|diacritic")
+        )
+    })
+
+    # str_compare_all() tests ------------------------------------------------
+    test_that("str_compare_all() works for string-only transformations", {
+        x <- c("a", "i", "1", "I", "i ", "i.", "í")
+        y <- c("b", "i", "I", "i", "i", "i", "i")
+        expect_equal(
+            str_compare_all(x, y, "numeral"),
+            c(NA_character_, "exact", "string:numeral", rep(NA_character_, 4))
+        )
+        expect_equal(
+            str_compare_all(x, y, "case"),
+            c(NA_character_, "exact", NA_character_, "string:case", rep(NA_character_, 3))
+        )
+        expect_equal(
+            str_compare_all(x, y, "space"),
+            c(NA_character_, "exact", rep(NA_character_, 2), "string:space" , rep(NA_character_, 2))
+        )
+        expect_equal(
+            str_compare_all(x, y, "punct"),
+            c(NA_character_, "exact", rep(NA_character_, 3), "string:punct" , NA_character_)
+        )
+        expect_equal(
+            str_compare_all(x, y, "diacritic"),
+            c(NA_character_, "exact", rep(NA_character_, 4), "string:diacritic")
+        )
+        # `how` in reverse order to be sure it works still
+        expect_equal(
+            str_compare_all(x, y, c("diacritic", "punct", "space", "case", "numeral")),
+            c(NA_character_, "exact", "string:numeral", "string:case",
+              "string:space", "string:punct", "string:diacritic")
+        )
+    })
+
+    test_that("str_compare_all() works for individual word transformations (exact)", {
+        x <- c("never going", "1 word", "word order", "plus punct.",
+               "need stemming", "and stopword", "or applying Total-here1")
+        y <- c("to match", "1 word", "order word", "plus-punct",
+               "needing stem", "or stopword", "and applying Total:here1")
+        expect_equal(
+            str_compare_all(
+                c("never going", "1 word", "word order"),
+                c("to match", "1 word", "order word"),
+                "wordToken"
+            ),
+            c(NA_character_, "exact", "wordToken[100%]")
+        )
+        expect_equal(
+            str_compare_all(
+                c("never going", "1 word", "word order", "plus punct."),
+                c("to match", "1 word", "order word", "plus-punct"),
+                "wpunct"
+            ),
+            c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:wpunct")
+        )
+        expect_equal(
+            str_compare_all(
+                c("never going", "1 word", "word order", "need stemming"),
+                c("to match", "1 word", "order word", "needing stem"),
+                "stemmed"
+            ),
+            c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:stemmed")
+        )
+        expect_equal(
+            str_compare_all(
+                c("never going", "1 word", "and stopword"),
+                c("to match", "1 word", "or stopword"),
+                "stopwords"
+            ),
+            c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:stopwords")
+        )
+        expect_equal(
+            str_compare_all(
+                x,
+                y,
+                c("wordToken", "case", "wpunct", "stemmed", "stopwords")
+            ),
+            c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:wpunct",
+              "wordToken[100%]:stemmed", "wordToken[100%]:stopwords",
+              "wordToken[100%]:wpunct|stemmed|stopwords")
         )
     })
 }
