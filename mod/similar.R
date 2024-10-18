@@ -93,14 +93,13 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         ./utils
     )
 
-    # apply transformations; x_nm & names_sep used later to set comparison output
+    # apply transformations; x_nm & delim used later to set comparison output
     x_nm <- "x"
-    names_sep <- "_"
     xmod <- mutate$str_homogenize_cum(
         x,
         how,
         x_nm = x_nm,
-        names_sep = names_sep,
+        names_sep = delim,
         locale = locale,
         stopwords = stopwords
     )
@@ -108,7 +107,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         y,
         how,
         x_nm = x_nm,
-        names_sep = names_sep,
+        names_sep = delim,
         locale = locale,
         stopwords = stopwords
     )
@@ -120,21 +119,20 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
     mod_split <- split(mod_nm, split_fct)
 
     # revise names to format transformations for comparison output
+    delim_esc <- stringr$str_escape(delim)
     nm_pattern <- c(
         # 1. if no transformation -> 'exact'
         paste0("^", x_nm, "$"),
-        # 2. drop x_nm & names_sep from start
-        paste0("^", x_nm, names_sep),
+        # 2. drop x_nm & delim from start
+        paste0("^", x_nm, delim_esc),
         # 3. add "string:" before string transformations
-        paste0("((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", names_sep, ")+"),
+        paste0("((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", delim_esc, ")+"),
         # 4. add percent similarity placeholder to "wordToken" (capture groups support next 2 changes)
-        paste0("(", names_sep, ")?wordToken(", names_sep, ")?"),
+        paste0("(", delim_esc, ")?wordToken(", delim_esc, ")?"),
         # 5. separate string and word tokenization with "; "
-        paste0(names_sep, names_sep),
+        paste0(delim_esc, delim_esc),
         # 6. use ":" after word tokenization if additional transformations were performed
-        paste0(";", names_sep),
-        # 7. replace `names_sep` with `delim`
-        names_sep
+        paste0(";", delim_esc)
     )
     nm_replace <- c(
         "exact",
@@ -142,8 +140,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         "string:\\0", # \\0 is the entire match
         "\\1\\1wordToken[%pct%]\\2\\2\\2",
         ";",
-        ":",
-        "|"
+        ":"
         )
     mod_out <- stringr$str_replace_all(
         mod_nm,
