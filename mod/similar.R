@@ -52,6 +52,148 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
 }
 
 
+#' String Comparison
+#'
+#' Compare strings in 2 vectors and return the type of match.
+#'
+#' @param x,y A character vector.
+#' @inheritParams str_homogenize_cum
+#' @param delim The separator to use when listing transformations needed to
+#' make the two strings identical (default: `"|"`).
+#' @inheritParams stringr::str_equal
+#' @param ... Arguments passed on to [stringr::str_equal()].
+#'
+#' @returns A character vector with the match type for each string pair.
+#'
+#' If strings are identical _without any transformation_ the value will be
+#' 'exact'. For those string pairs that become identical after one or more
+#' _string_ transformations, the value will be the set of transformations
+#' required, separated by `delim`. For those string pairs that share all words
+#' in common after word tokenization and any associated transformations, the
+#' value will include "wordToken:" followed by the set of transformations
+#' required. String transformations and word tokenization transformations may
+#' also be listed together, separated by `delim`, with the string
+#' transformations listed first. If the strings cannot be made identical by
+#' string transformation and word tokenization doesn't result in complete word
+#' overlap, the value will be the percent word overlap or `NA`.
+#'
+#' The possible string transformations include 'numeral', 'case', 'space',
+#' 'punct' (collapses on punctuation), or 'diacritic'. The word tokenization
+#' transformations include 'wpunct' (split on punctuation), 'stemmed', or
+#' 'stopwords'.
+#'
+#' @md
+#' @export
+str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
+                            stopwords = NULL, ...) {
+    stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
+    box::use(
+        stringr, purrr, dplyr,
+        ./mutate,
+        ./utils
+    )
+
+    # apply transformations; x_nm & names_sep used later to set comparison output
+    x_nm <- "x"
+    names_sep <- "_"
+    xmod <- mutate$str_homogenize_cum(
+        x,
+        how,
+        x_nm = x_nm,
+        names_sep = names_sep,
+        locale = locale,
+        stopwords = stopwords
+    )
+    ymod <- mutate$str_homogenize_cum(
+        y,
+        how,
+        x_nm = x_nm,
+        names_sep = names_sep,
+        locale = locale,
+        stopwords = stopwords
+    )
+
+    # split string-only results from those with word transformations
+    # --> different tests
+    mod_nm <- names(xmod)
+    split_fct <- ifelse(stringr$str_detect(mod_nm, "wordToken"), "word", "str")
+    mod_split <- split(mod_nm, split_fct)
+
+    # revise names to format transformations for comparison output
+    nm_pattern <- c(
+        # 1. if no transformation -> 'exact'
+        paste0("^", x_nm, "$"),
+        # 2. drop x_nm & names_sep from start
+        paste0("^", x_nm, names_sep),
+        # 3. add "string:" before string transformations
+        paste0("((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", names_sep, ")+"),
+        # 4. add percent similarity placeholder to "wordToken" (capture groups support next 2 changes)
+        paste0("(", names_sep, ")?wordToken(", names_sep, ")?"),
+        # 5. separate string and word tokenization with "; "
+        paste0(names_sep, names_sep),
+        # 6. use ":" after word tokenization if additional transformations were performed
+        paste0(";", names_sep),
+        # 7. replace `names_sep` with `delim`
+        names_sep
+    )
+    nm_replace <- c(
+        "exact",
+        "",
+        "string:\\0", # \\0 is the entire match
+        "\\1\\1wordToken[%pct%]\\2\\2\\2",
+        ";",
+        ":",
+        "|"
+        )
+    mod_out <- stringr$str_replace_all(
+        mod_nm,
+        purrr$set_names(nm_replace, nm_pattern)
+    ) |>
+        split(split_fct)
+
+    #### compare pairs using names --> avoids reliance on order ####
+    # string comparison
+    str_comparison <- purrr$map2(
+        mod_split$str,
+        mod_out$str,
+        function(.nm, .mod) {
+            .lgl <- stringr$str_equal(
+                xmod[[.nm]],
+                ymod[[.nm]],
+                locale = locale,
+                ...
+            )
+            dplyr$if_else(.lgl, .mod, NA_character_)
+        }
+    )
+
+    # word comparison
+    word_comparison <- utils$pct_sim(
+        xmod[mod_split$word],
+        ymod[mod_split$word]
+    ) |>
+        purrr$set_names(mod_out$word)
+    word_matrix <- do.call(rbind, word_comparison)
+
+    report_first_max <- function(x) {
+        if (all(x == 0)) {
+            return(NA)
+        }
+        m <- max(x)
+        mod <- names(which(x == m)[1])
+        # replace percent similarity placeholder with actual value
+        stringr$str_replace(mod, stringr$coll("%pct"), m)
+    }
+    word_best <- apply(word_matrix, 2, report_first_max)
+
+    # combine string & word results; choose preferred transformation set
+    full_comparison <- c(str_comparison, list(word_best))
+    out <- dplyr$coalesce(!!!full_comparison)
+
+    out
+}
+
+
 #' Describe String Similarity
 #'
 #' Compares strings in 2 vectors and returns the type of match (i.e. 'exact' or
