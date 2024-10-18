@@ -182,27 +182,33 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
     )
 
     # word comparison
-    word_comparison <- utils$pct_sim(
-        xmod[mod_split$word],
-        ymod[mod_split$word]
-    ) |>
-        purrr$set_names(mod_out$word)
-    word_matrix <- do.call(rbind, word_comparison)
+    if (!is.null(mod_split$word)) {
+        word_comparison <- utils$pct_sim(
+            xmod[mod_split$word],
+            ymod[mod_split$word]
+        ) |>
+            purrr$set_names(mod_out$word)
+        word_matrix <- do.call(rbind, word_comparison)
 
-    report_first_max <- function(x) {
-        if (all(x == 0)) {
-            return(NA)
+        report_first_max <- function(x) {
+            if (all(x == 0)) {
+                return(NA)
+            }
+            m <- max(x)
+            mod <- names(which(x == m)[1])
+            # replace percent similarity placeholder with actual value
+            stringr$str_replace(mod, stringr$coll("%pct"), m)
         }
-        m <- max(x)
-        mod <- names(which(x == m)[1])
-        # replace percent similarity placeholder with actual value
-        stringr$str_replace(mod, stringr$coll("%pct"), m)
+        word_best <- apply(word_matrix, 2, report_first_max)
     }
-    word_best <- apply(word_matrix, 2, report_first_max)
 
     # combine string & word results; choose preferred transformation set
-    full_comparison <- c(str_comparison, list(word_best))
-    out <- dplyr$coalesce(!!!full_comparison)
+    if (is.null(mod_split$word)) {
+        out <- dplyr$coalesce(!!!str_comparison)
+    } else {
+        full_comparison <- c(str_comparison, list(word_best))
+        out <- dplyr$coalesce(!!!full_comparison)
+    }
 
     out
 }
