@@ -392,13 +392,13 @@ create_how_list <- function(how) {
 
     # error if any of the following are used
     how_error <- dplyr::case_when(
-        all(how %in% c("numeral", "stopwords")) ~
-            "'numeral' and 'stopwords' cannot be used alone",
+        all(c("numeral", "stopwords") %in% how) && length(unique(how)) == 2 ~
+            "'numeral' and 'stopwords' cannot be used as the only `how` inputs",
         # just space and one other tokenize_word_opts = error
-        ("space" %in% how && any(how %in% tokenize_words_opts) && length(how) == 2) ~
-            "'space' cannot be used with only inputs to tokenize_words",
-        all(how %in% c("punct", "wpunct")) ~
-            "'punct' and 'wpunct' cannot be used alone",
+        "space" %in% how && any(how %in% tokenize_words_opts) && length(unique(how)) == 2 ~
+            "'space' and a single word tokenization used as the only `how` inputs",
+        all(c("punct", "wpunct") %in% how) && length(unique(how)) == 2 ~
+            "'punct' and 'wpunct' cannot be used as the only `how` inputs",
         TRUE ~ NA_character_
     )
     if (!is.na(how_error)) stop(how_error)
@@ -888,13 +888,16 @@ if (is.null(box::name())) {
     })
 
     # str_homogenize_cum() tests ---------------------------------------------
-    test_that("str_homogenize_cum() errors for disallowed inputs", {
+    test_that("str_homogenize_cum() errors only for disallowed inputs", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
                "or applying Total-1")
 
         expect_error(str_homogenize_cum(x, how = c("space", "stemmed")))
         expect_error(str_homogenize_cum(x, how = c("punct", "wpunct")))
         expect_error(str_homogenize_cum(x, how = c("numeral", "stopwords")))
+        expect_no_error(str_homogenize_cum(x, how = "numeral"))
+        expect_no_error(str_homogenize_cum(x, how = "stopwords"))
+        expect_no_error(str_homogenize_cum(x, how = c("space", "numeral", "stopwords")))
     })
 
     test_that("str_homogenize_cum() works like str_mutate_cum()", {
