@@ -77,6 +77,7 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     out
 }
 
+
 #' Flexibly Tokenize Words
 #'
 #' Tokenize words in a character vector applying specified transformations.
@@ -218,80 +219,37 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
         purrr,
         ./utils
     )
-    how <- match.arg(
-        how,
-        choices = c("all", str_homogenize_cum_opts),
-        several.ok = TRUE
+
+    how_list <- create_how_list(how)
+
+    result <- list()
+    result$str <- purrr$map(
+        how_list$str,
+        function(.h) as.list(str_mutate(x, .h, locale = locale))
+    )
+    result$word <- purrr$map(
+        how_list$word,
+        function(.h) tokenize_words(x, .h, locale = locale, stopwords = stopwords)
+    )
+    result$homogenize <- purrr$map(
+        how_list$homogenize,
+        function(.h) str_homogenize(x, .h, locale = locale, stopwords = stopwords)
     )
 
-    how_error <- dplyr::case_when(
-        all(how %in% c("numeral", "stopwords")) ~
-            "'numeral' and 'stopwords' cannot be used alone",
-        # just space and one other tokenize_word_opts = error
-        ("space" %in% how && any(how %in% tokenize_words_opts) && length(how) == 2) ~
-            "'space' cannot be used with only inputs to tokenize_words",
-        all(how %in% c("punct", "wpunct")) ~
-            "'punct' and 'wpunct' cannot be used alone",
-        TRUE ~ NA_character_
-    )
-    if (!is.na(how_error)) stop(how_error)
-
-    if ("all" %in% how) how <- str_homogenize_cum_opts
-
-    # get all possible combinations of how
-    how_list <- utils$combn_all(how)
-
-    how_drop <- purrr$map_lgl(
-        how_list,
-            # drop any where only errors would be produced -------------------
-            # 1. drop where "space" is included with tokenize_words_opts
-            #   - take negative search approach because "case" in both
-        ~ "space" %in% .x && any(!.x %in% str_mutate_opts) ||
-            # 2-3. only combinations which cannot be together
-            all(c("numeral", "stopwords") %in% .x) ||
-            all(c("punct", "wpunct") %in% .x) ||
-            # drop any where execution would be duplicated -------------------
-            # "wordToken" is redundant when used with other tokenize_words_opts
-            "wordToken" %in% .x && sum(!.x %in% str_mutate_opts) > 1
-    )
-    how_list <- how_list[!how_drop]
-
-    out <- purrr$map(
-        how_list,
-        function(.h) {
-            if (all(.h %in% str_mutate_opts)) {
-                as.list(str_mutate(x, .h, locale = locale))
-            } else if (all(.h %in% tokenize_words_opts)) {
-                tokenize_words(x, .h, locale = locale, stopwords = stopwords)
-            } else {
-                str_homogenize(x, .h, locale = locale, stopwords = stopwords)
-            }
-        }
-    )
+    # collapse all results into a single list
+    out <- unlist(result, recursive = FALSE)
 
     # add names
-    how_nm <- purrr$map_chr(how_list, ~ paste0(c(x_nm, .x), collapse = names_sep))
-    # ensure "wordToken" present wherever a word-based transformation was applied
-    how_nm <- stringr::str_replace(
-        how_nm,
-        paste0(
-            "(",
-            paste0(
-                tokenize_words_opts[!tokenize_words_opts %in% c("case", "wordToken")],
-                collapse = "|"
-                ),
-            ")"
-        ),
-        paste0("wordToken", names_sep, "\\1")
+    how_nm <- purrr$map_chr(
+        unlist(how_list, recursive = FALSE),
+        ~ paste0(c(x_nm, .x), collapse = names_sep)
     )
     names(out) <- how_nm
 
     # add original input at start (but converted to a list, so the format is the
     # same as all other output)
     out <- c(list(as.list(x)), out)
-    if (!is.null(x_nm)) {
-        names(out)[1] <- x_nm
-    }
+    if (!is.null(x_nm)) names(out)[1] <- x_nm
 
     out
 }
@@ -321,6 +279,7 @@ check_str_mutate_how <- function(how, allow_mismatch = FALSE) {
         )
     }
     if ("all" %in% how) how <- str_mutate_opts
+
     # make order consistent with str_mutate_opts
     str_mutate_opts[str_mutate_opts %in% how]
 }
@@ -389,22 +348,128 @@ check_tokenize_words_how <- function(how, allow_mismatch = FALSE) {
 }
 
 
-
-
-
 # str_homogenize_cum() helpers -----------------------------------------------
-
-# str_homogenize() options; some must be variably excluded, only "space" not
-# allowed, but included for informative error message
-#' @export
-str_homogenize_opts <- c(
-    str_mutate_opts[str_mutate_opts != "space"],
-    tokenize_words_opts
-)
 
 # "space" allowed in str_homogenize_cum()
 #' @export
 str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
+
+
+#' Order str_homogenize_cum() output for comparison
+#'
+#' @param mod_nm The names from str_homogenize_cum() output.
+#'
+#' @section Details:
+#' Multiple comparisons across multiple string and/or word transformations
+#' could result in what is considered equality. But not all equality is
+#' considered of equal quality. This function orders the transformations by
+#' quality to ensure the best transformation is used for comparison.
+#'
+#' The order of preference is:
+#' 1. String transformations with no word tokenization, order within
+#' this set is equivalent to the order used in [str_mutate_cum()] with
+#' preference _always_ for fewer transformations.
+#' 2. Word tokenization, possibly with string transformations (_always_
+#' preferring fewer string transformations within each group).
+#'
+#' Word tokenization groups are prioritized in the following order: simple
+#' tokenization > with "wpunct" > with "stemmed" > with "stopwords". As with
+#' string transformations, fewer transformations are preferred.
+#'
+#' @md
+#' @export
+create_how_list <- function(how) {
+    box::use(
+        purrr,
+        ./utils
+    )
+
+    how <- match.arg(
+        how,
+        choices = c("all", str_homogenize_cum_opts),
+        several.ok = TRUE
+    )
+
+    # error if any of the following are used
+    how_error <- dplyr::case_when(
+        all(how %in% c("numeral", "stopwords")) ~
+            "'numeral' and 'stopwords' cannot be used alone",
+        # just space and one other tokenize_word_opts = error
+        ("space" %in% how && any(how %in% tokenize_words_opts) && length(how) == 2) ~
+            "'space' cannot be used with only inputs to tokenize_words",
+        all(how %in% c("punct", "wpunct")) ~
+            "'punct' and 'wpunct' cannot be used alone",
+        TRUE ~ NA_character_
+    )
+    if (!is.na(how_error)) stop(how_error)
+
+    if ("all" %in% how) how <- str_homogenize_cum_opts
+
+    how_split <- list(
+        str = check_str_mutate_how(how, allow_mismatch = TRUE),
+        word = check_tokenize_words_how(how, allow_mismatch = TRUE)
+    )
+
+    # drop redundancies
+    # - 'wordToken' to avoid redundant combinations with other word transformations
+    # - 'case' if in string transformations
+    if ("case" %in% how) {
+        how_drop <- c("wordToken", "case")
+    } else {
+        how_drop <- "wordToken"
+    }
+    how_split$word <- how_split$word[!how_split$word %in% how_drop]
+
+    # get all combinations for string & word alone; NULL if empty
+    out <- purrr::map(
+        how_split,
+        ~ if (length(.x) > 0) {
+            utils$combn_all(.x)
+        } else {
+            NULL
+        }
+    )
+
+    if (!is.null(out$word)) {
+        # add list() for "wordToken" alone if it was in how (dropped earlier)
+        if ("wordToken" %in% how) out$word <- c(list(list()), out$word)
+        # add 'wordToken' to all vectors in out$word list
+        out$word <- purrr::map(out$word, ~ c("wordToken", .x))
+    }
+
+    if (!is.null(out$str) && !is.null(out$word)) {
+        # create homogenized combination list in desired order
+        hhow <- utils$combn_xy(out$word, out$str)
+
+        # drop any homogenized lists considered errors, probably only necessary
+        # when how = "all" since errors are thrown if the user specifies them
+        hdrop <- purrr$map_lgl(
+            hhow,
+            ~ "space" %in% .x && any(!.x %in% str_mutate_opts) ||
+                all(c("numeral", "stopwords") %in% .x) ||
+                all(c("punct", "wpunct") %in% .x)
+        )
+        hhow <- hhow[!hdrop]
+
+        # ensure order matches str_homogenize_cum_opts to standardize naming
+        out$homogenize <- purrr::map(
+            hhow,
+            ~ str_homogenize_cum_opts[str_homogenize_cum_opts %in% .x]
+        )
+    } else {
+        out$homogenize <- NULL
+    }
+
+    out
+}
+
+
+# str_homogenize() helpers ---------------------------------------------------
+
+# str_homogenize() options; some must be variably excluded, only "space" not
+# allowed, but included for informative error message
+#' @export
+str_homogenize_opts <- str_homogenize_cum_opts[str_homogenize_cum_opts != "space"]
 
 
 #' Check `how` in str_mutate*() functions
