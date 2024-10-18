@@ -10,11 +10,29 @@
 #' @param ... Arguments passed on to [stringr::str_equal()].
 #'
 #' @returns A character vector with the match type for each string pair. If
-#' strings are identical the value will be 'exact'. For those string pairs that
-#' become identical after one or more transformations, the value will be the
-#' set of transformations required separated by `delim`. The possible
-#' transformations include 'numeral', 'case', 'space', 'punct', or 'diacritic'.
-#' If strings cannot be made identical, the value will be `NA`.
+#' strings are identical the value will be 'exact'. See `Details` for what is
+#' returned when matches require a transformation to be exact.
+#'
+#' @section Details:
+#' * `str_compare()`: This function tests only for exact matches, after applying
+#' string transformations. Those transformations include 'numeral', 'case',
+#' 'space', 'punct', or 'diacritic'. All transformations required to make the
+#' strings equal will be reported, separated by `delim`. If strings cannot be
+#' made identical, the value returned will be `NA`.
+#'
+#' * `str_compare_all()`: Tests for matches using the string transformation
+#' approach of `str_compare()`. These transformations are reported in the same
+#' way but prefixed by "string:". Additionally, when string comparisons are
+#' insufficient, `str_compare_all()` tests for word similarity based on
+#' tokenization with possible modifications. Word similarity is reported as
+#' "wordToken[percent_similarity]", with any word transformations applied listed
+#' after a colon, separated by `delim`. If string transformations and word
+#' transformations were both applied the resulting strings will be in the format:
+#'
+#' `"string:<str_transform1><delim><str_transform2>...;wordToken[percent_similarity]:<word_transform1><delim><word_transform2>..."`
+#'
+#' If strings share no word similarity after all transformations are attempted,
+#' the value returned will be `NA`.
 #'
 #' @md
 #' @export
@@ -25,25 +43,52 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
         ./mutate
     )
 
-    # mutate strings
-    xmut <- mutate$str_mutate_cum(x, how, locale = locale)
-    ymut <- mutate$str_mutate_cum(y, how, locale = locale)
+    # mutate strings; x_nm & delim used later to set comparison output
+    x_nm <- "x"
+    xmut <- mutate$str_mutate_cum(
+        x,
+        how,
+        x_nm = x_nm,
+        names_sep = delim,
+        locale = locale
+    )
+    ymut <- mutate$str_mutate_cum(
+        y,
+        how,
+        x_nm = x_nm,
+        names_sep = delim,
+        locale = locale
+    )
+
+    # revise names to format transformations for comparison output
+    mut_nm <- names(xmut)
+    nm_pattern <- c(
+        # 1. if no transformation -> 'exact'
+        paste0("^", x_nm, "$"),
+        # 2. drop x_nm & delim from start
+        paste0("^", x_nm, stringr$str_escape(delim))
+    )
+    nm_replace <- c(
+        "exact",
+        ""
+    )
+    mut_out <- stringr$str_replace_all(
+        mut_nm,
+        purrr$set_names(nm_replace, nm_pattern)
+    )
 
     # ensure comparison is done on the same transformed strings by using names
-    comparison <- purrr$map(
-        names(xmut),
-        function(.nm) {
-            .how <- stringr$str_replace_all(
-                .nm,
-                c("^x$" = "exact", "^x_" = "", "_" = "|")
-            )
+    comparison <- purrr$map2(
+        mut_nm,
+        mut_out,
+        function(.nm, .mut) {
             lgl <- stringr$str_equal(
                 xmut[[.nm]],
                 ymut[[.nm]],
                 locale = locale,
                 ...
             )
-            dplyr$if_else(lgl, .how, NA_character_)
+            dplyr$if_else(lgl, .mut, NA_character_)
         }
     )
 
@@ -52,37 +97,9 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
 }
 
 
-#' String Comparison
-#'
-#' Compare strings in 2 vectors and return the type of match.
-#'
-#' @param x,y A character vector.
 #' @inheritParams str_homogenize_cum
-#' @param delim The separator to use when listing transformations needed to
-#' make the two strings identical (default: `"|"`).
-#' @inheritParams stringr::str_equal
-#' @param ... Arguments passed on to [stringr::str_equal()].
 #'
-#' @returns A character vector with the match type for each string pair.
-#'
-#' If strings are identical _without any transformation_ the value will be
-#' 'exact'. For those string pairs that become identical after one or more
-#' _string_ transformations, the value will be the set of transformations
-#' required, separated by `delim`. For those string pairs that share all words
-#' in common after word tokenization and any associated transformations, the
-#' value will include "wordToken:" followed by the set of transformations
-#' required. String transformations and word tokenization transformations may
-#' also be listed together, separated by `delim`, with the string
-#' transformations listed first. If the strings cannot be made identical by
-#' string transformation and word tokenization doesn't result in complete word
-#' overlap, the value will be the percent word overlap or `NA`.
-#'
-#' The possible string transformations include 'numeral', 'case', 'space',
-#' 'punct' (collapses on punctuation), or 'diacritic'. The word tokenization
-#' transformations include 'wpunct' (split on punctuation), 'stemmed', or
-#' 'stopwords'.
-#'
-#' @md
+#' @rdname str_compare
 #' @export
 str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
                             stopwords = NULL, ...) {
