@@ -25,12 +25,12 @@
 #' way but prefixed by "chr:". Additionally, when string comparisons are
 #' insufficient, `str_compare_all()` tests for word similarity based on
 #' tokenization with possible modifications. Word similarity is reported as
-#' "wordToken[percent_similarity]", with any word transformations applied listed
+#' "wordToken[percent_match]", with any word transformations applied listed
 #' after a colon, separated by `delim`. If character transformations and word
 #' transformations were both applied the resulting strings will be in the
 #' format:
 #'
-#' `"chr:<chr_transform1><delim><chr_transform2>...;wordToken[percent_similarity]:<word_transform1><delim><word_transform2>..."`
+#' `"chr:<chr_transform1><delim><chr_transform2>...;wordToken[percent_match]:<word_transform1><delim><word_transform2>..."`
 #'
 #' If strings share no word similarity after all transformations are attempted,
 #' the value returned will be `NA`.
@@ -152,7 +152,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         paste0("^", x_nm, delim_esc),
         # 3. add "chr:" before character transformations
         paste0("^((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", delim_esc, "?)+"),
-        # 4. add percent similarity placeholder to "wordToken" (capture groups support next 2 changes)
+        # 4. add percent match placeholder to "wordToken" (capture groups support next 2 changes)
         paste0("(", delim_esc, ")?wordToken(", delim_esc, ")?"),
         # 5. separate character and word tokenization with "; "
         paste0(delim_esc, delim_esc),
@@ -191,7 +191,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 
     # word comparison
     if (!is.null(mod_split$word)) {
-        word_comparison <- utils$pct_sim(
+        word_comparison <- utils$pct_match(
             xmod[mod_split$word],
             ymod[mod_split$word]
         ) |>
@@ -204,7 +204,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
             }
             m <- max(x)
             mod <- names(which(x == m)[1])
-            # replace percent similarity placeholder with actual value
+            # replace percent match placeholder with actual value
             stringr$str_replace(mod, stringr$coll("%pct"), m)
         }
         word_best <- apply(word_matrix, 2, report_first_max)
@@ -390,10 +390,10 @@ word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
 
     # may not calculate similarity as desired
     # example: x = 1:2, y = 2:3 --> 33.33; 50 seems more intuitive
-    pct_sim <- utils$pct_sim(x, y) |>
+    pct_match <- utils$pct_match(x, y) |>
         purrr$set_names(xtest)
 
-    unname(pct_sim[x])
+    unname(pct_match[x])
 }
 
 
@@ -576,7 +576,7 @@ if (is.null(box::name())) {
         )
     })
 
-    test_that("str_compare_all() percent similarity works as expected", {
+    test_that("str_compare_all() percent match works as expected", {
         expect_equal(
             str_compare_all(
                 c("all words", "1 exact", "length differ"),
