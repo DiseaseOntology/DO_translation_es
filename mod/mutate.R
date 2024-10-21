@@ -227,12 +227,8 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
         how_list$chr,
         function(.h) as.list(str_mutate(x, .h, locale = locale))
     )
-    result$word <- purrr$map(
-        how_list$word,
-        function(.h) tokenize_words(x, .h, locale = locale, stopwords = stopwords)
-    )
-    result$homogenize <- purrr$map(
-        how_list$homogenize,
+    result$homog <- purrr$map(
+        how_list$homog,
         function(.h) str_homogenize(x, .h, locale = locale, stopwords = stopwords)
     )
 
@@ -380,7 +376,7 @@ str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 #' @export
 create_how_list <- function(how) {
     box::use(
-        purrr,
+        purrr, rlang, dplyr,
         ./utils
     )
 
@@ -421,7 +417,7 @@ create_how_list <- function(how) {
     how_split$word <- how_split$word[!how_split$word %in% how_drop]
 
     # get all combinations for character & word alone; NULL if empty
-    out <- purrr::map(
+    hcombn <- purrr::map(
         how_split,
         ~ if (length(.x) > 0) {
             utils$combn_all(.x)
@@ -430,17 +426,23 @@ create_how_list <- function(how) {
         }
     )
 
-    # add 'wordToken' to all vectors in out$word list
-    if (!is.null(out$word)) {
-        out$word <- purrr::map(out$word, ~ c("wordToken", .x))
+    out <- list(chr = hcombn$chr)
+
+    # add 'wordToken' to all vectors in hcombn$word list
+    if (!is.null(hcombn$word)) {
+        hcombn$word <- purrr::map(hcombn$word, ~ c("wordToken", .x))
     }
 
     # add "wordToken" back if it was in how (dropped earlier)
-    if ("wordToken" %in% how) out$word <- c(list("wordToken"), out$word)
+    if ("wordToken" %in% how) hcombn$word <- c(list("wordToken"), hcombn$word)
 
-    if (!is.null(out$chr) && !is.null(out$word)) {
+    if (is.null(hcombn$word)) {
+        out$homog <- NULL
+    } else if (is.null(hcombn$chr)) {
+        out$homog <- hcombn$word
+    } else {
         # create homogenized combination list in desired order
-        hhow <- utils$combn_xy(out$word, out$chr)
+        hhow <- utils$combn_xy(hcombn$word, hcombn$chr)
 
         # drop any homogenized lists considered errors, probably only necessary
         # when how = "all" since errors are thrown if the user specifies them
@@ -452,13 +454,39 @@ create_how_list <- function(how) {
         )
         hhow <- hhow[!hdrop]
 
+        # if only disallowed combinations, return word transforms only
+        if (length(hhow) == 0) {
+            out$homog <- hcombn$word
+            return(out)
+        }
+
         # ensure order matches str_homogenize_cum_opts to standardize naming
-        out$homogenize <- purrr::map(
+        hhow <- purrr$map(
             hhow,
             ~ str_homogenize_cum_opts[str_homogenize_cum_opts %in% .x]
         )
-    } else {
-        out$homogenize <- NULL
+
+        # interleave word combinations with word + chr combinations to get
+        # right vector order in output
+        word_group_n <- length(hcombn$word)
+
+        make_expr <- function(n) {
+            expr <- paste0("all(hcombn$word[[", n, "]] %in% .x) ~ ", n)
+            purrr$map(expr, rlang$parse_expr)
+        }
+
+        # match in reverse order to ensure most specific group matches
+        hhow_order <- purrr$map_int(
+            hhow,
+            ~ dplyr$case_when(!!!make_expr(word_group_n:1))
+        )
+        hhow_split <- split(hhow, hhow_order)
+
+        out$homog <- purrr$map(
+          1:word_group_n,
+          ~ c(hcombn$word[.x], hhow_split[[.x]])
+        ) |>
+            unlist(recursive = FALSE)
     }
 
     out
@@ -938,6 +966,126 @@ if (is.null(box::name())) {
     })
 
     # str_homogenize_cum() tests ---------------------------------------------
+
+    test_that("create_how_list() order is correct", {
+        box::use(purrr)
+        expect_equal(
+            purrr$map(
+                create_how_list("all"),
+                ~ purrr$map(.x, function(.y) paste0(.y, collapse = "_"))
+            ),
+            list(
+                chr = list(
+                    "numeral",
+                    "case",
+                    "space",
+                    "punct",
+                    "diacritic",
+                    "numeral_case",
+                    "numeral_space",
+                    "numeral_punct",
+                    "numeral_diacritic",
+                    "case_space",
+                    "case_punct",
+                    "case_diacritic",
+                    "space_punct",
+                    "space_diacritic",
+                    "punct_diacritic",
+                    "numeral_case_space",
+                    "numeral_case_punct",
+                    "numeral_case_diacritic",
+                    "numeral_space_punct",
+                    "numeral_space_diacritic",
+                    "numeral_punct_diacritic",
+                    "case_space_punct",
+                    "case_space_diacritic",
+                    "case_punct_diacritic",
+                    "space_punct_diacritic",
+                    "numeral_case_space_punct",
+                    "numeral_case_space_diacritic",
+                    "numeral_case_punct_diacritic",
+                    "numeral_space_punct_diacritic",
+                    "case_space_punct_diacritic",
+                    "numeral_case_space_punct_diacritic"
+                ),
+                homog = list(
+                    "wordToken",
+                    "numeral_wordToken",
+                    "case_wordToken",
+                    "punct_wordToken",
+                    "diacritic_wordToken",
+                    "numeral_case_wordToken",
+                    "numeral_punct_wordToken",
+                    "numeral_diacritic_wordToken",
+                    "case_punct_wordToken",
+                    "case_diacritic_wordToken",
+                    "punct_diacritic_wordToken",
+                    "numeral_case_punct_wordToken",
+                    "numeral_case_diacritic_wordToken",
+                    "numeral_punct_diacritic_wordToken",
+                    "case_punct_diacritic_wordToken",
+                    "numeral_case_punct_diacritic_wordToken",
+                    "wordToken_wpunct",
+                    "numeral_wordToken_wpunct",
+                    "case_wordToken_wpunct",
+                    "diacritic_wordToken_wpunct",
+                    "numeral_case_wordToken_wpunct",
+                    "numeral_diacritic_wordToken_wpunct",
+                    "case_diacritic_wordToken_wpunct",
+                    "numeral_case_diacritic_wordToken_wpunct",
+                    "wordToken_stemmed",
+                    "numeral_wordToken_stemmed",
+                    "case_wordToken_stemmed",
+                    "punct_wordToken_stemmed",
+                    "diacritic_wordToken_stemmed",
+                    "numeral_case_wordToken_stemmed",
+                    "numeral_punct_wordToken_stemmed",
+                    "numeral_diacritic_wordToken_stemmed",
+                    "case_punct_wordToken_stemmed",
+                    "case_diacritic_wordToken_stemmed",
+                    "punct_diacritic_wordToken_stemmed",
+                    "numeral_case_punct_wordToken_stemmed",
+                    "numeral_case_diacritic_wordToken_stemmed",
+                    "numeral_punct_diacritic_wordToken_stemmed",
+                    "case_punct_diacritic_wordToken_stemmed",
+                    "numeral_case_punct_diacritic_wordToken_stemmed",
+                    "wordToken_stopwords",
+                    "case_wordToken_stopwords",
+                    "punct_wordToken_stopwords",
+                    "diacritic_wordToken_stopwords",
+                    "case_punct_wordToken_stopwords",
+                    "case_diacritic_wordToken_stopwords",
+                    "punct_diacritic_wordToken_stopwords",
+                    "case_punct_diacritic_wordToken_stopwords",
+                    "wordToken_wpunct_stemmed",
+                    "numeral_wordToken_wpunct_stemmed",
+                    "case_wordToken_wpunct_stemmed",
+                    "diacritic_wordToken_wpunct_stemmed",
+                    "numeral_case_wordToken_wpunct_stemmed",
+                    "numeral_diacritic_wordToken_wpunct_stemmed",
+                    "case_diacritic_wordToken_wpunct_stemmed",
+                    "numeral_case_diacritic_wordToken_wpunct_stemmed",
+                    "wordToken_wpunct_stopwords",
+                    "case_wordToken_wpunct_stopwords",
+                    "diacritic_wordToken_wpunct_stopwords",
+                    "case_diacritic_wordToken_wpunct_stopwords",
+                    "wordToken_stemmed_stopwords",
+                    "case_wordToken_stemmed_stopwords",
+                    "punct_wordToken_stemmed_stopwords",
+                    "diacritic_wordToken_stemmed_stopwords",
+                    "case_punct_wordToken_stemmed_stopwords",
+                    "case_diacritic_wordToken_stemmed_stopwords",
+                    "punct_diacritic_wordToken_stemmed_stopwords",
+                    "case_punct_diacritic_wordToken_stemmed_stopwords",
+                    "wordToken_wpunct_stemmed_stopwords",
+                    "case_wordToken_wpunct_stemmed_stopwords",
+                    "diacritic_wordToken_wpunct_stemmed_stopwords",
+                    "case_diacritic_wordToken_wpunct_stemmed_stopwords"
+                )
+            )
+        )
+    })
+
     test_that("str_homogenize_cum() errors only for disallowed inputs", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
                "or applying Total-1")
