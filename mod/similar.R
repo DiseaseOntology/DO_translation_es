@@ -574,4 +574,16 @@ if (is.null(box::name())) {
               "wordToken[100%]:wpunct|stemmed|stopwords")
         )
     })
+
+    test_that("str_compare_all() percent similarity works as expected", {
+        expect_equal(
+            str_compare_all(
+                c("all words", "1 exact", "length differ"),
+                c("all word", "exact 2", "differ by number of words."),
+                c("wordToken", "wpunct", "stemmed", "stopwords")
+            ),
+            c("wordToken[100%]:stemmed", "wordToken[50%]",
+              "wordToken[33.33%]:wpunct|stopwords")
+        )
+    })
 }
