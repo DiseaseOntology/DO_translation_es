@@ -60,7 +60,7 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
 #' information.
 #'
 #' @export
-read_gs_review <- function(gs, ss_prefix) {
+read_gs_review <- function(gs, ss_prefix = NULL) {
     box::use(
         purrr[map, set_names],
         googlesheets4[with_gs4_quiet, read_sheet]
