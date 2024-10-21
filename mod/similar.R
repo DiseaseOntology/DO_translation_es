@@ -527,10 +527,6 @@ if (is.null(box::name())) {
     })
 
     test_that("str_compare_all() works for individual word transformations (exact)", {
-        x <- c("never going", "1 word", "word order", "plus punct.",
-               "need stemming", "and stopword", "or applying Total-here1")
-        y <- c("to match", "1 word", "order word", "plus-punct",
-               "needing stem", "or stopword", "and applying Total:here1")
         expect_equal(
             str_compare_all(
                 c("never going", "1 word", "word order"),
@@ -557,17 +553,21 @@ if (is.null(box::name())) {
         )
         expect_equal(
             str_compare_all(
-                c("never going", "1 word", "and stopword"),
-                c("to match", "1 word", "or stopword"),
+                c("never going", "1 word", "word order", "and stopword"),
+                c("to match", "1 word", "order word", "or stopword"),
                 "stopwords"
             ),
             c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:stopwords")
         )
+        # some punctuation is treated as part of a word and may not give
+        # expected results --> see tokenize_words() tests for details
         expect_equal(
             str_compare_all(
-                x,
-                y,
-                c("wordToken", "case", "wpunct", "stemmed", "stopwords")
+                c("never going", "1 word", "word order", "plus punct.",
+                  "need stemming", "and stopword", "or applying Total-here1"),
+                c("to match", "1 word", "order word", "plus-punct",
+                  "needing stem", "or stopword", "and applied Total@here1"),
+                c("wordToken", "wpunct", "stemmed", "stopwords")
             ),
             c(NA_character_, "exact", "wordToken[100%]", "wordToken[100%]:wpunct",
               "wordToken[100%]:stemmed", "wordToken[100%]:stopwords",
