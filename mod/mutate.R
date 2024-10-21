@@ -504,7 +504,7 @@ str_homogenize_opts <- str_homogenize_cum_opts[str_homogenize_cum_opts != "space
 #' Check `how` in str_mutate*() functions
 #'
 #' @inheritParams str_homogenize
-check_str_homogenize_how <- function(how, quiet = FALSE) {
+check_str_homogenize_how <- function(how, stopwords = NULL, quiet = FALSE) {
     # "space" str_compare_opts not supported because it's required for tokenizing
     if ("space" %in% how) {
         stop("`how` cannot include 'space' in str_homogenize. Did you mean to use `str_mutate*()` instead?")
@@ -550,8 +550,10 @@ check_str_homogenize_how <- function(how, quiet = FALSE) {
 
     # UNACCEPTABLE OUTPUT: "numeral" converts 1 to I, which is removed by
     # "stopwords"
-    # TEMPORARY FIX: exclude "numeral" if "stopwords"
-    if ("numeral" %in% out$chr && "stopwords" %in% out$word) {
+    # TEMPORARY FIX:
+    #   - allow both if a custom stopwords list is provided
+    #   - with default stopwords (NULL), if "stopwords" exclude "numeral"
+    if ("numeral" %in% out$chr && "stopwords" %in% out$word && is.null(stopwords)) {
         if (!quiet) {
             warning("Excluding 'numeral' from `how` due to 'stopwords' (e.g. 1 -> I = stopword)")
         }
