@@ -1,9 +1,9 @@
 #' @export
 box::use(
-    ./data,
+    ./bind,
     ./gs_review,
     ./mutate,
+    ./rate,
     ./similar,
-    ./bind,
     ./utils
 )
