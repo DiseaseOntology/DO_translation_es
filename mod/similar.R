@@ -1,6 +1,6 @@
 #' String Comparison
 #'
-#' Compare strings in 2 vectors and return the type of match.
+#' Compare strings in 2 vectors pairwise and return the type of match.
 #'
 #' @param x,y A character vector.
 #' @inheritParams str_mutate
