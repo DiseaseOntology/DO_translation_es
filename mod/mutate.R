@@ -174,10 +174,10 @@ str_homogenize <- function(x, how = "all", locale = "en", stopwords = NULL,
                            quiet = FALSE) {
     how <- check_str_homogenize_how(how, quiet = quiet)
 
-    if (length(how$str) == 0) {
+    if (length(how$chr) == 0) {
         out <- x
     } else {
-        out <- str_mutate(x, how$str, locale = locale)
+        out <- str_mutate(x, how$chr, locale = locale)
     }
 
     if (length(how$word) == 0) return(as.list(out))
@@ -223,8 +223,8 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
     how_list <- create_how_list(how)
 
     result <- list()
-    result$str <- purrr$map(
-        how_list$str,
+    result$chr <- purrr$map(
+        how_list$chr,
         function(.h) as.list(str_mutate(x, .h, locale = locale))
     )
     result$word <- purrr$map(
@@ -360,21 +360,21 @@ str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 #' @param mod_nm The names from str_homogenize_cum() output.
 #'
 #' @section Details:
-#' Multiple comparisons across multiple string and/or word transformations
+#' Multiple comparisons across multiple character and/or word transformations
 #' could result in what is considered equality. But not all equality is
 #' considered of equal quality. This function orders the transformations by
 #' quality to ensure the best transformation is used for comparison.
 #'
 #' The order of preference is:
-#' 1. String transformations with no word tokenization, order within
+#' 1. Character transformations with no word tokenization, order within
 #' this set is equivalent to the order used in [str_mutate_cum()] with
 #' preference _always_ for fewer transformations.
-#' 2. Word tokenization, possibly with string transformations (_always_
-#' preferring fewer string transformations within each group).
+#' 2. Word tokenization, possibly with character transformations (_always_
+#' preferring fewer character transformations within each group).
 #'
 #' Word tokenization groups are prioritized in the following order: simple
 #' tokenization > with "wpunct" > with "stemmed" > with "stopwords". As with
-#' string transformations, fewer transformations are preferred.
+#' character transformations, fewer transformations are preferred.
 #'
 #' @md
 #' @export
@@ -406,13 +406,13 @@ create_how_list <- function(how) {
     if ("all" %in% how) how <- str_homogenize_cum_opts
 
     how_split <- list(
-        str = check_str_mutate_how(how, allow_mismatch = TRUE),
+        chr = check_str_mutate_how(how, allow_mismatch = TRUE),
         word = check_tokenize_words_how(how, allow_mismatch = TRUE)
     )
 
     # drop redundancies
     # - 'wordToken' to avoid redundant combinations with other word transformations
-    # - 'case' if in string transformations
+    # - 'case' if in character transformations
     if ("case" %in% how) {
         how_drop <- c("wordToken", "case")
     } else {
@@ -420,7 +420,7 @@ create_how_list <- function(how) {
     }
     how_split$word <- how_split$word[!how_split$word %in% how_drop]
 
-    # get all combinations for string & word alone; NULL if empty
+    # get all combinations for character & word alone; NULL if empty
     out <- purrr::map(
         how_split,
         ~ if (length(.x) > 0) {
@@ -438,9 +438,9 @@ create_how_list <- function(how) {
     # add "wordToken" back if it was in how (dropped earlier)
     if ("wordToken" %in% how) out$word <- c(list("wordToken"), out$word)
 
-    if (!is.null(out$str) && !is.null(out$word)) {
+    if (!is.null(out$chr) && !is.null(out$word)) {
         # create homogenized combination list in desired order
-        hhow <- utils$combn_xy(out$word, out$str)
+        hhow <- utils$combn_xy(out$word, out$chr)
 
         # drop any homogenized lists considered errors, probably only necessary
         # when how = "all" since errors are thrown if the user specifies them
@@ -499,17 +499,17 @@ check_str_homogenize_how <- function(how, quiet = FALSE) {
 
     out <- list()
     if ("all" %in% how) {
-        out$str <- str_mutate_opts[str_mutate_opts %in% str_homogenize_opts]
+        out$chr <- str_mutate_opts[str_mutate_opts %in% str_homogenize_opts]
         out$word <- tokenize_words_opts[
             tokenize_words_opts %in% str_homogenize_opts &
-                !tokenize_words_opts %in% out$str
+                !tokenize_words_opts %in% out$chr
         ]
     } else {
         # "space" & "punct" + "wpunct" excluded,
         # also need to avoid executing "case" (and possibly others) twice, all
         # duplicates will be executed in str_mutate() first
-        out$str <- str_mutate_opts[str_mutate_opts %in% how]
-        out$word <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% out$str]
+        out$chr <- str_mutate_opts[str_mutate_opts %in% how]
+        out$word <- tokenize_words_opts[tokenize_words_opts %in% how & !tokenize_words_opts %in% out$chr]
     }
 
     # to use "punct" include it explicitly; if used with "all" will override
@@ -517,17 +517,17 @@ check_str_homogenize_how <- function(how, quiet = FALSE) {
     if ("punct" %in% how) {
         out$word <- out$word[out$word != "wpunct"]
     } else {
-        out$str <- out$str[out$str != "punct"]
+        out$chr <- out$chr[out$chr != "punct"]
     }
 
     # UNACCEPTABLE OUTPUT: "numeral" converts 1 to I, which is removed by
     # "stopwords"
     # TEMPORARY FIX: exclude "numeral" if "stopwords"
-    if ("numeral" %in% out$str && "stopwords" %in% out$word) {
+    if ("numeral" %in% out$chr && "stopwords" %in% out$word) {
         if (!quiet) {
             warning("Excluding 'numeral' from `how` due to 'stopwords' (e.g. 1 -> I = stopword)")
         }
-        out$str <- out$str[out$str != "numeral"]
+        out$chr <- out$chr[out$chr != "numeral"]
     }
 
     out
@@ -821,7 +821,7 @@ if (is.null(box::name())) {
     })
 
     # str_homogenize() tests -------------------------------------------------
-    test_that("str_homogenize() works for string mutations alone", {
+    test_that("str_homogenize() works for character mutations alone", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
 
         expect_equal(
@@ -876,7 +876,7 @@ if (is.null(box::name())) {
         )
     })
 
-    test_that("str_homogenize() works for mixed string & word transformations", {
+    test_that("str_homogenize() works for mixed character & word transformations", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
                "or applying Total-1")
         expect_equal(
@@ -982,7 +982,7 @@ if (is.null(box::name())) {
         )
     })
 
-    test_that("str_homogenize_cum() works when `how` has both string & word inputs", {
+    test_that("str_homogenize_cum() works when `how` has both character & word inputs", {
         x <- c("1 word", "keep CASE", "plus punct.", "and stopword", "need stemming",
                "or applying Total-1")
         expect_equal(

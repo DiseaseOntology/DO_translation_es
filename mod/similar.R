@@ -15,21 +15,22 @@
 #'
 #' @section Details:
 #' * `str_compare()`: This function tests only for exact matches, after applying
-#' string transformations. Those transformations include 'numeral', 'case',
+#' character transformations. Those transformations include 'numeral', 'case',
 #' 'space', 'punct', or 'diacritic'. All transformations required to make the
 #' strings equal will be reported, separated by `delim`. If strings cannot be
 #' made identical, the value returned will be `NA`.
 #'
-#' * `str_compare_all()`: Tests for matches using the string transformation
+#' * `str_compare_all()`: Tests for matches using the character transformation
 #' approach of `str_compare()`. These transformations are reported in the same
-#' way but prefixed by "string:". Additionally, when string comparisons are
+#' way but prefixed by "chr:". Additionally, when string comparisons are
 #' insufficient, `str_compare_all()` tests for word similarity based on
 #' tokenization with possible modifications. Word similarity is reported as
 #' "wordToken[percent_similarity]", with any word transformations applied listed
-#' after a colon, separated by `delim`. If string transformations and word
-#' transformations were both applied the resulting strings will be in the format:
+#' after a colon, separated by `delim`. If character transformations and word
+#' transformations were both applied the resulting strings will be in the
+#' format:
 #'
-#' `"string:<str_transform1><delim><str_transform2>...;wordToken[percent_similarity]:<word_transform1><delim><word_transform2>..."`
+#' `"chr:<chr_transform1><delim><chr_transform2>...;wordToken[percent_similarity]:<word_transform1><delim><word_transform2>..."`
 #'
 #' If strings share no word similarity after all transformations are attempted,
 #' the value returned will be `NA`.
@@ -111,7 +112,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
     )
 
     # always test "wordToken" before other word transformations; "case" always
-    # treated as string transformation
+    # treated as character transformation
     word_opts <- mutate$tokenize_words_opts[mutate$tokenize_words_opts != "case"]
     if (any(word_opts %in% how)) {
         how <- unique(c("wordToken", how))
@@ -136,7 +137,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         stopwords = stopwords
     )
 
-    # split string-only results from those with word transformations
+    # split character-only results from those with word transformations
     # --> different tests
     mod_nm <- names(xmod)
     split_fct <- ifelse(stringr$str_detect(mod_nm, "wordToken"), "word", "str")
@@ -149,11 +150,11 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         paste0("^", x_nm, "$"),
         # 2. drop x_nm & delim from start
         paste0("^", x_nm, delim_esc),
-        # 3. add "string:" before string transformations
+        # 3. add "chr:" before character transformations
         paste0("^((", paste0(mutate$str_mutate_opts, collapse = "|"), ")", delim_esc, "?)+"),
         # 4. add percent similarity placeholder to "wordToken" (capture groups support next 2 changes)
         paste0("(", delim_esc, ")?wordToken(", delim_esc, ")?"),
-        # 5. separate string and word tokenization with "; "
+        # 5. separate character and word tokenization with "; "
         paste0(delim_esc, delim_esc),
         # 6. use ":" after word tokenization if additional transformations were performed
         paste0(";", delim_esc)
@@ -161,7 +162,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
     nm_replace <- c(
         "exact",
         "",
-        "string:\\0", # \\0 is the entire match
+        "chr:\\0", # \\0 is the entire match
         "\\1\\1wordToken[%pct%]\\2\\2\\2",
         ";",
         ":"
@@ -173,7 +174,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         split(split_fct)
 
     #### compare pairs using names --> avoids reliance on order ####
-    # string comparison
+    # character comparison
     str_comparison <- purrr$map2(
         mod_split$str,
         mod_out$str,
@@ -209,7 +210,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         word_best <- apply(word_matrix, 2, report_first_max)
     }
 
-    # combine string & word results; choose preferred transformation set
+    # combine character & word results; choose preferred transformation set
     if (is.null(mod_split$word)) {
         out <- dplyr$coalesce(!!!str_comparison)
     } else {
@@ -500,29 +501,29 @@ if (is.null(box::name())) {
         y <- c("b", "i", "I", "i", "i", "i", "i")
         expect_equal(
             str_compare_all(x, y, "numeral"),
-            c(NA_character_, "exact", "string:numeral", rep(NA_character_, 4))
+            c(NA_character_, "exact", "chr:numeral", rep(NA_character_, 4))
         )
         expect_equal(
             str_compare_all(x, y, "case"),
-            c(NA_character_, "exact", NA_character_, "string:case", rep(NA_character_, 3))
+            c(NA_character_, "exact", NA_character_, "chr:case", rep(NA_character_, 3))
         )
         expect_equal(
             str_compare_all(x, y, "space"),
-            c(NA_character_, "exact", rep(NA_character_, 2), "string:space" , rep(NA_character_, 2))
+            c(NA_character_, "exact", rep(NA_character_, 2), "chr:space" , rep(NA_character_, 2))
         )
         expect_equal(
             str_compare_all(x, y, "punct"),
-            c(NA_character_, "exact", rep(NA_character_, 3), "string:punct" , NA_character_)
+            c(NA_character_, "exact", rep(NA_character_, 3), "chr:punct" , NA_character_)
         )
         expect_equal(
             str_compare_all(x, y, "diacritic"),
-            c(NA_character_, "exact", rep(NA_character_, 4), "string:diacritic")
+            c(NA_character_, "exact", rep(NA_character_, 4), "chr:diacritic")
         )
         # `how` in reverse order to be sure it works still
         expect_equal(
             str_compare_all(x, y, c("diacritic", "punct", "space", "case", "numeral")),
-            c(NA_character_, "exact", "string:numeral", "string:case",
-              "string:space", "string:punct", "string:diacritic")
+            c(NA_character_, "exact", "chr:numeral", "chr:case",
+              "chr:space", "chr:punct", "chr:diacritic")
         )
     })
 
