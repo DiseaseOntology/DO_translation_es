@@ -194,6 +194,20 @@ auto_review_df <- function(.df, alignment = "none") {
 }
 
 
+#' @inheritParams read_gs_review
+#'
+#' @returns A list of tibbles as described in [auto_review_df()].
+#'
+#' @rdname auto_review_df
+#' @export
+auto_review <- function(gs, ss_prefix = NULL, alignment = "none") {
+  box::use(purrr)
+
+  review <- read_gs_review(gs, ss_prefix)
+  purrr$map(review, auto_review_df, alignment = alignment)
+}
+
+
 ### GENERAL gs_review helpers ################################################
 
 #' Full Column Names
