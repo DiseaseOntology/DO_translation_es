@@ -5,18 +5,11 @@
 #' each type of data (label, definition, synonym) and will include columns for
 #' Google Translate formulas in both directions.
 #'
-#' @param gs URL to google sheet or another identifier recognizable by
-#' googledrive::as_id().
-#' @param ss_prefix (OPTIONAL) A prefix to append before "en_es" & the column
-#' name when deriving a sheet name for the output.
-#'
-#' Example:
-#' - prefix = "disorder"
-#' - column in data.frame that matches `col_en_es` = "definition"
-#' - sheet name would become "disorder_en_es_definition"
+#' @param en_es_file Path to a CSV file with English and Spanish data columns.
+#' @inheritParams write_gs_review
 #'
 #' @returns List with information to access the new GS review, including `gs`
-#' and the names of the 3 sheets created.
+#' and the names of the 3 sheets created, invisibly.
 #'
 #' @export
 create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
@@ -39,14 +32,48 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
       add_gs_translate_cols()
   )
 
-  ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
-  walk2(
-    df_split,
-    ss_nm,
-    ~ write_sheet(data = .x, ss = gs, sheet = .y)
-  )
+  write_gs_review(df_split, gs, ss_prefix)
+}
 
-  list(gs = gs, ss = ss_nm)
+
+#' Write Review Data to Google Sheets
+#'
+#' Write the review data to Google Sheets, with one sheet per type of data
+#' (label, definition, synonym).
+#'
+#' @param df_list List of 3 `tibble`s with label, definition, and synonym in
+#' both Spanish & English.
+#' @param gs URL to google sheet or another identifier recognizable by
+#' [googledrive::as_id()].
+#' @param ss_prefix (OPTIONAL) A prefix to append before "en_es" & the column
+#' name when deriving a sheet name for the output.
+#'
+#' Example:
+#' - prefix = "disorder"
+#' - column in data.frame that matches `col_en_es` = "definition"
+#' - sheet name would become "disorder_en_es_definition"
+#'
+#' @returns List with information to access the GS review, including `gs` and
+#' the names of the 3 sheets created, invisibly.
+#'
+#' @export
+write_gs_review <- function(df_list, gs, ss_prefix = NULL) {
+  box::use(purrr)
+  ss_nm <- purrr$map_chr(df_split, ~ write_gs_review_df(.x, gs, ss_prefix))
+
+  invisible(list(gs = gs, ss = ss_nm))
+}
+
+
+write_gs_review_df <- function(.df, gs, ss_prefix = NULL) {
+  box::use(googlesheets4)
+
+  col_present <- col_en_es[names(col_en_es) %in% names(en_es)]
+  ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
+
+  googlesheets4$write_sheet(data = .df, ss = gs, sheet = ss_nm)
+
+  invisible(ss_nm)
 }
 
 
