@@ -771,6 +771,55 @@ if (is.null(box::name())) {
         )
     })
 
+    test_that("tokenize_words() handles punctuation as expected", {
+        # always treated as word boundaries and removed
+        expect_split_rm <- c(
+            " ", " ", "-", "–", ",", ";", "?", "(", ")", "[", "]", "@", "/",
+            "\\", "&", "%", "^", "+", "<", ">", "−", "≤", "≥"
+        )
+        expect_equal(
+            tokenize_words(
+                paste0("start", expect_split_rm, "end"),
+                "wpunct"
+            ),
+            rep(list(c("start", "end")), length(expect_split_rm))
+        )
+
+        # never removed from words --> start, end, or between
+        expect_retain <- "_"
+        expect_equal(tokenize_words("_start", "wpunct"), list("_start"))
+        expect_equal(tokenize_words("end_", "wpunct"), list("end_"))
+        expect_equal(tokenize_words("start_end", "wpunct"), list("start_end"))
+
+        # removed at start/end, not removed between words --> no spliting
+        expect_between <- c(":", ".", "'", "’")
+        expect_equal(
+            tokenize_words(paste0(expect_between, "start"), "wpunct"),
+            rep(list("start"), length(expect_between))
+        )
+        expect_equal(
+            tokenize_words(paste0("end", expect_between), "wpunct"),
+            rep(list("end"), length(expect_between))
+        )
+        expect_equal(
+            tokenize_words(
+                paste0("start", expect_between, "end"),
+                "wpunct"
+            ),
+            list("start:end", "start.end", "start'end", "start’end")
+        )
+
+        # all punctuation removed when no words
+        all_punct <- c(expect_split_rm, expect_retain)
+        expect_equal(
+            tokenize_words(
+                paste0(all_punct, collapse = ""),
+                "wpunct"
+            ),
+            list(character(0))
+        )
+    })
+
     # str_homogenize() tests -------------------------------------------------
     test_that("str_homogenize() works for string mutations alone", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
