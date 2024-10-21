@@ -195,16 +195,23 @@ auto_review_df <- function(.df, alignment = "none") {
 
 
 #' @inheritParams read_gs_review
+#' @param overwrite Whether to overwrite the original review file with the
+#' updated data (default: `FALSE`).
 #'
 #' @returns A list of tibbles as described in [auto_review_df()].
 #'
 #' @rdname auto_review_df
 #' @export
-auto_review <- function(gs, ss_prefix = NULL, alignment = "none") {
+auto_review <- function(gs, ss_prefix = NULL, alignment = "none",
+                        overwrite = FALSE) {
   box::use(purrr)
 
   review <- read_gs_review(gs, ss_prefix)
-  purrr$map(review, auto_review_df, alignment = alignment)
+  out <- purrr$map(review, auto_review_df, alignment = alignment)
+
+  if (overwrite) write_gs_review(out, gs, ss_prefix)
+
+  out
 }
 
 
