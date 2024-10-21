@@ -108,8 +108,11 @@ read_gs_review <- function(gs, ss_prefix = NULL) {
 #'
 #' * `review_notes`: Empty column for free form curator notes.
 #'
+#' If alignment is specified columns named en_align and es_align will be added
+#' after the corresponding match_rating columns.
+#'
 #' @export
-auto_review_df <- function(.df) {
+auto_review_df <- function(.df, alignment = "none") {
   box::use(
     dplyr,
     ./similar,
@@ -149,6 +152,43 @@ auto_review_df <- function(.df) {
       curator_match = NA,
       review_notes = NA
     )
+
+  # add alignment columns as specified
+  if (alignment == "both") alignment <- c("en", "es")
+
+  if ("en" %in% alignment) {
+    g_align <- pwalign$pairwiseAlignment(
+      out[[names(col_nm)]],
+      out[["google_translate_to_en"]],
+      type = "global"
+    )
+
+    out <- dplyr$mutate(
+      out,
+      en_align = paste0(
+        as.character(pwalign$alignedPattern(g_align)), "\n",
+        as.character(pwalign$alignedSubject(g_align))
+      ),
+      .after = .data$match_rating_en
+    )
+  }
+
+  if ("es" %in% alignment) {
+    g_align <- pwalign$pairwiseAlignment(
+      out[[col_nm]],
+      out[["google_translate_to_es"]],
+      type = "global"
+    )
+
+    out <- dplyr$mutate(
+      out,
+      en_align = paste0(
+        as.character(pwalign$alignedPattern(g_align)), "\n",
+        as.character(pwalign$alignedSubject(g_align))
+      ),
+      .after = .data$match_rating_es
+    )
+  }
 
   out
 }
