@@ -357,7 +357,7 @@ str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 
 #' Order str_homogenize_cum() output for comparison
 #'
-#' @param mod_nm The names from str_homogenize_cum() output.
+#' @inheritParams str_homogenize_cum
 #'
 #' @section Details:
 #' Multiple comparisons across multiple character and/or word transformations
