@@ -20,33 +20,33 @@
 #'
 #' @export
 create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
-    box::use(
-        readr[read_csv],
-        purrr[map2, walk2],
-        dplyr[select, filter, all_of, if_all],
-        googlesheets4[write_sheet],
-    )
+  box::use(
+    readr[read_csv],
+    purrr[map2, walk2],
+    dplyr[select, filter, all_of, if_all],
+    googlesheets4[write_sheet],
+  )
 
-    en_es <- read_csv(en_es_file, col_types = "c")
+  en_es <- read_csv(en_es_file, col_types = "c")
 
-    col_present <- col_en_es[names(col_en_es) %in% names(en_es)]
+  col_present <- col_en_es[names(col_en_es) %in% names(en_es)]
 
-    df_split <- map2(
-        names(col_present),
-        col_present,
-        ~ select(en_es, all_of(c("class", .x, "clase", .y))) |>
-            filter(!if_all(c(.x, .y), is.na)) |>
-            add_gs_translate_cols()
-    )
+  df_split <- map2(
+    names(col_present),
+    col_present,
+    ~ select(en_es, all_of(c("class", .x, "clase", .y))) |>
+      filter(!if_all(c(.x, .y), is.na)) |>
+      add_gs_translate_cols()
+  )
 
-    ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
-    walk2(
-        df_split,
-        ss_nm,
-        ~ write_sheet(data = .x, ss = gs, sheet = .y)
-    )
+  ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
+  walk2(
+    df_split,
+    ss_nm,
+    ~ write_sheet(data = .x, ss = gs, sheet = .y)
+  )
 
-    list(gs = gs, ss = ss_nm)
+  list(gs = gs, ss = ss_nm)
 }
 
 
@@ -61,16 +61,16 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
 #'
 #' @export
 read_gs_review <- function(gs, ss_prefix = NULL) {
-    box::use(
-        purrr[map, set_names],
-        googlesheets4[with_gs4_quiet, read_sheet]
-    )
+  box::use(
+    purrr[map, set_names],
+    googlesheets4[with_gs4_quiet, read_sheet]
+  )
 
-    col_present <- names(col_en_es)
-    ss_nm <- paste(ss_prefix, "en_es", col_present, sep = "_")
+  col_present <- names(col_en_es)
+  ss_nm <- paste(ss_prefix, "en_es", col_present, sep = "_")
 
-    map(ss_nm, ~ with_gs4_quiet(read_sheet(ss = gs, sheet = .x))) |>
-        set_names(col_present)
+  map(ss_nm, ~ with_gs4_quiet(read_sheet(ss = gs, sheet = .x))) |>
+    set_names(col_present)
 }
 
 
@@ -214,7 +214,7 @@ auto_review <- function(gs, ss_prefix = NULL, alignment = "none") {
 #'
 #' Full column names for English and Spanish (English = names, Spanish = values).
 col_en_es <- c(
-    "label" = "etiqueta", "definition" = "definición", "synonym" = "sinónimo"
+  "label" = "etiqueta", "definition" = "definición", "synonym" = "sinónimo"
 )
 
 
@@ -232,31 +232,31 @@ col_en_es <- c(
 #' Group" (TSG) corresponding to the English data (etiqueta, definición, or
 #' sinónimo).
 add_gs_translate_cols <- function(df) {
-    box::use(
-        dplyr[mutate, last_col],
-        gs4 = googlesheets4,
-        glue[glue]
-    )
+  box::use(
+    dplyr[mutate, last_col],
+    gs4 = googlesheets4,
+    glue[glue]
+  )
 
-    df |>
-        mutate(
-            google_translate_to_en = gs4$gs4_formula(
-                glue(
-                    '=GOOGLETRANSLATE({cell_ref}, "es", "en")',
-                    cell_ref = form_cell_ref("E")
-                )
-            ),
-            .after = 2
-        ) |>
-        mutate(
-            google_translate_to_es = gs4$gs4_formula(
-               glue(
-                    '=GOOGLETRANSLATE({cell_ref}, "en", "es")',
-                    cell_ref = form_cell_ref("C")
-                )
-            ),
-            .after = last_col()
+  df |>
+    mutate(
+      google_translate_to_en = gs4$gs4_formula(
+        glue(
+          '=GOOGLETRANSLATE({cell_ref}, "es", "en")',
+          cell_ref = form_cell_ref("E")
         )
+      ),
+      .after = 2
+    ) |>
+    mutate(
+      google_translate_to_es = gs4$gs4_formula(
+         glue(
+          '=GOOGLETRANSLATE({cell_ref}, "en", "es")',
+          cell_ref = form_cell_ref("C")
+        )
+      ),
+      .after = last_col()
+    )
 }
 
 #' Form GS Cell References
@@ -268,12 +268,12 @@ add_gs_translate_cols <- function(df) {
 #' @param w_title Whether a title row will be present in the sheet (default:
 #' `TRUE`). _Adjusts row numbers down 1._
 form_cell_ref <- function(col_letter, w_title = TRUE) {
-    box::use(dplyr[row_number])
-    if (w_title) {
-        paste0(col_letter, row_number() + 1)
-    } else {
-        paste0(col_letter, row_number())
-    }
+  box::use(dplyr[row_number])
+  if (w_title) {
+    paste0(col_letter, row_number() + 1)
+  } else {
+    paste0(col_letter, row_number())
+  }
 }
 
 
@@ -296,18 +296,18 @@ form_cell_ref <- function(col_letter, w_title = TRUE) {
 #' @inheritParams readr::read_delim
 #' @inheritDotParams readr::read_delim -delim -quoted_na
 read_delim_auto <- function(file, ..., show_col_types = FALSE) {
-    box::use(
-        stringr[str_match],
-        readr[read_delim]
-    )
-    ext <- str_match(file, "\\.([tc]sv)(\\.(gz|bz2|xz|zip))?")[,2]
-    delim <- switch(ext, tsv = "\t", csv = ",")
-    if (is.null(delim)) stop("`file` must have .tsv or .csv extension.")
+  box::use(
+    stringr[str_match],
+    readr[read_delim]
+  )
+  ext <- str_match(file, "\\.([tc]sv)(\\.(gz|bz2|xz|zip))?")[,2]
+  delim <- switch(ext, tsv = "\t", csv = ",")
+  if (is.null(delim)) stop("`file` must have .tsv or .csv extension.")
 
-    read_delim(
-        file = file,
-        delim = delim,
-        show_col_types = show_col_types,
-        ...
-    )
+  read_delim(
+    file = file,
+    delim = delim,
+    show_col_types = show_col_types,
+    ...
+  )
 }
