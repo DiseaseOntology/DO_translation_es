@@ -196,7 +196,7 @@ auto_review_df <- function(.df, alignment = "none") {
         as.character(pwalign$alignedPattern(g_align)), "\n",
         as.character(pwalign$alignedSubject(g_align))
       ),
-      .after = .data$match_rating_en
+      .before = .data[["match_en"]]
     )
   }
 
@@ -213,7 +213,7 @@ auto_review_df <- function(.df, alignment = "none") {
         as.character(pwalign$alignedPattern(g_align)), "\n",
         as.character(pwalign$alignedSubject(g_align))
       ),
-      .after = .data$match_rating_es
+      .before = .data[["match_es"]]
     )
   }
 
