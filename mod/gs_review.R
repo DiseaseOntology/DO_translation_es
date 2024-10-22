@@ -176,6 +176,7 @@ auto_review_df <- function(.df, alignment = "none") {
         NA_character_
       ),
       # add columns for curator review
+      "{col_nm}_final" := NA,
       curator_match = NA,
       review_notes = NA
     )
