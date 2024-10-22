@@ -59,7 +59,7 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
 #' @export
 write_gs_review <- function(df_list, gs, ss_prefix = NULL) {
   box::use(purrr)
-  ss_nm <- purrr$map_chr(df_split, ~ write_gs_review_df(.x, gs, ss_prefix))
+  ss_nm <- purrr$map_chr(df_list, ~ write_gs_review_df(.x, gs, ss_prefix))
 
   invisible(list(gs = gs, ss = ss_nm))
 }
@@ -68,7 +68,7 @@ write_gs_review <- function(df_list, gs, ss_prefix = NULL) {
 write_gs_review_df <- function(.df, gs, ss_prefix = NULL) {
   box::use(googlesheets4)
 
-  col_present <- col_en_es[names(col_en_es) %in% names(en_es)]
+  col_present <- col_en_es[names(col_en_es) %in% names(.df)]
   ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
 
   googlesheets4$write_sheet(data = .df, ss = gs, sheet = ss_nm)
@@ -141,7 +141,7 @@ read_gs_review <- function(gs, ss_prefix = NULL) {
 #' @export
 auto_review_df <- function(.df, alignment = "none") {
   box::use(
-    dplyr,
+    dplyr, pwalign,
     ./similar,
     ./rate
   )
@@ -209,7 +209,7 @@ auto_review_df <- function(.df, alignment = "none") {
 
     out <- dplyr$mutate(
       out,
-      en_align = paste0(
+      es_align = paste0(
         as.character(pwalign$alignedPattern(g_align)), "\n",
         as.character(pwalign$alignedSubject(g_align))
       ),
