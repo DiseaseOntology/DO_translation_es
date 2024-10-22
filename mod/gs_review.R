@@ -170,7 +170,7 @@ auto_review_df <- function(.df, alignment = "none") {
       # calculate overall match rating (mean)
       match_rating_overall = (match_rating_en + match_rating_es) / 2,
       # if high enough match, treat TSG translation as final
-      "{col_nm}_final" := dplyr::if_else(
+      "{col_nm}_passed" := dplyr::if_else(
         match_rating_overall > 0.75,
         .data[[col_nm]],
         NA_character_
