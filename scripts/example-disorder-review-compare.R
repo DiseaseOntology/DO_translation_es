@@ -1,4 +1,11 @@
-
+# Example script to auto-compare Spanish translations using physical disorder
+# data with human (TSG company) and google translated labels, definitions, and
+# synonyms, and google backtranslation of TSG human translations.
+#
+# ASSUMPTIONS:
+#   1. Review Google Sheet was generated with Google translation formulas
+#       previously.
+#   2. The three separate sets of labels, definitions, and synonyms are present.
 box::use(
   dplyr, googlesheets4, here, purrr,
   ./mod
@@ -14,7 +21,7 @@ init <- mod$gs_review$read_gs_review(
 # One-time fixes for extra columns and blank rows -------------------------
 
 # Fix for blank rows saved in definition sheet
-init[["definition"]] <- init[[2]] |>
+init[["definition"]] <- init[["definition"]] |>
   dplyr$filter(!is.na(.data[["definition"]]))
 
 
@@ -31,26 +38,77 @@ init_tidy <- purrr$map(
   )
 )
 
+cur_data <- dplyr::mutate(
+  init[[1]],
+  curator_match = paste0(
+    dplyr$if_else(
+      !is.na(.data[["cur_match_en"]]),
+      paste0("en:", .data[["cur_match_en"]]),
+      ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["who_bilingual"]]),
+      paste0("-", .data[["who_bilingual"]]),
+      ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["cur_match_en"]]) & !is.na(.data[["cur_match_es"]]),
+      ";", ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["cur_match_es"]]),
+      paste0("es:", .data[["cur_match_es"]]),
+      ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["who_es"]]),
+      paste0("-", .data[["who_es"]]),
+      ""
+    )
+  ),
+  review_notes = paste0(
+    dplyr$if_else(
+      !is.na(.data[["review_notes"]]),
+      paste0("en:\n", .data[["review_notes"]]),
+      ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["review_notes"]]) & !is.na(.data[["notes"]]),
+      "\n\n", ""
+    ),
+    dplyr$if_else(
+      !is.na(.data[["notes"]]),
+      paste0("es:\n", .data[["notes"]]),
+      ""
+    )
+  )
+) |>
+  dplyr::select(
+    "class", "label", "google_translate_to_en", "curator_match", "review_notes"
+  )
+
 
 # Automated review --------------------------------------------------------
 
 review <- purrr$map(
   init_tidy,
-  ~ mod$gs_review$auto_review(.x, alignment = "both")
+  ~ mod$gs_review$auto_review_df(.x, alignment = "both")
 )
 
 
-mod$gs_review$
-label_align <- label_scomp2 |>
-  dplyr$mutate(
-    g_align = paste0(
-      as.character(pwalign$alignedPattern(g_alignment)), "\n",
-      as.character(pwalign$alignedSubject(g_alignment))
-    ),
-    g_score = pwalign$score(g_alignment)
-  )
+# Combine with captured curator data --------------------------------------
+
+# reformat data we previously curated and fit it in to designated curator cols
+out <- review
+out[[1]] <- review[[1]] |>
+  dplyr::select(-"curator_match", -"review_notes") |>
+  dplyr::full_join(cur_data, by = c("class", "label", "google_translate_to_en"))
+
 
 # Write to GS -------------------------------------------------------------
 
-# still need to capture the data we previously curated and figure out how
-# to fit it in with this new data
+mod$gs_review$write_gs_review(
+  out,
+  "https://docs.google.com/spreadsheets/d/1Fvnmz_3KNXuLvLtJGm9eKkqvV33mIZUESsPWv28uUAg/edit?gid=1590954027#gid=1590954027",
+  "disorder1"
+)
