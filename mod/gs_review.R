@@ -118,9 +118,9 @@ read_gs_review <- function(gs, ss_prefix = NULL) {
 #' (default) = no alignment, `"en"` = English, `"es"` = Spanish, `"both"` =
 #' both.
 #'
-#' @returns A tibble with the following 7 columns added:
+#' @returns A tibble with the following 9-11 columns added:
 #'
-#' #' * `match_en`: Transformation set needed to create a match between
+#' * `match_en`: Transformation set needed to create a match between
 #' original English & Google backtranslation from TSG Spanish. See
 #' [str_compare_all()] for details.
 #'
@@ -134,10 +134,20 @@ read_gs_review <- function(gs, ss_prefix = NULL) {
 #'
 #' * `match_rating_overall`: Average of `match_rating_en` and `match_rating_es`.
 #'
-#' * `curator_match`: Empty column for _hopefully_ standardized curator review
-#' of English and/or Spanish.
+#' * `<spanish_data_col>_passed`: Values from the Spanish data column that
+#' passed the match rating cutoff.
 #'
-#' * `review_notes`: Empty column for free form curator notes.
+#' * `<spanish_data_col>_final`: Empty column for manual curation of a final
+#' translation. It is only necessary to curate a "final" translation if the
+#' "passed" translation is not sufficient or missing. It should generally be
+#' left empty if it is sufficient.
+#'
+#' * `final_reviewer`: Empty column for adding identifier for the person who
+#' created updated text in the `<spanish_data_col>_final` column. It _may_ be
+#' left empty if the "passed" translation is sufficient or when the original
+#' translation is used without modification.
+#'
+#' * `review_notes`: Empty column for free form reviewer notes.
 #'
 #' If alignment is specified columns named en_align and es_align will be added
 #' after the corresponding match_rating columns.
@@ -179,10 +189,11 @@ auto_review_df <- function(.df, cutoff = 0.75, alignment = "none") {
         .data[[col_nm]],
         NA_character_
       ),
+      # add column for final translation
+      "{col_nm}_final" := NA_character_,
       # add columns for curator review
-      "{col_nm}_final" := NA,
-      curator_match = NA,
-      review_notes = NA
+      final_reviewer = NA_character_,
+      review_notes = NA_character_
     )
 
   # add alignment columns as specified
