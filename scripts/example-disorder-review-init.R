@@ -9,12 +9,8 @@
 #       files. A basic check comparing class URI across languages is included.
 
 box::use(
-    here,
-    purrr,
-    readr,
-    stringr,
-    ../mod/bind[bind_en_es],
-    ../mod/gs_review[create_gs_review]
+    here, purrr, readr, stringr,
+    ./mod
 )
 
 pd_dir <- here$here("data/physical_disorder")
@@ -24,14 +20,14 @@ en_es_files <- stringr$str_replace(en_files, "En", "En-Es")
 
 en_es <- purrr$pmap(
     list(en_files, es_files, en_es_files),
-    function(.en, .es, .out) bind_en_es(.en, .es, .out)
+    function(.en, .es, .out) mod$bind$bind_en_es(.en, .es, .out)
 )
 
 gs_out <- purrr$map(
     en_es_files,
-    ~ create_gs_review(
+    ~ mod$gs_review$create_gs_review(
         .x,
         gs = "https://docs.google.com/spreadsheets/d/1Fvnmz_3KNXuLvLtJGm9eKkqvV33mIZUESsPWv28uUAg",
-        "disorder"
+        "disorder1"
     )
 )
