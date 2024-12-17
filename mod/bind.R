@@ -14,16 +14,14 @@
 #' language file match up across a row and an error produced if there are any
 #' that don't.
 bind_en_es <- function(en_file, es_file, out_file) {
-    box::use(
-        readr[read_csv, write_csv],
-        dplyr[bind_cols, mutate]
-    )
-    en <- read_csv(en_file, col_types = "c") |>
+    box::use(dplyr, readr)
+
+    en <- readr$read_csv(en_file, col_types = "c") |>
         rename_abbrev("en")
-    es <- read_csv(es_file, col_types = "c") |>
+    es <- readr$read_csv(es_file, col_types = "c") |>
         rename_abbrev("es")
     out <- bind_cols(en, es) |>
-        mutate(class_match = class == clase)
+        dplyr$mutate(class_match = class == clase)
 
     not_match <- sum(!out$class_match)
     if (not_match > 0) {
@@ -32,7 +30,7 @@ bind_en_es <- function(en_file, es_file, out_file) {
         )
     }
 
-    write_csv(out, out_file)
+    readr$write_csv(out, out_file)
     out
 }
 
@@ -48,7 +46,8 @@ bind_en_es <- function(en_file, es_file, out_file) {
 #' translation by "The Spanish Group" (TSG) used abbreviations for
 #' 'synonym' (syn) and 'definition' (def) as column names.
 rename_abbrev <- function(.df, lang = "en") {
-    box::use(dplyr[rename])
+    box::use(dplyr)
+
     lang <- match.arg(lang, choices = c("en", "es"))
 
     if (lang == "en") {
@@ -58,5 +57,5 @@ rename_abbrev <- function(.df, lang = "en") {
         nm_recode <- c(sinónimo = "syn", definición = "def")
     }
 
-    rename(.df, nm_recode[nm_recode %in% names(.df)])
+    dplyr$rename(.df, nm_recode[nm_recode %in% names(.df)])
 }

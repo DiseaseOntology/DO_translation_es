@@ -39,6 +39,7 @@
 #' @export
 str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
+
     box::use(
         stringr, purrr, dplyr,
         ./mutate
@@ -105,10 +106,10 @@ str_compare <- function(x, y, how = "all", delim = "|", locale = "en", ...) {
 str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
                             stopwords = NULL, ...) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
+
     box::use(
-        stringr, purrr, dplyr,
-        ./mutate,
-        ./utils
+        dplyr, purrr, stringr,
+        ./mutate, ./utils
     )
 
     # always test "wordToken" before other word transformations; "case" always
@@ -232,32 +233,29 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 #'
 #' @export
 str_similar <- function(x, y) {
-    box::use(
-        tibble[tibble],
-        dplyr[mutate, case_when, across, if_else, ends_with],
-        stringr[str_to_lower, str_remove_all],
-    )
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
 
-    df <- tibble(
+    box::use(dplyr, stringr, tibble)
+
+    df <- tibble$tibble(
         x = x,
         y = y,
-        comp = if_else(x == y, "exact", NA_character_)
+        comp = dplyr$if_else(x == y, "exact", NA_character_)
     )
 
     # single conversion tests
     df <- df |>
-        mutate(
-            across(
+        dplyr$mutate(
+            dplyr$across(
                 .cols = c(x, y),
                 .fns = list(
-                    lc = ~ str_to_lower(.x),
-                    space = ~ str_remove_all(.x, "[[:space:]]+"),
-                    punct = ~ str_remove_all(.x, "[[:punct:]]+"),
+                    lc = ~ stringr$str_to_lower(.x),
+                    space = ~ stringr$str_remove_all(.x, "[[:space:]]+"),
+                    punct = ~ stringr$str_remove_all(.x, "[[:punct:]]+"),
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            comp = case_when(
+            comp = dplyr$case_when(
                 !is.na(comp) ~ comp,
                 x_lc == y_lc ~ "case",
                 x_space == y_space ~ "space",
@@ -269,29 +267,29 @@ str_similar <- function(x, y) {
 
     # double conversion tests
     df <- df |>
-        mutate(
-            across(
-                .cols = ends_with("lc"),
+        dplyr$mutate(
+            dplyr$across(
+                .cols = dplyr$ends_with("lc"),
                 .fns = list(
-                    space = ~ str_remove_all(.x, "[[:space:]]+"),
-                    punct = ~ str_remove_all(.x, "[[:punct:]]+"),
+                    space = ~ stringr$str_remove_all(.x, "[[:space:]]+"),
+                    punct = ~ stringr$str_remove_all(.x, "[[:punct:]]+"),
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            across(
-                .cols = ends_with("space"),
+            dplyr$across(
+                .cols = dplyr$ends_with("space"),
                 .fns = list(
-                    punct = ~ str_remove_all(.x, "[[:punct:]]+"),
+                    punct = ~ stringr$str_remove_all(.x, "[[:punct:]]+"),
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            across(
-                .cols = ends_with("punct"),
+            dplyr$across(
+                .cols = dplyr$ends_with("punct"),
                 .fns = list(
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            comp = case_when(
+            comp = dplyr$case_when(
                 !is.na(comp) ~ comp,
                 x_lc_space == y_lc_space ~ "case|space",
                 x_lc_punct == y_lc_punct ~ "case|punct",
@@ -305,28 +303,28 @@ str_similar <- function(x, y) {
 
     # triple conversion tests
     df <- df |>
-        mutate(
-            across(
-                .cols = ends_with("lc_space"),
+        dplyr$mutate(
+            dplyr$across(
+                .cols = dplyr$ends_with("lc_space"),
                 .fns = list(
-                    punct = ~ str_remove_all(.x, "[[:punct:]]+"),
+                    punct = ~ stringr$str_remove_all(.x, "[[:punct:]]+"),
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            across(
-                .cols = ends_with("lc_punct"),
+            dplyr$across(
+                .cols = dplyr$ends_with("lc_punct"),
                 .fns = list(
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            across(
-                .cols = ends_with("space_punct"),
+            dplyr$across(
+                .cols = dplyr$ends_with("space_punct"),
                 .fns = list(
                     num = ~ to_roman_lc(.x)
                 )
             ),
 
-            comp = case_when(
+            comp = dplyr$case_when(
                 !is.na(comp) ~ comp,
                 x_lc_space_punct == y_lc_space_punct ~ "case|space|punct",
                 x_lc_space_num == y_lc_space_num ~ "case|space|num_format",
@@ -338,14 +336,14 @@ str_similar <- function(x, y) {
 
     # all conversion tests
     df <- df |>
-        mutate(
-            across(
-                .cols = ends_with("lc_space_punct"),
+        dplyr$mutate(
+            dplyr$across(
+                .cols = dplyr$ends_with("lc_space_punct"),
                 .fns = list(
                     num = ~ to_roman_lc(.x)
                 )
             ),
-            comp = case_when(
+            comp = dplyr$case_when(
                 !is.na(comp) ~ comp,
                 x_lc_space_punct_num == y_lc_space_punct_num ~ "case|space|punct|num_format",
                 .default = NA_character_
@@ -370,12 +368,12 @@ str_similar <- function(x, y) {
 #' @export
 word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
                          stem_words = FALSE, ...) {
+    stopifnot("length of `y` must be the same as `x`" = length(y) == length(x))
+
     box::use(
-        tokenizers,
-        purrr,
+        purrr, tokenizers,
         ./utils
     )
-    stopifnot("length of `y` must be the same as `x`" = length(y) == length(x))
 
     xtest <- x[!ignore]
     ytest <- y[!ignore]
@@ -406,18 +404,15 @@ word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
 #' letters.
 #' @param x A character vector.
 to_roman_lc <- function(x) {
-    box::use(
-        stringr[str_detect, str_extract_all, str_to_lower, str_replace_all],
-        purrr[map, map2, map2_chr, set_names],
-        utils[as.roman]
-    )
-    has_number <- str_detect(x, "[0-9]+")
-    numbers <- str_extract_all(x, "[0-9]+")
-    rn <- map(
+    box::use(purrr, stringr, utils)
+
+    has_number <- stringr$str_detect(x, "[0-9]+")
+    numbers <- stringr$str_extract_all(x, "[0-9]+")
+    rn <- purrr$map(
         numbers,
-        ~ str_to_lower(as.roman(.x))
+        ~ stringr$str_to_lower(utils$as.roman(.x))
     )
-    replace_list <- map2(
+    replace_list <- purrr$map2(
         numbers,
         rn,
         function(num, rn) {
@@ -425,19 +420,19 @@ to_roman_lc <- function(x) {
                 NA
             } else {
                 pattern <- paste0("(^|[^0-9])", num, "([^0-9]|$)")
-                set_names(rn, num)
+                purrr$set_names(rn, num)
             }
         }
     )
 
-    map2_chr(
+    purrr$map2_chr(
         x,
         replace_list,
         function(input, patt_repl) {
             if (all(is.na(patt_repl))) {
                 input
             } else {
-                str_replace_all(input, patt_repl)
+                stringr$str_replace_all(input, patt_repl)
             }
         }
     )

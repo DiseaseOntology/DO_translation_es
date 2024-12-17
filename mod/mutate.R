@@ -14,7 +14,7 @@
 str_mutate <- function(x, how, locale = "en") {
     # internal function to apply each transformation
     str_mutate_ <- function(x, how) {
-        box::use(stringr, stringi)
+        box::use(stringi, stringr)
 
         .fn <- switch(
             how,
@@ -54,9 +54,10 @@ str_mutate <- function(x, how, locale = "en") {
 str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
                            locale = "en") {
     box::use(
-        purrr,
-        ./utils
+      purrr,
+      ./utils
     )
+
     how <- check_str_mutate_how(how)
 
     # get all possible combinations of how
@@ -97,7 +98,7 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
 #' @export
 tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
     # alias for stopwords to prevent name collision of box using stopwords$stopwords()
-    box::use(sw = stopwords, tokenizers, SnowballC, purrr, stringr)
+    box::use(purrr, SnowballC, sw = stopwords, stringr, tokenizers)
 
     how <- check_tokenize_words_how(how)
     if ("all" %in% how) how <- tokenize_words_opts
@@ -292,7 +293,8 @@ check_str_mutate_how <- function(how, allow_mismatch = FALSE) {
 #'
 #' @param x A character vector.
 to_roman <- function(x) {
-    box::use(stringr, purrr, utils)
+    box::use(purrr, stringr, utils)
+
     numbers <- stringr$str_extract_all(x, "[0-9]+") |>
         # integer -> character round trip for proper sorting, which is needed
         # to ensure larger numbers are matched completely and not partially
@@ -307,8 +309,8 @@ to_roman <- function(x) {
             if (length(.n) == 0) {
                 .x
             } else {
-                # setNames to handle multiple replacements in pairs
-                stringr$str_replace_all(.x, purrr::set_names(.rn, .n))
+                # set names to handle multiple replacements in pairs
+                stringr$str_replace_all(.x, purrr$set_names(.rn, .n))
             }
         }
     )
@@ -376,7 +378,7 @@ str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 #' @export
 create_how_list <- function(how) {
     box::use(
-        purrr, rlang, dplyr,
+        dplyr, purrr, rlang,
         ./utils
     )
 
@@ -387,7 +389,7 @@ create_how_list <- function(how) {
     )
 
     # error if any of the following are used
-    how_error <- dplyr::case_when(
+    how_error <- dplyr$case_when(
         all(c("numeral", "stopwords") %in% how) && length(unique(how)) == 2 ~
             "'numeral' and 'stopwords' cannot be used as the only `how` inputs",
         # just space and one other tokenize_word_opts = error
@@ -417,7 +419,7 @@ create_how_list <- function(how) {
     how_split$word <- how_split$word[!how_split$word %in% how_drop]
 
     # get all combinations for character & word alone; NULL if empty
-    hcombn <- purrr::map(
+    hcombn <- purrr$map(
         how_split,
         ~ if (length(.x) > 0) {
             utils$combn_all(.x)
@@ -430,7 +432,7 @@ create_how_list <- function(how) {
 
     # add 'wordToken' to all vectors in hcombn$word list
     if (!is.null(hcombn$word)) {
-        hcombn$word <- purrr::map(hcombn$word, ~ c("wordToken", .x))
+        hcombn$word <- purrr$map(hcombn$word, ~ c("wordToken", .x))
     }
 
     # add "wordToken" back if it was in how (dropped earlier)
@@ -969,6 +971,7 @@ if (is.null(box::name())) {
 
     test_that("create_how_list() order is correct", {
         box::use(purrr)
+
         expect_equal(
             purrr$map(
                 create_how_list("all"),

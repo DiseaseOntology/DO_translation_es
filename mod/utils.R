@@ -3,8 +3,6 @@
 #' `digits` is passed to [round()]
 #' @inheritParams round
 col_summary <- function(.df, .cols, digits = NULL) {
-    box::use(dplyr[reframe, across, mutate, arrange])
-
     val_nm <- c("min", "q25", "median", "mean", "q75", "max")
     if (is.null(digits)) {
         .fn <- function(.x) { as.numeric(summary(.x)) }
@@ -16,12 +14,14 @@ col_summary <- function(.df, .cols, digits = NULL) {
         .fn <- function(.x) { round(as.numeric(summary(.x)), digits = digits) }
     }
 
-    out <- reframe(.df, across({{ .cols }}, .fn))
+    box::use(dplyr)
+
+    out <- dplyr$reframe(.df, dplyr$across({{ .cols }}, .fn))
 
     if (nrow(out) == 7) val_nm <- append(val_nm, "NA")
-    out <- mutate(out, stat = val_nm, .before = 1) |>
+    out <- dplyr$mutate(out, stat = val_nm, .before = 1) |>
         # move median after quantiles
-        arrange(
+        dplyr$arrange(
             factor(
                 .data$stat,
                 levels = c("min", "q25", "mean", "q75", "max", "median")
@@ -36,6 +36,7 @@ col_summary <- function(.df, .cols, digits = NULL) {
 #' @param tol Tolerance for comparison.
 is_whole_number <- function(x, tol = .Machine$double.eps)  {
     stopifnot("`x` must be a number" = is.numeric(x))
+
     abs(x - round(x)) < tol
 }
 
@@ -95,6 +96,7 @@ is_whole_number <- function(x, tol = .Machine$double.eps)  {
 #' @export
 combn_all <- function(x) {
     box::use(purrr, utils)
+
     n <- length(x)
     if (n == 0) return(NULL) # prevents expanded lists with NULL elements
     index <- purrr$map(1:n, ~ utils$combn(n, .x, simplify = FALSE)) |>
@@ -138,6 +140,7 @@ pct_match <- function(x, y, digits = 2) {
   if (is.list(x) && length(x) != length(y)) {
     stop("If lists, `x` and `y` must be the same length")
   }
+
   box::use(purrr)
 
   pct_fn <- function(.x, .y) {
@@ -174,6 +177,8 @@ pct_match <- function(x, y, digits = 2) {
 #'
 #' @export
 uri_curie <- function(x, to = "curie", bracket = FALSE) {
+  box::use(stringr)
+
   to <- match.arg(to, c("curie", "uri"))
 
   sanitized <- stringr$str_trim(x) |>
@@ -195,7 +200,7 @@ uri_curie <- function(x, to = "curie", bracket = FALSE) {
   }
 
   if (bracket) {
-    out <- stringr::str_replace_all(out, c("^<?" = "<", ">$" = ">"))
+    out <- stringr$str_replace_all(out, c("^<?" = "<", ">$" = ">"))
   }
 
   out

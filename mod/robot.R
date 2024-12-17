@@ -27,6 +27,7 @@ check_robot <- function() {
 #' @export
 get_obo_text <- function(path, save = NULL) {
   box::use(dplyr, readr, stringr)
+
   check_robot()
 
   query <- '

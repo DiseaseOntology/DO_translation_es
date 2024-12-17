@@ -35,9 +35,10 @@
 #' @export
 rate_comparison <- function(x, chr_wt = 0.02, token_wt = 0.1, word_wt = 0.05) {
   box::use(
-    stringr, tidyr, dplyr,
-    . / mutate
+    dplyr, stringr, tidyr,
+    ./mutate
   )
+
   x_chr <- stringr$str_extract(x, "chr:[^;]+")
   x_word <- stringr$str_extract(x, "wordToken.+")
 
