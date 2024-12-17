@@ -109,7 +109,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 
     box::use(
         dplyr, purrr, stringr,
-        ./mutate, ./utils
+        ./mutate, ./general
     )
 
     # always test "wordToken" before other word transformations; "case" always
@@ -192,7 +192,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 
     # word comparison
     if (!is.null(mod_split$word)) {
-        word_comparison <- utils$pct_match(
+        word_comparison <- general$pct_match(
             xmod[mod_split$word],
             ymod[mod_split$word]
         ) |>
@@ -374,7 +374,7 @@ word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
 
     box::use(
         purrr, tokenizers,
-        ./utils
+        ./general
     )
 
     xtest <- x[!ignore]
@@ -390,7 +390,7 @@ word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
 
     # may not calculate similarity as desired
     # example: x = 1:2, y = 2:3 --> 33.33; 50 seems more intuitive
-    pct_match <- utils$pct_match(x, y) |>
+    pct_match <- general$pct_match(x, y) |>
         purrr$set_names(xtest)
 
     unname(pct_match[x])

@@ -55,13 +55,13 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
                            locale = "en") {
     box::use(
       purrr,
-      ./utils
+      ./general
     )
 
     how <- check_str_mutate_how(how)
 
     # get all possible combinations of how
-    how_list <- utils$combn_all(how)
+    how_list <- general$combn_all(how)
 
     out <- purrr$map(how_list, ~ str_mutate(x, .x, locale = locale))
 
@@ -219,7 +219,7 @@ str_homogenize_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
                                locale = "en", stopwords = NULL) {
     box::use(
         purrr,
-        ./utils
+        ./general
     )
 
     how_list <- create_how_list(how)
@@ -380,7 +380,7 @@ str_homogenize_cum_opts <- unique(c(str_mutate_opts, tokenize_words_opts))
 create_how_list <- function(how) {
     box::use(
         dplyr, purrr, rlang,
-        ./utils
+        ./general
     )
 
     how <- match.arg(
@@ -423,7 +423,7 @@ create_how_list <- function(how) {
     hcombn <- purrr$map(
         how_split,
         ~ if (length(.x) > 0) {
-            utils$combn_all(.x)
+            general$combn_all(.x)
         } else {
             NULL
         }
@@ -445,7 +445,7 @@ create_how_list <- function(how) {
         out$homog <- hcombn$word
     } else {
         # create homogenized combination list in desired order
-        hhow <- utils$combn_xy(hcombn$word, hcombn$chr)
+        hhow <- general$combn_xy(hcombn$word, hcombn$chr)
 
         # drop any homogenized lists considered errors, probably only necessary
         # when how = "all" since errors are thrown if the user specifies them
