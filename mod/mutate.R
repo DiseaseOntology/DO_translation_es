@@ -95,6 +95,7 @@ str_mutate_cum <- function(x, how = "all", x_nm = "x", names_sep = "_",
 #' @return A list of the same length as `x` with words tokenized as specified
 #' by `how`.
 #'
+#' @md
 #' @export
 tokenize_words <- function(x, how = "all", locale = "en", stopwords = NULL) {
     # alias for stopwords to prevent name collision of box using stopwords$stopwords()

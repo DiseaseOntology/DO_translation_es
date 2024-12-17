@@ -175,6 +175,7 @@ pct_match <- function(x, y, digits = 2) {
 #' uri_curie("http://www.w3.org/2000/01/rdf-schema#label")
 #' uri_curie("rdfs:label", to = "uri")
 #'
+#' @md
 #' @export
 uri_curie <- function(x, to = "curie", bracket = FALSE) {
   box::use(stringr)

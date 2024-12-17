@@ -11,6 +11,7 @@
 #' @returns List with information to access the new GS review, including `gs`
 #' and the names of the 3 sheets created, invisibly.
 #'
+#' @md
 #' @export
 create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
   box::use(dplyr, purrr, readr)
@@ -83,6 +84,7 @@ write_gs_review_df <- function(.df, gs, ss_prefix = NULL) {
 #' @returns List of 3 `tibble`s with label, definition, and synonym translation
 #' information.
 #'
+#' @md
 #' @export
 read_gs_review <- function(gs, ss_prefix = NULL) {
   box::use(googlesheets4, purrr)
@@ -151,6 +153,7 @@ read_gs_review <- function(gs, ss_prefix = NULL) {
 #' If alignment is specified columns named en_align and es_align will be added
 #' after the corresponding match_rating columns.
 #'
+#' @md
 #' @export
 auto_review_df <- function(.df, cutoff = 0.75, alignment = "none") {
   box::use(

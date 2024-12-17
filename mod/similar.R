@@ -231,6 +231,7 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 #'
 #' @param x,y A character vector.
 #'
+#' @md
 #' @export
 str_similar <- function(x, y) {
     stopifnot("length of `y` must be same as `x`" = length(x) == length(y))
@@ -365,6 +366,7 @@ str_similar <- function(x, y) {
 #' (default: `FALSE`)
 #' @inheritDotParams tokenizers::tokenize_words
 #'
+#' @md
 #' @export
 word_similar <- function(x, y, ignore = FALSE, stopwords = NULL,
                          stem_words = FALSE, ...) {
