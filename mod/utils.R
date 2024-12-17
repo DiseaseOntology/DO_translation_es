@@ -155,6 +155,53 @@ pct_match <- function(x, y, digits = 2) {
 }
 
 
+#' Convert between URIs and CURIEs
+#'
+#' Convert between URIs and CURIEs for a limited set of predicates, including
+#' `rdfs:label`, `IAO:0000115` (OBO definition), and `oboInOwl` synonym scopes:
+#' `hasExactSynonym`, `hasBroadSynonym`, `hasNarrowSynonym`, and
+#' `hasRelatedSynonym`.
+#'
+#' @param x A character vector of URIs or CURIEs.
+#' @param to The desired output format, either "curie" or "uri".
+#' @param bracket Whether to include angle brackets around the output.
+#'
+#' @returns A character vector of the converted URIs or CURIEs.
+#'
+#' @examples
+#' uri_curie("http://www.w3.org/2000/01/rdf-schema#label")
+#' uri_curie("rdfs:label", to = "uri")
+#'
+#' @export
+uri_curie <- function(x, to = "curie", bracket = FALSE) {
+  to <- match.arg(to, c("curie", "uri"))
+
+  sanitized <- stringr$str_trim(x) |>
+    stringr$str_remove_all("^<|>$")
+
+  recode_vctr - c(
+    "http://www.w3.org/2000/01/rdf-schema#label" = "rdfs:label",
+    "http://purl.obolibrary.org/obo/IAO_0000115" = "IAO:0000115",
+    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" = "oboInOwl:hasExactSynonym",
+    "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym" = "oboInOwl:hasBroadSynonym",
+    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" = "oboInOwl:hasNarrowSynonym",
+    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" = "oboInOwl:hasRelatedSynonym"
+  )
+
+  if (to == "curie") {
+    out <- recode_vctr[sanitized]
+  } else {
+    out <- names(recode_vctr)[recode_vctr == sanitized]
+  }
+
+  if (bracket) {
+    out <- stringr::str_replace_all(out, c("^<?" = "<", ">$" = ">"))
+  }
+
+  out
+}
+
+
 ### TESTS ####################################################################
 
 if (is.null(box::name())) {
