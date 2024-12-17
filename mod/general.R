@@ -160,10 +160,11 @@ pct_match <- function(x, y, digits = 2) {
 
 #' Convert between URIs and CURIEs
 #'
-#' Convert between URIs and CURIEs for a limited set of predicates, including
-#' `rdfs:label`, `IAO:0000115` (OBO definition), and `oboInOwl` synonym scopes:
-#' `hasExactSynonym`, `hasBroadSynonym`, `hasNarrowSynonym`, and
-#' `hasRelatedSynonym`.
+#' Convert between URIs and CURIEs for a limited set of predicates, commmonly
+#' found in Open Biological and Biomedical Ontology (OBO) Foundry ontologies.
+#' OBO Foundry ontology identifiers should make the round trip from
+#' URI-to-CURIE and back via the `obo:` prefix but more specific ontology CURIEs
+#' may not be recognized (e.g. `UBERON:0000002`).
 #'
 #' @param x A character vector of URIs or CURIEs.
 #' @param to The desired output format, either "curie" or "uri".
@@ -172,33 +173,56 @@ pct_match <- function(x, y, digits = 2) {
 #' @returns A character vector of the converted URIs or CURIEs.
 #'
 #' @examples
-#' uri_curie("http://www.w3.org/2000/01/rdf-schema#label")
-#' uri_curie("rdfs:label", to = "uri")
+#' .curie <- c(
+#'    "rdfs:comment", "dc:date", "terms:license", "owl:deprecated", 
+#'   "oboInOwl:id", "UBERON:0000002", "DOID:0001816", "doid:DO_AGR_slim"
+#' )
+#'
+#' uri_curie(.curie, to = "uri")
+#'
+#' .uri <- c(
+#'   "http://www.w3.org/2000/01/rdf-schema#comment",
+#'   "http://purl.org/dc/elements/1.1/date",
+#'   "http://purl.org/dc/terms/license",
+#'   "http://www.w3.org/2002/07/owl#deprecated",
+#'   "http://www.geneontology.org/formats/oboInOwl#id",
+#'   "http://purl.obolibrary.org/obo/UBERON_0000002",
+#'   "http://purl.obolibrary.org/obo/DOID_0001816",
+#'   "http://purl.obolibrary.org/obo/doid#DO_AGR_slim",
+#'   "<http://www.geneontology.org/formats/oboInOwl#hasDbXref>"
+#' )
+#'
+#' uri_curie(.uri, to = "curie")
 #'
 #' @md
 #' @export
 uri_curie <- function(x, to = "curie", bracket = FALSE) {
-  box::use(stringr)
+  box::use(purrr, stringr)
 
   to <- match.arg(to, c("curie", "uri"))
 
   sanitized <- stringr$str_trim(x) |>
     stringr$str_remove_all("^<|>$")
 
-  recode_vctr - c(
-    "http://www.w3.org/2000/01/rdf-schema#label" = "rdfs:label",
-    "http://purl.obolibrary.org/obo/IAO_0000115" = "IAO:0000115",
-    "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" = "oboInOwl:hasExactSynonym",
-    "http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym" = "oboInOwl:hasBroadSynonym",
-    "http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym" = "oboInOwl:hasNarrowSynonym",
-    "http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym" = "oboInOwl:hasRelatedSynonym"
+  recode_vctr <- c(
+    `http://www.geneontology.org/formats/oboInOwl#` = "oboInOwl:",
+    `http://www.w3.org/1999/02/22-rdf-syntax-ns#` = "rdf:",
+    `http://www.w3.org/2000/01/rdf-schema#` = "rdfs:",
+    `http://www.w3.org/2004/02/skos/core#` = "skos:",
+    `http://purl.obolibrary.org/obo/DOID_` = "DOID:",
+    `http://purl.obolibrary.org/obo/IAO_` = "IAO:",
+    `http://www.w3.org/2001/XMLSchema#` = "xsd:",
+    `http://purl.org/dc/elements/1.1/` = "dc:",
+    `http://purl.obolibrary.org/obo/` = "obo:",
+    `http://www.w3.org/2002/07/owl#` = "owl:",
+    `http://purl.org/dc/terms/` = "terms:"
   )
 
-  if (to == "curie") {
-    out <- recode_vctr[sanitized]
-  } else {
-    out <- names(recode_vctr)[recode_vctr == sanitized]
+  if (to == "uri") {
+    recode_vctr <- purrr$set_names(names(recode_vctr), recode_vctr)
   }
+
+  out <- stringr$str_replace_all(sanitized, recode_vctr)
 
   if (bracket) {
     out <- stringr$str_replace_all(out, c("^<?" = "<", ">$" = ">"))
@@ -242,5 +266,47 @@ if (is.null(box::name())) {
             list(list(1, 2), list(3, 4), 5, 6) # c(x, y) -> element level maintained
         )
         expect_equal(combn_all(.l), .expect)
+    })
+
+    # uri_curie() tests ------------------------------------------------------
+    test_that("uri_curie() works", {
+      .curie <- c(
+        "rdfs:comment", "dc:date", "terms:license", "owl:deprecated",
+        "oboInOwl:id", "UBERON:0000002", "DOID:0001816", "doid:DO_AGR_slim"
+      )
+
+      expect_equal(
+        uri_curie(.curie, to = "uri"),
+        c(
+          "http://www.w3.org/2000/01/rdf-schema#comment",
+          "http://purl.org/dc/elements/1.1/date",
+          "http://purl.org/dc/terms/license",
+          "http://www.w3.org/2002/07/owl#deprecated",
+          "http://www.geneontology.org/formats/oboInOwl#id",
+          "UBERON:0000002",
+          "http://purl.obolibrary.org/obo/DOID_0001816",
+          "doid:DO_AGR_slim"
+        )
+      )
+
+      .uri <- c(
+        "http://www.w3.org/2000/01/rdf-schema#comment",
+        "http://purl.org/dc/elements/1.1/date",
+        "http://purl.org/dc/terms/license",
+        "http://www.w3.org/2002/07/owl#deprecated",
+        "http://www.geneontology.org/formats/oboInOwl#id",
+        "http://purl.obolibrary.org/obo/UBERON_0000002",
+        "http://purl.obolibrary.org/obo/DOID_0001816",
+        "http://purl.obolibrary.org/obo/doid#DO_AGR_slim",
+        "<http://www.geneontology.org/formats/oboInOwl#hasDbXref>"
+      )
+      expect_equal(
+        uri_curie(.uri, to = "curie"),
+        c(
+          "rdfs:comment", "dc:date", "terms:license", "owl:deprecated",
+          "oboInOwl:id", "obo:UBERON_0000002", "DOID:0001816",
+          "obo:doid#DO_AGR_slim", "oboInOwl:hasDbXref"
+        )
+      )
     })
 }
