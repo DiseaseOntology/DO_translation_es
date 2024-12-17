@@ -127,31 +127,31 @@ combn_xy <- function(x, y) {
 #'
 #' @returns A numeric vector of percent match values.
 #' @examples
-#' pct_match(1:2, 2:3)                           # 50
-#' pct_match(c("a", "b", "c"), c("c", "d"))      # 33.33
-#' pct_match(list(1:2, 1), list(2:3, 1:5))       # c(50, 10)
+#' pct_match(1:2, 2:3)                        # 50
+#' pct_match(c("a", "b", "c"), c("c", "d"))   # 33.33
+#' pct_match(list(1:2, 1), list(2:3, 1:5))    # c(50, 10)
 #'
 #' @md
 #' @export
 pct_match <- function(x, y, digits = 2) {
-    if (class(x) != class(y)) stop("`x` and `y` must be the same class")
-    if (is.list(x) && length(x) != length(y)) {
-        stop("If lists, `x` and `y` must be the same length")
-    }
-    box::use(purrr)
+  if (class(x) != class(y)) stop("`x` and `y` must be the same class")
+  if (is.list(x) && length(x) != length(y)) {
+    stop("If lists, `x` and `y` must be the same length")
+  }
+  box::use(purrr)
 
-    pct_fn <- function(.x, .y) {
-        max_len <- max(c(length(.x), length(.y)))
-        round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
-    }
+  pct_fn <- function(.x, .y) {
+    max_len <- max(c(length(.x), length(.y)))
+    round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
+  }
 
-    if (is.list(x)) {
-        out <- purrr$map2(x, y, ~ purrr$map2_dbl(.x, .y, pct_fn))
-    } else {
-        out <- pct_fn(x, y)
-    }
+  if (is.list(x)) {
+    out <- purrr$map2(x, y, ~ purrr$map2_dbl(.x, .y, pct_fn))
+  } else {
+    out <- pct_fn(x, y)
+  }
 
-    out
+  out
 }
 
 
