@@ -4,6 +4,7 @@ box::use(
     ./gs_review,
     ./mutate,
     ./rate,
+    ./robot,
     ./similar,
     ./utils
 )
