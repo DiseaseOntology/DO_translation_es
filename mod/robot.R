@@ -17,6 +17,7 @@ check_robot <- function() {
 #' @param path Path to the ontology file.
 #' @param save Optional path to save the output TSV file. If `NULL`, the data
 #' is not saved.
+#' @param id_as Whether to return IDs as CURIEs or bracketed URIs.
 #'
 #' @returns A tibble with columns `class`, `predicate`, `text`, and
 #' `deprecated`.
@@ -25,10 +26,14 @@ check_robot <- function() {
 #'
 #' @md
 #' @export
-get_obo_text <- function(path, save = NULL) {
-  box::use(dplyr, readr, stringr)
-
+get_obo_text <- function(path, save = NULL, id_as = "curie") {
+  id_as <- match.arg(id_as, c("curie", "uri"))
   check_robot()
+
+  box::use(
+    dplyr, readr, stringr,
+    ./general
+  )
 
   query <- '
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -72,6 +77,13 @@ get_obo_text <- function(path, save = NULL) {
       .fn = ~ stringr$str_remove(.x, ".*\\?"),
     ) |>
     dplyr$mutate(text = stringr$str_remove(.data$text, "@en$"))
+
+  if (id_as == "curie") {
+    out <- out |>
+      dplyr$mutate(
+        dplyr$across(c("source_id", "predicate"), general$uri_curie)
+      )
+  }
 
   out
 }
