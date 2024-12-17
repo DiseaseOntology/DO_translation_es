@@ -19,8 +19,8 @@ check_robot <- function() {
 #' is not saved.
 #' @param id_as Whether to return IDs as CURIEs or bracketed URIs.
 #'
-#' @returns A tibble with columns `class`, `predicate`, `text`, and
-#' `deprecated`.
+#' @returns A tibble with columns `source_id`, `predicate`, `source_text`,
+#' and `deprecated`.
 #'
 #' @family ROBOT-requiring functions
 #'
@@ -41,7 +41,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
     PREFIX obo: <http://purl.obolibrary.org/obo/>
     PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 
-    SELECT ?class ?predicate ?text
+    SELECT ?source_id ?predicate ?source_text ?deprecated
     WHERE {
       VALUES ?predicate {
         rdfs:label
@@ -52,10 +52,10 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
         oboInOwl:hasRelatedSynonym
       }
 
-      ?class a owl:Class ;
-        ?predicate ?text .
-      FILTER(LANG(?text) IN ("", "en"))
-      OPTIONAL { ?class owl:deprecated ?deprecated }
+      ?source_id a owl:Class ;
+        ?predicate ?source_text .
+      FILTER(LANG(?source_text) IN ("", "en"))
+      OPTIONAL { ?source_id owl:deprecated ?deprecated }
     }'
 
   query_file <- tempfile(fileext = ".rq")
@@ -76,7 +76,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
       .cols = everything(),
       .fn = ~ stringr$str_remove(.x, ".*\\?"),
     ) |>
-    dplyr$mutate(text = stringr$str_remove(.data$text, "@en$"))
+    dplyr$mutate(source_text = stringr$str_remove(.data$source_text, "@en$"))
 
   if (id_as == "curie") {
     out <- out |>
