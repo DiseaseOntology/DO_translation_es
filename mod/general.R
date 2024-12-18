@@ -126,6 +126,16 @@ combn_xy <- function(x, y) {
 #' @param x,y A vector or 1-deep list of vectors to calculate percent match
 #' between.
 #' @inheritParams round
+#' @param na How to handle NA values. Options are:
+#'
+#' * `"omit"` (default): To calculate the percent match ignoring `NA` values.
+#'
+#' * `"include"`: To calculate the percent match with `NA` values counting as
+#' matches.
+#'
+#' * `"not_match"`: To treat `NA` values as non-matches but include them for
+#' the sake of calculate the possible matches (i.e. `NA` values are only
+#' included in the denominator and will reduce the percent match).
 #'
 #' @returns A numeric vector of percent match values.
 #' @examples
@@ -135,7 +145,8 @@ combn_xy <- function(x, y) {
 #'
 #' @md
 #' @export
-pct_match <- function(x, y, digits = 2) {
+pct_match <- function(x, y, digits = 2, na = "omit") {
+  na <- match.arg(na, c("omit", "include", "not_match"))
   if (class(x) != class(y)) stop("`x` and `y` must be the same class")
   if (is.list(x) && length(x) != length(y)) {
     stop("If lists, `x` and `y` must be the same length")
@@ -143,15 +154,10 @@ pct_match <- function(x, y, digits = 2) {
 
   box::use(purrr)
 
-  pct_fn <- function(.x, .y) {
-    max_len <- max(c(length(.x), length(.y)))
-    round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
-  }
-
   if (is.list(x)) {
-    out <- purrr$map2_dbl(x, y, pct_fn)
+    out <- purrr$map2_dbl(x, y, ~ pct_fn(.x, .y, digits, na))
   } else {
-    out <- pct_fn(x, y)
+    out <- pct_fn(x, y, digits, na)
   }
 
   out
@@ -232,6 +238,29 @@ uri_curie <- function(x, to = "curie", bracket = FALSE) {
 }
 
 
+# pct_match() helpers --------------------------------------------------------
+
+# pct_fn() compares only 2 vector sets
+pct_fn <- function(.x, .y, digits = 2, na = "omit") {
+  stopifnot(".x & .y must be atomic vectors" = is.atomic(.x) && is.atomic(.y))
+
+  if (na != "omit") max_len <- max(c(length(.x), length(.y)))
+  if (na %in% c("omit", "not_match")) {
+    .x <- .x[!is.na(.x)]
+    .y <- .y[!is.na(.y)]
+  }
+  if (na == "omit") max_len <- max(c(length(.x), length(.y)))
+
+  # return NA if both sets are empty or only include NA values after applying
+  # the `na` argument
+  if (max_len == 0) {
+    return(NA_real_)
+  }
+
+  round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
+}
+
+
 ### TESTS ####################################################################
 
 if (is.null(box::name())) {
@@ -273,8 +302,29 @@ if (is.null(box::name())) {
       expect_equal(pct_match(1:2, 2:3), 50)
       expect_equal(pct_match(c("a", "b", "c"), c("c", "d")), 33.33)
       expect_equal(pct_match(list(1:2, 1), list(2:3, 1:5)), c(50, 20))
-      expect_equal(pct_match(NA, NA), NA)
-      expect_equal(pct_match(c(1, NA), c(1, 2)), 50)
+    })
+
+    test_that("pct_match() na arg works", {
+      # na = "omit" (default) maintains backward compatibility (with
+      # expectations... since NAs weren't appropriately handled before)
+      expect_equal(pct_match(NA, NA, na = "omit"), NA_real_)
+      expect_equal(pct_match(NA, NA, na = "include"), 100)
+      expect_equal(pct_match(NA, NA, na = "not_match"), 0)
+      expect_equal(pct_match(c(1, NA), c(1, 2, NA), na = "omit"), 50)
+      expect_equal(pct_match(c(1, NA), c(1, 2, NA), na = "include"), 66.67)
+      expect_equal(pct_match(c(1, NA), c(1, 2, NA), na = "not_match"), 33.33)
+      expect_equal(
+        pct_match(list(1:2, c(1, NA)), list(2:3, c(1:5, NA)), na = "omit"),
+        c(50, 20)
+      )
+      expect_equal(
+        pct_match(list(1:2, c(1, NA)), list(2:3, c(1:5, NA)), na = "include"),
+        c(50, 33.33)
+      )
+      expect_equal(
+        pct_match(list(1:2, c(1, NA)), list(2:3, c(1:5, NA)), na = "not_match"),
+        c(50, 16.67)
+      )
     })
 
     # uri_curie() tests ------------------------------------------------------
