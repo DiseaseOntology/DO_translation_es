@@ -131,7 +131,7 @@ combn_xy <- function(x, y) {
 #' @examples
 #' pct_match(1:2, 2:3)                        # 50
 #' pct_match(c("a", "b", "c"), c("c", "d"))   # 33.33
-#' pct_match(list(1:2, 1), list(2:3, 1:5))    # c(50, 10)
+#' pct_match(list(1:2, 1), list(2:3, 1:5))    # c(50, 20)
 #'
 #' @md
 #' @export
@@ -267,6 +267,15 @@ if (is.null(box::name())) {
             list(list(1, 2), list(3, 4), 5, 6) # c(x, y) -> element level maintained
         )
         expect_equal(combn_all(.l), .expect)
+    })
+
+    # pct_match() tests ------------------------------------------------------
+    test_that("pct_match() works", {
+      expect_equal(pct_match(1:2, 2:3), 50)
+      expect_equal(pct_match(c("a", "b", "c"), c("c", "d")), 33.33)
+      expect_equal(pct_match(list(1:2, 1), list(2:3, 1:5)), c(50, 20))
+      expect_equal(pct_match(NA, NA), NA)
+      expect_equal(pct_match(c(1, NA), c(1, 2)), 50)
     })
 
     # uri_curie() tests ------------------------------------------------------
