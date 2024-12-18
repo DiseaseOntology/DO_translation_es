@@ -144,6 +144,7 @@ pct_match <- function(x, y, digits = 2) {
   box::use(purrr)
 
   pct_fn <- function(.x, .y) {
+    if (is.na(.x) && is.na(.y)) return(NA_real_)
     max_len <- max(c(length(.x), length(.y)))
     round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
   }
