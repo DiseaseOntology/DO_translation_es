@@ -143,6 +143,14 @@ combn_xy <- function(x, y) {
 #' pct_match(c("a", "b", "c"), c("c", "d"))   # 33.33
 #' pct_match(list(1:2, 1), list(2:3, 1:5))    # c(50, 20)
 #'
+#' @section Note on Duplicates:
+#' Duplicate values are included in calculating the total matches possible
+#' but _NOT_ the total matches found. While this is okay when duplicates exist
+#' in only one input (example: `pct_match(c(2L, 2L), 2:3) == 50`), it seems
+#' unintuitive when duplicates are found in both, with a percent match that is
+#' arbitrarily lower (example: `pct_match(c(1:2, 2), c(2:3, 2)) == 33.33
+#' # expect 66.67).
+#'
 #' @md
 #' @export
 pct_match <- function(x, y, digits = 2, na = "omit") {
@@ -302,6 +310,12 @@ if (is.null(box::name())) {
       expect_equal(pct_match(1:2, 2:3), 50)
       expect_equal(pct_match(c("a", "b", "c"), c("c", "d")), 33.33)
       expect_equal(pct_match(list(1:2, 1), list(2:3, 1:5)), c(50, 20))
+    })
+
+    test_that("pct_match() duplicate handling remains the same", {
+      # could maybe solve with https://cran.r-project.org/package=vecsets
+      expect_equal(pct_match(c(2L, 2L), 2:3), 50) # okay here
+      expect_equal(pct_match(c("c", "b", "c"), c("c", "d", "c")), 33.33) # unintuitive here, expect = 66.67
     })
 
     test_that("pct_match() na arg works", {
