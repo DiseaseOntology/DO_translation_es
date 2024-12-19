@@ -265,9 +265,31 @@ pct_fn <- function(.x, .y, digits = 2, na = "omit") {
     return(NA_real_)
   }
 
-  round(length(intersect(.x, .y)) / max_len * 100, digits = digits)
+  round(intersect_uniq_n(.x, .y, na = na) / max_len * 100, digits = digits)
 }
 
+# returns the number of matches between 2 vectors, counting a value each time it
+# occurs in both vectors and flexibly handling NA values
+intersect_uniq_n <- function(x, y, na = "omit") {
+  box::use(purrr)
+
+  use_na <- switch(na,
+    "omit" = "no",
+    "include" = "ifany",
+    "not_match" = "ifany"
+  )
+  xtab <- table(x, useNA = use_na)
+  ytab <- table(y, useNA = use_na)
+  # ensure NA values can be identified by name in tables
+  if (na != "omit") {
+    na_nm <- "this_is_an_na_value" # hopefully this will never be in input
+    names(xtab)[is.na(names(xtab))] <- names(ytab)[is.na(names(ytab))] <- na_nm
+  }
+  common <- intersect(names(xtab), names(ytab))
+
+  purrr$map_int(common, ~ min(xtab[common], ytab[common])) |>
+    sum()
+}
 
 ### TESTS ####################################################################
 
@@ -312,12 +334,6 @@ if (is.null(box::name())) {
       expect_equal(pct_match(list(1:2, 1), list(2:3, 1:5)), c(50, 20))
     })
 
-    test_that("pct_match() duplicate handling remains the same", {
-      # could maybe solve with https://cran.r-project.org/package=vecsets
-      expect_equal(pct_match(c(2L, 2L), 2:3), 50) # okay here
-      expect_equal(pct_match(c("c", "b", "c"), c("c", "d", "c")), 33.33) # unintuitive here, expect = 66.67
-    })
-
     test_that("pct_match() na arg works", {
       # na = "omit" (default) maintains backward compatibility (with
       # expectations... since NAs weren't appropriately handled before)
@@ -338,6 +354,36 @@ if (is.null(box::name())) {
       expect_equal(
         pct_match(list(1:2, c(1, NA)), list(2:3, c(1:5, NA)), na = "not_match"),
         c(50, 16.67)
+      )
+    })
+
+    test_that("pct_match() duplicate handling is intuitive", {
+      expect_equal(pct_match(c(2L, 2L), 2:3), 50)
+      expect_equal(pct_match(c("c", "b", "c"), c("c", "d", "c")), 66.67)
+      # with duplicate NAs
+      expect_equal(
+        pct_match(
+          c(NA, "c", "b", "c", NA),
+          c("c", NA, "d", "c", NA, NA, "c"),
+          na = "omit"
+        ),
+        50
+      )
+      expect_equal(
+        pct_match(
+          c(NA, "c", "b", "c", NA),
+          c("c", NA, "d", "c", NA, NA, "c"),
+          na = "include"
+        ),
+        57.14
+      )
+      expect_equal(
+        pct_match(
+          c(NA, "c", "b", "c", NA),
+          c("c", NA, "d", "c", NA, NA, "c"),
+          na = "not_match"
+        ),
+        28.57
       )
     })
 
