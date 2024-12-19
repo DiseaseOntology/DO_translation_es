@@ -149,7 +149,7 @@ pct_match <- function(x, y, digits = 2) {
   }
 
   if (is.list(x)) {
-    out <- purrr$map2(x, y, ~ purrr$map2_dbl(.x, .y, pct_fn))
+    out <- purrr$map2_dbl(x, y, pct_fn)
   } else {
     out <- pct_fn(x, y)
   }

@@ -192,9 +192,10 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
 
     # word comparison
     if (!is.null(mod_split$word)) {
-        word_comparison <- general$pct_match(
+        word_comparison <- purrr$map2(
             xmod[mod_split$word],
-            ymod[mod_split$word]
+            ymod[mod_split$word],
+            ~ general$pct_match(.x, .y)
         ) |>
             purrr$set_names(mod_out$word)
         word_matrix <- do.call(rbind, word_comparison)
