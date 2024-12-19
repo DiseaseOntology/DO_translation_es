@@ -107,13 +107,13 @@ combn_all <- function(x) {
 #' @rdname combn_all
 #' @export
 combn_xy <- function(x, y) {
-    box::use(purrr)
+  box::use(purrr)
 
-    purrr$map(
-        x,
-        ~ purrr$map(y, function(.y) c(.x, .y))
-    ) |>
-        unlist(recursive = FALSE)
+  purrr$map(
+    x,
+    ~ purrr$map(y, function(.y) c(.x, .y))
+  ) |>
+    unlist(recursive = FALSE)
 }
 
 
@@ -188,7 +188,7 @@ pct_match <- function(x, y, digits = 2, na = "omit") {
 #'
 #' @examples
 #' .curie <- c(
-#'    "rdfs:comment", "dc:date", "terms:license", "owl:deprecated", 
+#'   "rdfs:comment", "dc:date", "terms:license", "owl:deprecated",
 #'   "oboInOwl:id", "UBERON:0000002", "DOID:0001816", "doid:DO_AGR_slim"
 #' )
 #'
