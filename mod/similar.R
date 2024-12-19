@@ -186,7 +186,9 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
                 locale = locale,
                 ...
             )
-            dplyr$if_else(.lgl, .mod, NA_character_)
+            out <- NULL
+            out[.lgl] <- .mod
+            out
         }
     )
 
