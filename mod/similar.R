@@ -32,8 +32,8 @@
 #'
 #' `"chr:<chr_transform1><delim><chr_transform2>...;wordToken[percent_match]:<word_transform1><delim><word_transform2>..."`
 #'
-#' If strings share no word similarity after all transformations are attempted,
-#' the value returned will be `NA`.
+#' If strings share no word similarity after all transformations are attempted
+#' or one of the inputs is `NA`, the value returned will be `NA`.
 #'
 #' @md
 #' @export
@@ -201,9 +201,8 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
         word_matrix <- do.call(rbind, word_comparison)
 
         report_first_max <- function(x) {
-            if (all(x == 0)) {
-                return(NA)
-            }
+            if (all(x == 0 | is.na(x))) return(NA)
+
             m <- max(x)
             mod <- names(which(x == m)[1])
             # replace percent match placeholder with actual value
@@ -575,14 +574,38 @@ if (is.null(box::name())) {
     })
 
     test_that("str_compare_all() percent match works as expected", {
-        expect_equal(
-            str_compare_all(
-                c("all words", "1 exact", "length differ"),
-                c("all word", "exact 2", "differ by number of words."),
-                c("wordToken", "wpunct", "stemmed", "stopwords")
-            ),
-            c("wordToken[100%]:stemmed", "wordToken[50%]",
-              "wordToken[33.33%]:wpunct|stopwords")
+      expect_equal(
+        str_compare_all(
+          c("all words", "1 exact", "length differ"),
+          c("all word", "exact 2", "differ by number of words."),
+          c("wordToken", "wpunct", "stemmed", "stopwords")
+        ),
+        c(
+          "wordToken[100%]:stemmed", "wordToken[50%]",
+          "wordToken[33.33%]:wpunct|stopwords"
         )
+      )
+      # with duplicates
+      expect_equal(
+        str_compare_all(
+          c("all all words", "1 exact 1", "differ length differ"),
+          c("all word", "exact 2", "differ by number of different words."),
+          c("wordToken", "wpunct", "stemmed", "stopwords")
+        ),
+        c(
+          "wordToken[100%]:stemmed|stopwords", "wordToken[33.33%]",
+          "wordToken[25%]:wpunct|stopwords" # pct_match() duplicates issue; expect 50% & stemmed when fixed
+        )
+      )
+    })
+
+    test_that("str_compare_all() can handle NA input", {
+      expect_equal(
+        str_compare_all(
+          c("all words", "1 exact", "length differ", NA),
+          c(NA, "exact 2", "differ by number of words.", NA)
+        ),
+        c(NA, "wordToken[50%]", "chr:punct;wordToken[33.33%]:stopwords", NA)
+      )
     })
 }
