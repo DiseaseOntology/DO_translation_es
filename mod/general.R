@@ -125,35 +125,28 @@ combn_xy <- function(x, y) {
 #' missing or empty values.
 #'
 #' @inheritParams base::paste
-#' @param recycle Whether to recycle shorter inputs to match the length of the
-#' longest input. Inputs of length 1 will _always_ be recycled.
+#'
+#' @section: Recycle Rules:
+#' Unlike [base::paste()], `paste_present()` will only recycle length-1 inputs.
+#' Inputs with different lengths that are not length-1 results in an error.
 #'
 #' @md
 #' @export
-paste_present <- function(..., sep = " ", collapse = NULL, recycle = TRUE) {
-  if (!recycle) {
-    dots <- list(...)
-    dlen <- vapply(dots, length, 1L)
-    stopifnot(
-      "All inputs must be the same length or <= length 1 when `recycle` is FALSE" =
-        length(unique(dlen)) == 1 || all(dlen[dlen != max(dlen)] <= 1)
-    )
-  }
-  .o <- withCallingHandlers(
-    apply(cbind(...), 1, function(x) paste0(x[!is.na(x)], collapse = sep)),
-    warning = function(w) {
-      if (grepl("*number of rows.*not.*multiple.*length", conditionMessage(w))) {
-        warning("Inputs pasted with recycling.", call. = FALSE)
-        invokeRestart("muffleWarning")
-      }
-    }
+paste_present <- function(..., sep = " ", collapse = NULL) {
+  dots <- list(...)
+  dlen <- vapply(dots, length, 1L)
+  stopifnot(
+    "All inputs must be the same length or <= length 1" =
+      length(unique(dlen)) == 1 || all(dlen[dlen != max(dlen)] <= 1)
   )
-  .o[.o == ""] <- NA_character_
+
+  out <- apply(cbind(...), 1, function(x) paste0(x[!is.na(x)], collapse = sep))
+  out[out == ""] <- NA_character_
   if (!is.null(collapse)) {
-    .o <- paste0(.o[!is.na(.o)], collapse = collapse)
-    .o[.o == ""] <- NA_character_
+    out <- paste0(out[!is.na(out)], collapse = collapse)
+    out[out == ""] <- NA_character_
   }
-  .o
+  out
 }
 
 
@@ -357,27 +350,12 @@ if (is.null(box::name())) {
         paste_present(rep(NA, 2), rep(NA, 2), collapse = "|"),
         NA_character_
       )
-      # works with more than 2 inputs & recycles by default (same as paste())
-      .z <- letters[1:5]
-      expect_equal(
-        expect_warning(paste_present(.x, .y, .z)),
-        c("1 a", "2 b", "c", "a b d", "1 e")
-      )
-    })
-
-    test_that("paste_present(recycle = FALSE) works", {
-      .x <- c(1, NA, NA, "a")
-      .y <- c(NA, 2, NA, "b", "c")
-      expect_error(paste_present(.x, .y, recycle = FALSE))
-      expect_error(paste_present(.x, .y, "z", recycle = FALSE))
-      expect_equal(
-        paste_present(.x, "z", recycle = FALSE),
-        c("1 z", "z", "z", "a z")
-      )
-      expect_equal(
-        paste_present(.x, "z", 1, recycle = FALSE),
-        c("1 z 1", "z 1", "z 1", "a z 1")
-      )
+      # works with more than 2 inputs
+      .z <- letters[1:4]
+      expect_equal(paste_present(.x, .y, .z), c("1 a", "2 b", "c", "a b d"))
+      # ONLY recycle length 1 inputs (differs from paste())
+      expect_equal(paste_present(.x, .y, "z"), c("1 z", "2 z", "z", "a b z"))
+      expect_error(paste_present(.x, .y[-1]))
     })
 
     # pct_match() tests ------------------------------------------------------
