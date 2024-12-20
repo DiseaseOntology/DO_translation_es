@@ -119,20 +119,30 @@ combn_xy <- function(x, y) {
 
 #' Paste Non-missing Values
 #'
-#' A wrapper around [base::paste()] that pastes only values that exist by
-#' dropping `NA` values before pasting. `NA` values _never_ appear in output and
-#' no `sep` or `collapse` delimiters are added to because of concatenation with
-#' missing or empty values.
+#' A wrapper around [base::paste()] that pastes only values that exist with
+#' results that depend on non-missing value dominance. If non-missing values are
+#' dominant, they are preserved and missing values are dropped. If they are not,
+#' missing values are treated as dominant and the output is `NA` without any
+#' pasting. No `sep` or `collapse` delimiters are added to output because of
+#' concatenation with missing or empty values.
 #'
 #' @inheritParams base::paste
+#' @param dominant Whether to treat non-missing values as dominant over missing
+#' values (default: `TRUE`), dropping `NA` and pasting, or not, returning `NA`
+#' at every position with an `NA`. NOTE: `dominant` only applies with the `sep`
+#' operator. Missing values are _NEVER_ dominant when applying `collapse` and
+#' will _always_ be dropped.
 #'
 #' @section: Recycle Rules:
 #' Unlike [base::paste()], `paste_present()` will only recycle length-1 inputs.
 #' Inputs with different lengths that are not length-1 results in an error.
 #'
+#' Also, length-0 inputs are always ignored independent of the `dominant`
+#' argument. There is no equivalent to `recycle0` in [base::paste()].
+#'
 #' @md
 #' @export
-paste_present <- function(..., sep = " ", collapse = NULL) {
+paste_present <- function(..., sep = " ", collapse = NULL, dominant = TRUE) {
   dots <- list(...)
   dlen <- vapply(dots, length, 1L)
   stopifnot(
@@ -140,12 +150,25 @@ paste_present <- function(..., sep = " ", collapse = NULL) {
       length(unique(dlen)) == 1 || all(dlen[dlen != max(dlen)] <= 1)
   )
 
-  out <- apply(cbind(...), 1, function(x) paste0(x[!is.na(x)], collapse = sep))
+  if (dominant) {
+    .fn <- function(x, .sep) paste0(x[!is.na(x)], collapse = .sep)
+  } else {
+    .fn <- function(x, .sep) {
+      if (any(is.na(x))) {
+        return(NA)
+      } else {
+        paste0(x, collapse = .sep)
+      }
+    }
+  }
+  out <- apply(cbind(...), 1, function(x) .fn(x, .sep = sep))
   out[out == ""] <- NA_character_
+
   if (!is.null(collapse)) {
     out <- paste0(out[!is.na(out)], collapse = collapse)
     out[out == ""] <- NA_character_
   }
+
   out
 }
 
@@ -356,6 +379,51 @@ if (is.null(box::name())) {
       # ONLY recycle length 1 inputs (differs from paste())
       expect_equal(paste_present(.x, .y, "z"), c("1 z", "2 z", "z", "a b z"))
       expect_error(paste_present(.x, .y[-1]))
+      # length 0 inputs are ignored
+      expect_equal(paste_present(.x, .y, character()), c("1", "2", NA, "a b"))
+    })
+
+    test_that("paste_present(dominant = FALSE) works", {
+      .x <- c(1, 2, NA, "a")
+      .y <- c(NA, 3, NA, "b")
+      expect_equal(
+        paste_present(.x, .y, dominant = FALSE),
+        c(NA, "2 3", NA, "a b")
+      )
+      expect_equal(
+        paste_present(.x, .y, sep = "|", dominant = FALSE),
+        c(NA, "2|3", NA, "a|b")
+      )
+      expect_equal(
+        paste_present(.x, .y, collapse = "|", dominant = FALSE),
+        "2 3|a b"
+      )
+      # no effect when all NAs
+      expect_equal(
+        paste_present(rep(NA, 2), rep(NA, 2), dominant = FALSE),
+        rep(NA_character_, 2)
+      )
+      expect_equal(
+        paste_present(rep(NA, 2), rep(NA, 2), collapse = "|", dominant = FALSE),
+        NA_character_
+      )
+      # works with more than 2 inputs
+      .z <- letters[1:4]
+      expect_equal(
+        paste_present(.x, .y, .z, dominant = FALSE),
+        c(NA, "2 3 b", NA, "a b d")
+      )
+      # ONLY recycle length 1 inputs (differs from paste())
+      expect_equal(
+        paste_present(.x, .y, "z", dominant = FALSE),
+        c(NA, "2 3 z", NA, "a b z")
+      )
+      expect_error(paste_present(.x, .y[-1], dominant = FALSE))
+      # length 0 inputs are ignored
+      expect_equal(
+        paste_present(.x, .y, character(), dominant = FALSE),
+        c(NA, "2 3", NA, "a b")
+      )
     })
 
     # pct_match() tests ------------------------------------------------------
