@@ -117,6 +117,46 @@ combn_xy <- function(x, y) {
 }
 
 
+#' Paste Non-missing Values
+#'
+#' A wrapper around [base::paste()] that pastes only values that exist by
+#' dropping `NA` values before pasting. `NA` values _never_ appear in output and
+#' no `sep` or `collapse` delimiters are added to because of concatenation with
+#' missing or empty values.
+#'
+#' @inheritParams base::paste
+#' @param recycle Whether to recycle shorter inputs to match the length of the
+#' longest input. Inputs of length 1 will _always_ be recycled.
+#'
+#' @md
+#' @export
+paste_present <- function(..., sep = " ", collapse = NULL, recycle = TRUE) {
+  if (!recycle) {
+    dots <- list(...)
+    dlen <- vapply(dots, length, 1L)
+    stopifnot(
+      "All inputs must be the same length or <= length 1 when `recycle` is FALSE" =
+        length(unique(dlen)) == 1 || all(dlen[dlen != max(dlen)] <= 1)
+    )
+  }
+  .o <- withCallingHandlers(
+    apply(cbind(...), 1, function(x) paste0(x[!is.na(x)], collapse = sep)),
+    warning = function(w) {
+      if (grepl("*number of rows.*not.*multiple.*length", conditionMessage(w))) {
+        warning("Inputs pasted with recycling.", call. = FALSE)
+        invokeRestart("muffleWarning")
+      }
+    }
+  )
+  .o[.o == ""] <- NA_character_
+  if (!is.null(collapse)) {
+    .o <- paste0(.o[!is.na(.o)], collapse = collapse)
+    .o[.o == ""] <- NA_character_
+  }
+  .o
+}
+
+
 #' Calculate Percent Match
 #'
 #' Calculates the percent match between two input vectors or pairwise
@@ -303,6 +343,41 @@ if (is.null(box::name())) {
             list(list(1, 2), list(3, 4), 5, 6) # c(x, y) -> element level maintained
         )
         expect_equal(combn_all(.l), .expect)
+    })
+
+    # paste_present() tests --------------------------------------------------
+    test_that("paste_present() works", {
+      .x <- c(1, NA, NA, "a")
+      .y <- c(NA, 2, NA, "b")
+      expect_equal(paste_present(.x, .y), c("1", "2", NA, "a b"))
+      expect_equal(paste_present(.x, .y, sep = "|"), c("1", "2", NA, "a|b"))
+      expect_equal(paste_present(.x, .y, collapse = "|"), c("1|2|a b"))
+      expect_equal(paste_present(rep(NA, 2), rep(NA, 2)), rep(NA_character_, 2))
+      expect_equal(
+        paste_present(rep(NA, 2), rep(NA, 2), collapse = "|"),
+        NA_character_
+      )
+      # works with more than 2 inputs & recycles by default (same as paste())
+      .z <- letters[1:5]
+      expect_equal(
+        expect_warning(paste_present(.x, .y, .z)),
+        c("1 a", "2 b", "c", "a b d", "1 e")
+      )
+    })
+
+    test_that("paste_present(recycle = FALSE) works", {
+      .x <- c(1, NA, NA, "a")
+      .y <- c(NA, 2, NA, "b", "c")
+      expect_error(paste_present(.x, .y, recycle = FALSE))
+      expect_error(paste_present(.x, .y, "z", recycle = FALSE))
+      expect_equal(
+        paste_present(.x, "z", recycle = FALSE),
+        c("1 z", "z", "z", "a z")
+      )
+      expect_equal(
+        paste_present(.x, "z", 1, recycle = FALSE),
+        c("1 z 1", "z 1", "z 1", "a z 1")
+      )
     })
 
     # pct_match() tests ------------------------------------------------------
