@@ -262,6 +262,85 @@ auto_review <- function(gs, ss_prefix = NULL, cutoff = 0.75, alignment = "none",
 }
 
 
+#' Finalize GS Translation Review
+#'
+#' Finalize the review of the Google Sheets translation data after manual review
+#' and establishment of final translations by comparing the final translations
+#' to the prior Spanish translations.
+#'
+#' @param .df A tibble including English and Spanish data columns, as generated
+#' by [create_gs_review()] and [auto_review_df()], and after manual review of
+#' the `*_passed` column, with changes in the `*_final` column and the reviewer
+#' identified in `final_reviewer`.
+#' @inheritParams str_compare_fallback
+#'
+#' @md
+#' @export
+finalize_review_df <- function(.df, how = "all", delim = "|",
+                                 locale = "en", stopwords = NULL,
+                                 input_delim = "\n", ...) {
+  box::use(
+    dplyr, tidyr,
+    ./similar
+  )
+
+  cols <- col_en_es[names(col_en_es) %in% names(.df)]
+  col <- list()
+  col$en <- names(cols)
+  col$es <- unname(cols)
+  col$passed <- paste0(col$es, "_passed")
+  col$final <- paste0(col$es, "_final")
+
+  out <- .df |>
+    dplyr$mutate(
+      final_diff = similar$str_compare_fallback(
+        .data[[col$final]],
+        dplyr$pick(
+          .data[[col$passed]], .data[[col$es]], .data$google_translate_to_es
+        ),
+        how = how, delim = delim, locale = locale, stopwords = stopwords,
+        input_delim = input_delim,
+        ...
+      )
+    )
+
+  out
+}
+
+#' @inheritParams read_gs_review
+#' @param overwrite Whether to overwrite the original review file with the
+#' updated data (default: `FALSE`).
+#'
+#' @returns A list of tibbles as described in [finalize_review_df()].
+#'
+#' @rdname finalize_review_df
+#' @export
+finalize_review <- function(gs, ss_prefix = NULL, overwrite = FALSE) {
+  box::use(purrr)
+
+  review <- read_gs_review(gs, ss_prefix)
+  # only finalize those with values in the final_* column
+  ready <- purrr$map_lgl(
+    review,
+    function(.df) {
+      cols <- col_en_es[names(col_en_es) %in% names(.df)]
+       col_final <- paste0(unname(cols), "_final")
+
+      any(!is.na(.x[[col_final]]))
+    }
+  )
+  out <- list()
+  out[!ready] <- review[!ready]
+  if (any(ready)) {
+    out[ready] <- purrr$map(review[ready], review_finalize_df)
+  }
+
+  if (overwrite) write_gs_review(out, gs, ss_prefix)
+
+  out
+}
+
+
 ### GENERAL gs_review helpers ################################################
 
 #' Full Column Names
