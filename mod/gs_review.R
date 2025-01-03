@@ -341,6 +341,92 @@ finalize_review <- function(gs, ss_prefix = NULL, overwrite = FALSE) {
 }
 
 
+#' Standardize GS Translation Review
+#'
+#' Standardizes GS Translation Reviews to the format designed for tab-delimited
+#' data files that will serve for comparison against the data in the ontology,
+#' to identify changes, and for data loading into the ontology via a robot
+#' template.
+#'
+#' @param .df A tibble including English and Spanish data columns, as generated
+#' by [create_gs_review()], [auto_review_df()], and human curation of the
+#' `*_final` column.
+#'
+#' @export
+standardize_review_df <- function(.df) {
+  box::use(
+    dplyr, tidyr,
+    . / similar
+  )
+
+  col_present <- names(col_en_es) %in% names(.df)
+  col_en <- names(col_en_es[col_present])
+  col_es <- unname(col_en_es[col_present])
+  passed_col <- paste0(col_es, "_passed")
+  final_col <- paste0(col_es, "_final")
+
+  out <- .df |>
+    dplyr$mutate(
+      predicate = "rdfs:label",
+      # fill *_final columns with *_passed or TSG values, where empty
+      translation_text = dplyr$case_when(
+        !is.na(.data[[final_col]]) ~ .data[[final_col]],
+        !is.na(.data[[passed_col]]) ~ .data[[passed_col]],
+        TRUE ~ .data[[col_es]]
+      ),
+      translator = "The Spanish Group (https://thespanishgroup.org/)",
+      # translation_review = dplyr::case_when(
+      #   !is.na(.data[[final_col]]) ~ "manual",
+      status = dplyr$case_when(
+        !is.na(.data[[final_col]]) ~ "final",
+        !is.na(.data[[passed_col]]) ~ "passed automated review",
+        !is.na(.data[[col_es]]) ~ "manually translated",
+        TRUE ~ NA_character_
+      )
+    ) |>
+    dplyr$select(
+      source_id = "class", "predicate", source_text = dplyr::all_of(col_en),
+      "translation_text", "translator", "status",
+      auto_review_score = "match_rating_overall",
+      "final_reviewer", "review_notes"
+    )
+  out
+}
+
+#' @inheritParams read_gs_review
+#' @param overwrite Whether to overwrite the original review file with the
+#' updated data (default: `FALSE`).
+#'
+#' @returns A list of tibbles as described in [standardize_review_df()].
+#'
+#' @rdname standardize_review_df
+#' @export
+standardize_review <- function(gs, ss_prefix = NULL, overwrite = FALSE) {
+  box::use(purrr)
+
+  review <- read_gs_review(gs, ss_prefix)
+  # only finalize those with values in the final_* column
+  ready <- purrr$map_lgl(
+    review,
+    function(.df) {
+      cols <- col_en_es[names(col_en_es) %in% names(.df)]
+      col_final <- paste0(unname(cols), "_final")
+
+      any(!is.na(.x[[col_final]]))
+    }
+  )
+  out <- list()
+  out[!ready] <- review[!ready]
+  if (any(ready)) {
+    out[ready] <- purrr$map(review[ready], review_finalize_df)
+  }
+
+  if (overwrite) write_gs_review(out, gs, ss_prefix)
+
+  out
+}
+
+
 ### GENERAL gs_review helpers ################################################
 
 #' Full Column Names
