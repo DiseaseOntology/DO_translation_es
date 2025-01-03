@@ -222,6 +222,83 @@ str_compare_all <- function(x, y, how = "all", delim = "|", locale = "en",
     out
 }
 
+#' `str_compare_all_list()` compares a list of inputs to a character vector
+#' using `str_compare_all()`. When one or more exact matches exist, all those
+#' `inputs` that are exact matches are reported as such and no non-exact
+#' comparisons are reported. If no inputs are exact, comparison between `x` and
+#' each character vector of `inputs` will be done and results will be reported
+#' for each comparison that could be determined, prefixed with the name of the
+#' vector in `inputs` (this is slow).
+#'
+#' @param inputs A list of named character vectors to compare against `x`.
+#' @param input_delim The delimiter to use between inputs when more than one are
+#' exact, or none are exact and comparisons are done against all (default:
+#' `"\n"`).
+#'
+#' @rdname str_compare
+#' @export
+str_compare_all_list <- function(x, inputs, how = "all", delim = "|",
+                                 locale = "en", stopwords = NULL,
+                                 input_delim = "\n", ...) {
+  box::use(
+    purrr, stringr,
+    ./general
+  )
+
+  stopifnot(
+    "`x` must be a character vector" = is.character(x),
+    "`inputs` must be a list" = is.list(inputs),
+    "All elements of `inputs` should be named" =
+      all(names(inputs) != "") && !is.null(names(inputs)),
+    "All elements of `inputs` should be character vectors" =
+      all(purrr$map_lgl(inputs, is.character)),
+    "Each character vector in `inputs` must have length equal to `x`" =
+      all(purrr$map_lgl(inputs, ~ length(.x) == length(x)))
+  )
+
+  out <- rep(NA_character_, length(x))
+  missing <- is.na(x) | purrr$pmap_lgl(inputs, ~ all(is.na(c(...))))
+  if (all(missing)) return(rep(NA_character_, length(x)))
+
+  present_idx <- which(!missing)
+  exact <- purrr$map2(
+    inputs,
+    names(inputs),
+    function(.y, .nm) {
+      .equal <- stringr$str_equal(
+        x[present_idx],
+        .y[present_idx],
+        locale = locale,
+        ...
+      )
+      .out <- character()
+      .out[.equal] <- paste0(.nm, "-exact")
+      .out
+    }
+  ) |>
+    purrr$reduce(.f = ~ general$paste_present(.x, .y, sep = input_delim))
+
+  out <- replace(out, present_idx, exact)
+
+  not_exact_idx <- which(is.na(out) & !missing)
+  compared <- purrr$map2(
+    inputs,
+    names(inputs),
+    function(.y, .nm) {
+      .res <- str_compare_all(
+        x[not_exact_idx],
+        .y[not_exact_idx],
+        locale = locale,
+        ...
+      )
+      general$paste_present(.nm, "-", .res, dominant = FALSE)
+    }
+  ) |>
+    purrr$reduce(.f = ~ general$paste_present(.x, .y, sep = input_delim))
+
+  out <- replace(out, not_exact_idx, compared)
+  out
+}
 
 #' Describe String Similarity
 #'
@@ -606,6 +683,26 @@ if (is.null(box::name())) {
           c(NA, "exact 2", "differ by number of words.", NA)
         ),
         c(NA, "wordToken[50%]", "chr:punct;wordToken[33.33%]:stopwords", NA)
+      )
+    })
+
+    # str_compare_all_list() tests -------------------------------------------
+    test_that("str_compare_all_list() is equivalent to str_compare_all()", {
+      box::use(general = ./general)
+      expect_equal(
+        str_compare_all_list(
+          c("all words", "1 exact", "length differ", NA),
+          list(a = c(NA, "exact 2", "differ by number of words.", NA))
+        ),
+        mod$general$paste_present(
+          "a",
+          str_compare_all(
+            c("all words", "1 exact", "length differ", NA),
+            c(NA, "exact 2", "differ by number of words.", NA)
+          ),
+          sep = " - ",
+          dominant = FALSE
+        )
       )
     })
 }
