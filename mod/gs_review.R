@@ -367,7 +367,7 @@ standardize_review_df <- function(.df, lang = "es") {
 
   out <- .df |>
     dplyr$mutate(
-      predicate = "rdfs:label",
+      predicate = NA_character_, #***** this is a placeholder for now
       # fill *_final columns with *_passed or TSG values, where empty
       translation_text = dplyr$case_when(
         !is.na(.data[[final_col]]) ~ .data[[final_col]],
