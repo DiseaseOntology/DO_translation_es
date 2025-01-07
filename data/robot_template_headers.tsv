@@ -1,0 +1,9 @@
+header	template
+id	ID
+label_{lang}	AL rdfs:label@{lang}
+definition_{lang}	AL IAO:0000115@{lang}
+synonym_exact_{lang}	AL oboInOwl:hasExactSynonym@{lang} SPLIT=|
+synonym_broad_{lang}	AL oboInOwl:hasBroadSynonym@{lang} SPLIT=|
+synonym_narrow_{lang}	AL oboInOwl:hasNarrowSynonym@{lang} SPLIT=|
+synonym_related_{lang}	AL oboInOwl:hasRelatedSynonym@{lang} SPLIT=|
+comment_{lang}	AL rdfs:comment@{lang}

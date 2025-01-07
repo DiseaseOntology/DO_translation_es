@@ -8,6 +8,79 @@ check_robot <- function() {
 }
 
 
+#' Create a ROBOT template
+#'
+#' Creates a ROBOT template from a standardized data frame with columns
+#' `source_id`, `predicate`, `translation_lang`, and `translation_text`.
+#'
+#' @param .df A standardized data frame.
+#' @param path Optional path to save the output robot template file. If `NULL`,
+#' the data is not saved.
+#'
+#' @returns A tibble formatted as a stand alone robot template (see
+#' https://robot.obolibrary.org/template).
+#'
+#' @md
+#' @family ROBOT-requiring functions
+#' @export
+create_robot_template <- function(.df, path = NULL) {
+  box::use(
+    dplyr, purrr, readr, stringr, tibble, tidyr, tidyselect,
+    ./general
+  )
+
+  rt_data <- readr$read_tsv(
+    "data/robot_template_headers.tsv",
+    col_types = "c"
+  )
+
+  rt_pivot <- rt_data |>
+    dplyr$mutate(
+      predicate = stringr$str_extract(template, "[[:alnum:]]+:[[:alnum:]]+")
+    ) |>
+    dplyr$select(-"template")
+
+  lang <- unique(.df$translation_lang)
+
+  out <- .df |>
+    dplyr$left_join(rt_pivot, by = "predicate") |>
+    dplyr$mutate(
+      header = general$glue_pair(.data$header, lang = .data$translation_lang)
+    ) |>
+    tidyr$pivot_wider(
+      names_from = "header",
+      values_from = "translation_text",
+      values_fn = ~ paste0(.x, collapse = "|")
+    ) |>
+    dplyr$rename(id = "source_id")
+
+  ### ADD TEMPLATE ROW ###
+  # match template_row & out cols, prior to adding (all cols must be present in
+  # both)
+  template_row <- build_lang_template_row(rt_data, lang)
+  out_cols <- names(out)
+  extra_cols <- setdiff(out_cols, names(template_row))
+  empty_df <- data.frame(
+    matrix(ncol = length(extra_cols), nrow = 1),
+    stringsAsFactors = FALSE
+  )
+  colnames(empty_df) <- extra_cols
+  tr <- dplyr$select(template_row, dplyr$any_of(out_cols)) |>
+    dplyr$bind_cols(empty_df)
+  out <- tibble$add_row(out, tr, .before = 1)
+
+  if (!is.null(path)) {
+    delim <- switch(tools::file_ext(path),
+      "tsv" = "\t",
+      "csv" = ","
+    )
+    readr$write_delim(out, path, delim, na = "")
+  }
+
+  out
+}
+
+
 #' Get text from an OBO ontology file using ROBOT
 #'
 #' Gets ontology text (limited to English) from an Open Biological and
@@ -86,4 +159,32 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
   }
 
   out
+}
+
+
+# create_robot_template() helpers --------------------------------------------
+
+# create headers and robot template codes for one or more languages
+build_lang_template_row <- function(rt_data, lang) {
+  box::use(dplyr, purrr, tidyr)
+
+  purrr$map(lang, ~ lang_replace(rt_data, .x)) |>
+    dplyr$bind_rows() |>
+    unique() |>
+    tidyr$pivot_wider(names_from = "header", values_from = "template")
+}
+
+# replace lang placeholder in internal template with specified language code
+lang_replace <- function(rt_data, lang) {
+  box::use(
+    dplyr, purrr,
+    ./general
+  )
+  dplyr$mutate(
+    rt_data,
+    dplyr$across(
+      dplyr$everything(),
+      ~ general$glue_pair(.x, lang = lang)
+    )
+  )
 }
