@@ -353,7 +353,7 @@ finalize_review <- function(gs, ss_prefix = NULL, overwrite = FALSE) {
 #' `*_final` column.
 #'
 #' @export
-standardize_review_df <- function(.df) {
+standardize_review_df <- function(.df, lang = "es") {
   box::use(
     dplyr, tidyr,
     . / similar
@@ -377,6 +377,8 @@ standardize_review_df <- function(.df) {
       translator = "The Spanish Group (https://thespanishgroup.org/)",
       # translation_review = dplyr::case_when(
       #   !is.na(.data[[final_col]]) ~ "manual",
+      source_lang = "en",
+      translation_lang = lang,
       status = dplyr$case_when(
         !is.na(.data[[final_col]]) ~ "final",
         !is.na(.data[[passed_col]]) ~ "passed automated review",
@@ -386,9 +388,9 @@ standardize_review_df <- function(.df) {
     ) |>
     dplyr$select(
       source_id = "class", "predicate", source_text = dplyr::all_of(col_en),
-      "translation_text", "translator", "status",
-      auto_review_score = "match_rating_overall",
-      "final_reviewer", "review_notes"
+      "translation_text", "translator", "source_lang", "translation_lang",
+      "status", auto_review_score = "match_rating_overall", "final_reviewer",
+      "review_notes"
     )
   out
 }
