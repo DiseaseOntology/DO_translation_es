@@ -272,7 +272,7 @@ auto_review <- function(gs, ss_prefix = NULL, cutoff = 0.75, alignment = "none",
 #' by [create_gs_review()] and [auto_review_df()], and after manual review of
 #' the `*_passed` column, with changes in the `*_final` column and the reviewer
 #' identified in `final_reviewer`.
-#' @inheritParams str_compare_fallback
+#' @inheritParams str_compare_all_list
 #'
 #' @md
 #' @export
@@ -293,7 +293,7 @@ finalize_review_df <- function(.df, how = "all", delim = "|",
 
   out <- .df |>
     dplyr$mutate(
-      final_diff = similar$str_compare_fallback(
+      final_diff = similar$str_compare_all_list(
         .data[[col$final]],
         dplyr$pick(
           .data[[col$passed]], .data[[col$es]], .data$google_translate_to_es
