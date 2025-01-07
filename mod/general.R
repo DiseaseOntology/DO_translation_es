@@ -117,6 +117,39 @@ combn_xy <- function(x, y) {
 }
 
 
+#' Vectorized, Paired Glue
+#'
+#' Vectorized glue over paired expressions & temporary variables.
+#'
+#' @param expr A [glue::glue()] expression.
+#' @param ... Named vectors to use as temporary variables for replacement in
+#' `expr`. Vectors must be length-1, in which case they may be recycled, or the
+#' same length as `expr`.
+#'
+#' @examples
+#' x <- c("you {verb} {adj}.", "blah {verb} {adj}")
+#' verb <- c("are", "blah")
+#' adj <- c("great", "blah")
+#' glue_vctr(x, verb = verb, adj = adj)
+#'
+#' @export
+glue_pair <- function(expr, ...) {
+  box::use(glue, purrr)
+  vars <- list(...)
+  vars_len <- purrr$map_int(vars, length)
+  stopifnot(
+    "All vectors in `...` must be length-1 or the same length as `expr`" = all(vars_len == length(expr) | vars_len == 1),
+    "All vectors in `...` must be named" = !is.null(names(vars)) && all(names(vars) != "")
+  )
+
+  vars_named <- purrr$map2(vars, names(vars), ~ purrr$set_names(.x, .y))
+  purrr$pmap_chr(
+    c(list(expr), vars_named),
+    function(.e, ...) glue$glue_data(.x = list(...), .e)
+  )
+}
+
+
 #' Paste Non-missing Values
 #'
 #' A wrapper around [base::paste()] that pastes only values that exist with
