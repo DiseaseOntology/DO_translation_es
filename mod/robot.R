@@ -74,7 +74,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
   out <- readr$read_tsv(save, show_col_types = FALSE) |>
     dplyr$rename_with(
       .cols = everything(),
-      .fn = ~ stringr$str_remove(.x, ".*\\?"),
+      .fn = ~ stringr$str_remove(.x, "^\\?"),
     ) |>
     dplyr$mutate(source_text = stringr$str_remove(.data$source_text, "@en$"))
 
