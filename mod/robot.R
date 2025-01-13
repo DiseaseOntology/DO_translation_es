@@ -111,7 +111,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   check_robot()
 
   box::use(
-    dplyr, glue, readr, stringr,
+    dplyr, glue, readr, stringr, tibble,
     ./general
   )
 
@@ -158,7 +158,14 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
     )
   )
 
-  out <- readr$read_tsv(save, show_col_types = FALSE) |>
+  out <- readr$read_tsv(save, show_col_types = FALSE)
+  if (nrow(out) == 0) {
+    out <- c(rep(list(character(0)), 3), list(logical(0)))
+    names(out) <- c("source_id", "predicate", "source_text", "deprecated")
+    return(tibble$as_tibble(out))
+  }
+
+  out <- out |>
     dplyr$rename_with(
       .cols = everything(),
       .fn = ~ stringr$str_remove(.x, "^\\?"),
