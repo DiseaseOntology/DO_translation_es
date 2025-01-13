@@ -29,7 +29,7 @@ review$label <- googlesheets4$read_sheet(gs, sheet = "disorder3_en_es_label")
 review$label <- mod$gs_review$finalize_review_df(review$label)
 
 
-# Standardize to format for translationk -------------------------------------
+# Standardize to format for translation --------------------------------------
 
 std <- purrr$map(review, mod$gs_review$standardize_review_df) |>
   dplyr$bind_rows() |>
@@ -60,6 +60,15 @@ if (all(is.na(std$deprecated))) {
 } else {
   stop("Some data are deprecated")
 }
+
+# replace newline chars with pipe (newlines cause errors in tsv outputs)
+std <- std |>
+  dplyr$mutate(
+    dplyr$across(
+      dplyr$where(is.character),
+      ~ stringr$str_replace_all(.x, "\n", "|")
+    )
+  )
 
 # Write to file --------------------------------------------------------------
 
