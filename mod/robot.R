@@ -91,6 +91,13 @@ create_robot_template <- function(.df, path = NULL) {
 #' @param save Optional path to save the output TSV file. If `NULL`, the data
 #' is not saved.
 #' @param id_as Whether to return IDs as CURIEs or bracketed URIs.
+#' @param lang A language tag, as specified by
+#' [RFC 5646](https://datatracker.ietf.org/doc/html/rfc5646), by which to
+#' filter the text by. Default is "en" which will also uniquely return text
+#' that has no language tag (because OBO ontologies are English by default).
+#' All matching language tag variants will be returned (uses SPARQL
+#' [langMatches](https://www.w3.org/TR/sparql11-query/#func-langMatches)
+#' function internally).
 #'
 #' @returns A tibble with columns `source_id`, `predicate`, `source_text`,
 #' and `deprecated`.
@@ -99,16 +106,22 @@ create_robot_template <- function(.df, path = NULL) {
 #'
 #' @md
 #' @export
-get_obo_text <- function(path, save = NULL, id_as = "curie") {
+get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   id_as <- match.arg(id_as, c("curie", "uri"))
   check_robot()
 
   box::use(
-    dplyr, readr, stringr,
+    dplyr, glue, readr, stringr,
     ./general
   )
 
-  query <- '
+  glueV <- function(...) glue$glue(..., .open = "!<<", .close = ">>!")
+  if (lang == "en") {
+    lang_filter <- 'FILTER(lang(?text) = "" || langMatches(lang(?text), "en"))'
+  } else {
+    lang_filter <- glueV('FILTER(langMatches(lang(?text), "!<<lang>>!"))')
+  }
+  query <- glueV('
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX obo: <http://purl.obolibrary.org/obo/>
@@ -126,10 +139,11 @@ get_obo_text <- function(path, save = NULL, id_as = "curie") {
       }
 
       ?source_id a owl:Class ;
-        ?predicate ?source_text .
-      FILTER(LANG(?source_text) IN ("", "en"))
+        ?predicate ?text .
+      !<<lang_filter>>!
+      BIND(str(?text) AS ?source_text)
       OPTIONAL { ?source_id owl:deprecated ?deprecated }
-    }'
+    }')
 
   query_file <- tempfile(fileext = ".rq")
   writeLines(query, query_file)
