@@ -73,7 +73,9 @@ std <- std |>
 # Write to file --------------------------------------------------------------
 
 # in this repo
-readr$write_tsv(std, here$here("data/final/doid-es-pd.tsv"))
+local_data <- here$here("data/final")
+if (!dir.exists(local_data)) dir.create(local_data)
+readr$write_tsv(std, file.path(local_data, "doid-es-pd.tsv"))
 
 if (!dir.exists(file.path(do_repo_path, "src/ontology/translations"))) {
   dir.create(file.path(do_repo_path, "src/ontology/translations"))
@@ -88,6 +90,9 @@ readr$write_tsv(
 
 # Generate robot template ----------------------------------------------------
 
+if (!dir.exists(file.path(do_repo_path, "build/translations"))) {
+  dir.create(file.path(do_repo_path, "build/translations"), recursive = TRUE)
+}
 rt <- mod$robot$create_robot_template(
   std,
   file.path(do_repo_path, "build/translations/doid-es-rt.tsv")
