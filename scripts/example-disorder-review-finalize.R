@@ -37,9 +37,23 @@ std <- purrr$map(review, mod$gs_review$standardize_review_df) |>
 
 # get predicate data from original version of doid.owl that was provided to
 # TSG for translation (should do this first for other data sets)
+
+# get acronym annotations from latest ontology (didn't exist when translations
+# were made)
+acronym <- mod$robot$get_obo_text(
+  file.path(do_repo_path, "src/ontology/doid.owl") # v2024-12-18
+) |>
+  dplyr$select(-"deprecated")
+
 doid_text <- mod$robot$get_obo_text(
   here$here("data/physical_disorder/doid-v2023-10-21.owl")
-)
+) |>
+  dplyr$select(-"synonym_type") |>
+  # add acronym annotations (hopefully mostly the same)
+  dplyr$left_join(
+    acronym,
+    by = c("source_id", "predicate", "source_text")
+  )
 
 # fix double-escaped return (not sure why this issue is happening)
 doid_text[16500, "source_text"] <- doid_text[[16500, "source_text"]] |>
@@ -77,14 +91,15 @@ local_data <- here$here("data/final")
 if (!dir.exists(local_data)) dir.create(local_data)
 readr$write_tsv(std, file.path(local_data, "doid-es-pd.tsv"))
 
+# in the DOID repo
 if (!dir.exists(file.path(do_repo_path, "src/ontology/translations"))) {
   dir.create(file.path(do_repo_path, "src/ontology/translations"))
 }
 
-# in the DOID repo
 readr$write_tsv(
   std,
-  file.path(do_repo_path, "src/ontology/translations/doid-es.tsv")
+  file.path(do_repo_path, "src/ontology/translations/doid-es.tsv"),
+  na = ""
 )
 
 
