@@ -99,8 +99,9 @@ create_robot_template <- function(.df, path = NULL) {
 #' [langMatches](https://www.w3.org/TR/sparql11-query/#func-langMatches)
 #' function internally).
 #'
-#' @returns A tibble with columns `source_id`, `predicate`, `source_text`,
-#' and `deprecated`.
+#' @returns A tibble with 5 columns: `source_id`, `predicate`, `source_text`,
+#' `synonym_type` (only applicable when predicate is an `oboInOwl` synonym
+#' scope), and `deprecated`.
 #'
 #' @family ROBOT-requiring functions
 #'
@@ -127,7 +128,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
     PREFIX obo: <http://purl.obolibrary.org/obo/>
     PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 
-    SELECT ?source_id ?predicate ?source_text ?deprecated
+    SELECT ?source_id ?predicate ?source_text ?synonym_type ?deprecated
     WHERE {
       VALUES ?predicate {
         rdfs:label
@@ -140,9 +141,16 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
 
       ?source_id a owl:Class ;
         ?predicate ?text .
+
       !<<lang_filter>>!
       BIND(str(?text) AS ?source_text)
       OPTIONAL { ?source_id owl:deprecated ?deprecated }
+      OPTIONAL {
+        [] owl:annotatedSource ?source_id ;
+          owl:annotatedProperty ?predicate ;
+          owl:annotatedTarget ?text ;
+          oboInOwl:hasSynonymType ?synonym_type .
+      }
     }')
 
   query_file <- tempfile(fileext = ".rq")
@@ -161,7 +169,8 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   out <- readr$read_tsv(save, show_col_types = FALSE)
   if (nrow(out) == 0) {
     out <- c(rep(list(character(0)), 3), list(logical(0)))
-    names(out) <- c("source_id", "predicate", "source_text", "deprecated")
+    names(out) <- c("source_id", "predicate", "source_text", "synonym_type",
+                    "deprecated")
     return(tibble$as_tibble(out))
   }
 
@@ -169,13 +178,15 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
     dplyr$rename_with(
       .cols = everything(),
       .fn = ~ stringr$str_remove(.x, "^\\?"),
-    ) |>
-    dplyr$mutate(source_text = stringr$str_remove(.data$source_text, "@en$"))
+    )
 
   if (id_as == "curie") {
     out <- out |>
       dplyr$mutate(
-        dplyr$across(c("source_id", "predicate"), general$uri_curie)
+        dplyr$across(
+          c("source_id", "predicate", "synonym_type"),
+          general$uri_curie
+        )
       )
   }
 
