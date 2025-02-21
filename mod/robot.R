@@ -93,15 +93,20 @@ create_robot_template <- function(.df, path = NULL) {
 #' @param id_as Whether to return IDs as CURIEs or bracketed URIs.
 #' @param lang A language tag, as specified by
 #' [RFC 5646](https://datatracker.ietf.org/doc/html/rfc5646), by which to
-#' filter the text by. Default is "en" which will also uniquely return text
-#' that has no language tag (because OBO ontologies are English by default).
-#' All matching language tag variants will be returned (uses SPARQL
+#' filter the text by or "any" (default), which will return text from any
+#' language.
+#'
+#' NOTES:
+#' * Using "en" which will also uniquely return text that has no language
+#' tag (because OBO ontologies are English by default).
+#'
+#' * All matching language tag variants will be returned (uses SPARQL
 #' [langMatches](https://www.w3.org/TR/sparql11-query/#func-langMatches)
 #' function internally).
 #'
-#' @returns A tibble with 5 columns: `source_id`, `predicate`, `source_text`,
-#' `synonym_type` (only applicable when predicate is an `oboInOwl` synonym
-#' scope), and `deprecated`.
+#' @returns A tibble with 6 columns: `source_id`, `predicate`, `source_text`,
+#' `source_lang`, `synonym_type` (only applicable when predicate is an
+#' `oboInOwl` synonym scope), and `deprecated`.
 #'
 #' @family ROBOT-requiring functions
 #'
@@ -117,7 +122,9 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   )
 
   glueV <- function(...) glue$glue(..., .open = "!<<", .close = ">>!")
-  if (lang == "en") {
+  if (lang == "any") {
+    lang_filter <- ""
+  } else if (lang == "en") {
     lang_filter <- 'FILTER(lang(?text) = "" || langMatches(lang(?text), "en"))'
   } else {
     lang_filter <- glueV('FILTER(langMatches(lang(?text), "!<<lang>>!"))')
@@ -125,31 +132,52 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   query <- glueV('
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX dc: <http://purl.org/dc/elements/1.1/>
     PREFIX obo: <http://purl.obolibrary.org/obo/>
     PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 
-    SELECT ?source_id ?predicate ?source_text ?synonym_type ?deprecated
+    SELECT ?source_id ?predicate ?source_text ?source_lang ?synonym_type ?deprecated
     WHERE {
-      VALUES ?predicate {
-        rdfs:label
-        obo:IAO_0000115
-        oboInOwl:hasExactSynonym
-        oboInOwl:hasBroadSynonym
-        oboInOwl:hasNarrowSynonym
-        oboInOwl:hasRelatedSynonym
+      {
+        VALUES ?predicate {
+          rdfs:label
+          obo:IAO_0000115
+          oboInOwl:hasExactSynonym
+          oboInOwl:hasBroadSynonym
+          oboInOwl:hasNarrowSynonym
+          oboInOwl:hasRelatedSynonym
+        }
+
+        ?source_id a owl:Class ;
+          ?predicate ?text .
+
+        !<<lang_filter>>!
+        BIND(str(?text) AS ?source_text)
+        BIND(lang(?text) AS ?source_lang)
+        OPTIONAL { ?source_id owl:deprecated ?deprecated }
+        OPTIONAL {
+          [] owl:annotatedSource ?source_id ;
+            owl:annotatedProperty ?predicate ;
+            owl:annotatedTarget ?text ;
+            oboInOwl:hasSynonymType ?synonym_type .
+        }
       }
+      UNION
+      {
+        VALUES ?predicate {
+          dc:description
+          rdfs:comment
+        }
 
-      ?source_id a owl:Class ;
-        ?predicate ?text .
+        ?source_id a owl:Ontology .
 
-      !<<lang_filter>>!
-      BIND(str(?text) AS ?source_text)
-      OPTIONAL { ?source_id owl:deprecated ?deprecated }
-      OPTIONAL {
-        [] owl:annotatedSource ?source_id ;
-          owl:annotatedProperty ?predicate ;
-          owl:annotatedTarget ?text ;
-          oboInOwl:hasSynonymType ?synonym_type .
+        OPTIONAL {
+          ?source_id ?predicate ?text .
+          !<<lang_filter>>!
+        }
+
+        BIND(str(?text) AS ?source_text)
+        BIND(lang(?text) AS ?source_lang)
       }
     }')
 
@@ -169,8 +197,8 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
   out <- readr$read_tsv(save, show_col_types = FALSE)
   if (nrow(out) == 0) {
     out <- c(rep(list(character(0)), 3), list(logical(0)))
-    names(out) <- c("source_id", "predicate", "source_text", "synonym_type",
-                    "deprecated")
+    names(out) <- c("source_id", "predicate", "source_text", "source_lang",
+                    "synonym_type", "deprecated")
     return(tibble$as_tibble(out))
   }
 
