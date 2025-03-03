@@ -118,29 +118,21 @@ label_def <- dplyr$full_join(
 # SYNONYMS
 # merge synonyms first; original English had some duplicates that may have been
 # translated differently => unique() first causes mismatch in records
-en_syn <- readr$read_csv(en_paths[2])
+en_syn <- readr$read_csv(en_paths[2]) |>
+  dplyr$rename(synonym = "syn")
 es_syn <- readr$read_csv(
   es_paths[2],
   locale = readr$locale(encoding = "latin1")
 ) |>
-  dplyr$rename(target_text = "syn") |>
-  dplyr$mutate(target_text = stringr$str_squish(target_text)) |>
-  dplyr$select(-"clase")
+  dplyr$rename(sinónimo = "syn") |>
+  dplyr$mutate(sinónimo = stringr$str_squish(sinónimo))
 syn <- dplyr$bind_cols(en_syn, es_syn) |>
-  unique() |>
-  dplyr$rename(source_id = "class", source_text = "syn") |>
-  dplyr$mutate(
-    source_id = mod$general$uri_curie(source_id, to = "curie"),
-    target_lang = "es"
-  ) |>
-  dplyr$left_join(
-    dplyr$filter(doid_data, stringr$str_detect(predicate_id, "Synonym")),
-    by = c("source_id", "source_text")
-  ) |>
-  dplyr$relocate("predicate_id", .after = "source_id") |>
-  dplyr$relocate("source_lang", "target_lang", .before = "target_text") |>
-  dplyr$arrange(.data$source_id, .data$source_text)
+  dplyr$mutate(matches = class == clase)
 
+# confirm classes match
+dplyr$count(syn, matches)
+
+which(!syn$matches) |> DO.utils::to_range()
 
 # Write data to file ------------------------------------------------------
 
