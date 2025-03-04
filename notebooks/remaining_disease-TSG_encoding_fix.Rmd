@@ -1,0 +1,125 @@
+---
+title: "Remaining Disease Data - Fix TSG Synonym Encoding Errors"
+output: 
+  html_notebook:
+    code_folding: hide
+---
+
+```{r setup}
+box::use(
+  dplyr, readr, stringr, tidyr
+)
+```
+
+Read in ISO-8859-1 encoded synonym translation data.
+```{r}
+data_dir <- here$here("data/remaining_diseases")
+
+syn <- readr$read_csv(
+  file.path(data_dir, "Syn-All-diseases-except-physical-disorders-TSG-Es.csv"),
+  locale = readr$locale(encoding = "ISO-8859-1"),
+  col_types = "c"
+)
+```
+
+The characters in the synonym data include:
+```{r}
+syn_chr <- syn |>
+  unlist() |>
+  stringr$str_split("") |>
+  unlist() |>
+  unique() |>
+  sort()
+
+syn_chr
+```
+
+The same list excluding standard letters and numbers, known Spanish characters, and other expected characters (space & punctuation):
+```{r}
+expected_chr <- c(
+  LETTERS, letters, 0:9,
+  " ", "_", "-", ",", ".", ":", ";", "'", "+", "(", ")", "[", "]", "/",
+  "Á", "á", "É", "é", "Í", "í", "Ó", "ó", "Ú", "ú", "Ñ", "ñ", "Ü", "ü",
+  # masculine/feminine ordinal characters
+  "\u00BA", "\u00AA"
+)
+syn_chr_check <- syn_chr[!syn_chr %in% expected_chr]
+syn_chr_check
+```
+
+Most of these will need to be checked.
+
+
+## Unicode Characters
+
+The first four characters are unicode characters and should not be in this file. Checking their frequency:
+```{r}
+syn_chr_err <- syn_chr_check[1:4]
+syn_chr_regex <- paste0(syn_chr_err, collapse = "|")
+
+syn_chr_df <- syn |>
+  dplyr$mutate(chr_err = stringr$str_extract_all(syn, syn_chr_regex)) |>
+  tidyr$unnest(chr_err)
+
+dplyr$count(syn_chr_df, chr_err, sort = TRUE) |>
+  dplyr$mutate(pct = round(n / nrow(syn) * 100, 2))
+```
+
+Only a very small percentage of the data have these errors. Is there a pattern or were they randomly inserted?
+
+```{r}
+syn_chr_df |>
+  dplyr::filter(!is.na(chr_err)) |>
+  dplyr::arrange(chr_err)
+```
+
+It looks each character should be a specific properly encoded character.
+
+- `\u0083` (No Break Here) should be `É`
+- `\u008d` (Reverse Line Feed) should be `c`
+- `\u0096` (Non-breaking space) should be `ñ`
+- `\u009f` (Application Program Command) should be `ü`
+
+
+## Other Potentially Problematic Characters
+
+There are additional characters which may be problematic. These characters are either not standard Spanish characters or unexpected in this context.
+```{r}
+syn_chr2 <- syn_chr_check[-(1:4)]
+syn_chr2
+```
+
+
+```{r}
+syn_chr2_regex <- paste0(stringr$str_escape(syn_chr2), collapse = "|")
+
+syn_chr2_df <- syn |>
+  dplyr$mutate(chr_err = stringr$str_extract_all(syn, syn_chr2_regex)) |>
+  tidyr$unnest(chr_err)
+
+dplyr$count(syn_chr2_df, chr_err, sort = TRUE) |>
+  dplyr$mutate(pct = round(n / nrow(syn) * 100, 2))
+```
+
+Again, only a small percentage of the data have these. Checking for a pattern:
+
+```{r}
+syn_chr2_df |>
+  dplyr::filter(!is.na(chr_err)) |>
+  dplyr::arrange(chr_err)
+```
+
+Some of these are actually okay (i.e. `ã`, `ä`, `ç`, `ö`) because they are actually pulled from names in other languages. Those that clearly need fixing include:
+
+- `?` should be `ɣ` (gamma, `\u0263`)
+- `Î²` should be `β` (beta, `\u03B2`)
+- `î` should be `Ó`
+- `ê` should be `Í`
+- `ò` should be `Ú`
+
+The `@` is an error propagated from the original data that has since been updated. It can be ignored because it will be fixed when retranslation happens.
+
+
+## Conclusion
+
+Since there's a consistent pattern for all those characters which were identified as errors, they can be fixed automatically. Given prior work on fixing the synonym pairing between English and Spanish, it makes the most sense to fix those in the properly aligned data. This should prevent a need to repeat that alignment.
