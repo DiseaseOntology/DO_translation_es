@@ -467,7 +467,7 @@ add_gs_translate_cols <- function(df) {
     ) |>
     dplyr$mutate(
       google_translate_to_es = googlesheets4$gs4_formula(
-         glue(
+         glue$glue(
           '=GOOGLETRANSLATE({cell_ref}, "en", "es")',
           cell_ref = form_cell_ref("C")
         )
