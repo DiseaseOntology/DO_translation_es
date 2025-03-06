@@ -57,9 +57,9 @@ create_gs_review <- function(en_es_file, gs, ss_prefix = NULL) {
 write_gs_review <- function(df_list, gs, ss_prefix = NULL) {
   box::use(purrr)
 
-  ss_nm <- purrr$map_chr(df_list, ~ write_gs_review_df(.x, gs, ss_prefix))
+  ss_info <- purrr$map(df_list, ~ write_gs_review_df(.x, gs, ss_prefix))
 
-  invisible(list(gs = gs, ss = ss_nm))
+  invisible(ss_info)
 }
 
 
@@ -69,9 +69,9 @@ write_gs_review_df <- function(.df, gs, ss_prefix = NULL) {
   col_present <- col_en_es[names(col_en_es) %in% names(.df)]
   ss_nm <- paste(ss_prefix, "en_es", names(col_present), sep = "_")
 
-  googlesheets4$write_sheet(data = .df, ss = gs, sheet = ss_nm)
+  gs <- googlesheets4$write_sheet(data = .df, ss = gs, sheet = ss_nm)
 
-  invisible(ss_nm)
+  invisible(list(gs = gs, ss = ss_nm))
 }
 
 
