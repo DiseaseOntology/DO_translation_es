@@ -469,7 +469,7 @@ add_gs_translate_cols <- function(df) {
       google_translate_to_es = googlesheets4$gs4_formula(
          glue$glue(
           '=GOOGLETRANSLATE({cell_ref}, "en", "es")',
-          cell_ref = form_cell_ref("C")
+          cell_ref = form_cell_ref("B")
         )
       ),
       .after = dplyr$last_col()
