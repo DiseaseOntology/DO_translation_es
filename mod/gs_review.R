@@ -177,7 +177,8 @@ auto_review_df <- function(.df, cutoff = 0.75, alignment = "none") {
       match_es = similar$str_compare_all(
         .data[[col_nm]],
         .data$google_translate_to_es,
-        locale = "es"
+        locale = "es",
+        stopwords = stopwords::stopwords("es")
       ),
       # rate translation matches (hopefully related to quality)
       match_rating_en = rate$rate_comparison(.data$match_en),

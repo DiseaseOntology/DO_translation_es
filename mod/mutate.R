@@ -851,6 +851,29 @@ if (is.null(box::name())) {
         )
     })
 
+    # NOTE: stemming for Spanish removes diacritics (complex, but makes sense)
+    test_that("tokenize_words() works for 'es' locale/stopwords", {
+      x <- c("1 inglés", "CASO", "mas punct.", "y stopword",
+             "necesita derivación de palabras", "o aplicando Todo-aqui1")
+      sw <- stopwords::stopwords("es")
+      expect_equal(
+        tokenize_words(
+          x,
+          how = "all",
+          locale = "es",
+          stopwords = sw
+        ),
+        list(
+          c("1", "ingles"),
+          c("cas"), # stemming in Spanish is too aggressive (casa != caso)
+          c("mas", "punct"),
+          c("stopword"),
+          c("necesit", "deriv", "palabr"), # again too aggressive (should be palabra, no such thing as palabro)
+          c("aplic", "aqui1")
+        )
+      )
+    })
+
     # str_homogenize() tests -------------------------------------------------
     test_that("str_homogenize() works for character mutations alone", {
         x <- c("i", "1", "I", "i ", "i.", "í", "i1I .î")
