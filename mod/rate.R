@@ -9,6 +9,7 @@
 #' a match.
 #' @param word_wt The value to deduct for each word transformation occurring
 #' in conjunction with word tokenization.
+#' @inheritParams round
 #'
 #' @section Token/Word Weight Note:
 #' `token_wt` and `word_wt` are scaled by the word match percentage. For
@@ -33,7 +34,8 @@
 #'
 #' @md
 #' @export
-rate_comparison <- function(x, chr_wt = 0.02, token_wt = 0.1, word_wt = 0.05) {
+rate_comparison <- function(x, chr_wt = 0.02, token_wt = 0.15, word_wt = 0.05,
+                            digits = 4) {
   box::use(
     dplyr, stringr, tidyr,
     ./mutate
@@ -48,19 +50,24 @@ rate_comparison <- function(x, chr_wt = 0.02, token_wt = 0.1, word_wt = 0.05) {
   ) |>
     tidyr$replace_na(0)
 
-  word_n <- stringr$str_count(
-    x_word,
-    paste0(mutate$tokenize_words_opts, collapse = "|")
-  ) |>
+  word_n <- x_word |>
+    stringr::str_remove(".*%") |>
+    stringr$str_count(
+      paste0(mutate$tokenize_words_opts, collapse = "|")
+    ) |>
     tidyr$replace_na(0)
 
-  word_pct <- as.numeric(stringr$str_extract(x_word, "[0-9]+")) / 100 |>
+  word_pct <- as.numeric(stringr$str_extract(x_word, "[0-9.]+")) / 100 |>
     tidyr$replace_na(0)
 
-  dplyr$case_when(
+  raw_rate <- dplyr$case_when(
     x == "exact" ~ 1,
     is.na(x_chr) & is.na(x_word) ~ 0,
-    chr_n > 0 & word_n == 0 ~ 1 - (chr_n * chr_wt),
-    word_n > 0 ~ word_pct - token_wt * word_pct - (word_n * word_wt * word_pct),
+    chr_n > 0 & is.na(x_word) ~ 1 - (chr_n * chr_wt),
+    chr_n > 0 & !is.na(x_word) ~
+      word_pct - (token_wt + word_n * word_wt + chr_n * chr_wt) * word_pct,
+    !is.na(x_word) ~ word_pct - (token_wt + word_n * word_wt) * word_pct,
   )
+
+  round(raw_rate, digits = digits)
 }
