@@ -132,7 +132,6 @@ tmap <- function(.df, title) {
   .df |> 
     dplyr::filter(.data$datatype == title) |>
     treemap$treemap(
-      .df,
       index = c("overall_set", "details"),
       vSize = "n",
       type = "index",
