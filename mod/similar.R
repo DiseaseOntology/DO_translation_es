@@ -291,7 +291,7 @@ str_compare_all_list <- function(x, inputs, how = "all", delim = "|",
         locale = locale,
         ...
       )
-      general$paste_present(.nm, "-", .res, dominant = FALSE)
+      general$paste_present(.nm, "-", .res, dominant = FALSE, sep = "")
     }
   ) |>
     purrr$reduce(.f = ~ general$paste_present(.x, .y, sep = input_delim))
