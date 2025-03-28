@@ -132,7 +132,7 @@ tmap <- function(.df, title) {
   .df |> 
     dplyr::filter(.data$datatype == title) |>
     treemap$treemap(
-      index = c("overall_set", "details"),
+      index = c("set_overall", "details"),
       vSize = "n",
       type = "index",
       title = title
@@ -153,7 +153,7 @@ gs_no_pd <- googledrive$drive_ls(no_pd_dir, type = "spreadsheet") |>
       stringr$str_remove(name, ".*_"),
       levels = c("label", "synonym", "definition")
     ),
-    set = "remaining"
+    batch = "remaining"
   ) |>
   dplyr$arrange(.data$datatype) |>
   dplyr$rowwise() |>
@@ -165,7 +165,7 @@ gs_pd <- googledrive$as_dribble(
   "https://docs.google.com/spreadsheets/d/1Fvnmz_3KNXuLvLtJGm9eKkqvV33mIZUESsPWv28uUAg/edit?gid=115632665#gid=115632665"
 ) |>
   dplyr$mutate(
-    set = "physical disorder",
+    batch = "physical disorder",
     sheets = list(googlesheets4$sheet_names(.data$id))
   ) |>
   dplyr$cross_join(
@@ -188,14 +188,14 @@ gs_all <- dplyr$bind_rows(gs_no_pd, gs_pd) |>
 ```{r data}
 all_df <- gs_all |>
   dplyr$rowwise() |>
-  dplyr$select("set", "data") |>
+  dplyr$select("batch", "data") |>
   dplyr$mutate(data = list(std_switch(.data$data))) |>
   tidyr$unnest("data") |>
   dplyr$mutate(
     source_id = mod$general$uri_curie(.data$source_id, to = "curie"),
     dplyr::across(
       dplyr::starts_with("match_rating"),
-      .names = "{stringr$str_replace(.col, 'match_rating_(.+)', '\\\\1_set')}",
+      .names = "{stringr$str_replace(.col, 'match_rating_(.+)', 'set_\\\\1')}",
       ~ dplyr::case_when(
         .x == 1 ~ "exact",
         .x > 0.75 ~ "passed",
@@ -208,8 +208,8 @@ all_df <- gs_all |>
   unique() |>
   dplyr::mutate(
     details = dplyr$case_when(
-      .data$en_set == .data$es_set ~ .data$overall_set,
-      TRUE ~ paste0("en: ", .data$en_set, "\nes: ", .data$es_set)
+      .data$set_en == .data$set_es ~ .data$set_overall,
+      TRUE ~ paste0("en: ", .data$set_en, "\nes: ", .data$set_es)
     )
   )
 ```
@@ -240,9 +240,9 @@ both_sets <- all_df |>
   dplyr$group_by(.data$source_id) |>
   dplyr$summarize(
     in_set = dplyr$if_else(
-      dplyr::n_distinct(.data$set) == 2,
+      dplyr::n_distinct(.data$batch) == 2,
       "both",
-      unique(.data$set)
+      unique(.data$batch)
     )
   ) |>
   dplyr$filter(in_set == "both")
@@ -275,7 +275,7 @@ _* **Note:**_ Some text data was not translated by TSG in the "remaining" diseas
 count_percent(
   all_df,
   .data$datatype,
-  .data$overall_set,
+  .data$set_overall,
   pct_by = "datatype"
 )
 ```
@@ -283,12 +283,12 @@ count_percent(
 
 ## Detailed Counts
 
-### By Set
+### By Batch
 
 #### Overall Counts
 
 ```{r}
-dplyr$count(all_df, .data$set, .data$datatype)
+dplyr$count(all_df, .data$batch, .data$datatype)
 ```
 
 
@@ -296,18 +296,18 @@ dplyr$count(all_df, .data$set, .data$datatype)
 
 ```{r}
 all_df |>
-  split(all_df$set) |>
+  split(all_df$batch) |>
   purrr::map(
     ~ count_percent(
       .x,
       .data$datatype,
-      .data$overall_set,
+      .data$set_overall,
       pct_by = "datatype"
     )
   )
 ```
 
-### Within Language Comparison Counts
+### Overall within Language Comparison Counts
 
 #### English Only
 
@@ -315,7 +315,7 @@ all_df |>
 count_percent(
   all_df,
   .data$datatype,
-  .data$en_set,
+  .data$set_en,
   pct_by = "datatype"
 )
 ```
@@ -326,7 +326,7 @@ count_percent(
 count_percent(
   all_df,
   .data$datatype,
-  .data$es_set,
+  .data$set_es,
   pct_by = "datatype"
 )
 ```
@@ -337,10 +337,10 @@ count_percent(
 count_percent(
   all_df,
   .data$datatype,
-  .data$overall_set,
-  .data$en_set,
-  .data$es_set,
-  pct_by = c("datatype", "overall_set")
+  .data$set_overall,
+  .data$set_en,
+  .data$set_es,
+  pct_by = c("datatype", "set_overall")
 )
 ```
 
@@ -350,9 +350,9 @@ count_percent(
 detailed_sets <- count_percent(
   all_df,
   .data$datatype,
-  .data$overall_set,
+  .data$set_overall,
   .data$details,
-  pct_by = c("datatype", "overall_set")
+  pct_by = c("datatype", "set_overall")
 )
 
 purrr::walk(
