@@ -92,15 +92,10 @@ if (!dir.exists(local_data)) dir.create(local_data)
 readr$write_tsv(std, file.path(local_data, "doid-es-pd.tsv"))
 
 # in the DOID repo
-if (!dir.exists(file.path(do_repo_path, "src/ontology/translations"))) {
-  dir.create(file.path(do_repo_path, "src/ontology/translations"))
-}
+do_trans_dir <- file.path(do_repo_path, "src/translations")
+if (!dir.exists(do_trans_dir)) dir.create(do_trans_dir)
 
-readr$write_tsv(
-  std,
-  file.path(do_repo_path, "src/ontology/translations/doid-es.tsv"),
-  na = ""
-)
+readr$write_tsv(std, do_trans_dir, na = "")
 
 
 # Generate robot template ----------------------------------------------------
