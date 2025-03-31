@@ -281,22 +281,25 @@ str_compare_all_list <- function(x, inputs, how = "all", delim = "|",
   out <- replace(out, present_idx, exact)
 
   not_exact_idx <- which(is.na(out) & !missing)
-  compared <- purrr$map2(
-    inputs,
-    names(inputs),
-    function(.y, .nm) {
-      .res <- str_compare_all(
-        x[not_exact_idx],
-        .y[not_exact_idx],
-        locale = locale,
-        ...
-      )
-      general$paste_present(.nm, "-", .res, dominant = FALSE, sep = "")
-    }
-  ) |>
-    purrr$reduce(.f = ~ general$paste_present(.x, .y, sep = input_delim))
+  if (length(not_exact_idx > 0)) {
+    compared <- purrr$map2(
+      inputs,
+      names(inputs),
+      function(.y, .nm) {
+        .res <- str_compare_all(
+          x[not_exact_idx],
+          .y[not_exact_idx],
+          locale = locale,
+          ...
+        )
+        general$paste_present(.nm, "-", .res, dominant = FALSE, sep = "")
+      }
+    ) |>
+      purrr$reduce(.f = ~ general$paste_present(.x, .y, sep = input_delim))
 
-  out <- replace(out, not_exact_idx, compared)
+    out <- replace(out, not_exact_idx, compared)
+  }
+
   out
 }
 
