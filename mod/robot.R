@@ -112,7 +112,7 @@ create_robot_template <- function(.df, path = NULL) {
 #'
 #' @md
 #' @export
-get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "en") {
+get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "any") {
   id_as <- match.arg(id_as, c("curie", "uri"))
   check_robot()
 
