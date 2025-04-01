@@ -10,14 +10,6 @@ data_dir <- here$here("data/remaining_diseases")
 progress_file <- file.path(data_dir, "progress.rda")
 
 
-df_nm <- purrr::map_chr(gs_out, ~ stringr::str_remove(.x[[2]], ".*_"))
-original <- purrr::map(
-  gs_out,
-  ~ googlesheets4$read_sheet(ss = .x[[1]], sheet = .x[[2]])
-) |>
-  purrr::set_names(df_nm)
-
-
 # upper level review dir
 upper_dir <- "https://drive.google.com/drive/folders/1GqYzQ6ZI5I3pFC82XLKG5P61STxqwn4b"
 
@@ -47,11 +39,15 @@ dt_files <- dt_dir |>
   dplyr::mutate(
     sheets = list(googlesheets4::sheet_names(.data$id)),
     data = list(
-      purrr::map(
-        .data$sheets,
-        ~ googlesheets4::read_sheet(ss = .data$id, sheet = .x)
-      ) |>
-        dplyr::bind_rows(.id = "set")
+        purrr$map(
+            .data$sheets,
+            ~ if (stringr::str_detect(.x, "^Set[0-9]+|^all$")) {
+                googlesheets4$read_sheet(ss = .data$id, sheet = .x)
+            } else {
+                NULL
+            }
+        ) |>
+            dplyr$bind_rows(.id = "set")
     )
   )
 
@@ -62,8 +58,8 @@ dt_merged <- dt_files |>
   purrr::map(~ dplyr::bind_rows(.x))
 
 original <- purrr::set_names(
-  original$data,
-  original$datatype
+  original_df$data,
+  original_df$datatype
 )
 
 # comparison
