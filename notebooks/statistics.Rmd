@@ -5,14 +5,10 @@ output:
     code_folding: hide
     toc_depth: 4
     toc: true
-    toc_float: true
+    toc_float:
       collapsed: false
 ---
 
-```{r auth, include = FALSE}
-googledrive::drive_auth(email = "allenbaron@som.umaryland.edu")
-googlesheets4::gs4_auth(email = "allenbaron@som.umaryland.edu")
-```
 
 ```{r setup, results='hide', message=FALSE, warning=FALSE}
 box::use(
@@ -20,6 +16,12 @@ box::use(
   ../mod
 )
 ```
+
+```{r auth, include = FALSE}
+googledrive$drive_auth(email = "allenbaron@som.umaryland.edu")
+googlesheets4$gs4_auth(email = "allenbaron@som.umaryland.edu")
+```
+
 
 ```{r custom_functions}
 # identifies the primary sheet for each datatype (only for non-physical disorder)
@@ -74,7 +76,7 @@ std_switch <- function(.df) {
         dplyr$all_of(renm_vctr)
       ) |>
       dplyr$rename_with(
-        .fn = ~ stringr::str_remove(.x, paste0(colnm, "_"))
+        .fn = ~ stringr$str_remove(.x, paste0(colnm, "_"))
       )
   } else { # reverse standardization
     .df1 <- .df |>
@@ -83,10 +85,10 @@ std_switch <- function(.df) {
       dplyr$arrange(.data$datatype)
     df_list <- split(.df1, .df1$datatype)
     # drop empty (not all datatypes present since datatype is a factor)
-    df_list <- df_list[purrr::map_lgl(df_list, ~ nrow(.x) > 0)]
+    df_list <- df_list[purrr$map_lgl(df_list, ~ nrow(.x) > 0)]
     names(df_list) <- purrr$map_chr(df_list, ~ as.character(unique(.x$datatype)))
     
-    out <- purrr::map(
+    out <- purrr$map(
       df_list,
       function(.x) {
         colnm <- col_en_es[names(col_en_es) == unique(.x$datatype)]
@@ -130,7 +132,7 @@ count_percent <- function(.df, ..., wt = NULL, sort = FALSE, nm = NULL,
 tmap <- function(.df, title) {
   box::use(treemap)
   .df |> 
-    dplyr::filter(.data$datatype == title) |>
+    dplyr$filter(.data$datatype == title) |>
     treemap$treemap(
       index = c("set_overall", "details"),
       vSize = "n",
@@ -193,10 +195,10 @@ all_df <- gs_all |>
   tidyr$unnest("data") |>
   dplyr$mutate(
     source_id = mod$general$uri_curie(.data$source_id, to = "curie"),
-    dplyr::across(
-      dplyr::starts_with("match_rating"),
+    dplyr$across(
+      dplyr$starts_with("match_rating"),
       .names = "{stringr$str_replace(.col, 'match_rating_(.+)', 'set_\\\\1')}",
-      ~ dplyr::case_when(
+      ~ dplyr$case_when(
         .x == 1 ~ "exact",
         .x > 0.75 ~ "passed",
         TRUE ~ "failed"
@@ -206,7 +208,7 @@ all_df <- gs_all |>
   ) |>
   # drop 5 exact duplicates each from remaining labels & definitions
   unique() |>
-  dplyr::mutate(
+  dplyr$mutate(
     details = dplyr$case_when(
       .data$set_en == .data$set_es ~ .data$set_overall,
       TRUE ~ paste0("en: ", .data$set_en, "\nes: ", .data$set_es)
@@ -223,7 +225,7 @@ dup_df <- all_df |>
       duplicated(.data$dup_chr, fromLast = TRUE),
     dup_chr = NULL
   ) |>
-  dplyr::filter(en_dup)
+  dplyr$filter(en_dup)
 
 if (nrow(dup_df) > 0) {
   message("Duplicates exist from input:")
@@ -240,7 +242,7 @@ both_sets <- all_df |>
   dplyr$group_by(.data$source_id) |>
   dplyr$summarize(
     in_set = dplyr$if_else(
-      dplyr::n_distinct(.data$batch) == 2,
+      dplyr$n_distinct(.data$batch) == 2,
       "both",
       unique(.data$batch)
     )
@@ -261,7 +263,7 @@ if (nrow(both_sets) > 0) {
 
 ### Total Translations
 
-**Terms translated:** `r format(dplyr::n_distinct(all_df$source_id), big.mark = ",")`
+**Terms translated:** `r format(dplyr$n_distinct(all_df$source_id), big.mark = ",")`
 
 ```{r}
 dplyr$count(all_df, .data$datatype)
@@ -297,7 +299,7 @@ dplyr$count(all_df, .data$batch, .data$datatype)
 ```{r}
 all_df |>
   split(all_df$batch) |>
-  purrr::map(
+  purrr$map(
     ~ count_percent(
       .x,
       .data$datatype,
@@ -355,7 +357,7 @@ detailed_sets <- count_percent(
   pct_by = c("datatype", "set_overall")
 )
 
-purrr::walk(
+purrr$walk(
   c("label", "synonym", "definition"),
   ~ tmap(detailed_sets, .x)
 )
