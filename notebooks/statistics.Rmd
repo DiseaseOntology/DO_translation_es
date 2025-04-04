@@ -1,6 +1,6 @@
 ---
 title: "Spanish Translation Statistics"
-output: 
+output:
   html_notebook:
     code_folding: hide
     toc_depth: 4
@@ -12,7 +12,8 @@ output:
 
 ```{r setup, results='hide', message=FALSE, warning=FALSE}
 box::use(
-  dplyr, ggplot2, googledrive, googlesheets4, purrr, stringr, tibble, tidyr, treemap,
+  dplyr, ggplot2, googledrive, googlesheets4, here, purrr, readr, stringdist,
+  stringr, tibble, tidyr, treemap,
   ../mod
 )
 ```
@@ -56,7 +57,7 @@ std_switch <- function(.df) {
     if (colnm_n != 1) {
       stop(paste0("Exact 1 data type should be identified, not ", colnm_n))
     }
-    
+
     if (!"datatype" %in% names(.df)) {
       out <-  out |>
         dplyr$mutate(
@@ -67,7 +68,7 @@ std_switch <- function(.df) {
           .before = 1
         )
     }
-    
+
     renm_vctr <- c("source_text" = names(colnm), "target_text" = unname(colnm))
     out <- out |>
       dplyr$select(-"clase") |>
@@ -87,7 +88,7 @@ std_switch <- function(.df) {
     # drop empty (not all datatypes present since datatype is a factor)
     df_list <- df_list[purrr$map_lgl(df_list, ~ nrow(.x) > 0)]
     names(df_list) <- purrr$map_chr(df_list, ~ as.character(unique(.x$datatype)))
-    
+
     out <- purrr$map(
       df_list,
       function(.x) {
@@ -131,7 +132,7 @@ count_percent <- function(.df, ..., wt = NULL, sort = FALSE, nm = NULL,
 
 tmap <- function(.df, title) {
   box::use(treemap)
-  .df |> 
+  .df |>
     dplyr$filter(.data$datatype == title) |>
     treemap$treemap(
       index = c("set_overall", "details"),
@@ -140,13 +141,93 @@ tmap <- function(.df, title) {
       title = title
     )
 }
+
+collapse_col <- function (df, .cols, delim = "|", na.rm = FALSE) {
+  box::use(dplyr)
+  uniq_to_string <- function(x, delim, na.rm) {
+    if (na.rm) x <- na.omit(x)
+    paste0(unique(x), collapse = delim)
+  }
+    df |>
+      dplyr$group_by(dplyr$across(-{{ .cols }})) |>
+      dplyr$summarize(
+        dplyr$across(
+          .cols = dplyr$everything(),
+          .fns = ~ uniq_to_string(.x, delim, na.rm)
+        ),
+        .groups = "drop"
+      ) |>
+      dplyr$select(dplyr$one_of(names(df)))
+}
+
+filter_id_pred <- function(df, id, pred) {
+  nm_pred <- stringr$str_detect(
+    pred,
+    stringr$regex("label|synonym", ignore_case = TRUE)
+  )
+  if (nm_pred) {
+    dplyr$filter(
+      df,
+      .data$source_id == id,
+      stringr$str_detect(
+        .data$predicate,
+        stringr$regex("label|synonym", ignore_case = TRUE)
+      )
+    )
+  } else {
+    dplyr$filter(
+      df,
+      .data$source_id == id,
+      .data$predicate == pred
+    )
+  }
+}
+
+index_id_pred <- function(df, id, pred) {
+  nm_pred <- stringr$str_detect(
+    pred,
+    stringr$regex("label|synonym", ignore_case = TRUE)
+  )
+  if (nm_pred) {
+    pred_match <- stringr$str_detect(
+        df$predicate,
+        stringr$regex("label|synonym", ignore_case = TRUE)
+      )
+  } else {
+    pred_match <- df$predicate == pred
+  }
+
+  which(df$source_id == id & pred_match)
+}
+
+match_id_pred_fuzzy <- function(x_df, y_df,
+                                include = c("predicate", "source_text")) {
+  stopifnot("`id` must be same length as `x`" = length(id) == length(x))
+
+  box::use(dplyr, purrr, stringdist, stringr)
+
+  y_sets <- purrr$map2(x_df$id, x_df$pred, ~ index_id_pred(y_df, .x, .y))
+  y_cols <- dplyr$select(y_df, dplyr$all_of(include))
+  y_na <- y_cols[1, ] |>
+    dplyr$mutate(dplyr$across(dplyr$everything(), ~ NA_character_))
+  y_bind <- purrr$map2_chr(
+    x,
+    y_sets,
+    function(.x, .i) {
+      if (length(.i) == 0) return(y_na)
+      if (length(.i) == 1) return(y_cols[.i, ])
+      best_pos <- stringdist$amatch(.x, .i, maxDist = 3)
+      .i[best_pos]
+    }
+  )
+}
 ```
 
 
 # Data Load & Preprocessing
 
 ```{r gs_info}
-# all data but physical disorder 
+# all data but physical disorder
 no_pd_dir <- "https://drive.google.com/drive/folders/1GqYzQ6ZI5I3pFC82XLKG5P61STxqwn4b/"
 
 gs_no_pd <- googledrive$drive_ls(no_pd_dir, type = "spreadsheet") |>
@@ -361,4 +442,188 @@ purrr$walk(
   c("label", "synonym", "definition"),
   ~ tmap(detailed_sets, .x)
 )
+```
+
+## Text Changes
+
+Comparing changes to release v2025-03-31 to calculate how much text has changed since data was first submitted for translation:
+
+```{r}
+pd_202310 <- mod$robot$get_obo_text(
+  here$here("data/physical_disorder/doid-v2023-10-21.owl")
+) |>
+  dplyr$semi_join(
+    dplyr$filter(all_df, batch == "physical disorder"),
+    by = "source_id"
+  ) |>
+  dplyr$mutate(batch = "physical disorder")
+
+remain_202402 <- mod$robot$get_obo_text(
+  here$here("data/remaining_diseases/doid-v2024-02-28.owl")
+) |>
+  dplyr$semi_join(
+    dplyr$filter(all_df, batch == "remaining"),
+    by = "source_id"
+  ) |>
+  dplyr$mutate(batch = "remaining")
+
+# shows how much we don't yet have as changed... probably not the right approach
+# es_tsv <- readr$read_tsv(
+#   here$here("data/v2025-03-31/doid-es.tsv"),
+#   show_col_types = FALSE
+# )
+#
+# es_simple <- es_tsv |>
+#   dplyr$select("source_id", "predicate", "source_text") |>
+#   collapse_col(-"source_text", na.rm = TRUE)
+
+
+doid_202503 <- mod$robot$get_obo_text(
+  here$here("data/v2025-03-31/doid.owl")
+) |>
+  dplyr$mutate(batch = "latest") |>
+  tidyr$replace_na(list(deprecated = FALSE))
+
+batch_date <- c(
+  "physical disorder" = "2023-10-21",
+  "remaining" = "2024-02-28",
+  "latest" = "2025-03-31"
+) |>
+  as.Date()
+```
+
+```{r include = FALSE}
+# checking if any text duplicates exist in latest release --> would be errors
+latest_err <- doid_202503 |>
+  dplyr$filter(
+    !.data$deprecated,
+    is.na(.data$synonym_type),
+    !stringr$str_detect(.data$predicate, "Related|Broad|Narrow")
+  ) |>
+  collapse_col(-"source_text", delim = "|") |>
+  dplyr$filter(
+    dplyr$if_any(
+      .cols = dplyr$everything(),
+      .fns = ~ stringr$str_detect(.x, stringr$coll("|"))
+    )
+  ) |>
+  tidyr$separate_longer_delim(
+    cols = -"source_text",
+    delim = "|"
+  ) |>
+  dplyr$mutate(dplyr$across(dplyr$everything(), ~ dplyr$na_if(.x, "NA")))
+
+latest_err
+```
+
+```{r}
+doid_simple <- dplyr$bind_rows(pd_202310, remain_202402) |>
+  dplyr$arrange(.data$source_id, .data$predicate, .data$source_text) |>
+  collapse_col(-"source_text", na.rm = TRUE) |>
+  dplyr$select("source_id", "predicate", "source_text", "batch")
+
+latest_simple <- doid_202503 |>
+  dplyr$arrange(.data$source_id, .data$predicate, .data$source_text) |>
+  collapse_col(-c("source_text", "deprecated"), na.rm = TRUE) |>
+  dplyr$mutate(dplyr$across(-"deprecated", ~ dplyr$na_if(.x, "")))
+```
+
+Changes in latest compared to original sources of translation
+```{r}
+new <- latest_simple |>
+  dplyr$filter(!.data$deprecated) |>
+  dplyr$anti_join(doid_simple, by = "source_text") |>
+  dplyr$mutate(change = "new") |>
+  dplyr$rename_with(
+    .cols = -c("source_text", "deprecated"),
+    .fn = ~ paste0(.x, "_new")
+  )
+
+text_compare <- latest_simple |>
+  dplyr$select(-"batch") |>
+  dplyr$rename_with(
+    .cols = -c("source_text", "deprecated"),
+    .fn = ~ paste0(.x, "_new")
+  ) |>
+  dplyr$right_join(doid_simple, by = "source_text") |>
+  dplyr$bind_rows(new) |>
+  dplyr$mutate(
+    change = dplyr$case_when(
+      is.na(.data$source_id) ~ "new",
+      .data$deprecated ~ "term deprecated",
+      is.na(.data$predicate_new) ~ "text differs",
+      .data$predicate == .data$predicate_new ~ "none",
+      .data$predicate != .data$predicate_new &
+        .data$source_id == .data$source_id_new ~ "predicate differs",
+      .data$predicate != .data$predicate_new ~ "source_id & predicate differ"
+    )
+  )
+
+# too slow to execute
+# text_differ <- text_compare |>
+#   dplyr::filter(change == "text differs") |>
+#   dplyr$mutate(
+#     new_text_pos = stringdist$amatch(
+#       .data$source_text,
+#       new$source_text, maxDist = 3)
+#   )
+
+count_percent(text_compare, .data$change)
+```
+
+**New by predicate:**
+
+```{r}
+count_percent(new, .data$predicate_new)
+```
+
+
+
+The specific text changes are as follows:
+```{r}
+text_changes <- text_compare |>
+  dplyr$filter(change == "text differs") |>
+  dplyr$select("source_id", "predicate", "source_text", "batch") |>
+  dplyr$mutate(
+    new_text = match_id_pred_fuzzy(
+      .data$source_id,
+      .data$predicate,
+      .data$source_text,
+      doid_202503
+    )
+  )
+
+text_changes
+```
+
+
+## Latest Spanish Coverage (v2025-03-31)
+
+```{r}
+di <- mod$robot$get_obo_text(
+  here$here("data/v2025-03-31/doid-international.owl")
+) |>
+  dplyr$filter(
+    stringr$str_detect(.data$source_id, stringr$coll("DOID")),
+    is.na(.data$synonym_type),
+    is.na(.data$deprecated)
+  )
+
+dplyr$count(di, .data$source_lang) |>
+  tidyr$pivot_wider(
+    names_from = "source_lang",
+    values_from = "n"
+  ) |>
+  dplyr$mutate(pct_coverage = round(.data$es / .data$en * 100, 2))
+```
+
+**By predicate:**
+
+```{r}
+dplyr$count(di, .data$source_lang, .data$predicate) |>
+  tidyr$pivot_wider(
+    names_from = "source_lang",
+    values_from = "n"
+  ) |>
+  dplyr$mutate(pct_coverage = round(.data$es / .data$en * 100, 2))
 ```
