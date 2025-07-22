@@ -6,5 +6,6 @@ box::use(
     ./mutate,
     ./rate,
     ./robot,
-    ./similar
+    ./similar,
+    ./text
 )
