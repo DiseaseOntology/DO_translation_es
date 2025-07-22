@@ -410,18 +410,41 @@ readr$write_tsv(translation, file.path(final_dir, "doid-es.tsv"), na = "")
 # in the DOID repo
 do_trans_dir <- file.path(do_repo_path, "src/translations")
 if (!dir.exists(do_trans_dir)) dir.create(do_trans_dir)
-readr$write_tsv(
+
+es_exist <- readr$read_tsv(
+  file.path(do_trans_dir, "doid-es.tsv")
+)
+
+translation_new <- dplyr::anti_join(
   translation,
-  file.path(do_trans_dir, "doid-es.tsv"),
-  na = "",
-  append = TRUE
-)
+  es_exist,
+  by = c("source_id", "predicate", "source_text")
+) |>
+  dplyr::mutate(
+    review_notes = stringr::str_replace_all(
+      .data$review_notes,
+      "\\n",
+      "; "
+    )
+  )
+
+if (!interactive()) {
+  readr$write_tsv(
+    translation_new,
+    file.path(do_trans_dir, "doid-es.tsv"),
+    na = "",
+    append = TRUE
+  )
+
+  # CHECK doid-es.tsv -------------------------------------------------------
+
+  es_tsv <- readr$read_tsv(
+    file.path(do_trans_dir, "doid-es.tsv"),
+    show_col_types = FALSE
+  )
+}
 
 
 
-# CHECK doid-es.tsv -------------------------------------------------------
 
-es_tsv <- readr$read_tsv(
-  file.path(do_trans_dir, "doid-es.tsv"),
-  show_col_types = FALSE
-)
+
