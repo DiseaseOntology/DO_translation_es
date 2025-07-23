@@ -393,7 +393,9 @@ translation <- translation_full |>
       .data$translation_text,
       "\\t|\""
     )
-  )
+  ) |>
+  # stabilize sort order, equivalent to babelon
+  dplyr$arrange(.data$source_id, .data$predicate, .data$source_text)
 
 
 
