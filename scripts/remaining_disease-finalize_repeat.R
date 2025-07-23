@@ -370,7 +370,17 @@ rem_full <- purrr$map(remaining_final, mod$gs_review$standardize_review_df) |>
   ) |>
   merge_w_doid(doid_remaining)
 
-translation_full <- rem_full
+translation_full <- rem_full |>
+  # downgrade status for quick formatting reviews (e.g. reviewer = JAB-quick)
+  # --> did not include translation quality review
+  dplyr$mutate(
+    status = dplyr$if_else(
+      !is.na(.data$final_reviewer) &
+        stringr$str_detect(.data$final_reviewer, stringr$coll("quick")),
+      "manually translated",
+      .data$status
+    )
+  )
 
 
 
@@ -383,8 +393,11 @@ trans_deprecated <- translation_full |>
 
 translation <- translation_full |>
   dplyr$filter(
+    # remove deprecated terms
     is.na(.data$deprecated) | !.data$deprecated,
-    status != "manually translated"
+    # remove un-reviewed translations (keeping defs with quick formatting review)
+    stringr$str_detect(.data$final_reviewer, stringr$coll("quick")) |
+      status != "manually translated"
   ) |>
   dplyr::select(-"deprecated") |>
   # fix for problems in translation text (extra " & tabs)
