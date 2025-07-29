@@ -147,6 +147,26 @@ merge_w_doid <- function(std_df, original) {
       "replacement"
     )
 
+  # approve approximate matches (if interactive)
+  continue <- ""
+  message(
+    "The following approximate matches were found:\n",
+    paste0(
+      "  - row ", which(missing), ": ",
+      std_en_fix$source_text, " --> ", std_en_fix$replacement,
+      "\n"
+    ),
+    "\n"
+  )
+  if (!interactive()) continue <- "yes"
+  while (!continue %in% c("yes", "no")) {
+    continue <- readline("Approve replacement? (yes/no) ")
+  }
+
+  if (continue == "no") {
+    stop("Please fix the English text manually before proceeding.")
+  }
+
   out <- std_prep |>
     dplyr$left_join(
       std_en_fix,
