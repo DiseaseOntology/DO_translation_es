@@ -414,6 +414,28 @@ trans_all <- trans_full |>
   dplyr$bind_rows(latest_add) |>
   dplyr$select(-"deprecated", -"predicate_latest")
 
+### TEMPORARY fixes ###
+# 1. retain ontology description translation
+onto_desc <- readr$read_tsv(
+  file.path(do_repo_path, "src/translations/doid-es.tsv"),
+  show_col_types = FALSE
+) |>
+  dplyr::filter(!stringr$str_detect(.data$source_id, "DOID")) |>
+  dplyr$mutate(status = toupper(.data$status))
+
+# 2. remove single quotes in text --> lead to errors
+trans_all <- trans_all |>
+  dplyr$mutate(
+    translation_text = dplyr$if_else(
+      stringr::str_count(.data$translation_text, '"') == 1,
+      stringr$str_remove(.data$translation_text, '"'),
+      .data$translation_text
+    )
+  ) |>
+  dplyr::filter(
+    !(.data$source_id == "obo:doid.owl" & .data$predicate == "dc:description")
+  ) |>
+  dplyr$bind_rows(onto_desc)
 
 
 # PREPARE SUBSETS ---------------------------------------------------------
