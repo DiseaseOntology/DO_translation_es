@@ -143,7 +143,7 @@ write_output <- function(.df, output_dir, lang = "es") {
   # maintain standard sort order
   .df |>
     dplyr$arrange(.data$source_id, .data$predicate, .data$source_text) |>
-    readr$write_tsv(file_path, na = "")
+    readr$write_tsv(file_path, na = "", quote = "needed")
 }
 
 
