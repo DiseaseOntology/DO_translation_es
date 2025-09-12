@@ -133,7 +133,9 @@ check_genetic_term <- function(en, es) {
     monosomy = "monosomía", variant = "variante", `de novo` = "de novo",
     somatic = "somático", digenic = "digenico", trisomy = "trisomía",
     allele = "alelo", region = "región", mosaic = "mosaico", locus = "locus",
-    gene = "gen", homozygous = "homocigótica", hemizygous = "hemicigótica"
+    gene = "gen", homozygous = "homocigótica", hemizygous = "hemicigótica"#,
+    # forgot to include in original (not re-run... just noting)
+    # heterozygous = "heterocigótica", "gene" = "génica", "chromosome" = "cromosómica"
   )
 
   # standardize for matching (rough)
