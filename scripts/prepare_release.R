@@ -516,7 +516,7 @@ if (any(duplicates)) {
 # write all locally (with datestamp)
 
 if (!dir.exists(final_dir)) dir.create(final_dir)
-write_output(translation_all, final_dir)
+write_output(trans_all, final_dir)
 write_output(deprecated, final_dir)
 write_output(untranslated, final_dir)
 write_output(changed, final_dir)
@@ -526,7 +526,7 @@ write_output(production, final_dir)
 # write in the DOID repo
 do_trans_dir <- file.path(do_repo_path, "src/translations")
 if (!dir.exists(do_trans_dir)) dir.create(do_trans_dir)
-write_output(translation_all, do_trans_dir)
+write_output(trans_all, do_trans_dir)
 write_output(deprecated, do_trans_dir)
 write_output(untranslated, do_trans_dir)
 write_output(changed, do_trans_dir)
