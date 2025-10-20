@@ -87,7 +87,7 @@ std <- std |>
 # Write to file --------------------------------------------------------------
 
 # in this repo
-local_data <- here$here("data/final")
+local_data <- here$here("data/physical_disorder")
 if (!dir.exists(local_data)) dir.create(local_data)
 readr$write_tsv(std, file.path(local_data, "doid-es-pd.tsv"))
 
