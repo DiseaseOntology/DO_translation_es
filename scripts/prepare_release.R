@@ -313,6 +313,22 @@ if (any(purrr$map_int(remaining_missing, nrow) > 0)) {
 }
 
 
+# get 3rd round of translations
+new_trans <- googlesheets4::read_sheet(
+  "1t9AyvuJJeLZa4cBS4pNi2-dVdDf0ZrYSDQ-dARmr2r0",
+  "labels",
+  skip = 1
+) |>
+  dplyr::mutate(
+    translator = "Google Translate",
+    source_lang = "en",
+    translation_lang = "es",
+    status = dplyr::if_else(!is.na(final_reviewer), "final", "untranslated")
+  ) |>
+  dplyr::filter(status == "final") |>
+  dplyr::select(dplyr::any_of(names(rem_full)))
+
+
 
 # FINALIZE REVIEWS --------------------------------------------------------
 
@@ -334,7 +350,7 @@ pd_full <- purrr$map(pd_final, mod$gs_review$standardize_review_df) |>
 rem_full <- purrr$map(remaining_final, mod$gs_review$standardize_review_df) |>
   dplyr$bind_rows()
 
-trans_full <- dplyr$bind_rows(pd_full, rem_full) |>
+trans_full <- dplyr$bind_rows(pd_full, rem_full, new_trans) |>
   dplyr$mutate(source_id = mod$general$uri_curie(source_id, to = "curie")) |>
   unique() |>
   # add latest predicate for comparison
