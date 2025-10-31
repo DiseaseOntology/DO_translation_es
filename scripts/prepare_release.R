@@ -54,6 +54,52 @@ final_dir <- here$here("data/final")
 
 # CUSTOM FUNCTIONS --------------------------------------------------------
 
+#' Access & merge Google Sheets datasets safely
+#'
+#' @param gs A Google Sheet (workbook) identifier.
+#' @param sheets_list The sheet names of each Google Sheet, as a character
+#' vector.
+merge_gs <- function(gs, sheets_list) {
+  gs_vals <- purrr$map(sheets_list, ~ access_gs(gs, .x))
+  failed <- purrr$map(gs_vals, ~ attr(.x, "failed")) |>
+    unlist()
+
+  if (length(failed) > 0) {
+    rlang::warn(
+      c(
+        paste0("One or more sheets for", gs, " could not be accessed:"),
+        purrr$set_names(failed, rep("x", length(failed)))
+      )
+    )
+    return(gs_vals)
+  }
+  dplyr$bind_rows(gs_vals, .id = "set")
+}
+
+# attempts to access all sheets listed from gs (limited to "Set" or "all")
+access_gs <- function(gs, .sheet) {
+  if (!stringr$str_detect(.sheet, "^Set[0-9]+|^all$")) return(NULL)
+
+  gs_res <- read_gs_safely(ss = gs, sheet = .sheet)
+  if (is.null(gs_res$result) || !is.null(gs_res$error)) {
+    status <- try(gs_res$error$resp$status)
+    if (class(status) != "try-error" && status == "429") {
+      Sys.sleep(120)
+      gs_res <- read_gs_safely(ss = gs, sheet = .sheet)
+      if (is.null(gs_res$result) || !is.null(gs_res$error)) {
+        attr(gs_res, "failed") <- .sheet
+        return(gs_res)
+      }
+    } else {
+      attr(gs_res, "failed") <- .sheet
+      return(gs_res)
+    }
+  }
+  std_col_classes(gs_res$result)
+}
+
+read_gs_safely <- purrr$safely(googlesheets4$read_sheet)
+
 # converts empty columns from boolean to character
 std_col_classes <- function(.df) {
   box::use(dplyr)
@@ -220,18 +266,7 @@ gs_rem_split <- rem_split_dirs |>
   dplyr$rowwise() |>
   dplyr$mutate(
     sheets = list(googlesheets4$sheet_names(.data$id)),
-    data = list(
-      purrr$map(
-        .data$sheets,
-        ~ if (stringr$str_detect(.x, "^Set[0-9]+|^all$")) {
-          googlesheets4$read_sheet(ss = .data$id, sheet = .x) |>
-            std_col_classes()
-        } else {
-          NULL
-        }
-      ) |>
-        dplyr$bind_rows(.id = "set")
-    )
+    data = list(merge_gs(.data$id, .data$sheets))
   )
 
 remaining_full <- gs_rem_split |>
@@ -268,7 +303,7 @@ if (any(purrr$map_int(remaining_missing, nrow) > 0)) {
   }
 
   purrr$map(
-    remaining_missing
+    remaining_missing,
     ~ .x |> add_sets() |> dplyr$count(set)
   )
 
