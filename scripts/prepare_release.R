@@ -325,8 +325,7 @@ new_trans <- googlesheets4::read_sheet(
     translation_lang = "es",
     status = dplyr::if_else(!is.na(final_reviewer), "final", "untranslated")
   ) |>
-  dplyr::filter(status == "final") |>
-  dplyr::select(dplyr::any_of(names(rem_full)))
+  dplyr::filter(status == "final")
 
 
 
@@ -350,7 +349,10 @@ pd_full <- purrr$map(pd_final, mod$gs_review$standardize_review_df) |>
 rem_full <- purrr$map(remaining_final, mod$gs_review$standardize_review_df) |>
   dplyr$bind_rows()
 
-trans_full <- dplyr$bind_rows(pd_full, rem_full, new_trans) |>
+new_full <- new_trans |>
+  dplyr::select(dplyr::any_of(names(rem_full)))
+
+trans_full <- dplyr$bind_rows(pd_full, rem_full, new_full) |>
   dplyr$mutate(source_id = mod$general$uri_curie(source_id, to = "curie")) |>
   unique() |>
   # add latest predicate for comparison
