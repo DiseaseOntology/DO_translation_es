@@ -1,0 +1,251 @@
+class,syn
+http://purl.obolibrary.org/obo/SYMP_0000006,back pain
+http://purl.obolibrary.org/obo/SYMP_0000064,arthralgia
+http://purl.obolibrary.org/obo/SYMP_0000064,arthromyalgia
+http://purl.obolibrary.org/obo/SYMP_0000613,pyrexia
+http://purl.obolibrary.org/obo/SYMP_0000487,erythema
+http://purl.obolibrary.org/obo/SYMP_0000487,rubor
+http://purl.obolibrary.org/obo/SYMP_0000487,skin eruption
+http://purl.obolibrary.org/obo/SYMP_0000487,skin rash
+http://purl.obolibrary.org/obo/SYMP_0000487,skin redness
+http://purl.obolibrary.org/obo/SYMP_0000504,cephalalgia
+http://purl.obolibrary.org/obo/SYMP_0019142,adenopathy
+http://purl.obolibrary.org/obo/SYMP_0000309,inappetence
+http://purl.obolibrary.org/obo/SYMP_0000309,lack of appetite
+http://purl.obolibrary.org/obo/SYMP_0000570,bacterial gastroenteritis
+http://purl.obolibrary.org/obo/SYMP_0000570,diarrhoea
+http://purl.obolibrary.org/obo/SYMP_0000570,fecal incontinence
+http://purl.obolibrary.org/obo/SYMP_0000570,incontinence of feces
+http://purl.obolibrary.org/obo/SYMP_0000570,loose bowel
+http://purl.obolibrary.org/obo/SYMP_0000570,loose bowels
+http://purl.obolibrary.org/obo/SYMP_0000570,the runs
+http://purl.obolibrary.org/obo/SYMP_0019145,emesis
+http://purl.obolibrary.org/obo/SYMP_0019147,bloody vomit
+http://purl.obolibrary.org/obo/SYMP_0019147,haematemesis
+http://purl.obolibrary.org/obo/SYMP_0019147,vomiting blood
+http://purl.obolibrary.org/obo/SYMP_0000521,swelling of lymph nodes
+http://purl.obolibrary.org/obo/SYMP_0000521,swollen lymph glands
+http://purl.obolibrary.org/obo/SYMP_0000448,nosebleed
+http://purl.obolibrary.org/obo/SYMP_0000742,gingival hemorrhage
+http://purl.obolibrary.org/obo/SYMP_0000237,blocked nose
+http://purl.obolibrary.org/obo/SYMP_0000237,nasal blockage
+http://purl.obolibrary.org/obo/SYMP_0000237,nasal obstruction
+http://purl.obolibrary.org/obo/SYMP_0000237,stuffed up nose
+http://purl.obolibrary.org/obo/SYMP_0000237,stuffy nose
+http://purl.obolibrary.org/obo/SYMP_0000493,difficulty in swallowing
+http://purl.obolibrary.org/obo/SYMP_0000493,difficulty swallowing
+http://purl.obolibrary.org/obo/SYMP_0000493,impaired swallowing
+http://purl.obolibrary.org/obo/SYMP_0000603,rapid breathing
+http://purl.obolibrary.org/obo/SYMP_0000178,loss of weight
+http://purl.obolibrary.org/obo/SYMP_0000879,low grade fever
+http://purl.obolibrary.org/obo/SYMP_0019153,breathing difficulty
+http://purl.obolibrary.org/obo/SYMP_0019153,breathlessness
+http://purl.obolibrary.org/obo/SYMP_0019153,difficulty breathing
+http://purl.obolibrary.org/obo/SYMP_0019153,labored respiration
+http://purl.obolibrary.org/obo/SYMP_0019153,shortness of breath
+http://purl.obolibrary.org/obo/SYMP_0000024,drowsy
+http://purl.obolibrary.org/obo/SYMP_0000024,somnolence
+http://purl.obolibrary.org/obo/SYMP_0000610,dizzy
+http://purl.obolibrary.org/obo/SYMP_0000323,melaena
+http://purl.obolibrary.org/obo/SYMP_0000460,enlargement of the liver
+http://purl.obolibrary.org/obo/SYMP_0000446,red eye
+http://purl.obolibrary.org/obo/SYMP_0000446,redness of eye
+http://purl.obolibrary.org/obo/SYMP_0019161,myalgia
+http://purl.obolibrary.org/obo/SYMP_0019174,rigors
+http://purl.obolibrary.org/obo/SYMP_0000539,icteric
+http://purl.obolibrary.org/obo/SYMP_0000539,icterus
+http://purl.obolibrary.org/obo/SYMP_0000372,runny nose
+http://purl.obolibrary.org/obo/SYMP_0000229,blood in stool
+http://purl.obolibrary.org/obo/SYMP_0000245,poor appetite
+http://purl.obolibrary.org/obo/SYMP_0000432,pruritus
+http://purl.obolibrary.org/obo/SYMP_0000208,anaemia
+http://purl.obolibrary.org/obo/SYMP_0000258,diplopia
+http://purl.obolibrary.org/obo/SYMP_0000369,droopiness
+http://purl.obolibrary.org/obo/SYMP_0000287,abnormal heart beat
+http://purl.obolibrary.org/obo/SYMP_0000287,abnormal heart rhythm
+http://purl.obolibrary.org/obo/SYMP_0000287,dysrhythmia
+http://purl.obolibrary.org/obo/SYMP_0000287,heart rhythm symptom
+http://purl.obolibrary.org/obo/SYMP_0000287,irregular heartbeat
+http://purl.obolibrary.org/obo/SYMP_0000287,fluctuation of heart rate
+http://purl.obolibrary.org/obo/SYMP_0000210,light intolerance
+http://purl.obolibrary.org/obo/SYMP_0000571,agrypnia
+http://purl.obolibrary.org/obo/SYMP_0000654,Inconsolability
+http://purl.obolibrary.org/obo/SYMP_0000492,incontinence
+http://purl.obolibrary.org/obo/SYMP_0000760,petechial rash
+http://purl.obolibrary.org/obo/SYMP_0000639,rectal bleeding
+http://purl.obolibrary.org/obo/SYMP_0000226,AFib
+http://purl.obolibrary.org/obo/SYMP_0000226,AF
+http://purl.obolibrary.org/obo/SYMP_0000226,a-fib
+http://purl.obolibrary.org/obo/SYMP_0000226,auricular fibrillation
+http://purl.obolibrary.org/obo/SYMP_0000005,uncoordination
+http://purl.obolibrary.org/obo/SYMP_0000314,corneitis
+http://purl.obolibrary.org/obo/SYMP_0000314,inflammation of the cornea of the eye
+http://purl.obolibrary.org/obo/SYMP_0019187,stimming
+http://purl.obolibrary.org/obo/SYMP_0000001,stomach cramp
+http://purl.obolibrary.org/obo/SYMP_0000530,abnormal heart beats
+http://purl.obolibrary.org/obo/SYMP_0019179,light-headedness
+http://purl.obolibrary.org/obo/SYMP_0000827,V-tach
+http://purl.obolibrary.org/obo/SYMP_0000827,VT
+http://purl.obolibrary.org/obo/SYMP_0000338,rapid involuntary rhythmic eye movement
+http://purl.obolibrary.org/obo/SYMP_0000590,urgency of urination
+http://purl.obolibrary.org/obo/SYMP_0000225,loss of strength
+http://purl.obolibrary.org/obo/SYMP_0000356,inflammation of a vein
+http://purl.obolibrary.org/obo/SYMP_0000526,hydroperitoneum
+http://purl.obolibrary.org/obo/SYMP_0000538,dropsy
+http://purl.obolibrary.org/obo/SYMP_0020004,loss of taste
+http://purl.obolibrary.org/obo/SYMP_0000754,intense chest pain
+http://purl.obolibrary.org/obo/SYMP_0000565,excessive secretion of urine
+http://purl.obolibrary.org/obo/SYMP_0020027,productive cough
+http://purl.obolibrary.org/obo/SYMP_0000222,extremities weakness
+http://purl.obolibrary.org/obo/SYMP_0000407,faint
+http://purl.obolibrary.org/obo/SYMP_0000407,fainting
+http://purl.obolibrary.org/obo/SYMP_0000407,loss of consciousness due to insuffiecient blood flow to the brain
+http://purl.obolibrary.org/obo/SYMP_0000300,hyperaesthesia
+http://purl.obolibrary.org/obo/SYMP_0000025,nonproductive cough
+http://purl.obolibrary.org/obo/SYMP_0000434,hives
+http://purl.obolibrary.org/obo/SYMP_0000434,nettle rash
+http://purl.obolibrary.org/obo/SYMP_0000434,uredo
+http://purl.obolibrary.org/obo/SYMP_0000517,coughing up of blood
+http://purl.obolibrary.org/obo/SYMP_0000517,expectoration of blood
+http://purl.obolibrary.org/obo/SYMP_0000517,expectoration of blood-stained sputum
+http://purl.obolibrary.org/obo/SYMP_0000517,haemoptysis
+http://purl.obolibrary.org/obo/SYMP_0019152,profuse perspiration
+http://purl.obolibrary.org/obo/SYMP_0000295,hepatic abscesses
+http://purl.obolibrary.org/obo/SYMP_0000263,inflammation of the epididymis
+http://purl.obolibrary.org/obo/SYMP_0000403,gain of weight
+http://purl.obolibrary.org/obo/SYMP_0000393,sensation of noise
+http://purl.obolibrary.org/obo/SYMP_0020003,clay-colored bowel movement
+http://purl.obolibrary.org/obo/SYMP_0000839,sudden pain
+http://purl.obolibrary.org/obo/SYMP_0000402,general physical wasting and malnutrition
+http://purl.obolibrary.org/obo/SYMP_0000531,esplenomegaly
+http://purl.obolibrary.org/obo/SYMP_0000510,paleness
+http://purl.obolibrary.org/obo/SYMP_0000433,generalized edema
+http://purl.obolibrary.org/obo/SYMP_0000422,indigestion
+http://purl.obolibrary.org/obo/SYMP_0019151,oedematous lungs
+http://purl.obolibrary.org/obo/SYMP_0000895,anaphylaxis
+http://purl.obolibrary.org/obo/SYMP_0000303,hypoxaemia
+http://purl.obolibrary.org/obo/SYMP_0000485,difficult urine discharge
+http://purl.obolibrary.org/obo/SYMP_0000485,painful urine discharge
+http://purl.obolibrary.org/obo/SYMP_0000404,difficult sexual intercourse
+http://purl.obolibrary.org/obo/SYMP_0000404,painful sexual intercourse
+http://purl.obolibrary.org/obo/SYMP_0020056,apoplexy
+http://purl.obolibrary.org/obo/SYMP_0020056,cerebral accident
+http://purl.obolibrary.org/obo/SYMP_0020056,cerebral hemorrhage
+http://purl.obolibrary.org/obo/SYMP_0000896,exophthalmia
+http://purl.obolibrary.org/obo/SYMP_0000896,exophthalmus
+http://purl.obolibrary.org/obo/SYMP_0000896,proptosis
+http://purl.obolibrary.org/obo/SYMP_0019160,furuncle
+http://purl.obolibrary.org/obo/SYMP_0000337,sleep hyperhidrosis
+http://purl.obolibrary.org/obo/SYMP_0000213,inability to write
+http://purl.obolibrary.org/obo/SYMP_0020001,aphthous stomatitis
+http://purl.obolibrary.org/obo/SYMP_0020001,canker sore
+http://purl.obolibrary.org/obo/SYMP_0000354,inflammation of lung tissue
+http://purl.obolibrary.org/obo/SYMP_0000508,inability to comprehend language
+http://purl.obolibrary.org/obo/SYMP_0000436,abnormal menstruation
+http://purl.obolibrary.org/obo/SYMP_0000036,haemorrhagic gastroenteritis
+http://purl.obolibrary.org/obo/SYMP_0000069,larynx and trachea inflammation
+http://purl.obolibrary.org/obo/SYMP_0000076,languid
+http://purl.obolibrary.org/obo/SYMP_0000118,crackles
+http://purl.obolibrary.org/obo/SYMP_0000118,crepitations
+http://purl.obolibrary.org/obo/SYMP_0000127,intense back pain
+http://purl.obolibrary.org/obo/SYMP_0000131,intense join pain
+http://purl.obolibrary.org/obo/SYMP_0000146,fecal
+http://purl.obolibrary.org/obo/SYMP_0000164,lack of coordination
+http://purl.obolibrary.org/obo/SYMP_0000182,buboes
+http://purl.obolibrary.org/obo/SYMP_0000197,infectious abortion
+http://purl.obolibrary.org/obo/SYMP_0000211,eye weakness
+http://purl.obolibrary.org/obo/SYMP_0000211,rapid eye fatigue
+http://purl.obolibrary.org/obo/SYMP_0000214,nominal aphasia
+http://purl.obolibrary.org/obo/SYMP_0000214,amnesic aphasia
+http://purl.obolibrary.org/obo/SYMP_0000214,amnestic aphasia
+http://purl.obolibrary.org/obo/SYMP_0000214,anomic aphasia
+http://purl.obolibrary.org/obo/SYMP_0000214,inability to name objects
+http://purl.obolibrary.org/obo/SYMP_0000219,Wernicke's aphasia
+http://purl.obolibrary.org/obo/SYMP_0000219,fluent aphasia
+http://purl.obolibrary.org/obo/SYMP_0000219,"inability to perceive pitch, rhythm, and emotional tone of speech"
+http://purl.obolibrary.org/obo/SYMP_0000219,sensory aphasia
+http://purl.obolibrary.org/obo/SYMP_0000220,absence of neurological reflexes
+http://purl.obolibrary.org/obo/SYMP_0000232,bronchioles inflammation
+http://purl.obolibrary.org/obo/SYMP_0000233,clouded sensorium
+http://purl.obolibrary.org/obo/SYMP_0000233,decreased sensorium
+http://purl.obolibrary.org/obo/SYMP_0000243,recurrent fever
+http://purl.obolibrary.org/obo/SYMP_0000243,intermittent fever
+http://purl.obolibrary.org/obo/SYMP_0000251,cutaneous abscess
+http://purl.obolibrary.org/obo/SYMP_0000251,dermal abscesses
+http://purl.obolibrary.org/obo/SYMP_0000251,skin abscess
+http://purl.obolibrary.org/obo/SYMP_0000251,subcutaneous abscess
+http://purl.obolibrary.org/obo/SYMP_0000252,diffuse erythema
+http://purl.obolibrary.org/obo/SYMP_0000253,enlargement of one pupil
+http://purl.obolibrary.org/obo/SYMP_0000253,pupils of different size
+http://purl.obolibrary.org/obo/SYMP_0000261,dry mucous membranes
+http://purl.obolibrary.org/obo/SYMP_0000264,epididymo-orchitis
+http://purl.obolibrary.org/obo/SYMP_0000266,partial seizure
+http://purl.obolibrary.org/obo/SYMP_0000268,grand mal seizure
+http://purl.obolibrary.org/obo/SYMP_0000277,profuse salivation
+http://purl.obolibrary.org/obo/SYMP_0000281,ocular discharge
+http://purl.obolibrary.org/obo/SYMP_0000284,fixed pupils
+http://purl.obolibrary.org/obo/SYMP_0000290,eructation
+http://purl.obolibrary.org/obo/SYMP_0000294,haemolysis
+http://purl.obolibrary.org/obo/SYMP_0000299,hyperaemia
+http://purl.obolibrary.org/obo/SYMP_0000299,hyperemic
+http://purl.obolibrary.org/obo/SYMP_0000327,tetanic convulsions
+http://purl.obolibrary.org/obo/SYMP_0000384,cervicalgia
+http://purl.obolibrary.org/obo/SYMP_0000340,limb oedema
+http://purl.obolibrary.org/obo/SYMP_0000340,oedema of the limbs
+http://purl.obolibrary.org/obo/SYMP_0000343,painful lymph nodes
+http://purl.obolibrary.org/obo/SYMP_0000344,edema of the eyelid
+http://purl.obolibrary.org/obo/SYMP_0000347,paralysed lips
+http://purl.obolibrary.org/obo/SYMP_0000370,kidney abscess
+http://purl.obolibrary.org/obo/SYMP_0000370,perirenal abscess
+http://purl.obolibrary.org/obo/SYMP_0000396,excessive pupil dilation
+http://purl.obolibrary.org/obo/SYMP_0000396,prolonged pupil dilation
+http://purl.obolibrary.org/obo/SYMP_0000405,painful spasmodic vagina contractions
+http://purl.obolibrary.org/obo/SYMP_0000406,bruises
+http://purl.obolibrary.org/obo/SYMP_0000406,bruising
+http://purl.obolibrary.org/obo/SYMP_0000406,contusion
+http://purl.obolibrary.org/obo/SYMP_0000406,ecchymosis
+http://purl.obolibrary.org/obo/SYMP_0000423,acid indigestion
+http://purl.obolibrary.org/obo/SYMP_0000423,heartburn
+http://purl.obolibrary.org/obo/SYMP_0000424,blockage of leg arteries
+http://purl.obolibrary.org/obo/SYMP_0000429,abnormally slow breathing
+http://purl.obolibrary.org/obo/SYMP_0000431,sputum production
+http://purl.obolibrary.org/obo/SYMP_0000466,developmental delay
+http://purl.obolibrary.org/obo/SYMP_0000505,sore throat
+http://purl.obolibrary.org/obo/SYMP_0000509,gas
+http://purl.obolibrary.org/obo/SYMP_0000509,gas production
+http://purl.obolibrary.org/obo/SYMP_0000551,taste alteration
+http://purl.obolibrary.org/obo/SYMP_0000557,inability to urinate
+http://purl.obolibrary.org/obo/SYMP_0000557,ischuria
+http://purl.obolibrary.org/obo/SYMP_0000557,retention of urine
+http://purl.obolibrary.org/obo/SYMP_0000563,frequent urination
+http://purl.obolibrary.org/obo/SYMP_0000563,nocturia
+http://purl.obolibrary.org/obo/SYMP_0000564,nycturia
+http://purl.obolibrary.org/obo/SYMP_0000595,febrile seizure
+http://purl.obolibrary.org/obo/SYMP_0000606,bed wetting
+http://purl.obolibrary.org/obo/SYMP_0000606,nighttime incontinence
+http://purl.obolibrary.org/obo/SYMP_0000609,secondary hyperhidrosis
+http://purl.obolibrary.org/obo/SYMP_0000617,twisted neck
+http://purl.obolibrary.org/obo/SYMP_0000617,wry neck
+http://purl.obolibrary.org/obo/SYMP_0000627,disturbance of vision
+http://purl.obolibrary.org/obo/SYMP_0000635,low back pain
+http://purl.obolibrary.org/obo/SYMP_0000640,redness of ankle
+http://purl.obolibrary.org/obo/SYMP_0000643,respiratory dysfunction
+http://purl.obolibrary.org/obo/SYMP_0000659,partial paralysis
+http://purl.obolibrary.org/obo/SYMP_0000662,trembling
+http://purl.obolibrary.org/obo/SYMP_0000705,Broca's aphasia
+http://purl.obolibrary.org/obo/SYMP_0000705,agrammatic aphasia
+http://purl.obolibrary.org/obo/SYMP_0000748,facial swelling
+http://purl.obolibrary.org/obo/SYMP_0000759,salivary gland pain
+http://purl.obolibrary.org/obo/SYMP_0000834,numbness
+http://purl.obolibrary.org/obo/SYMP_0000888,continued fever
+http://purl.obolibrary.org/obo/SYMP_0000897,idioventricular rhythm
+http://purl.obolibrary.org/obo/SYMP_0000897,ventricular escape rhythm
+http://purl.obolibrary.org/obo/SYMP_0000899,v-fib
+http://purl.obolibrary.org/obo/SYMP_0019175,perspire
+http://purl.obolibrary.org/obo/SYMP_0019190,subdural hematoma
+http://purl.obolibrary.org/obo/SYMP_0020018,obesity
+http://purl.obolibrary.org/obo/SYMP_0020053,inflammation of mammary breast
+http://purl.obolibrary.org/obo/SYMP_0020053,mammitis
+http://purl.obolibrary.org/obo/TRANS_0000006,mother-to-child transmission
+http://purl.obolibrary.org/obo/TRANS_0000015,vector-borne gastro-intestinal
+http://purl.obolibrary.org/obo/TRANS_0000026,Guinea worm borne

@@ -1,0 +1,946 @@
+class,label,definition
+http://purl.obolibrary.org/obo/SYMP_0000134,sinusitis,
+http://purl.obolibrary.org/obo/SYMP_0000675,acute diarrhea,Acute diarrhea is a diarrhea with either or both a rapid onset or a short course.
+http://purl.obolibrary.org/obo/SYMP_0000069,laryngotracheitis,
+http://purl.obolibrary.org/obo/SYMP_0000581,sleep apnea,An apnea that is characterized by brief periods of recurrent cessation of breathing during sleep that is caused especially by obstruction of the airway or a disturbance in the brain's respiratory center and is associated especially with excessive daytime sleepiness.
+http://purl.obolibrary.org/obo/SYMP_0000508,aphasia,A nervous system symptom that is characterized by a loss or impairment of the power to use or comprehend words usually resulting from brain damage.
+http://purl.obolibrary.org/obo/SYMP_0000213,agraphia,An aphasia that is characterized by a pathological loss of the ability to write.
+http://purl.obolibrary.org/obo/SYMP_0000226,atrial fibrillation,A cardiac fibrillation consisting of a very rapid uncoordinated contractions of the atria of the heart resulting in a lack of synchronism between heartbeat and pulse beat.
+http://purl.obolibrary.org/obo/SYMP_0000369,ptosis,Ptosis is a general symptom characterized by a sagging or prolapse of an organ or part.
+http://purl.obolibrary.org/obo/SYMP_0020036,conjunctival degeneration,
+http://purl.obolibrary.org/obo/SYMP_0000262,endocarditis,
+http://purl.obolibrary.org/obo/SYMP_0000301,hypopyon,
+http://purl.obolibrary.org/obo/SYMP_0000089,meningoencephalitis,A nervous system symptom that is characterized by an inflammation of the brain and meninges.
+http://purl.obolibrary.org/obo/SYMP_0000051,hydrocephalus,
+http://purl.obolibrary.org/obo/SYMP_0000098,nephritis,"A urinary system symptom that is characterized by the acute or chronic inflammation of the kidney affecting the structure (as of the glomerulus or parenchyma) and caused by infection, a degenerative process, or vascular disease."
+http://purl.obolibrary.org/obo/SYMP_0000643,respiratory failure,A respiratory system and chest symptom that is characterized by a difficulty to breathe on one's own and develops when the lungs cannot get enough oxygen into the blood.
+http://purl.obolibrary.org/obo/SYMP_0019151,pulmonary edema,A respiratory system and chest symptom that is characterized by an abnormal accumulation of fluid in the lungs.
+http://purl.obolibrary.org/obo/SYMP_0000876,pericardial effusion,Pericardial effusion is a cardiovascular system symptom where there is an abnormal accumulation of fluid in the pericardial cavity.
+http://purl.obolibrary.org/obo/SYMP_0000890,relapsing fever,A fever that is characterized by  body temperature periodically rising and falling.
+http://purl.obolibrary.org/obo/SYMP_0000570,diarrhea,Diarrhea is a feces and droppng symptom involving the abnormally frequent intestinal evacuations with more or less fluid stools.
+http://purl.obolibrary.org/obo/SYMP_0000621,alexia,An aphasia that is characterized by a loss of ability to read.
+http://purl.obolibrary.org/obo/SYMP_0019164,excessive tearing,
+http://purl.obolibrary.org/obo/SYMP_0000283,facial paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000008,blindness,
+http://purl.obolibrary.org/obo/SYMP_0000434,urticaria,"A skin and integumentary tissue symptom that is characterized by raised red skin wheals (welts) commonly caused by an allergic reaction with wheals that may vary in size from about 5 mm (0.2 inches) in diameter to the size of a dinner plate that are described as severely itchy a stingnig or burning sensation, and having a pale border."
+http://purl.obolibrary.org/obo/SYMP_0000114,thrombocytopenia,
+http://purl.obolibrary.org/obo/SYMP_0000022,depression,"A neurological and physiological symptom that is characterized by a chronic feeling of emptiness, sadness, or inability to feel pleasure that may appear to happen for no clear reason.  Additionally one may experience feelings of hopelessness, pessimism, irritability, frustration, or restlessness, guilt, worthlessness and thoughts of death or suicide."
+http://purl.obolibrary.org/obo/SYMP_0019155,lymphadenitis,
+http://purl.obolibrary.org/obo/SYMP_0000046,hepatitis,
+http://purl.obolibrary.org/obo/SYMP_0019159,gastroenteritis,
+http://purl.obolibrary.org/obo/SYMP_0000208,anemia,
+http://purl.obolibrary.org/obo/SYMP_0000646,synovitis,Synovitis is a joint inflammation characterized by an inflammation of a synovial membrane usually with pain and swelling of the joint.
+http://purl.obolibrary.org/obo/SYMP_0000232,bronchiolitis,A respiratory system and chest symptom that is characterized by an inflammation of the bronchioles.
+http://purl.obolibrary.org/obo/SYMP_0000852,anuria,"A urinary system symptom that is characterized by the absence of, or by defective, urine excretion."
+http://purl.obolibrary.org/obo/SYMP_0000209,ischemia,
+http://purl.obolibrary.org/obo/SYMP_0000068,laryngitis,
+http://purl.obolibrary.org/obo/SYMP_0000000,cellulitis,Cellulitis is a musculoskeletal system symptom characterized as a diffuse and especially subcutaneous inflammation of connective tissue.
+http://purl.obolibrary.org/obo/SYMP_0000398,vaginal discharge,"A reproductive system symptom that is characterized by fluid made by glands inside the vagina and cervix carrying away dead cells and bacteria. While it is normal for odor and color to vary, vaginal itching or burning may be indicative of an infection."
+http://purl.obolibrary.org/obo/SYMP_0000314,keratitis,
+http://purl.obolibrary.org/obo/SYMP_0000712,infertility,"A reproductive system symptom that is characterized the biological inability of a man or a woman to contribute to conception; or, the state of a woman who is unable to carry a pregnancy to full term."
+http://purl.obolibrary.org/obo/SYMP_0000367,proteinuria,A urinary system symptom characterized by the presence of excess protein in the urine.
+http://purl.obolibrary.org/obo/SYMP_0000631,hemolytic anemia,
+http://purl.obolibrary.org/obo/SYMP_0000349,paraplegia,
+http://purl.obolibrary.org/obo/SYMP_0000324,bronchitis,A respiratory system and chest symptom that is characterized by an acute or chronic inflammation of the bronchial tubes.
+http://purl.obolibrary.org/obo/SYMP_0000086,lymphopenia,
+http://purl.obolibrary.org/obo/SYMP_0000128,conjunctivitis,
+http://purl.obolibrary.org/obo/SYMP_0019171,spondylitis,A nervous system symptom that is characterized by an inflammation of the vertebrae.
+http://purl.obolibrary.org/obo/SYMP_0000095,myocarditis,
+http://purl.obolibrary.org/obo/SYMP_0000102,peritonitis,A skin and integumentary tissue symptom that is characterized by an inflammation of the peritoneum.
+http://purl.obolibrary.org/obo/SYMP_0019169,arthritis,"Arthritis is a musculoskeletal system symptom characterized as an inflammation of joints due to infectious, metabolic, or constitutional causes."
+http://purl.obolibrary.org/obo/SYMP_0000356,phlebitis,
+http://purl.obolibrary.org/obo/SYMP_0000153,vasculitis,
+http://purl.obolibrary.org/obo/SYMP_0000083,lymphangitis,
+http://purl.obolibrary.org/obo/SYMP_0000112,tracheitis,
+http://purl.obolibrary.org/obo/SYMP_0000263,epididymitis,A reproductive system symptom that is characterized by an inflammation of the epididymis.
+http://purl.obolibrary.org/obo/SYMP_0019173,meningitis,A nervous system symptom that is characterized by an inflammation of the meninges and especially of the pia mater and the arachnoid.
+http://purl.obolibrary.org/obo/SYMP_0000090,encephalitis,"A nervous system symptom that is characterized by inflammation of the brain tissue, which is typically caused by a viral infection, but it may also be caused by bacterial or parasitic infections, cancer, or certain drugs or toxins."
+http://purl.obolibrary.org/obo/SYMP_0000001,abdominal cramp,
+http://purl.obolibrary.org/obo/SYMP_0000002,abdominal distention,
+http://purl.obolibrary.org/obo/SYMP_0000005,ataxia,A neurological and physiological symptom that is characterized by an inability to coordinate voluntary muscular movements that is symptomatic of some nervous disorders.
+http://purl.obolibrary.org/obo/SYMP_0000006,backache,A pain that is characterized by occurring in the lower back.
+http://purl.obolibrary.org/obo/SYMP_0000007,bleeding,"A general symptom that is characterized as an act, instance, or result of being bled or the process by which something is bled: as a the escape of blood from vessels."
+http://purl.obolibrary.org/obo/SYMP_0000009,blister,A skin and integumentary tissue symptom that is characterized by a fluid-filled elevation of the epidermis.
+http://purl.obolibrary.org/obo/SYMP_0000012,blurred vision,"A vision symptom that is characterized by a decreased clarity or sharpness in vision, which can be caused by eye conditions myopia or hyperopia."
+http://purl.obolibrary.org/obo/SYMP_0000015,giddiness,
+http://purl.obolibrary.org/obo/SYMP_0000016,confusion,"A balance symptom that is characterized by a disturbance of consciousness characterized by inability to engage in orderly thought or by lack of power to distinguish, choose, or act decisively."
+http://purl.obolibrary.org/obo/SYMP_0000017,crinkle,
+http://purl.obolibrary.org/obo/SYMP_0000018,darkening of skin,
+http://purl.obolibrary.org/obo/SYMP_0000019,deafness,
+http://purl.obolibrary.org/obo/SYMP_0000020,dehydration,"A nutrition, metabolism, and development symptom that is characterized by an abnormal depletion of body fluids."
+http://purl.obolibrary.org/obo/SYMP_0000021,delirium,"A neurological and physiological symptom that is characterized by a mental disturbance characterized by confusion, disordered speech, and hallucinations."
+http://purl.obolibrary.org/obo/SYMP_0000023,disorientation,"A confusion that is characterized by an usually transient state of confusion especially as to time, place, or identity; often as a result of disease or drugs."
+http://purl.obolibrary.org/obo/SYMP_0000024,drowsiness,A neurological and physiological symptom that is characterized by a feeling of being more sleepy than normal during the day. People who are drowsy may fall asleep in when they do not want to or at times which can lead to safety concerns.
+http://purl.obolibrary.org/obo/SYMP_0000025,dry cough,A cough that is characterized by a lack of accompanied phlegm production.
+http://purl.obolibrary.org/obo/SYMP_0000030,paralysis,A nervous system symptom that is characterized by a complete or partial loss of function especially when involving the power of motion or of sensation in any part of the body.
+http://purl.obolibrary.org/obo/SYMP_0000032,flaccidity,
+http://purl.obolibrary.org/obo/SYMP_0000033,flat keratotic capsule,
+http://purl.obolibrary.org/obo/SYMP_0000036,hemorrhagic gastroenteritis,
+http://purl.obolibrary.org/obo/SYMP_0000038,dyspneic enteritis,"A respiratory system and chest symptom that is characterized by being short or breath or out of air (dyspnea), with inflammation of the small intestine (enteritis)."
+http://purl.obolibrary.org/obo/SYMP_0000039,enteritis,Enteritis is a digestive system symptom involving the inflammation of the small intestines and especially of the human ileum.
+http://purl.obolibrary.org/obo/SYMP_0000040,hematuria,A urinary system symptom that is characterized by the presence of blood or blood cells in the urine.
+http://purl.obolibrary.org/obo/SYMP_0000041,hemorrhage,A cardiovascular system symptom that is characterized by an acute loss of blood from a damaged blood vessel.
+http://purl.obolibrary.org/obo/SYMP_0000045,hepatic necrosis,
+http://purl.obolibrary.org/obo/SYMP_0000047,hepatosplenomegaly,
+http://purl.obolibrary.org/obo/SYMP_0000054,hypergammaglobulinemia,
+http://purl.obolibrary.org/obo/SYMP_0000056,hyperpigmentation,"A skin and integumentary tissue symptom that is characterized by an excess pigmentation in a bodily part or tissue, as the skin."
+http://purl.obolibrary.org/obo/SYMP_0000058,hyperreflexia,
+http://purl.obolibrary.org/obo/SYMP_0000059,hypotension,
+http://purl.obolibrary.org/obo/SYMP_0000061,inflammation,"Inflammation is a general symptom where there is a local response to cellular injury that is marked by capillary dilatation, leukocytic infiltration, redness, heat, pain, swelling, and often loss of function and that serves as a mechanism initiating the elimination of noxious agents and of damaged tissue."
+http://purl.obolibrary.org/obo/SYMP_0000063,intestinal hemorrhage,
+http://purl.obolibrary.org/obo/SYMP_0000064,joint pain,"A pain that is characterized by a pain situated, or occurring, in or around a joint."
+http://purl.obolibrary.org/obo/SYMP_0000066,keratotic nodules of the skin,
+http://purl.obolibrary.org/obo/SYMP_0000070,lesions in myocardium,
+http://purl.obolibrary.org/obo/SYMP_0000075,lethargy,A fatigue that is characterized by abnormal drowsiness.
+http://purl.obolibrary.org/obo/SYMP_0000076,listlessness,
+http://purl.obolibrary.org/obo/SYMP_0000079,coordination symptom,A nervous system symptom that is characterized by the harmonious functioning of interrelated organs and body parts; in particular the working together of muscle groups in the execution of complicated movements.
+http://purl.obolibrary.org/obo/SYMP_0000082,lesions in lung,
+http://purl.obolibrary.org/obo/SYMP_0000084,lymphoblastoma,
+http://purl.obolibrary.org/obo/SYMP_0000087,massive hepatic necrosis,
+http://purl.obolibrary.org/obo/SYMP_0000091,mild encephalitis,An encephalitis that is not intense (not severe).
+http://purl.obolibrary.org/obo/SYMP_0000092,skin lesion,A skin and integumentary tissue symptom that is characterized by an abnormal change in structure of the skin that is especially circumscribed and well defined due to injury or disease.
+http://purl.obolibrary.org/obo/SYMP_0000093,muscle cramp,
+http://purl.obolibrary.org/obo/SYMP_0000094,muscle weakness,
+http://purl.obolibrary.org/obo/SYMP_0000099,pain,"A sensation perception that is characterized by an unpleasant sensation that usually indicates the body is threatened or damaged. The sensation may be sharp or dull, short-lived or chronic, intermittent or continual, confined to one area or spread over the entire body."
+http://purl.obolibrary.org/obo/SYMP_0000100,lesions in pancreas,
+http://purl.obolibrary.org/obo/SYMP_0000106,plasmacytosis,
+http://purl.obolibrary.org/obo/SYMP_0000107,pleural effusion,A skin and integumentary tissue symptom that is characterized by an exudation of fluid from the blood or lymph into a pleural cavity.
+http://purl.obolibrary.org/obo/SYMP_0000109,mouth papules,
+http://purl.obolibrary.org/obo/SYMP_0000116,prostration,Prostration is a general symptom characterized by complete physical or mental exhaustion.
+http://purl.obolibrary.org/obo/SYMP_0000118,rales,"An abnormal chest sound that is characterized by the clicking, rattling, or crackling noises heard on auscultation of (listening to) the lung with a stethoscope during inhalation. The sounds are caused by the 'popping open' of small airways and alveoli collapsed by fluid, exudate, or lack of aeration during expiration. The word 'rales' derives from the French word rale meaning 'rattle'. Rales can be heard in patients with pneumonia, atelectasis, pulmonary fibrosis, acute bronchitis, or bronchiectasis. Pulmonary edema secondary to left-sided congestive heart failure can also cause rales."
+http://purl.obolibrary.org/obo/SYMP_0000124,seizure,
+http://purl.obolibrary.org/obo/SYMP_0000125,liver inflammation,
+http://purl.obolibrary.org/obo/SYMP_0000127,severe backache,
+http://purl.obolibrary.org/obo/SYMP_0000129,severe conjunctivitis,
+http://purl.obolibrary.org/obo/SYMP_0000130,severe headache,
+http://purl.obolibrary.org/obo/SYMP_0000131,severe joint pain,"A joint pain that is characterized by a pain situated, or occurring, in or around a joint that is intense (severe)."
+http://purl.obolibrary.org/obo/SYMP_0000132,necrosis,"Necrosis is a general symptom where death of a portion of tissue differentially affected by local injury (as loss of blood supply, corrosion, burning, or the local lesion of a disease)."
+http://purl.obolibrary.org/obo/SYMP_0000133,severe necrosis,
+http://purl.obolibrary.org/obo/SYMP_0000136,skin ulcer,"A skin lesion that is characterized by a break in skin with loss of surface tissue, disintegration and necrosis of epithelial tissue, and often pus."
+http://purl.obolibrary.org/obo/SYMP_0000139,sneezing,A respiratory system and chest symptom that is characterized by a sudden violent spasmodic audible expiration of breath through the nose and mouth especially as a reflex act following irritation of the nasal mucous membrane.
+http://purl.obolibrary.org/obo/SYMP_0000141,spasticity,"A nervous system symptom that is characterized by an abnormal increase in muscle tone or stiffness of muscle, which might interfere with movement, speech, or be associated with discomfort or pain."
+http://purl.obolibrary.org/obo/SYMP_0000146,feces and droppings symptom,
+http://purl.obolibrary.org/obo/SYMP_0000147,steatorrhea,
+http://purl.obolibrary.org/obo/SYMP_0000156,thirst,Thirst is a general symptom characterized by a sensation of dryness in the mouth and throat associated with a desire for liquids.
+http://purl.obolibrary.org/obo/SYMP_0000157,thymus symptom,
+http://purl.obolibrary.org/obo/SYMP_0000158,spleen symptom,
+http://purl.obolibrary.org/obo/SYMP_0000160,tracheobronchitis,
+http://purl.obolibrary.org/obo/SYMP_0000162,tremor,"Tremor is a generial symptom characterized by a trembling or shaking usually from physical weakness, emotional stress, or disease."
+http://purl.obolibrary.org/obo/SYMP_0000164,incoordination,"A coordination symptom that is characterized by a loss of complicated body movements, which may be caused by disease, injury, or toxins."
+http://purl.obolibrary.org/obo/SYMP_0000174,wasting,"A nutrition, metabolism, and development symptom that is characterized by the unintended loss of weight and lean body tissue characteristic of many diseases (as cancer, tuberculosis, and AIDS)."
+http://purl.obolibrary.org/obo/SYMP_0000177,weakness,
+http://purl.obolibrary.org/obo/SYMP_0000178,weight loss,"A weight symptom that is characterized by a reduction of the total body mass, by a mean loss of fluid, body fat (adipose tissue), or lean mass (namely bone mineral deposits, muscle, tendon, and other connective tissue). Weight loss can either occur unintentionally because of malnourishment or an underlying disease."
+http://purl.obolibrary.org/obo/SYMP_0000180,liver symptom,
+http://purl.obolibrary.org/obo/SYMP_0000182,bubo,
+http://purl.obolibrary.org/obo/SYMP_0000183,muscle symptom,
+http://purl.obolibrary.org/obo/SYMP_0000184,change in skin color,
+http://purl.obolibrary.org/obo/SYMP_0000185,weariness,"A fatigue that is characterized by a feeling of exhaustion in strength, endurance, and vigor."
+http://purl.obolibrary.org/obo/SYMP_0000186,exhaustion,"A fatigue that is characterized by a feeling of weariness (bodily or mental) or feeling of weakness.  Exhaustion is a shorter-lived form of fatigue that can be experienced emotionally, mentally, and physically."
+http://purl.obolibrary.org/obo/SYMP_0000187,tiredness,"A fatigue that is characterized by a feeling of a lessened capacity for work and reduced efficiency of accomplishment, usually accompanied by a sense of weariness and fatigue."
+http://purl.obolibrary.org/obo/SYMP_0000188,abdominal discomfort,
+http://purl.obolibrary.org/obo/SYMP_0000189,postural reaction,
+http://purl.obolibrary.org/obo/SYMP_0000190,wheelbarrowing,
+http://purl.obolibrary.org/obo/SYMP_0000193,hopping,
+http://purl.obolibrary.org/obo/SYMP_0000194,conscious proprioception,
+http://purl.obolibrary.org/obo/SYMP_0000195,abnormal hemiwalking hemistanding,
+http://purl.obolibrary.org/obo/SYMP_0000196,reproductive system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000197,abortion,A reproductive system symptom that is characterized by the expulsion of a fetus at any time before completion of pregnancy and is often due to infection.
+http://purl.obolibrary.org/obo/SYMP_0000198,miscarriage,A reproductive system symptom that is characterized by the spontaneous expulsion of a human fetus before it is viable and especially between the 12th and 28th weeks of gestation.
+http://purl.obolibrary.org/obo/SYMP_0000199,spontaneous abortion,An abortion that is characterized by the natural occurring expulsion of a nonviable fetus.
+http://purl.obolibrary.org/obo/SYMP_0000200,acute arthritis,
+http://purl.obolibrary.org/obo/SYMP_0000201,acute meningoencephalitis,A meningoencephalitis that is characterized by a severe and sudden onset.
+http://purl.obolibrary.org/obo/SYMP_0000202,acute painful vision loss,
+http://purl.obolibrary.org/obo/SYMP_0000205,salivary gland symptom,
+http://purl.obolibrary.org/obo/SYMP_0000206,acute suppurative parotiditis,
+http://purl.obolibrary.org/obo/SYMP_0000207,afebrile,A fever that is characterized by the state of being free from fever.
+http://purl.obolibrary.org/obo/SYMP_0000210,photophobia,
+http://purl.obolibrary.org/obo/SYMP_0000211,asthenopia,
+http://purl.obolibrary.org/obo/SYMP_0000212,eye strain,
+http://purl.obolibrary.org/obo/SYMP_0000214,anomia,An aphasia that is characterized by a severe problem with recalling words or names.
+http://purl.obolibrary.org/obo/SYMP_0000215,inability to comprehend speech,An aphasia that is characterized by a loss of ability to comprehend speech.
+http://purl.obolibrary.org/obo/SYMP_0000216,inability to speak,An aphasia that is characterized by a loss of ability to speak.
+http://purl.obolibrary.org/obo/SYMP_0000217,inability to form words,An aphasia that is characterized by a loss of ability to form words.
+http://purl.obolibrary.org/obo/SYMP_0000218,poor enunciation,An aphasia that is characterized by a loss of ability to properly enunciate words.
+http://purl.obolibrary.org/obo/SYMP_0000219,receptive aphasia,"An inability to comprehend speech that is characterized by an inability to understand spoken, written, or tactile speech symbols that results from damage (as by a brain lesion) to an area of the brain (as Wernicke's area) concerned with language."
+http://purl.obolibrary.org/obo/SYMP_0000220,areflexia,
+http://purl.obolibrary.org/obo/SYMP_0000221,absence of knee jerk reflex,
+http://purl.obolibrary.org/obo/SYMP_0000222,limb weakness,
+http://purl.obolibrary.org/obo/SYMP_0000223,arm weakness,
+http://purl.obolibrary.org/obo/SYMP_0000224,leg weakness,
+http://purl.obolibrary.org/obo/SYMP_0000225,asthenia,
+http://purl.obolibrary.org/obo/SYMP_0000227,blood vessel infection,
+http://purl.obolibrary.org/obo/SYMP_0000228,hemorrhagic diarrhea,
+http://purl.obolibrary.org/obo/SYMP_0000229,bloody stool,
+http://purl.obolibrary.org/obo/SYMP_0000230,body ache,
+http://purl.obolibrary.org/obo/SYMP_0000231,bradycardia,Bradycardia is a cardiovascular system symptom consisting of a relatively slow heart action whether physiological or pathological.
+http://purl.obolibrary.org/obo/SYMP_0000233,inability to think clearly,
+http://purl.obolibrary.org/obo/SYMP_0000234,cloudy cornea,
+http://purl.obolibrary.org/obo/SYMP_0000235,colic,A pain that is characterized by the condition marked by recurrent episodes of prolonged and uncontrollable crying and irritability in an otherwise healthy infant that is of unknown cause and usually subsides after three to four months of age.
+http://purl.obolibrary.org/obo/SYMP_0000236,colicky pain,"A pain that is characterized by an attack of acute abdominal pain localized in a hollow organ or part (as the small intestine, ureter, or bile duct) and often caused by spasm, obstruction, or twisting."
+http://purl.obolibrary.org/obo/SYMP_0000237,congestion,A respiratory system and chest symptom that is characterized by an excessive accumulation especially of blood or mucus.
+http://purl.obolibrary.org/obo/SYMP_0000238,continuous profuse salivation,
+http://purl.obolibrary.org/obo/SYMP_0000239,cornea symptom,
+http://purl.obolibrary.org/obo/SYMP_0000240,corneal opacity,
+http://purl.obolibrary.org/obo/SYMP_0000241,corneal ulcers,
+http://purl.obolibrary.org/obo/SYMP_0000242,cough with bloody sputum,A cough that is characterized by production and expectoration (bringing up) of sputum that is bright red or pink and frothy.
+http://purl.obolibrary.org/obo/SYMP_0000243,cyclic fever,A fever that is characterized by occurring during periodic episodes.
+http://purl.obolibrary.org/obo/SYMP_0000244,alteration of appetite,
+http://purl.obolibrary.org/obo/SYMP_0000245,decreased appetite,An alteration of appetite that is characterized by a reduced desire to eat.
+http://purl.obolibrary.org/obo/SYMP_0000246,increased appetite,"An alteration of appetite that is characterized by an desire to eat, an excess desire for food."
+http://purl.obolibrary.org/obo/SYMP_0000247,proprioception symptom,"A neurological and physiological symptom that is characterized by one's body’s ability to sense movement, action, and location and results from sensory receptors in one's nervous system and body (muscles, joints, and tendons)."
+http://purl.obolibrary.org/obo/SYMP_0000248,decreased conscious proprioception,A proprioception symptom that is characterized by a decreased ability of an organism to consciously process the reception of stimuli produced within the organism.
+http://purl.obolibrary.org/obo/SYMP_0000249,reflex symptom,
+http://purl.obolibrary.org/obo/SYMP_0000250,decreased flexor withdrawal reflex,
+http://purl.obolibrary.org/obo/SYMP_0000251,dermal abscess,"A skin and integumentary tissue symptom that is characterized by a pus-filled pocket in the skin, similar to a pimple, but larger and deeper.  The pocket is filled with bacteria, white blood cells, and dead skin and typcally result from the bacteria Staphylococcus aureus prentrating the skin through a cut or hair follicle."
+http://purl.obolibrary.org/obo/SYMP_0000252,diffuse rash,"A rash characterized by large patches of red skin, without overlying changes in the epidermis."
+http://purl.obolibrary.org/obo/SYMP_0000253,anisocoria,
+http://purl.obolibrary.org/obo/SYMP_0000254,dilated pupil,
+http://purl.obolibrary.org/obo/SYMP_0000255,diminished gastro-intestinal motility,
+http://purl.obolibrary.org/obo/SYMP_0000256,diminished gag reflex,
+http://purl.obolibrary.org/obo/SYMP_0000257,absent gag reflex,
+http://purl.obolibrary.org/obo/SYMP_0000258,double vision,
+http://purl.obolibrary.org/obo/SYMP_0000259,dry hacking cough,A dry cough that is characterized by a rough and loud sound.
+http://purl.obolibrary.org/obo/SYMP_0000260,dry mouth,
+http://purl.obolibrary.org/obo/SYMP_0000261,dry mucous membrane,
+http://purl.obolibrary.org/obo/SYMP_0000264,epididymorchitis,A reproductive system symptom that is characterized by inflammation of the epididymis and/or testicle (testis).
+http://purl.obolibrary.org/obo/SYMP_0000266,focal seizure,
+http://purl.obolibrary.org/obo/SYMP_0000267,generalized seizure,
+http://purl.obolibrary.org/obo/SYMP_0000268,tonic-clonic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000269,epileptic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000270,simple partial seizure,
+http://purl.obolibrary.org/obo/SYMP_0000271,complex partial seizure,
+http://purl.obolibrary.org/obo/SYMP_0000272,myoclonic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000273,clonic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000274,tonic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000275,atonic seizure,
+http://purl.obolibrary.org/obo/SYMP_0000277,excess salivation,
+http://purl.obolibrary.org/obo/SYMP_0000278,extensive ulcer,
+http://purl.obolibrary.org/obo/SYMP_0000279,extreme exhaustion,"An exhaustion that is characterized by exceeding the ordinary, usual, or expected."
+http://purl.obolibrary.org/obo/SYMP_0000280,extreme fatigue,"A fatigue that is characterized by exceeding the ordinary, usual, or expected."
+http://purl.obolibrary.org/obo/SYMP_0000281,eye discharge,
+http://purl.obolibrary.org/obo/SYMP_0000282,fixed dilated pupils,
+http://purl.obolibrary.org/obo/SYMP_0000284,fixed pupil,
+http://purl.obolibrary.org/obo/SYMP_0000285,flaccid paralysis,A paralysis that is charicterized by a lack of muscle tone in the affected muscles and in which tendon reflexes are decreased or absent.
+http://purl.obolibrary.org/obo/SYMP_0000287,arrhythmia,Arrhythmia is a cardiovascular system symptom consisting of an alteration in rhythm of the heartbeat either in time or force.
+http://purl.obolibrary.org/obo/SYMP_0000289,eczema,"A skin and integumentary tissue symptom that is characterized by an inflammatory condition of the skin with redness, itching, and oozing vesicular lesions, which become scaly, crusted, or hardened."
+http://purl.obolibrary.org/obo/SYMP_0000290,belching,Belching is a digestive system symptom involving the sudden expulsion of gas from the stomach through the mouth.
+http://purl.obolibrary.org/obo/SYMP_0000291,gas pain,
+http://purl.obolibrary.org/obo/SYMP_0000292,heart failure,
+http://purl.obolibrary.org/obo/SYMP_0000293,hemiparesis,
+http://purl.obolibrary.org/obo/SYMP_0000294,hemolysis,
+http://purl.obolibrary.org/obo/SYMP_0000295,hepatic abscess,
+http://purl.obolibrary.org/obo/SYMP_0000296,hepatic dysfunction,
+http://purl.obolibrary.org/obo/SYMP_0000297,hilar lymphadenitis,
+http://purl.obolibrary.org/obo/SYMP_0000298,hoarse voice,
+http://purl.obolibrary.org/obo/SYMP_0000299,hyperemia,Hyperemia is a hemic system symptom consisting of an excess of blood in a body part as from an increased flow of blood due to vasodilation.
+http://purl.obolibrary.org/obo/SYMP_0000300,hyperesthesia,A sensation perception that is characterized by an increased sensitivity to stimulation.
+http://purl.obolibrary.org/obo/SYMP_0000302,hypothermia,"A neurological and physiological symptom that is characterized by a subnormal temperature of the body, as defined by a temperature under 36.6 degrees Celcius (97.8 degrees Fahrenheit)."
+http://purl.obolibrary.org/obo/SYMP_0000303,hypoxemia,
+http://purl.obolibrary.org/obo/SYMP_0000304,impaired coordination,"A coordination symptom that is characterized by weakened or imperfect body complicated  movement, which may be caused by disease, injury, or toxins."
+http://purl.obolibrary.org/obo/SYMP_0000305,impaired gag reflex,
+http://purl.obolibrary.org/obo/SYMP_0000306,inability to feed,A feeding difficulties and mismanagement that is characterized by a lack of feeding capacity.
+http://purl.obolibrary.org/obo/SYMP_0000307,inibility to stand,
+http://purl.obolibrary.org/obo/SYMP_0000308,inability to swallow,
+http://purl.obolibrary.org/obo/SYMP_0000309,loss of appetite,"An alteration of appetite that is characterized by a loss of desire to eat, i.e. no desire to eat."
+http://purl.obolibrary.org/obo/SYMP_0000310,inflamed eyes,
+http://purl.obolibrary.org/obo/SYMP_0000311,intestinal hypermotility,
+http://purl.obolibrary.org/obo/SYMP_0000312,joint symptom,
+http://purl.obolibrary.org/obo/SYMP_0000313,joint inflammation,
+http://purl.obolibrary.org/obo/SYMP_0000315,lateroventral deviation of the head,
+http://purl.obolibrary.org/obo/SYMP_0000316,leg cramp,
+http://purl.obolibrary.org/obo/SYMP_0000318,loss of balance,"A  balance symptom that is characterized by an inability to stay upright and move confidently.  Loss of balance may be due to problems in the inner ear, the brain, or the heart. Aging, infections, head injury, certain medicines, and problems with blood circulation may also cause balance problems."
+http://purl.obolibrary.org/obo/SYMP_0000319,loss of tendon reflex,
+http://purl.obolibrary.org/obo/SYMP_0000320,vision symptom,
+http://purl.obolibrary.org/obo/SYMP_0000321,loss of vision,
+http://purl.obolibrary.org/obo/SYMP_0000322,low birth weight,"A weight symptom that is characterized by an infant weighing 5.5 pounds (2500 grams) or less at birth.  Low birth weight may occur with premature birth, or due to smoking cigarettes, secondhand tobacco smoke exposure, drinking alcohol, and taking certain drugs during pregnancy."
+http://purl.obolibrary.org/obo/SYMP_0000323,melena,"A feces and droppings symptom that is characterized by the passage of dark tarry stools containing decomposing blood that is usually an indication of bleeding in the upper part of the alimentary canal and especially the esophagus, stomach, and duodenum."
+http://purl.obolibrary.org/obo/SYMP_0000325,mild bronchitis,
+http://purl.obolibrary.org/obo/SYMP_0000326,mild hypotension,
+http://purl.obolibrary.org/obo/SYMP_0000327,tetanic convulsion,"A convulsion that is characterized by a tonic spasm (prolonged contraction of the muscles), without loss of consciousness and often associated with hypocalcemia."
+http://purl.obolibrary.org/obo/SYMP_0000328,mild tetanic convulsion,A tetanic convulsion that is not intense (not severe).
+http://purl.obolibrary.org/obo/SYMP_0000329,motor weakness,
+http://purl.obolibrary.org/obo/SYMP_0000330,mouth sore,
+http://purl.obolibrary.org/obo/SYMP_0000331,muscle ache,A pain that is characterized by a continuous or prolonged dull pain.
+http://purl.obolibrary.org/obo/SYMP_0000332,muscle soreness,
+http://purl.obolibrary.org/obo/SYMP_0000333,muscle tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000334,muscle necrosis,
+http://purl.obolibrary.org/obo/SYMP_0000335,neck weakness,
+http://purl.obolibrary.org/obo/SYMP_0000336,neurological dysfunction,
+http://purl.obolibrary.org/obo/SYMP_0000337,night sweats,
+http://purl.obolibrary.org/obo/SYMP_0000338,nystagmus,
+http://purl.obolibrary.org/obo/SYMP_0000339,occasional diplopia,
+http://purl.obolibrary.org/obo/SYMP_0000340,limb edema,An adema that is characterized by an abnormal excess accumulation of serous fluid in connective tissue of the limbs.
+http://purl.obolibrary.org/obo/SYMP_0000342,slurred speech,
+http://purl.obolibrary.org/obo/SYMP_0000343,painful lymph glands,"A pain that is characterized by a pain situated, or occurring, in the lymph gland (lymph node). Pain is often associated with swelling of the gland, which is a sign that one's body is fighting an infection."
+http://purl.obolibrary.org/obo/SYMP_0000344,palpebral edema,An adema that is characterized by an abnormal excess accumulation of serous fluid in connective tissue of the eyelids.
+http://purl.obolibrary.org/obo/SYMP_0000345,panting respiration,"A respiratory abnormality that is characterized by short, shallow, and rapid breathing."
+http://purl.obolibrary.org/obo/SYMP_0000346,papule,"A skin and integumentary tissue symptom that is characterized by a small solid usually conical elevation of the skin caused by inflammation, accumulated secretion, or hypertrophy of tissue elements."
+http://purl.obolibrary.org/obo/SYMP_0000347,lip paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000348,throat muscle paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000350,parotid abscess,
+http://purl.obolibrary.org/obo/SYMP_0000352,peripheral muscle weakness,
+http://purl.obolibrary.org/obo/SYMP_0000353,phlegm,A respiratory system and chest symptom that is characterized by a viscid mucus secreted in abnormal quantity in the respiratory passages.
+http://purl.obolibrary.org/obo/SYMP_0000354,pneumonitis,"A respiratory system and chest symptom that is characterized by an inflammation of lung tissue. Pneumonia is one type of pneumonitis caused by an infection. Many other factors can cause pneumonitis, including breathing in animal dander, inhaling small food particles 'down the wrong pipe' and receiving radiation therapy to your chest."
+http://purl.obolibrary.org/obo/SYMP_0000355,poor feeding,A feeding difficulties and mismanagement that is characterized by an infant with little interest in feeding and it can also refer to an infant who is not feeding enough to receive the necessary nutrition required for adequate growth.
+http://purl.obolibrary.org/obo/SYMP_0000357,postphlebitic ulcer,
+http://purl.obolibrary.org/obo/SYMP_0000358,premature labor,A reproductive system symptom that is characterized by labor occurring before 37 full weeks of pregnancy.
+http://purl.obolibrary.org/obo/SYMP_0000359,profound weakness,
+http://purl.obolibrary.org/obo/SYMP_0000360,emaciation,A wasting that is characterized by the state of being extremely thin as a result of an absence of body fat and very week as a result of muscle wasting; usually because of illness or extreme hunger.
+http://purl.obolibrary.org/obo/SYMP_0000361,progressive emaciation,An emaciation that is characterized by an increase in scope or severity with time.
+http://purl.obolibrary.org/obo/SYMP_0000362,progressive prostration,
+http://purl.obolibrary.org/obo/SYMP_0000363,progressive weakness,
+http://purl.obolibrary.org/obo/SYMP_0000364,prostate symptom,
+http://purl.obolibrary.org/obo/SYMP_0000365,prostatic abscess,"A prostate symptom that is characterized by a localized collection of purulent fluid within the prostate, often forming as a complication of acute bacterial prostatitis."
+http://purl.obolibrary.org/obo/SYMP_0000366,prostatic infection,A prostate symptom that is characterized by inflammation of the prostate and surrounding area.
+http://purl.obolibrary.org/obo/SYMP_0000368,proximal paralysis of arm and leg,
+http://purl.obolibrary.org/obo/SYMP_0000370,renal abscess,A urinary system symptom that is characterized by a pocket (a walled-off cavity) of pus that develops in the kidney tissue. It results from the migration of bacteria from another infection site on the body to the kidneys.
+http://purl.obolibrary.org/obo/SYMP_0000371,respiratory paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000372,rhinorrhea,A nose symptom that is characterized by an excessive secretion of mucous through the nose.
+http://purl.obolibrary.org/obo/SYMP_0000373,salivation,
+http://purl.obolibrary.org/obo/SYMP_0000374,scrotal abscess,"A reproductive system symptom that is characterized by an abscess that is either superficial or intrascrotal.  Superficial scrotal abscess may occur from an infected hair follicle, infection of a scrotal laceration, or minor scrotal surgery.  Intrascrotal abscess most commonly arises from bacterial epididymitis, but may also be related to tuberculous infection of the epididymis, a testicular abscess that ruptures through the tunica albuginea, or drainage of appendicitis into scrotum through a patent processus vaginalis or as a result of extravasation of infected urine from the urethra in patients with a urethral stricture and neurogenic bladder using an external collection device."
+http://purl.obolibrary.org/obo/SYMP_0000375,severe abdominal cramp,
+http://purl.obolibrary.org/obo/SYMP_0000376,severe diarrhea,
+http://purl.obolibrary.org/obo/SYMP_0000379,severe myalgia,"A muscle pain that is characterized by being severe in nature.  Myalgia may be acute in nature, stemming from overuse of a muscle group or viral infection.  It may also be chronic and caused by  metabolic myopathy, some nutritional deficiencies, and chronic fatigue syndrome."
+http://purl.obolibrary.org/obo/SYMP_0000381,spleen abscess,
+http://purl.obolibrary.org/obo/SYMP_0000382,staggering gait,
+http://purl.obolibrary.org/obo/SYMP_0000383,stiff neck,
+http://purl.obolibrary.org/obo/SYMP_0000384,neck symptom,
+http://purl.obolibrary.org/obo/SYMP_0000385,throat symptom,
+http://purl.obolibrary.org/obo/SYMP_0000386,mouth symptom,
+http://purl.obolibrary.org/obo/SYMP_0000387,head symptom,
+http://purl.obolibrary.org/obo/SYMP_0000388,nose symptom,
+http://purl.obolibrary.org/obo/SYMP_0000389,stupor,"An alteration of consciousness that is characterized by a lack of critical mental function and a level of consciousness, in which an affected person is almost entirely unresponsive and responds only to intense stimuli such as pain."
+http://purl.obolibrary.org/obo/SYMP_0000390,thyroid symptom,
+http://purl.obolibrary.org/obo/SYMP_0000391,thyroid abscesses,
+http://purl.obolibrary.org/obo/SYMP_0000392,ear symptom,
+http://purl.obolibrary.org/obo/SYMP_0000393,tinnitus,
+http://purl.obolibrary.org/obo/SYMP_0000394,muscle twitching,
+http://purl.obolibrary.org/obo/SYMP_0000395,facial muscle twitching,
+http://purl.obolibrary.org/obo/SYMP_0000396,mydriasis,
+http://purl.obolibrary.org/obo/SYMP_0000397,unreactive mydriasis,
+http://purl.obolibrary.org/obo/SYMP_0000399,vertigo,"A dizziness that is characterized by a specific type of dizziness, a major symptom of a balance disorder. It is the sensation of spinning or swaying while the body is stationary with respect to the surroundings."
+http://purl.obolibrary.org/obo/SYMP_0000400,weak cry,
+http://purl.obolibrary.org/obo/SYMP_0000401,wobble,
+http://purl.obolibrary.org/obo/SYMP_0000402,cachexia,"A nutrition, metabolism, and development symptom that is characterized by a general physical wasting and malnutrition usually associated with chronic disease."
+http://purl.obolibrary.org/obo/SYMP_0000403,weight gain,"A weight symptom that is characterized by an increase in body weight. This can involve an increase in muscle mass, fat deposits, excess fluids such as water or other factors."
+http://purl.obolibrary.org/obo/SYMP_0000404,dyspareunia,
+http://purl.obolibrary.org/obo/SYMP_0000405,vaginismus,A reproductive system symptom that is characterized by a painful spasmodic contraction of the vagina.
+http://purl.obolibrary.org/obo/SYMP_0000406,bruise,A skin and integumentary tissue symptom that is characterized by an injury transmitted through unbroken skin to underlying tissue causing rupture of small blood vessels and escape of blood into the tissue with resulting discoloration.
+http://purl.obolibrary.org/obo/SYMP_0000407,syncope,An alteration of consciousness that is characterized by a loss of consciousness resulting from insufficient blood flow to the brain.
+http://purl.obolibrary.org/obo/SYMP_0000408,cataplexy,"Cataplexy is a muscle symptom characterized by a sudden loss of muscle control with retention of clear consciousness that follows a strong emotional stimulus (as elation, surprise, or anger) and is a characteristic symptom of narcolepsy."
+http://purl.obolibrary.org/obo/SYMP_0000409,hyperthermia,A high fever that is characterized by an exceptionally high fever especially when induced artificially for therapeutic purposes.
+http://purl.obolibrary.org/obo/SYMP_0000410,neurological and physiological symptom,
+http://purl.obolibrary.org/obo/SYMP_0000411,infant symptom,
+http://purl.obolibrary.org/obo/SYMP_0000412,anxiety,A neurological and physiological symptom that is characterized by a painful or apprehensive uneasiness of mind usually over an impending or anticipated ill.
+http://purl.obolibrary.org/obo/SYMP_0000413,catatonia,"A neurological and physiological symptom that is characterized by a marked psychomotor disturbance that may involve stupor or mutism, negativism, rigidity, purposeless excitement, echolalia, echopraxia, and inappropriate or bizarre posturing and is associated with various medical conditions (as schizophrenia and mood disorders)."
+http://purl.obolibrary.org/obo/SYMP_0000414,dysarthria,A neurological and physiological symptom that is characterized by a difficulty in articulating words due to disease of the central nervous system.
+http://purl.obolibrary.org/obo/SYMP_0000415,amaurosis fugax,
+http://purl.obolibrary.org/obo/SYMP_0000416,amaurosis,
+http://purl.obolibrary.org/obo/SYMP_0000417,pupil symptom,
+http://purl.obolibrary.org/obo/SYMP_0000418,contracted pupil,
+http://purl.obolibrary.org/obo/SYMP_0000419,miosis,
+http://purl.obolibrary.org/obo/SYMP_0000420,bloating,Bloating is a digestive system symptom involving the accumulation of gas in the digestive tract and resulting in abdominal distension.
+http://purl.obolibrary.org/obo/SYMP_0000421,hematochezia,
+http://purl.obolibrary.org/obo/SYMP_0000422,dyspepsia,"Dyspepsia is a digestive system symptom referred to as indigestion resulting from an impairment to digestion caused by ulcer, gall bladder disease or inflamed colon. Related symptoms include weakness, loss of appetite, and depression."
+http://purl.obolibrary.org/obo/SYMP_0000423,pyrosis,From synonym: Heartburn is a pain characterized by a painful burning feeling in your chest or throat that happens when stomach acid backs up into your esophagus.
+http://purl.obolibrary.org/obo/SYMP_0000424,claudication,"A pain that is characterized by a leg pain in the calf, or thigh, which is caused by inadequate blood flow to the leg muscles and is brought on by leg exercise such as walking."
+http://purl.obolibrary.org/obo/SYMP_0000425,reticulocytosis,
+http://purl.obolibrary.org/obo/SYMP_0000426,macrocytosis,
+http://purl.obolibrary.org/obo/SYMP_0000428,hypoventilation,A respiratory abnormality that is characterized by a deficient ventilation of the lungs that results in reduction in the oxygen content or increase in the carbon dioxide content of the blood or both.
+http://purl.obolibrary.org/obo/SYMP_0000429,bradypnea,A respiratory abnormality that is characterized by abnormally slow breathing.
+http://purl.obolibrary.org/obo/SYMP_0000430,pleuritic chest pain,A chest pain that is characterized by an inflammation of the pleural cavity with a sharp pain resulting from the exansion of the lungs as the inflammed pleural layers rub against each other.
+http://purl.obolibrary.org/obo/SYMP_0000431,sputum,"A respiratory system and chest symptom that is characterized by matter discharged from the air passages in diseases of the lungs, bronchi, or upper respiratory tract that contains mucus and often pus, blood, fibrin, or bacterial products."
+http://purl.obolibrary.org/obo/SYMP_0000432,itching,A skin and integumentary tissue symptom that is characterized by an uneasy irritating sensation in the upper surface of the skin usually held to result from mild stimulation of pain receptors.
+http://purl.obolibrary.org/obo/SYMP_0000433,anasarca,Anasarca is a edema characterized as generalized edema with accumulation of serum in the connective tissue.
+http://purl.obolibrary.org/obo/SYMP_0000435,paresthesia,"A skin and integumentary tissue symptom that is characterized by a sensation of pricking, tingling, or creeping on the skin having no objective cause and usually associated with injury or irritation of a sensory nerve or nerve root."
+http://purl.obolibrary.org/obo/SYMP_0000436,abnormal vaginal bleeding,A reproductive system symptom that is characterized by bleeding from the uterus that is longer than usual or that occurs at an irregular time. Bleeding may be heavier or lighter than usual and occur often or randomly.
+http://purl.obolibrary.org/obo/SYMP_0000437,earache,
+http://purl.obolibrary.org/obo/SYMP_0000438,toothache,"A pain that is characterized by a pain in, or about, a tooth or teeth."
+http://purl.obolibrary.org/obo/SYMP_0000440,hair loss,"A hair symptom that is characterized by the stopping of hair growth (regeneration), which may be a result of hereditary hair loss, immune system overreacts, drugs and treatments, harsh hair-care products, and other factors."
+http://purl.obolibrary.org/obo/SYMP_0000441,elbow pain,"A joint pain that is characterized by a pain situated, or occurring, in or around the elbow."
+http://purl.obolibrary.org/obo/SYMP_0000442,knee pain,"A joint pain that is characterized by a pain situated, or occurring, in or around the knee."
+http://purl.obolibrary.org/obo/SYMP_0000443,shoulder pain,"A joint pain that is characterized by a pain situated, or occurring, in or around the shoulder."
+http://purl.obolibrary.org/obo/SYMP_0000444,nail discoloration,
+http://purl.obolibrary.org/obo/SYMP_0000446,bloodshot eye,
+http://purl.obolibrary.org/obo/SYMP_0000447,bloody sputum,"A sputum that is characterized by blood or bloody mucus discharged from the air passages caused by common forms of infection in the lungs and airways, such as acute bronchitis or pneumonia. Bloody sputum can also come from cancer of the lung."
+http://purl.obolibrary.org/obo/SYMP_0000448,epistaxis,A nose symptom that involves a is loss of blood from the tissue lining the nose.
+http://purl.obolibrary.org/obo/SYMP_0000449,cardiogenic shock,
+http://purl.obolibrary.org/obo/SYMP_0000450,shock,"A cardiovascular system symptom that is characterized as a state of profound depression of the vital processes of the body that is characterized by pallor, rapid but weak pulse, rapid and shallow respiration, reduced total blood volume, and low blood pressure and that is caused usually by severe especially crushing injuries, hemorrhage, burns, or major surgery."
+http://purl.obolibrary.org/obo/SYMP_0000451,septic shock,
+http://purl.obolibrary.org/obo/SYMP_0000452,abnormal sputum,
+http://purl.obolibrary.org/obo/SYMP_0000453,right upper quadrant abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000454,abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000455,abnormal weight gain,"A weight gain that is characterized as deviating from what is normal or usual, typically in a way that is undesirable or worrying."
+http://purl.obolibrary.org/obo/SYMP_0000456,left upper quadrant abdominal pain,"An abdominal pain that is characterized by occurring in the left upper quadrant abdominal pain of the abdomen that can be caused by a stomach ulcer, acute gastritis, a viral infection, or indigestion, or may be an issue with one's lungs."
+http://purl.obolibrary.org/obo/SYMP_0000457,abdominal pain,"A pain that is characterized by occurring in the abdomen, i.e. between the chest and groin."
+http://purl.obolibrary.org/obo/SYMP_0000458,nausea,Nausea is a digestive system symptom characterized by an uneasy or unsettled feeling in the stomach together with an urge to vomit.
+http://purl.obolibrary.org/obo/SYMP_0000459,digestive system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000460,hepatomegaly,
+http://purl.obolibrary.org/obo/SYMP_0000461,abdominal symptom,
+http://purl.obolibrary.org/obo/SYMP_0000462,symptom,"A symptom is a perceived change in function, sensation, loss, disturbance or appearance reported by a patient indicative of a disease."
+http://purl.obolibrary.org/obo/SYMP_0000463,lack of normal physiological development,
+http://purl.obolibrary.org/obo/SYMP_0000464,lack of expected normal physiological development in childhood,
+http://purl.obolibrary.org/obo/SYMP_0000465,failure to thrive,"A lack of expected normal physiological development in childhood that is characterized by a decelerated or arrested physical growth (height and weight measurements fall below the third or fifth percentile, or a downward change in growth across two major growth percentiles) and is associated with abnormal growth and development."
+http://purl.obolibrary.org/obo/SYMP_0000466,delayed milestones,A lack of expected normal physiological development in childhood that is characterized by a failure for a child to reach a significant stage at the predicted age and may include walking or talking.
+http://purl.obolibrary.org/obo/SYMP_0000467,right lower quadrant abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000468,generalized abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000469,epigastric abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000470,left upper quadrant abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000471,multiple sites abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000472,early satiety,"A nutrition, metabolism, and development symptom that is characterized by a feeling of being full after a few bites of food, or before you finish a normal-sized meal."
+http://purl.obolibrary.org/obo/SYMP_0000473,"nutrition, metabolism, and development symptom",
+http://purl.obolibrary.org/obo/SYMP_0000475,underweight,"A weight symptom that is characterized by weighing less than the normal amount for one's age, height, and build."
+http://purl.obolibrary.org/obo/SYMP_0000477,epigastric abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000478,abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000479,abnormality of gait,Abnormality of gait is a nervous system and musculoskeletal system symptom characterized by a difficulty in the manner of walking or moving on foot.
+http://purl.obolibrary.org/obo/SYMP_0000480,nervous system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000481,persistent vegetative state,"An alteration of consciousness that is characterized by an individual with severe brain damage being in a state of partial arousal rather than true awareness. After four weeks in a vegetative state, the patient is classified as being in a persistent vegetative state. After three months in the US and six months in the UK, the diagnosis is classified as a permanent vegetative state after a non-traumatic brain injury, or, one year after a traumatic injury."
+http://purl.obolibrary.org/obo/SYMP_0000482,alteration of consciousness,A neurological and physiological symptom that is characterized by any condition which is significantly different from a normal waking state.
+http://purl.obolibrary.org/obo/SYMP_0000483,left lower quadrant abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000484,abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000485,dysuria,"A urinary system symptom that is characterized by the difficult, or painful, discharge of urine."
+http://purl.obolibrary.org/obo/SYMP_0000486,urinary system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000487,rash,A skin and integumentary tissue symptom that is characterized by an eruption on the body typically with little or no elevation above the surface.
+http://purl.obolibrary.org/obo/SYMP_0000488,skin and integumentary tissue symptom,"A skin and integumentary tissue symptom that is characterized by the outer layer of the skin starting to replace itself. Often, this happens when skin is damaged, either by disease or injury."
+http://purl.obolibrary.org/obo/SYMP_0000489,abnormal bowel sound,
+http://purl.obolibrary.org/obo/SYMP_0000490,multiple sites abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000491,continuous leakage of urine,
+http://purl.obolibrary.org/obo/SYMP_0000492,urinary incontinence,A urinary system symptom that is characterized by the an inability of the body to control the evacuative functions.
+http://purl.obolibrary.org/obo/SYMP_0000493,dysphagia,
+http://purl.obolibrary.org/obo/SYMP_0000494,renal colic,A colic that is characterized by a severe pain produced by the passage of a calculus from the kidney through the ureter.
+http://purl.obolibrary.org/obo/SYMP_0000495,urethral discharge,"A urinary system symptom that is characterized by abnormal purulent or mucoid secretions from the penis or, rarely, the female urethra."
+http://purl.obolibrary.org/obo/SYMP_0000496,epigastric abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000497,periumbilic abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000498,generalized abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000499,right upper quadrant abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000500,right lower quadrant abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000501,left lower quadrant abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000502,mixed incontinence (female) (male),"A urinary incontinence that is characterized by urine leakage when you sneeze, cough, laugh, do jarring exercise, or lift something heavy. It is typically a combination of stress and urge incontinence."
+http://purl.obolibrary.org/obo/SYMP_0000503,adult failure to thrive,"A nutrition, metabolism, and development symptom that is characterized by a physical decline in health seen in older adults – typically those with multiple chronic medical conditions – resulting in decreased appetite and poor nutrition, weight loss, inactivity, often accompanied by dehydration, depression, decreasing functional ability, and impaired immune function."
+http://purl.obolibrary.org/obo/SYMP_0000504,headache,A pain that is characterized by a pain in the head.
+http://purl.obolibrary.org/obo/SYMP_0000505,throat pain,A pain that is characterized by a painful throat due to inflammation of the fauces and pharynx.
+http://purl.obolibrary.org/obo/SYMP_0000506,hemorrhage from throat,
+http://purl.obolibrary.org/obo/SYMP_0000507,head swelling,
+http://purl.obolibrary.org/obo/SYMP_0000509,flatulence,
+http://purl.obolibrary.org/obo/SYMP_0000510,pallor,A skin and integumentary tissue symptom that is characterized by a deficiency of color especially of the face.
+http://purl.obolibrary.org/obo/SYMP_0000511,flushing,"A skin and integumentary tissue symptom that is characterized by a markedly red flush in a persons face and often other areas of the skin, from various physiological conditions. Flushing is generally distinguished, despite a close physiological relation between them, from blushing, which is milder, generally restricted to the face or cheeks, and generally assumed to reflect embarrassment. Flushing is also a cardinal symptom of carcinoid syndrome the syndrome that results from hormones (often serotonin or histamine) being secreted into systemic circulation."
+http://purl.obolibrary.org/obo/SYMP_0000512,male stress incontinence,A stress incontinence that is characterized by a compromised external urinary sphincter muscle resulting from surgical or radiotherapeutic manipulation.
+http://purl.obolibrary.org/obo/SYMP_0000513,stridor,An abnormal chest sound that is characterized by a harsh vibrating sound heard during respiration in cases of obstruction of the air passages.
+http://purl.obolibrary.org/obo/SYMP_0000514,respiratory system and chest symptom,
+http://purl.obolibrary.org/obo/SYMP_0000515,hiccough,A respiratory system and chest symptom that is characterized by a spasmodic inhalation with closure of the glottis accompanied by a peculiar sound.
+http://purl.obolibrary.org/obo/SYMP_0000516,lump in chest,
+http://purl.obolibrary.org/obo/SYMP_0000517,hemoptysis,A respiratory system and chest symptom that is characterized by an expectoration of blood from some part of the respiratory tract.
+http://purl.obolibrary.org/obo/SYMP_0000518,generalized abdominal pain,An abdominal pain that is characterized by being diffuse or widespread and affecting or involving all of the abdomen.
+http://purl.obolibrary.org/obo/SYMP_0000519,abnormal feces,
+http://purl.obolibrary.org/obo/SYMP_0000520,visible peristalsis,
+http://purl.obolibrary.org/obo/SYMP_0000521,enlargement of lymph nodes,
+http://purl.obolibrary.org/obo/SYMP_0000522,feeding difficulties and mismanagement,
+http://purl.obolibrary.org/obo/SYMP_0000523,anorexia,"A nutrition, metabolism, and development symptom that is characterized by a loss of appetite especially when prolonged."
+http://purl.obolibrary.org/obo/SYMP_0000524,polyphagia,"A nutrition, metabolism, and development symptom that is characterized by an excessive appetite or eating."
+http://purl.obolibrary.org/obo/SYMP_0000525,transient alteration of awareness,An alteration of consciousness that is characterized by a brief (transient) episode of losing normal awareness or behavior.
+http://purl.obolibrary.org/obo/SYMP_0000526,ascites,An abdominal symptom consisting of an abnormal accumulation of serous fluid in the spaces between tissues and organs in the cavity of the abdomen.
+http://purl.obolibrary.org/obo/SYMP_0000527,undiagnosed cardiac murmur,
+http://purl.obolibrary.org/obo/SYMP_0000528,cardiovascular system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000529,tachycardia,Tachycardia is a cardiovascular system symptom consisting of a relatively rapid heart action whether physiological (as after exercise) or pathological.
+http://purl.obolibrary.org/obo/SYMP_0000530,palpitation,"Palpitation is a cardiovascykar system symptom characterized by an abnormal awareness of the beating of the heart,whether it is too slow, too fast, irregular, or at its normal frequency when excited by violent exertion, strong emotion, or disease."
+http://purl.obolibrary.org/obo/SYMP_0000531,splenomegaly,
+http://purl.obolibrary.org/obo/SYMP_0000532,urge incontinence,"A urinary incontinence that is characterized by an involuntary leakage of urine from the bladder when a sudden strong need to urinate is felt, even when the bladder isn't full."
+http://purl.obolibrary.org/obo/SYMP_0000533,post-void dribbling,A urinary incontinence that is characterized by urine remaining in the urethra after voiding the bladder that slowly leaks out after urination.
+http://purl.obolibrary.org/obo/SYMP_0000534,spontaneous ecchymoses,A skin and integumentary tissue symptom that is characterized by the spontaneous escape of blood into the tissues from ruptured blood vessels marked by a livid black-and-blue or purple spot or area.
+http://purl.obolibrary.org/obo/SYMP_0000535,change in skin texture,
+http://purl.obolibrary.org/obo/SYMP_0000536,disturbance of skin sensation,
+http://purl.obolibrary.org/obo/SYMP_0000537,cyanosis,A skin and integumentary tissue symptom that is characterized by a bluish or purplish discoloration (as of skin) due to deficient oxygenation of the blood.
+http://purl.obolibrary.org/obo/SYMP_0000538,edema,A skin and integumentary tissue symptom that is characterized by an abnormal excess accumulation of serous fluid in connective tissue or in a serous cavity.
+http://purl.obolibrary.org/obo/SYMP_0000539,jaundice,"A skin and integumentary tissue symptom that is characterized by a yellowish pigmentation of the skin, tissues, and certain body fluids is caused by the deposition of bile pigments that follows interference with normal production and discharge of bile (as in certain liver diseases) or excessive breakdown of red blood cells (as after internal hemorrhage or in various hemolytic states)."
+http://purl.obolibrary.org/obo/SYMP_0000540,painful respiration,"A respiratory system and chest symptom that is characterized by a feeling of discomfort when breathing in or out.  The pain may be the result of infection, musculoskeletal injury, and heart problems."
+http://purl.obolibrary.org/obo/SYMP_0000541,periumbilic abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000542,epigastric abdominal pain,"An abdominal pain that is characterized by occurring in the epigastrium, i.e. the upper part of the abdomen below the rib cage."
+http://purl.obolibrary.org/obo/SYMP_0000543,memory loss,"A neurological and physiological symptom that is characterized by an unusual forgetfulness. One may not be able to remember new events, recall one or more memories of the past, or both.  Memory loss may be for a short time and then resolve (transient), or it may not go away and get worse over time."
+http://purl.obolibrary.org/obo/SYMP_0000544,transient paralysis of limb,
+http://purl.obolibrary.org/obo/SYMP_0000545,multiple sites abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000546,right lower quadrant abdominal pain,
+http://purl.obolibrary.org/obo/SYMP_0000547,right upper quadrant abdominal pain,
+http://purl.obolibrary.org/obo/SYMP_0000548,right lower quadrant abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000549,generalized abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000550,clubbing of fingers,
+http://purl.obolibrary.org/obo/SYMP_0000551,disturbances of sensation of smell and taste,
+http://purl.obolibrary.org/obo/SYMP_0000552,meningismus,A nervous system symptom that is characterized by a state of meningeal irritation with symptoms suggesting meningitis that often occurs at the onset of acute febrile diseases especially in children.
+http://purl.obolibrary.org/obo/SYMP_0000553,neurologic neglect syndrome,
+http://purl.obolibrary.org/obo/SYMP_0000554,left lower quadrant abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000555,left upper quadrant abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000556,localized superficial lump,
+http://purl.obolibrary.org/obo/SYMP_0000557,urinary retention,A urinary system symptom that is characterized by an inability to empty the bladder completely during the process of voiding (urination).
+http://purl.obolibrary.org/obo/SYMP_0000558,incomplete bladder emptying,A urinary system symptom that is characterized by a bladder that is not empty.
+http://purl.obolibrary.org/obo/SYMP_0000559,voice disturbance,
+http://purl.obolibrary.org/obo/SYMP_0000560,polydipsia,"A nutrition, metabolism, and development symptom that is characterized by an excessive or abnormal thirst."
+http://purl.obolibrary.org/obo/SYMP_0000561,multiple sites abdominal pain,
+http://purl.obolibrary.org/obo/SYMP_0000562,right upper quadrant abdominal swelling,
+http://purl.obolibrary.org/obo/SYMP_0000564,nocturia,A urinary system symptom that is characterized by urination at night especially when excessive.
+http://purl.obolibrary.org/obo/SYMP_0000563,urinary frequency,"A urinary system symptom that is characterized by the need to urinate many times during the day, at night, or both but in normal or less-than-normal volumes.  Frequency may be accompanied by a sensation of an urgent need to void (urgency of urination)."
+http://purl.obolibrary.org/obo/SYMP_0000565,polyuria,A urinary system symptom that is characterized by the excessive secretion of urine.
+http://purl.obolibrary.org/obo/SYMP_0000566,sleep disturbance,
+http://purl.obolibrary.org/obo/SYMP_0000567,general symptom,
+http://purl.obolibrary.org/obo/SYMP_0000568,short stature,"A lack of expected normal physiological development in childhood that is characterized by an individual's height being in the 3rd percentile for the mean height of a given age, sex, and population group."
+http://purl.obolibrary.org/obo/SYMP_0000569,oliguria,A urinary system symptom that is characterized by the reduced excretion of urine.
+http://purl.obolibrary.org/obo/SYMP_0000571,insomnia,Insomnia is a sleep disturbance characterized by prolonged and usually abnormal inability to obtain adequate sleep.
+http://purl.obolibrary.org/obo/SYMP_0000572,splitting of urinary stream,A urinary stream symptom that is characterized by a split in the urine flow resulting in it streaming in two directions.
+http://purl.obolibrary.org/obo/SYMP_0000573,urinary stream symptom,
+http://purl.obolibrary.org/obo/SYMP_0000574,aphonia,
+http://purl.obolibrary.org/obo/SYMP_0000575,precordial pain,
+http://purl.obolibrary.org/obo/SYMP_0000576,chest pain,
+http://purl.obolibrary.org/obo/SYMP_0000577,fussy infant,
+http://purl.obolibrary.org/obo/SYMP_0000578,incontinence without sensory awareness,
+http://purl.obolibrary.org/obo/SYMP_0000579,insomnia with sleep apnea,
+http://purl.obolibrary.org/obo/SYMP_0000580,dysfunctions associated with sleep stages,
+http://purl.obolibrary.org/obo/SYMP_0000582,hypersomnia,Hypersomnia is a sleep disturbance characterized by sleeping for excessive periods at intervals with intervening periods of normal duration of sleeping and waking.
+http://purl.obolibrary.org/obo/SYMP_0000583,hypersomnia with sleep apnea,
+http://purl.obolibrary.org/obo/SYMP_0000584,disruptions of 24-hour sleep-wake cycle,
+http://purl.obolibrary.org/obo/SYMP_0000585,sleep related movement disorder,
+http://purl.obolibrary.org/obo/SYMP_0000586,overflow incontinence,"A urinary incontinence that is characterized by a bladder that does not empty completely, resulting in a bladder that is too full, which leads to overflow and unexpected leaking."
+http://purl.obolibrary.org/obo/SYMP_0000587,abnormal chest sound,"A respiratory system and chest symptom that is characterized by a sound of breathing that is not similar to that of the sound of moving air and may include: rhonchi (a low-pitched breath sound), crackles (a high-pitched breath sound), wheezing (a high-pitched whistling sound caused by narrowing of the bronchial tubes), and stridor (a harsh, vibratory sound caused by narrowing of the upper airway)."
+http://purl.obolibrary.org/obo/SYMP_0000588,extravasation of urine,"A urinary system symptom that is characterized by an injury of the urethra in its bulbous or membranous portion, which leads to a collection of urine in other cavities, such as the perineal space, the scrotum, the penis and the connective tissue of the anterior abdominal wall."
+http://purl.obolibrary.org/obo/SYMP_0000589,slowing of urinary stream,A urinary stream symptom that is characterized by a slow or weak stream of urine.
+http://purl.obolibrary.org/obo/SYMP_0000590,urinary urgency,"A urinary system symptom that is characterized by a strong and immediate need to urinate due to an increase in pressure in the bladder, resulting in difficulty to hold in the urine. This can occur regardless of whether the bladder is full."
+http://purl.obolibrary.org/obo/SYMP_0000591,left upper quadrant abdominal tenderness,
+http://purl.obolibrary.org/obo/SYMP_0000592,excessive crying of infant,
+http://purl.obolibrary.org/obo/SYMP_0000593,gangrene,
+http://purl.obolibrary.org/obo/SYMP_0000594,abnormal involuntary movement,"A nervous system symptom that is characterized by an inability to control bodily movement and may be a symptom of cerebrovascular diseases, dyskinesia, tremor, chorea, dystonia and myoclonus."
+http://purl.obolibrary.org/obo/SYMP_0000595,febrile convulsion,A convulsion that is characterized by occurring in young children between six months and five years of age and which is triggered by fever.
+http://purl.obolibrary.org/obo/SYMP_0000596,convulsion,A nervous system symptom that is characterized by an abnormal violent and involuntary contraction or series of contractions of the muscles.
+http://purl.obolibrary.org/obo/SYMP_0000597,head and neck symptom,
+http://purl.obolibrary.org/obo/SYMP_0000598,respiratory abnormality,"A respiratory system and chest symptom that is characterized by a respiration that is not normal and may include, but is not limited to: apnea, eupnea, orthopnea, dyspnea hyperpnea, hyperventilation, hypoventilation, tachypnea, Kussmaul respiration, Cheyne-Stokes respiration, sighing respiration, Biot respiration, apneustic breathing, central neurogenic hyperventilation, and central neurogenic hypoventilation."
+http://purl.obolibrary.org/obo/SYMP_0000599,cheyne-stokes respiration,A respiratory abnormality that is characterized by a specific form of periodic breathing (waxing and waning amplitude of flow or tidal volume) characterized by a crescendo-decrescendo pattern of respiration between central apneas or central hypopneas.
+http://purl.obolibrary.org/obo/SYMP_0000600,apnea,A respiratory abnormality that is characterized by transient cessation of respiration whether normal (as in hibernating animals) or abnormal (as that caused by certain drugs).
+http://purl.obolibrary.org/obo/SYMP_0000601,hyperventilation,A respiratory abnormality that is characterized by excessive ventilation characterized by excessive rate and depth of respiration leading to abnormal loss of carbon dioxide from the blood.
+http://purl.obolibrary.org/obo/SYMP_0000602,orthopnea,A respiratory abnormality that is characterized by a difficulty in breathing that occurs when lying down and is relieved upon changing to an upright position (as in congestive heart failure).
+http://purl.obolibrary.org/obo/SYMP_0000603,tachypnea,A respiratory abnormality that is characterized by an increased rate of respiration and shallow breathing.
+http://purl.obolibrary.org/obo/SYMP_0000604,wheezing,An abnormal chest sound that is characterized by breathing with difficulty usually with a whistling sound.
+http://purl.obolibrary.org/obo/SYMP_0000605,coma,"An alteration of consciousness that is characterized by a deep state of prolonged unconsciousness in which a person cannot be awakened, fails to respond normally to painful stimuli, light, or sound, lacks a normal wake-sleep cycle and does not initiate voluntary actions."
+http://purl.obolibrary.org/obo/SYMP_0000606,nocturnal enuresis,A urinary incontinence that is characterized by involuntary urination at night in children five years of age or older.
+http://purl.obolibrary.org/obo/SYMP_0000607,hallucination,Hallucination is a general symptom where there is a perception of something (as a visual image or a sound) with no external cause usually arising from a disorder of the nervous system (as in delirium tremens or in functional psychosis without known neurological disease) or in response to drugs (as LSD).
+http://purl.obolibrary.org/obo/SYMP_0000608,syncope and collapse,An alteration of consciousness that is characterized by a loss of consciousness resulting from insufficient blood flow to the brain and limb weakness progressing to collapse.
+http://purl.obolibrary.org/obo/SYMP_0000609,generalized hyperhidrosis,"A neurological and physiological symptom that is characterized by excessive sweating, i.e. the production of more sweat than is required to regulate body temperature.  Generalized hyperhidrosis is caused by non-thermoregulatory stimuli and affects the entire body."
+http://purl.obolibrary.org/obo/SYMP_0000610,dizziness,A  balance symptom that is characterized by a sensation of unsteadiness accompanied by a feeling of movement within the head.
+http://purl.obolibrary.org/obo/SYMP_0000611,periumbilic abdominal pain,
+http://purl.obolibrary.org/obo/SYMP_0000612,periumbilic abdominal rigidity,
+http://purl.obolibrary.org/obo/SYMP_0000613,fever,"A neurological and physiological symptom that is characterized by a rise of body temperature above the normal, whether as a natural response (as to infection) or artificially induced for therapeutic reasons."
+http://purl.obolibrary.org/obo/SYMP_0000614,cough,A respiratory system and chest symptom that is characterized by an explosive expulsion of air from the lungs acting as a protective mechanism to clear the air passages or as a symptom of pulmonary disturbance.
+http://purl.obolibrary.org/obo/SYMP_0000616,loss of height,
+http://purl.obolibrary.org/obo/SYMP_0000617,torticollis,
+http://purl.obolibrary.org/obo/SYMP_0000618,abnormal posture,
+http://purl.obolibrary.org/obo/SYMP_0000619,tetany,
+http://purl.obolibrary.org/obo/SYMP_0000620,left lower quadrant abdominal pain,"An abdominal pain that is characterized by occurring in the left lower quadrant of the abdomen that is often related to the digestive tract, but can also be related to conditions of the body wall, skin, blood vessels, urinary tract, or reproductive organs."
+http://purl.obolibrary.org/obo/SYMP_0000622,acute mesenteric lymphadenitis,
+http://purl.obolibrary.org/obo/SYMP_0000623,acute renal failure,A renal failure that is characterized by a severe and sudden onset of renal failure.
+http://purl.obolibrary.org/obo/SYMP_0000625,conscious disturbance,"An alteration of consciousness that is characterized by a disturbance in sentience (the ability to experience feelings and sensations) or awareness of one's internal and external existence, i.e. inhibited or absent self-awareness."
+http://purl.obolibrary.org/obo/SYMP_0000627,disturbed vision,
+http://purl.obolibrary.org/obo/SYMP_0000628,vision distortion,
+http://purl.obolibrary.org/obo/SYMP_0000629,exanthema,A rash characterized by a widespread skin eruption usually occurring in children that is a symptom of a more general disease.
+http://purl.obolibrary.org/obo/SYMP_0000630,frontal headache,
+http://purl.obolibrary.org/obo/SYMP_0000632,hip pain,"A joint pain that is characterized by a pain situated, or occurring, in or around the hip."
+http://purl.obolibrary.org/obo/SYMP_0000633,inflammatory low back pain,
+http://purl.obolibrary.org/obo/SYMP_0000634,leukocytosis,
+http://purl.obolibrary.org/obo/SYMP_0000635,low backache,
+http://purl.obolibrary.org/obo/SYMP_0000636,maculopapular rash,"A rash characterized by papule(s), which are a raised area of the skin and macule(s), which are a flat red area of the skin."
+http://purl.obolibrary.org/obo/SYMP_0000637,opisthotonus,
+http://purl.obolibrary.org/obo/SYMP_0000638,papular rash,"A rash characterized by papule(s), which are a raised area of the skin."
+http://purl.obolibrary.org/obo/SYMP_0000639,rectorrhagia,
+http://purl.obolibrary.org/obo/SYMP_0000640,ankle rash,A rash characterized by an inflammatory reaction of the skin on the ankles.
+http://purl.obolibrary.org/obo/SYMP_0000641,renal involvement,
+http://purl.obolibrary.org/obo/SYMP_0000644,ruffled feather,
+http://purl.obolibrary.org/obo/SYMP_0000647,tache noire,A skin ulcer that is characterized by a a small dark-centered ulcer that appears at the site of a tick bite and is the primary lesion of boutonneuse fever.
+http://purl.obolibrary.org/obo/SYMP_0000648,tenesmus,
+http://purl.obolibrary.org/obo/SYMP_0000649,terminal ileitis,
+http://purl.obolibrary.org/obo/SYMP_0000650,thick white exudate on tongue,
+http://purl.obolibrary.org/obo/SYMP_0000651,discharge,
+http://purl.obolibrary.org/obo/SYMP_0000652,wound discharge,
+http://purl.obolibrary.org/obo/SYMP_0000653,yellow dropping,
+http://purl.obolibrary.org/obo/SYMP_0000654,irritability,"A behavioral symptom that is characterized by a quick excitability to annoyance, impatience, or anger."
+http://purl.obolibrary.org/obo/SYMP_0000655,mouth bleeding,
+http://purl.obolibrary.org/obo/SYMP_0000656,pale mucous membrane,
+http://purl.obolibrary.org/obo/SYMP_0000657,ischemic necrosis of jejunum,
+http://purl.obolibrary.org/obo/SYMP_0000658,extraocular muscles paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000659,pareses,A paralysis that is charachterized by a slight or partial paralysis.
+http://purl.obolibrary.org/obo/SYMP_0000660,purpuric rash,A rash characterized by a red or purple hued small spots of blood appear on the skin caused by conditions that result in blood leaking into the skin and other body surfaces that does not fade when pressed upon.
+http://purl.obolibrary.org/obo/SYMP_0000661,recumbency,
+http://purl.obolibrary.org/obo/SYMP_0000662,shakes,Shakes is a general symptom characterized by a condition of trembling.
+http://purl.obolibrary.org/obo/SYMP_0000663,uncoordinated gait,
+http://purl.obolibrary.org/obo/SYMP_0000664,yellow exudate from nose,
+http://purl.obolibrary.org/obo/SYMP_0000665,yellow exudate from eyes,
+http://purl.obolibrary.org/obo/SYMP_0000666,abnormal behavior,"A behavioral symptom that is characterized by behavior that is atypical or statistically uncommon within a particular culture, or that is maladaptive, or detrimental to an individual, or those around that individual."
+http://purl.obolibrary.org/obo/SYMP_0000669,abnormal hemistanding,
+http://purl.obolibrary.org/obo/SYMP_0000670,abnormal hemiwalking,
+http://purl.obolibrary.org/obo/SYMP_0000671,sudden onset of fever,
+http://purl.obolibrary.org/obo/SYMP_0000672,abscess,
+http://purl.obolibrary.org/obo/SYMP_0000673,bradykinesia,Bradykinesia is a hypokinesia characterized by an extreme slowness in the execution of movements and reflexes.
+http://purl.obolibrary.org/obo/SYMP_0000674,acute cranial nerve dysfunction,
+http://purl.obolibrary.org/obo/SYMP_0000676,acute enteritis,Acute enteritis is a enteritis with either or both a rapid onset and a short course which is usually due to bacteria or virus.
+http://purl.obolibrary.org/obo/SYMP_0000677,acute gastroenteritis,
+http://purl.obolibrary.org/obo/SYMP_0000678,acute mental dysfunction,"A nervous system symptom that is characterized by a severe and sudden onset of disturbance in the normal operation of one's cognition, emotional regulation, or behaviour."
+http://purl.obolibrary.org/obo/SYMP_0000679,acute dyspnea,A dyspnea that is characterized by a severe and sudden onset.
+http://purl.obolibrary.org/obo/SYMP_0000680,acute weight loss,A weight loss that is characterized by a severe and sudden onset.
+http://purl.obolibrary.org/obo/SYMP_0000681,aggressive behavior,"A behavioral symptom that is characterized by behavior aimed at harming a person, or animal, or damaging physical property."
+http://purl.obolibrary.org/obo/SYMP_0000682,altered mental status,"A nervous system symptom that is characterized by a host of presentations that include changes in cognition, mood, behavior, and/or level of arousal."
+http://purl.obolibrary.org/obo/SYMP_0000684,bifrontal headache,
+http://purl.obolibrary.org/obo/SYMP_0000685,brain cyst,
+http://purl.obolibrary.org/obo/SYMP_0000686,chronic cough,"A cough that is characterized by an explosive expulsion of air from the lungs acting as a protective mechanism to clear the air passages or as a symptom of pulmonary disturbance marked by long duration, by frequent recurrence over a long time, and often by slowly progressing seriousness."
+http://purl.obolibrary.org/obo/SYMP_0000688,circling movement,An abnormal involuntary movement that is characterized by an inability to walk in a straight line.
+http://purl.obolibrary.org/obo/SYMP_0000689,cramp,
+http://purl.obolibrary.org/obo/SYMP_0000690,cranial nerve palsies,
+http://purl.obolibrary.org/obo/SYMP_0000691,cytopenia,
+http://purl.obolibrary.org/obo/SYMP_0000692,low blood pressure,
+http://purl.obolibrary.org/obo/SYMP_0000693,decreased facial sensation,
+http://purl.obolibrary.org/obo/SYMP_0000694,decreased jaw tone,
+http://purl.obolibrary.org/obo/SYMP_0000695,decreased milk production,"A nutrition, metabolism, and development symptom that is characterized by a decrease in the production of milk in breastfeeding mothers."
+http://purl.obolibrary.org/obo/SYMP_0000696,decreased motor response,
+http://purl.obolibrary.org/obo/SYMP_0000697,decreased pharyngeal tone,
+http://purl.obolibrary.org/obo/SYMP_0000698,decreased sucking,A feeding difficulties and mismanagement that is characterized by a decrease in muscle coordination to form a suck response so that the child can ingest milk.
+http://purl.obolibrary.org/obo/SYMP_0000699,deltoid muscle weakness,
+http://purl.obolibrary.org/obo/SYMP_0000700,diminished spontaneous movement,
+http://purl.obolibrary.org/obo/SYMP_0000701,nasal discharge,
+http://purl.obolibrary.org/obo/SYMP_0000702,distended loops of intestines on rectal,
+http://purl.obolibrary.org/obo/SYMP_0000703,droopy ears,
+http://purl.obolibrary.org/obo/SYMP_0000704,dysphonia,
+http://purl.obolibrary.org/obo/SYMP_0000705,expressive aphasia,"An aphasia that is characterized by damage to, or a developmental issues in, the anterior regions of the brain, including (but not limited to) the left inferior frontal region known as Broca's area. Sufferers of this form of aphasia exhibit the common problem of agrammatism. For them, speech is difficult to initiate, non-fluent, labored, and halting."
+http://purl.obolibrary.org/obo/SYMP_0000706,facial weakness,
+http://purl.obolibrary.org/obo/SYMP_0000707,flaccid muscle tone,
+http://purl.obolibrary.org/obo/SYMP_0000709,granulomatous inflammation,
+http://purl.obolibrary.org/obo/SYMP_0000710,head pressing,
+http://purl.obolibrary.org/obo/SYMP_0000711,hind limb paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000713,inability to lie flat,
+http://purl.obolibrary.org/obo/SYMP_0000714,intraretinal hemorrhage,
+http://purl.obolibrary.org/obo/SYMP_0000715,skin desquamation,A skin and integumentary tissue symptom that is characterized by the peeling off of skin in the form of scales.
+http://purl.obolibrary.org/obo/SYMP_0000716,swelling symptom,
+http://purl.obolibrary.org/obo/SYMP_0000717,leg swelling,
+http://purl.obolibrary.org/obo/SYMP_0000718,loss of consciousness,"A neurological and physiological symptom that is characterized by a state in which an individual lacks normal awareness of self and the surrounding environment and one's ability to remain awake, aware, and oriented is impaired."
+http://purl.obolibrary.org/obo/SYMP_0000719,memory impairment,"A neurological and physiological symptom that is characterized by a diminished or reduced ability to remember things such as dates and names, and increased forgetfulness."
+http://purl.obolibrary.org/obo/SYMP_0000720,microangiopathic hemolytic anemia,
+http://purl.obolibrary.org/obo/SYMP_0000721,moderate anemia,
+http://purl.obolibrary.org/obo/SYMP_0000722,moderate conjuctival injection,
+http://purl.obolibrary.org/obo/SYMP_0000723,multiple abscesses,
+http://purl.obolibrary.org/obo/SYMP_0000724,multiple organ failure,
+http://purl.obolibrary.org/obo/SYMP_0000725,necrosis of jejunum,
+http://purl.obolibrary.org/obo/SYMP_0000726,painful reginal lymphadenopathy,
+http://purl.obolibrary.org/obo/SYMP_0000727,palate weakness,
+http://purl.obolibrary.org/obo/SYMP_0000728,partial hind limb paralysis,
+http://purl.obolibrary.org/obo/SYMP_0000729,pulmonary consolidation,A respiratory system and chest symptom that is characterized by a region of normally compressible lung tissue that has filled with liquid instead of air.
+http://purl.obolibrary.org/obo/SYMP_0000730,rapid respiration,"A respiratory abnormality that is characterized by an increased breathing rate, with more than 20 breaths per minute in an adult, while in children, the number of breaths per minute can be a higher resting rate than seen in adults."
+http://purl.obolibrary.org/obo/SYMP_0000731,renal failure,"A urinary system symptom that is characterized by a loss of excretory function in one or both kidneys, leading to retention of nitrogenous waste products from the blood."
+http://purl.obolibrary.org/obo/SYMP_0000732,sudden ataxis,
+http://purl.obolibrary.org/obo/SYMP_0000733,sternocleidomastoid weakness,
+http://purl.obolibrary.org/obo/SYMP_0000736,lymph gland swelling,
+http://purl.obolibrary.org/obo/SYMP_0000737,respiratory tract mucosa ulcer,"A respiratory system and chest symptom that is characterized by an ulceration (dying and sloughing) of the bronchial or bronchiolar epithelium, exposing the underlying basement membrane."
+http://purl.obolibrary.org/obo/SYMP_0000738,yellowish green diarrhea,
+http://purl.obolibrary.org/obo/SYMP_0000739,bronchopulmonary bleeding,A respiratory system and chest symptom that is characterized by bleeding (hemorrhage) in either or both the bronchi and the lungs.
+http://purl.obolibrary.org/obo/SYMP_0000740,genitourinary hemorrhage,
+http://purl.obolibrary.org/obo/SYMP_0000741,nasal bleeding,
+http://purl.obolibrary.org/obo/SYMP_0000742,gum bleeding,Gum bleeding is a mouth symptom characterized by a copious discharge of blood from the blood vessels of the mucosal tissue that lies over the alveolar bone.
+http://purl.obolibrary.org/obo/SYMP_0000743,blotchy red rash,
+http://purl.obolibrary.org/obo/SYMP_0000744,cervical lymphadenopathy,
+http://purl.obolibrary.org/obo/SYMP_0000745,change in body sensation,
+http://purl.obolibrary.org/obo/SYMP_0000746,enanthem,A skin and integumentary tissue symptom that is characterized by an eruption on a mucous surface.
+http://purl.obolibrary.org/obo/SYMP_0000747,extreme prostration,
+http://purl.obolibrary.org/obo/SYMP_0000748,facial edema,An adema that is characterized by an abnormal excess accumulation of serous fluid in connective tissue of the face.
+http://purl.obolibrary.org/obo/SYMP_0000749,hemodynamic instability,
+http://purl.obolibrary.org/obo/SYMP_0000750,hemorrhage into mucous membrane,
+http://purl.obolibrary.org/obo/SYMP_0000751,hemorrhage into skin,
+http://purl.obolibrary.org/obo/SYMP_0000752,herpetic lesion on upper lip,
+http://purl.obolibrary.org/obo/SYMP_0000753,intense anxiety,
+http://purl.obolibrary.org/obo/SYMP_0000754,severe chest pain,
+http://purl.obolibrary.org/obo/SYMP_0000755,intense toxemia,
+http://purl.obolibrary.org/obo/SYMP_0000756,menorrhagia,A reproductive system symptom that is characterized an abnormally profuse menstrual flow.
+http://purl.obolibrary.org/obo/SYMP_0000757,mild conjunctivitis,
+http://purl.obolibrary.org/obo/SYMP_0000758,neurological alteration,
+http://purl.obolibrary.org/obo/SYMP_0000759,parotid pain,"A pain that is characterized by a pain situated, or occurring, in the parotid gland, which is a salivary gland located in front of the ears. (Additional salivary glands include the submandibular and sublingual glands.) Pain is attributed to swelling of the gland."
+http://purl.obolibrary.org/obo/SYMP_0000760,petechiae,A skin and integumentary tissue symptom that is characterized by a minute reddish or purplish spot containing blood that appears in skin or mucous membrane as a result of localized hemorrhage.
+http://purl.obolibrary.org/obo/SYMP_0000761,extracellular fluid alteration,
+http://purl.obolibrary.org/obo/SYMP_0000762,excess lymphocytes in cerebrospinal fluid,
+http://purl.obolibrary.org/obo/SYMP_0000763,renal alteration,
+http://purl.obolibrary.org/obo/SYMP_0000764,retrobulbar pain,"A pain that is characterized by a pain situated, or occurring, behind the eyeball."
+http://purl.obolibrary.org/obo/SYMP_0000765,sensory disturbance,
+http://purl.obolibrary.org/obo/SYMP_0000766,slow pulse,
+http://purl.obolibrary.org/obo/SYMP_0000767,subconjunctival bleeding,
+http://purl.obolibrary.org/obo/SYMP_0000768,testicular pain,"A pain that is characterized by a pain in, or about, a testis (testicle) or testes. Testicular pain can be caused by nerve damage, sexually transmitted infections, gangrene, swelling, hernia, kidney stones, inflammation, enlarged veins, fluid in the testicle, or a severe condition known as testicular torsion."
+http://purl.obolibrary.org/obo/SYMP_0000769,vascular alteration,
+http://purl.obolibrary.org/obo/SYMP_0000770,pelvic symptom,
+http://purl.obolibrary.org/obo/SYMP_0000771,pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000772,pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000773,pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000774,generalized pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000775,right lower quadrant pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000776,epigastric pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000777,left lower quadrant pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000778,left upper quadrant pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000779,right upper quadrant pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000780,multiple sites pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000781,periumbilic pelvic lump,
+http://purl.obolibrary.org/obo/SYMP_0000782,right upper quadrant pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000783,left lower quadrant pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000784,epigastric pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000785,left upper quadrant pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000786,generalized pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000787,periumbilic pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000788,multiple sites pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000789,right lower quadrant pelvic mass,
+http://purl.obolibrary.org/obo/SYMP_0000790,multiple sites pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000791,generalized pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000792,epigastric pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000793,left lower quadrant pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000794,left upper quadrant pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000795,periumbilic pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000796,right lower quadrant pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000797,right upper quadrant pelvic swelling,
+http://purl.obolibrary.org/obo/SYMP_0000798,abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000799,abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000800,left upper quadrant abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000801,left lower quadrant abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000802,epigastric abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000803,multiple sites abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000804,generalized abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000805,periumbilic abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000806,right lower quadrant abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000807,right upper quadrant abdominal mass,
+http://purl.obolibrary.org/obo/SYMP_0000808,multiple sites abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000809,periumbilic abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000810,epigastric abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000811,left upper quadrant abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000812,right lower quadrant abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000813,right upper quadrant abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000814,generalized abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000815,left lower quadrant abdominal lump,
+http://purl.obolibrary.org/obo/SYMP_0000816,dysfunctions associated with arousal from sleep,
+http://purl.obolibrary.org/obo/SYMP_0000817,inability to concentrate,
+http://purl.obolibrary.org/obo/SYMP_0000818,localized superficial mass,
+http://purl.obolibrary.org/obo/SYMP_0000819,localized superficial swelling,
+http://purl.obolibrary.org/obo/SYMP_0000820,mass in chest,
+http://purl.obolibrary.org/obo/SYMP_0000821,swelling in chest,
+http://purl.obolibrary.org/obo/SYMP_0000822,chronic enteritis,"Chronic enteritis is a enteritis with slow progress, long duration, or frequent recurrence which can be due to Crohn's disease, giardiasis, tuberculosis, coeliac disease, or rarely due to Whipple's disease."
+http://purl.obolibrary.org/obo/SYMP_0000823,sinus bradycardia,Sinus bradycardia is a bradycardia where the sinus rhythm is abnormally slow bradycardia consisting of a sinus rhythm at a rate lower than 60 beats per minute.
+http://purl.obolibrary.org/obo/SYMP_0000824,junctional tachycardia,Junctional tachycardia is a tachycardia associated with the generation of impulses in a locus in the region of the atrioventricular node.
+http://purl.obolibrary.org/obo/SYMP_0000825,paroxysmal tachycardia,Paroxysmal tachycardia is a tachycardia that begins and ends abruptly and that is initiated by a premature supraventricular beat originating in the atrium or in the atrioventricular node or bundle of His or by a premature ventricular beat.
+http://purl.obolibrary.org/obo/SYMP_0000826,sinus tachycardia,Sinus tachycardia is a tachychardia characterized by an abnormally rapid sinus rhythm specifically a sinus rhythm at a rate greater than 100 beats per minute.
+http://purl.obolibrary.org/obo/SYMP_0000827,ventricular tachycardia,"A tachycardia that is associated with the generation of improper electrical impulses within the ventricles, characterized by an electrocardiogram showing a rate of greater than 120 BPM and three or more wide QRS complexes in a row."
+http://purl.obolibrary.org/obo/SYMP_0000828,sore eyes,Sore eyes is a eye symptom characterized by an inflammation of the thin covering of the eyeball and the inner eyelid brought about by a viral infection which may be highly contagious.
+http://purl.obolibrary.org/obo/SYMP_0000829,neck pain,"A pain that is characterized by an unpleasant sensation localized in the neck that usually indicates the body is threatened or damaged. The sensation may be sharp or dull, short-lived or chronic, intermittent or continual."
+http://purl.obolibrary.org/obo/SYMP_0000830,phantom pain,A pain that is characterized by a painful sensation that is perceived to originate in the amputated portion of the extremety. Patients may have localized pain that originates in the stump.
+http://purl.obolibrary.org/obo/SYMP_0000831,nociceptive pain,"A pain that is characterized by originating from other than the peripheral and central nervous systems, and which is caused by activation of nociceptive fibers."
+http://purl.obolibrary.org/obo/SYMP_0000832,neuropathic pain,"A pain that is characterized by being experienced by cancer patients and which is caused by radiotherapy or chemotherapy damage to nerves, when cancer invades or compresses nerves, or when, during cancer treatment. This type of pain is typically described as burning, electrical, or strange feeling."
+http://purl.obolibrary.org/obo/SYMP_0000833,visceral pain,"A pain that is characterized by originating from organ tissues of the thorax, abdomen, or pelvis.  It characterizes as deep, vague, and difficult to locate pain, that radiates away from the affected organ."
+http://purl.obolibrary.org/obo/SYMP_0000834,hypoesthesia,"A sensation perception that is characterized by a reduced sense of touch or sensation, or a partial loss of sensitivity to sensory stimuli."
+http://purl.obolibrary.org/obo/SYMP_0000835,hypoalgesia,A sensation perception that is characterized by a diminished sensitivity to painful stimulation.
+http://purl.obolibrary.org/obo/SYMP_0000836,hyperalgesia,A sensation perception that is characterized by an increased response to a painful stimulus.
+http://purl.obolibrary.org/obo/SYMP_0000837,chronic pain,A pain that is characterized by ranging from mild to severe and which continues beyond the expected healing phase.
+http://purl.obolibrary.org/obo/SYMP_0000838,breakthrough pain,"A pain that is characterized by occurring with movement and is not controlled by a scheduled pain medication regimen, such that the pain breaks through the current regimen. This is usually referred to in the context of a short and long acting opioid, the short acting opioid being used to treat the breakthrough pain."
+http://purl.obolibrary.org/obo/SYMP_0000839,acute pain,A pain that is characterized by being severe but lasting a relatively short time.
+http://purl.obolibrary.org/obo/SYMP_0000840,allodynia,"A pain that is characterized by a painful sensation with a normal, non-painful stimulation."
+http://purl.obolibrary.org/obo/SYMP_0000841,reactive hyperemia,Reactive hyperemia is a hyperemia occuring due to the dilation of arteriolar smooth muscle to increase blood flow in response to a profound increase in blood flow to an organ after being occluded. There will be a shortage of oxygen and a build-up of metabolic waste.
+http://purl.obolibrary.org/obo/SYMP_0000842,active hyperemia,Active hyperemia is a hyperemia occuring due to the dilation of arteriolar smooth muscle to increase blood flow in response to an increase in metabolism.
+http://purl.obolibrary.org/obo/SYMP_0000843,functional hyperemia,Functional hyperemia is a hyperemia occuring due to an increase in blood flow to a tissue due to the presence of metabolites and a change in general conditions.
+http://purl.obolibrary.org/obo/SYMP_0000844,face hyperemia,Hyperemia of the face is a head symptom consisting of an excess of blood in the tissues of the face as from an increased flow of blood due to vasodilation.
+http://purl.obolibrary.org/obo/SYMP_0000845,hyperemia of the neck,Hyperemia of the neck is a neck symptom consisting of an excess of blood in the tissues of the neck as from an increased flow of blood due to vasodilation.
+http://purl.obolibrary.org/obo/SYMP_0000846,chest hyperemia,Hyperemia of the chest is a cardiovascular system symptom consisting of an excess of blood in the tissues of the chest as from an increased flow of blood due to vasodilation.
+http://purl.obolibrary.org/obo/SYMP_0000847,spastic paralysis,A paralysis that is characterized by a tonic spasm of the affected muscles and with increased tendon reflexes.
+http://purl.obolibrary.org/obo/SYMP_0000848,motor paralysis,A paralysis that is characterized by a complete or partial loss of function the voluntary muscles.
+http://purl.obolibrary.org/obo/SYMP_0000849,stillbirth,"A reproductive system symptom that is characterized by the birth of a dead fetus; in which  a fetus that has died in the uterus, or during labor, or delivery, exits a woman's body."
+http://purl.obolibrary.org/obo/SYMP_0000850,congested sclera,Congested sclera is a hyperemia characterized as the congestion of the vessels of the outer layer of the eye containing collagen and elastic fibers.
+http://purl.obolibrary.org/obo/SYMP_0000851,gross hematuria,A hematuria that is characterized by the production of a visible redness in the urine.
+http://purl.obolibrary.org/obo/SYMP_0000853,stress incontinence,"A urinary incontinence that is characterized by an involuntary leakage of urine from the bladder accompanying physical activity (as in laughing, coughing, sneezing, or physical exercise) which places increased pressure on the abdomen."
+http://purl.obolibrary.org/obo/SYMP_0000854,hypermenorrhea,A menorrhagia that is characterized by an abnormally profuse or prolonged menstrual flow.
+http://purl.obolibrary.org/obo/SYMP_0000855,metrorrhagia,"A menorrhagia that is characterized by an irregular uterine bleeding, especially between menstrual periods."
+http://purl.obolibrary.org/obo/SYMP_0000856,subjective vertigo,A vertigo that is characterized by a sensation that one's body is revolving in space.
+http://purl.obolibrary.org/obo/SYMP_0000857,objective vertigo,A vertigo that is characterized by a sensation that the external world is revolving.
+http://purl.obolibrary.org/obo/SYMP_0000858,hypokinesia,Hypokinesia is a musculoskeletal system  symptom characterized by the slow or diminished movement of body musculature. It may be associated with basal ganglia diseases; mental disorders; prolonged inactivity due to illness; experimental protocols used to evaluate the physiologic effects of immobility; and other conditions.
+http://purl.obolibrary.org/obo/SYMP_0000859,rigidity hypokinesia,Rigidity hypokinesia a type of hypokinesia described as the increase in muscle tension when moved by an outside force.
+http://purl.obolibrary.org/obo/SYMP_0000860,postural instability hypokinesia,Postural instability hypokinesia is a hypokinesia described as a loss of ability to maintain an upright posture.
+http://purl.obolibrary.org/obo/SYMP_0000861,freezing hypokinesia,Freezing hypokinesia is a hypkinesia where a person can not move their muscles how they want them to.
+http://purl.obolibrary.org/obo/SYMP_0000862,referred pain,A pain that is characterized by pain which is subjectively localized in one region although it is due to irritation in another region.
+http://purl.obolibrary.org/obo/SYMP_0000863,facial tremor,"Facial tremor is a head symptom characterized by a trembling or shaking of the muscles of the face usually from physical weakness, emotional stress, or disease, may be emphasized by the firm closure of the eyes, elevation of the eyebrows, or drawing down and outward of the corners of the mouth."
+http://purl.obolibrary.org/obo/SYMP_0000864,lesions in oropharynx,
+http://purl.obolibrary.org/obo/SYMP_0000865,lesions in mouth,
+http://purl.obolibrary.org/obo/SYMP_0000866,cervical edema,Cervical edema is a neck symptom characterized by an abnormal excess accumulation of serous fluid in the soft tissue of the cervical area.
+http://purl.obolibrary.org/obo/SYMP_0000867,gastrointestinal bleeding,"A digestive system symptom characterized by bleeding from one or more of the areas of the digestive or gastrointestinal (GI) tract that includes the espophagus, stomach, small intestine, large intestine or colon, rectum and anus."
+http://purl.obolibrary.org/obo/SYMP_0000868,breathing problems,"A respiratory abnormality that is characterized by a shortness of breath, a hard or uncomfortable intake of air, or the feeling that you're not getting enough air."
+http://purl.obolibrary.org/obo/SYMP_0000869,nasal congestion,"A congestion that is characterized by a blockage of the nasal passages, usually due to the membranes lining the nose becoming swollen from inflamed blood vessels."
+http://purl.obolibrary.org/obo/SYMP_0000870,icteric eyes,Icteric eyes is a eye symptom characterized by yellowed eyes due to bile or bilirubin accumulation.
+http://purl.obolibrary.org/obo/SYMP_0000871,icteric mucous membrane,A skin and integumentary tissue symptom that is characterized by yellowed mucous membranes due to bile or bilirubin accumulation.
+http://purl.obolibrary.org/obo/SYMP_0000872,icteric skin,A skin and integumentary tissue symptom that is characterized by yellowed skin due to bile or bilirubin accumulation.
+http://purl.obolibrary.org/obo/SYMP_0000873,otitis,"Otitis is a ear symptom characterized as a general term for inflammation or infection of the ear, in both humans and other animals."
+http://purl.obolibrary.org/obo/SYMP_0000874,hematoma,"A skin and integumentary tissue symptom that is characterized by a mass of usually clotted blood that forms in a tissue, organ, or body space as a result of a broken blood vessel generally the result of hemorrhage, or more specifically, internal bleeding."
+http://purl.obolibrary.org/obo/SYMP_0000875,lameness,Lameness is a musculoskeletal system symptom where a person is physically disabled as the result of having a body part and especially a limb so disabled as to impair freedom of movement.
+http://purl.obolibrary.org/obo/SYMP_0000877,decreased tongue tone,
+http://purl.obolibrary.org/obo/SYMP_0000878,transient fever,A fever that is characterized by a rise of body temperature above the normal that is sustained for only a short period of time.
+http://purl.obolibrary.org/obo/SYMP_0000879,low-grade fever,A mild fever that is characterized by a fever that does not exceed 38.5 degrees Celsius (101.3 degrees Fahrenheit).
+http://purl.obolibrary.org/obo/SYMP_0000880,prolonged fever,A fever that is characterized by as  persisting over a prolonged period of time.
+http://purl.obolibrary.org/obo/SYMP_0000881,mild fever,A fever that is characterized by being mild in form.
+http://purl.obolibrary.org/obo/SYMP_0000882,high fever,A fever that is characterized by an elevated temperature.
+http://purl.obolibrary.org/obo/SYMP_0000883,very high fever,A high fever that is characterized by extremely high temperatures.
+http://purl.obolibrary.org/obo/SYMP_0000886,hyperpyrexia,"A fever that is characterized by an extreme elevation of body temperature greater than, or equal to, 41.5 degrees Celsius (106.7 degrees Fahrenheit)."
+http://purl.obolibrary.org/obo/SYMP_0000887,Pel-Epstein fever,"A fever that is characterized by association with Hodgkin's lymphoma, where the fever alternates weekly from high to low."
+http://purl.obolibrary.org/obo/SYMP_0000888,continuous fever,A fever that is characterized by a temperature remaining above normal throughout the day and which does not fluctuate more than 1 degree Celsius in 24 hours.
+http://purl.obolibrary.org/obo/SYMP_0000889,remittent fever,A fever that is characterized by a fever where the temperature remains above normal throughout the day and fluctuates more than 1 degree Celsius in 24 hours.
+http://purl.obolibrary.org/obo/SYMP_0000891,musculoskeletal system symptom,
+http://purl.obolibrary.org/obo/SYMP_0000892,sensation perception,A nervous system symptom that is characterized by interpretation of the information perceived by sensory receptors.
+http://purl.obolibrary.org/obo/SYMP_0000893,hypotensive,"A low blood pressure characterized by or due to abnormally low blood pressure, especially in the arteries of the systemic circulation."
+http://purl.obolibrary.org/obo/SYMP_0000894,cold clammy skin,"A skin and integumentary tissue symptom that is characterized by cold, moist and sticky skin."
+http://purl.obolibrary.org/obo/SYMP_0000895,anaphylactic shock,An acute allergic reaction to an antigen to which the body has become hypersensitive.
+http://purl.obolibrary.org/obo/SYMP_0000896,exophthalmos,An abnormal protrusion or displacement of an eye or other body part.
+http://purl.obolibrary.org/obo/SYMP_0000897,ventricular bradycardia,"A bradycardia associated with the generation of impules in the ventricles when impules from the atria fail to reach them, characterized by an electrocardiogram showing a heart rate below 50 BPM and a broad QRS complex."
+http://purl.obolibrary.org/obo/SYMP_0000898,cardiac fibrillation,"An arrhythmia characterized by rapid, irregular, and unsynchronized contraction of muscle fibers within the heart."
+http://purl.obolibrary.org/obo/SYMP_0000899,ventricular fibrillation,"A cardiac fibrillation associated with quivering of the lower chambers of the heart, preventing blood from being pumped and causing cardiac arrest."
+http://purl.obolibrary.org/obo/SYMP_0000900,allergic reaction,An immune system symptom that is characterized by sensitivities to substances called allergens.
+http://purl.obolibrary.org/obo/SYMP_0017795,hemic and immune system symptom,
+http://purl.obolibrary.org/obo/SYMP_0019138,immune system symptom,
+http://purl.obolibrary.org/obo/SYMP_0019139,hemic system symptom,
+http://purl.obolibrary.org/obo/SYMP_0019140,hematopoietic system symptom,
+http://purl.obolibrary.org/obo/SYMP_0019141,lymphatic system symptom,
+http://purl.obolibrary.org/obo/SYMP_0019142,lymphadenopathy,
+http://purl.obolibrary.org/obo/SYMP_0019143,coagulopathy,
+http://purl.obolibrary.org/obo/SYMP_0019144,microangiopathy,
+http://purl.obolibrary.org/obo/SYMP_0019145,vomiting,Vomiting is a digestive system symptom characterized by throwing up the stomach contents.
+http://purl.obolibrary.org/obo/SYMP_0019146,hyponatremia,
+http://purl.obolibrary.org/obo/SYMP_0019147,hematemesis,A vomiting where there is vomiting of blood.
+http://purl.obolibrary.org/obo/SYMP_0019148,septicemia,
+http://purl.obolibrary.org/obo/SYMP_0019149,toxemia,
+http://purl.obolibrary.org/obo/SYMP_0019152,diaphoresis,A sweat that is characterized by excessive sweating commonly associated with shock and other medical emergency conditions.
+http://purl.obolibrary.org/obo/SYMP_0019153,dyspnea,A respiratory abnormality that is characterized by difficult or labored respiration.
+http://purl.obolibrary.org/obo/SYMP_0019154,hemorrhagic mediastinitis,"A respiratory abnormality that is characterized by inflammation of the mediastinum (the chest cavity, which contains the heart, the thymus gland, some lymph nodes, and parts of the esophagus, aorta, thyroid, and parathyroid glands) as the result of bleeding."
+http://purl.obolibrary.org/obo/SYMP_0019156,hematogenous,
+http://purl.obolibrary.org/obo/SYMP_0019158,eschar,A skin and integumentary tissue symptom that is characterized by a scab formed especially after a burn.
+http://purl.obolibrary.org/obo/SYMP_0019160,boil,"A skin and integumentary tissue symptom that is characterized by a localized swelling and inflammation of the skin resulting from usually bacterial infection of a hair follicle and adjacent tissue, having a hard central core, and forming pus."
+http://purl.obolibrary.org/obo/SYMP_0019161,muscle pain,A pain that is characterized by a pain in one or more muscles.
+http://purl.obolibrary.org/obo/SYMP_0019162,muscle tightness,
+http://purl.obolibrary.org/obo/SYMP_0019163,eye symptom,
+http://purl.obolibrary.org/obo/SYMP_0019165,light sensitivity,
+http://purl.obolibrary.org/obo/SYMP_0019167,pustule,A skin and integumentary tissue symptom that is characterized by a small circumscribed elevation of the skin containing pus and having an inflamed base.
+http://purl.obolibrary.org/obo/SYMP_0019172,ocular lesion,
+http://purl.obolibrary.org/obo/SYMP_0019174,chills,
+http://purl.obolibrary.org/obo/SYMP_0019175,sweaty,A skin and integumentary tissue symptom that is characterized by the excretion of moisture in visible quantities through the opening of the sweat glands.
+http://purl.obolibrary.org/obo/SYMP_0019176,malaise,"A neurological and physiological symptom that is characterized by an indefinite feeling of debility or lack of health, often indicative of or accompanying the onset of an illness."
+http://purl.obolibrary.org/obo/SYMP_0019177,fatigue,"A neurological and physiological symptom that is characterized by a weariness or exhaustion from labor, exertion, or stress."
+http://purl.obolibrary.org/obo/SYMP_0019178,necrotic lesion,"A skin and integumentary tissue symptom that is characterized by regions of cell death to living tissue in an organ, which has suffered damage through injury or disease, such as a wound, ulcer, abscess, or tumor."
+http://purl.obolibrary.org/obo/SYMP_0019179,lightheadedness,"A  balance symptom that is characterized by a condition of being dizzy or on the verge of fainting, particularly when one arises to a standing position. Lightheadedness is a predictable consequence of any medication tending to lower blood pressure."
+http://purl.obolibrary.org/obo/SYMP_0019180,constipation,"Constipation is a feces and droppings symptom involving the abnormally delayed or infrequent passage of dry hardened feces. Constipation may be categorized into three subtypes: normal-transit, slow-transit, and pelvic floor dysfunction."
+http://purl.obolibrary.org/obo/SYMP_0019181,hoarseness,
+http://purl.obolibrary.org/obo/SYMP_0019182,behavioral symptom,"A nervous system symptom that is characterized by an involvement, or relation to, or emphasizes behavior."
+http://purl.obolibrary.org/obo/SYMP_0019183,hyperactivity,"A behavioral symptom that is characterized by an increase in movement, impulsive actions, a shorter attention span, and being easily distracted."
+http://purl.obolibrary.org/obo/SYMP_0019184,limited attention,A behavioral symptom that is characterized by a restricted rate of information processing by the brain.
+http://purl.obolibrary.org/obo/SYMP_0019185,communication difficulty,"A behavioral symptom that is characterized by speech, language and communication needs or communication disabilities."
+http://purl.obolibrary.org/obo/SYMP_0019186,obsessive interests,A behavioral symptom that is characterized by obsessive and highly-focused interests.
+http://purl.obolibrary.org/obo/SYMP_0019187,repetitive behavior,A behavioral symptom that is characterized by an unusual repetitive motor movements or manipulation of objects.
+http://purl.obolibrary.org/obo/SYMP_0019188,intracranial hemorrhage,A hemorrhage that is characterized by any bleeding occurring within the skull.
+http://purl.obolibrary.org/obo/SYMP_0019189,intracerebral hemorrhage,A hemorrhage that is characterized by bleeding within the brain tissue itself.
+http://purl.obolibrary.org/obo/SYMP_0019190,subdural hemorrhage,A hemorrhage that is characterized by bleeding that occurs within the skull of head but outside the actual brain tissue.
+http://purl.obolibrary.org/obo/SYMP_0020000,airway stenosis,A respiratory system and chest symptom that is characterized by a narrowing in the airway that obstructs the passage of air into the lungs.  Examples include tracheal and laryngotracheal stenosis.
+http://purl.obolibrary.org/obo/SYMP_0020001,apthous ulcer,"A skin ulcer that is characterized by a small recurrent, painful, round or ovoid ulcers with well-defined erythematous margins, like a halo, and a central yellow or gray floor found in the soft tissue of the oral cavity."
+http://purl.obolibrary.org/obo/SYMP_0020002,anal abscess,
+http://purl.obolibrary.org/obo/SYMP_0020003,acholic stool,
+http://purl.obolibrary.org/obo/SYMP_0020004,ageusia,A disturbances of sensation of smell and taste that is characterized by a complete loss of taste function of the tongue.
+http://purl.obolibrary.org/obo/SYMP_0020005,acquired color vision deficiency,
+http://purl.obolibrary.org/obo/SYMP_0020006,agitation,A neurological and physiological symptom that is characterized by a feeling of irritability or severe restlessness.
+http://purl.obolibrary.org/obo/SYMP_0020007,anterior scleral inflammation,
+http://purl.obolibrary.org/obo/SYMP_0020008,barking croup cough,"A cough that is characterized by a tight, low-pitched, and barky (like a barking seal) cough."
+http://purl.obolibrary.org/obo/SYMP_0020009,blind spot,
+http://purl.obolibrary.org/obo/SYMP_0020010,blurred vision with haloes,
+http://purl.obolibrary.org/obo/SYMP_0020011,bloody diarrhea,
+http://purl.obolibrary.org/obo/SYMP_0020012,weight symptom,
+http://purl.obolibrary.org/obo/SYMP_0020013,abnormal weight loss,"A weight loss that is characterized as deviating from what is normal or usual, typically in a way that is undesirable or worrying."
+http://purl.obolibrary.org/obo/SYMP_0020014,chronic weight loss,"A weight loss that is characterized by conditions that last 1 year or more and require ongoing medical attention, or limit activities of daily living, or both."
+http://purl.obolibrary.org/obo/SYMP_0020016,acute weight gain,A weight gain that is characterized by a severe and sudden onset.
+http://purl.obolibrary.org/obo/SYMP_0020017,chronic weight gain,"A weight gain that is characterized by conditions that last 1 year or more and require ongoing medical attention, or limit activities of daily living, or both."
+http://purl.obolibrary.org/obo/SYMP_0020018,overweight,"A weight symptom that is characterized by being too heavy for one’s height. Excess body weight can come from fat, muscle, bone, and/or water retention. Being overweight does not always mean being obese."
+http://purl.obolibrary.org/obo/SYMP_0020019,postnasal drainage,A nose symptom that is characterized by an an excessive secretion of mucous down the back of the throat.
+http://purl.obolibrary.org/obo/SYMP_0020020,abnormal scar formation,
+http://purl.obolibrary.org/obo/SYMP_0020021,abnormal wound healing,
+http://purl.obolibrary.org/obo/SYMP_0020022,bone conduction hyperacusis,An ear symptom - need proper definition - placeholder for xref.
+http://purl.obolibrary.org/obo/SYMP_0020023,bone pain,
+http://purl.obolibrary.org/obo/SYMP_0020024,bronchospasm,A respiratory system and chest symptom that is characterized by constriction of the air passages of the lung (as in asthma) by spasmodic contraction of the bronchial muscles.
+http://purl.obolibrary.org/obo/SYMP_0020025,caseation,A respiratory system and chest symptom that is characterized by necrosis of tissue with conversion of damaged tissue into a soft cheesy substance.
+http://purl.obolibrary.org/obo/SYMP_0020026,chronic inflammation,
+http://purl.obolibrary.org/obo/SYMP_0020027,wet cough,A cough that is characterized by a production and expectoration (bringing up) of mucus (phlegm) or sputum.
+http://purl.obolibrary.org/obo/SYMP_0020028,poor wound healing,
+http://purl.obolibrary.org/obo/SYMP_0020029,concentration difficulty,"An alteration of consciousness that is characterized by a decreased ability to focus one's thoughts on something. Concentration difficulties can be related to difficulty staying awake, impulsiveness, intrusive thoughts or concerns, overactivity, or inattention. They can be caused by medical, cognitive or psychological problems, or, may be related to sleep disorders, medications, alcohol, or drugs."
+http://purl.obolibrary.org/obo/SYMP_0020030,patches of hair loss with a black dot pattern,"A hair symptom that is characterized by patchy hair loss and the presence of comedo-like cadaver hairs, which appear as black dots."
+http://purl.obolibrary.org/obo/SYMP_0020031,chest discomfort,"A respiratory system and chest symptom that is characterized by pain, pressure, tightness, or other discomfort originating in or radiating to the chest, which constitutes an important indicator of potentially serious cardiac or cardiovascular disorders."
+http://purl.obolibrary.org/obo/SYMP_0020032,chest tightness,A chest discomfort that is characterized by any type of pain or discomfort between your upper belly and lower neck.
+http://purl.obolibrary.org/obo/SYMP_0020033,paroxysmal cough,A cough that is characterized by a persistent cough with sudden onset due to difficulty expelling thick mucus from the tracheobronchial tree. This type of cough is associated with diseases such as Pertussis (Whooping Cough).
+http://purl.obolibrary.org/obo/SYMP_0020034,conjunctiva symptom,
+http://purl.obolibrary.org/obo/SYMP_0020035,conjunctival congestion,An eye symptom that is characterized by (need def conjunctival congestion - placeholder for xref).
+http://purl.obolibrary.org/obo/SYMP_0020037,conjunctival suffusion,An eye symptom that is characterized by (need def conjunctival suffusion - placeholder for xref).
+http://purl.obolibrary.org/obo/SYMP_0020038,conjunctival swelling,
+http://purl.obolibrary.org/obo/SYMP_0020039,contracture,"A musculoskeletal system symptom that is characterized by a permanent tightening of the muscles, tendons, skin, and nearby tissues that causes the joints to shorten and become very stiff."
+http://purl.obolibrary.org/obo/SYMP_0020040,hair symptom,
+http://purl.obolibrary.org/obo/SYMP_0020041,corkscrew hair,"A hair symptom that is characterized by coiled “corkscrew” hairs on the surface of the arms, legs and chest, which can occur as a result low level of ascorbic acid (vitamin C)."
+http://purl.obolibrary.org/obo/SYMP_0020042,corneal scarring,"A cornea symptom that is characterized by scarring (an opacity or irregularity in the cornea) of the cornea, from trauma; abrasion; bacterial, fungal, viral, or parasitic infection; or disease, and can result in impaired vision, or even blindness."
+http://purl.obolibrary.org/obo/SYMP_0020043,dark urine,"A urinary system symptom that is characterized by an elevation in the concentration of the the pigments from foods, dyes, and medications in urine. The dilution of these pigment is dependent on the amount of water intake and severe dehydration can lead to a dark color."
+http://purl.obolibrary.org/obo/SYMP_0020044,hair shedding,"A hair symptom that is characterized by significant falling out of hair, which may be a result of stress, high fever, and other factors."
+http://purl.obolibrary.org/obo/SYMP_0020045,balance symptom,"A neurological and physiological symptom that is characterized by any of the following: dizziness or vertigo (a spinning sensation); falling or feeling as if you are going to fall; staggering when walking; lightheadedness, faintness, or a floating sensation; and confusion or disorientation."
+http://purl.obolibrary.org/obo/SYMP_0020046,feeding problem,"A feeding difficulties and mismanagement that is characterized by delays and/or disorders in the development of eating and drinking skills including disordered placement of food in the mouth, difficulty in appropriately manipulating food when it is in the mouth, difficulty chewing, and/or difficulty swallowing."
+http://purl.obolibrary.org/obo/SYMP_0020047,descending muscle paralysis,"A paralysis that is characterized by a loss of motor function in one or more muscles, which can also be accompanied by a loss of feeling (sensory loss). Descending paralysis contrasts with ascending paralysis in that descending paralysis presents in the upper limbs before the lower limbs. Descending paralysis occurs in conditions such as botulism."
+http://purl.obolibrary.org/obo/SYMP_0020048,skin peeling,
+http://purl.obolibrary.org/obo/SYMP_0020049,delayed psychomotor development,"A nutrition, metabolism, and development symptom that is characterized by the delay in development child's cognitive, emotional, motor, and social capacities from the beginning of life throughout fetal and neonatal periods, infancy, childhood, and adolescence."
+http://purl.obolibrary.org/obo/SYMP_0020050,decreased tearing,An eye symptom that is characterized by a reduction in the saline fluid secreted by the lacrimal gland.
+http://purl.obolibrary.org/obo/SYMP_0020051,decreased metabolism,"A nutrition, metabolism, and development symptom that is characterized by a reduction in the chemical reactions catalyzed by enzymes, which keep us alive. Metabolism allows organisms to grow, reproduce, maintain their structures, and respond to their environments and can be divided into catabolism (breaking down of organic matter) and anabolism (building of molecules)."
+http://purl.obolibrary.org/obo/SYMP_0020052,hand weakness,"A muscle weakness that is characterized by a reduction in muscle strength, which may be the result of a variety of conditions, such as carpal tunnel syndrome, arthritis, peripheral neuropathy, tendon damage, and ganglion cysts."
+http://purl.obolibrary.org/obo/SYMP_0020053,mammary gland inflammation,A skin and integumentary tissue symptom that is characterized by an inflammation of the mammary gland or udder and usually caused by infection.
+http://purl.obolibrary.org/obo/SYMP_0020054,severe mammary gland inflammation,A mammary gland inflammation that is characterized by an increased intensity or severity of the condition.
+http://purl.obolibrary.org/obo/SYMP_0020055,pharynx inflammation,
+http://purl.obolibrary.org/obo/SYMP_0020056,cerebrovascular accident,"A nervous system symptom that is characterized by a loss of blood flow to part of the brain, which damages brain tissue. Cerebrovascular accidents are caused by blood clots and broken blood vessels in the brain."
+http://purl.obolibrary.org/obo/SYMP_0020057,bronchiole inflammation,"A respiratory system and chest symptom that is characterized by acute inflammation of the bronchi, accompanied by inflamed patches in the nearby lobules of the lungs."
+http://purl.obolibrary.org/obo/SYMP_0020058,severe bronchiole inflammation,
+http://purl.obolibrary.org/obo/SYMP_0020059,suppurative bronchiole inflammation,
+http://purl.obolibrary.org/obo/SYMP_0020060,low white blood cell count,
+http://purl.obolibrary.org/obo/SYMP_0020061,outlet dysfunction constipation,"A constipation that is characterized by difficulty passing bowel movements after they reach the rectum. One experiences difficulty evacuating the stool and often has to strain or press the fingers into the vagina or in front of or into the rectum to help remove the stool. Outlet dysfunction can be caused by inappropriate or abnormal muscle contraction of the pelvic floor (called pelvic floor dyssynergia or dyssynergic defecation) which can respond to biofeedback. It may also be due to a rectocele or other structural changes in the pelvic floor that will require medical or at times, surgical treatment."
+http://purl.obolibrary.org/obo/SYMP_0020062,soft tissue necrosis,"A musculoskeletal system symptom that is characterized by necrosis (i.e. tissue death) of soft tissue, including muscle, fat, blood vessels, nerves, tendons, and tissues that surround the bones and joints."
+http://purl.obolibrary.org/obo/SYMP_0020063,blood pressure,
+http://purl.obolibrary.org/obo/SYMP_0020064,high blood pressure,
+http://purl.obolibrary.org/obo/TRANS_0000000,transmission process,"A process that is the means during which the pathogen is transmitted directly or indirectly from its natural reservoir, a susceptible host or source to a new host."
+http://purl.obolibrary.org/obo/TRANS_0000001,direct transmission,"Direct transmission is a transmission process that is the means during which the pathogen is transmitted immediately from a reservoir, source or host to another host."
+http://purl.obolibrary.org/obo/TRANS_0000002,indirect transmission,"Indirect transmission is a transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by intermediary vehicles, vectors or as airborne dust particles."
+http://purl.obolibrary.org/obo/TRANS_0000003,mechanical transmission,"Mechanical transmission is an indirect vector-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by being transported on the external surface of the vector."
+http://purl.obolibrary.org/obo/TRANS_0000005,vector-borne transmission,"Vector-borne transmission is an indirect transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an animate intermediary vector to another host. Most vectors are arthropods such as mosquitoes, fleas, and ticks."
+http://purl.obolibrary.org/obo/TRANS_0000006,congenital transmission,Congenital transmission is a direct transmission process during which the pathogen is transmitted directly from mother to child at or around the time of birth.
+http://purl.obolibrary.org/obo/TRANS_0000007,contact transmission,"Contact transmission is a direct transmission process during which the pathogen is transmitted   from a reservoir, source or host to another host by kissing, skin-to-skin contact, sexual intercourse, or by contact with soil or vegetation containing the pathogen."
+http://purl.obolibrary.org/obo/TRANS_0000008,droplet spread transmission,"Droplet spread transmission is a direct transmission process during which the pathogen is transmitted from a reservoir, source or host to another host by spray of aerosols over a short distance, spray from sneezing, coughing or talking."
+http://purl.obolibrary.org/obo/TRANS_0000009,airborne transmission,"Airborne transmission is an indirect transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host while suspended in the air as dust."
+http://purl.obolibrary.org/obo/TRANS_0000010,vehicle-borne transmission,"Vehicle-borne transmission is an indirect transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by inanimate intermediary vehicle objects."
+http://purl.obolibrary.org/obo/TRANS_0000011,vehicle-borne fomite transmission,"Vehicle-borne fomite transmission is an indirect vehicle-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by inanimate objects including: medical instruments, cloth, fur, metal or plastic utensils."
+http://purl.obolibrary.org/obo/TRANS_0000012,vehicle-borne ingestion transmission,"Vehicle-borne ingestion transmission is an indirect vehicle-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by ingestion of fluids or foods or food products including: food, water, milk, or meat products."
+http://purl.obolibrary.org/obo/TRANS_0000013,vehicle-borne medical transmission,"Vehicle-borne medical transmission is an indirect vehicle-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host to another host by biological products including: blood, serum, plasma, tissue, or organs."
+http://purl.obolibrary.org/obo/TRANS_0000014,vector-borne bite transmission,"Vector-borne bite transmission is an indirect vector-borne transmission during which the pathogen is indirectly transferred by insect bites from a reservoir, source or host via a vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000015,biologic transmission,"Biological transmission is an indirect vector-borne transmission process during which the pathogen is transported, from a reservoir, source or host to another host, within the vector and undergoes part of it's lifecycle in the vector."
+http://purl.obolibrary.org/obo/TRANS_0000018,placental transmission,Placental transmission is a congenital transmission process during which the pathogen is transmitted directly from mother to child across the placental barrier.
+http://purl.obolibrary.org/obo/TRANS_0000019,arthropod borne transmission,"Arthropod borne transmission is a vector-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an animate intermediary arthropod vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000020,insect borne transmission,"Insect borne transmission is an arthropod vector-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary insect vector such as a flea or mosquito to another host."
+http://purl.obolibrary.org/obo/TRANS_0000021,mosquito borne transmission,"Mosquito borne transmission is an insect borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary mosquito vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000022,Anopheles gambiae borne transmission,"Anopheles gambiae borne transmission is a mosquito borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary mosquito vector of the species Anopheles gambiae to another host."
+http://purl.obolibrary.org/obo/TRANS_0000023,flea borne transmission,"Flea borne transmission is an insect borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary flea vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000024,tick borne transmission,"Tick borne transmission is an arachnid borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary tick vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000025,copepod borne transmission,"Copepod borne transmission is a vector-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an animate intermediary copepod vector to another host."
+http://purl.obolibrary.org/obo/TRANS_0000026,Dracunculus medinensis borne transmission,"Dracunculus medinensis borne transmission is a copepod borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an animate intermediary copepod vector of the species Dracunculus medinensis to another host."
+http://purl.obolibrary.org/obo/TRANS_0000027,arachnid borne transmission,"Arachnid borne transmission is an arthropod vector-borne transmission process during which the pathogen is indirectly transferred from a reservoir, source or host via an intermediary arthropod vector such as a tick to another host."
+http://purl.obolibrary.org/obo/TRANS_0000028,propagative transmission,Propagative transmission is an indirect vector-borne biological transmission process during which the pathogen that is ingested with the blood meal undergoes simple multiplication in the body of the vector.
+http://purl.obolibrary.org/obo/TRANS_0000029,cyclopropagative transmission,Cyclopropagative transmission is an indirect vector-borne biological transmission process during which the pathogen undergoes a developmental cycle (changes from one stage to another) as well as multiplication in the body of the vector.
+http://purl.obolibrary.org/obo/TRANS_0000030,cyclodevelopmental transmission,"Cyclodevelopmental transmission is an indirect vector-borne biological transmission process during which the pathogen undergoes developmental changes from one stage to another, but does not multiply."
+http://purl.obolibrary.org/obo/TRANS_0000031,transovarial transmission,Transovarial transmission is an indirect vector-borne biological transmission process during which the pathogen is transmitted from the female parent through the eggs to the offspring and the developing egg is infected.
+http://purl.obolibrary.org/obo/TRANS_0000032,vertical transmission,Vertical transmission is an indirect vector-borne biological transmission process during which the pathogen is transmitted from the female parent through the eggs to the offspring. Only the ovarial sheath and oviduct are infected.  The egg becomes infected as it passes down the oviduct and is inseminated.
+http://purl.obolibrary.org/obo/TRANS_0000033,trans-stadial transmission,"Trans-stadial transmission is an indirect vector-borne biological transmission process during which the newly hatched larval stages are infected with the pathogen, which is then transmitted to subsequent development stages of the vector."
+http://purl.obolibrary.org/obo/TRANS_0000034,veneral transmission,Veneral transmission is an indirect vector-borne biological transmission process during which the pathogen is transferred to uninfected female vectors in the seminal fluid during copulation.
+http://purl.obolibrary.org/obo/DISDRIV_0000007,deficiency of vitamin C,
+http://purl.obolibrary.org/obo/CHEBI_30879,alcohol,"A compound in which a hydroxy group, -OH, is attached to a saturated carbon atom."
+http://purl.obolibrary.org/obo/CHEBI_35681,secondary alcohol,
+http://purl.obolibrary.org/obo/CHEBI_36835,3alpha-hydroxy steroid,
+http://purl.obolibrary.org/obo/CHEBI_50904,allergen,"A chemical compound, or part thereof, which causes the onset of an allergic reaction by interacting with any of the molecular pathways involved in an allergy."
+http://purl.obolibrary.org/obo/CHEBI_8884,rocuronium,
+http://purl.obolibrary.org/obo/DISDRIV_0000000,disease driver,Environmental or genetic mechanisms driving the occurrance of complex diseases.
+http://purl.obolibrary.org/obo/DISDRIV_0000001,nutrient deficiency,A disease driver that is comprised of a shortage of a nutrient.
+http://purl.obolibrary.org/obo/DISDRIV_0000002,socioeconomic driver,A disease driver that is related to or concerning the interaction of social and economic factors.
+http://purl.obolibrary.org/obo/DISDRIV_0000003,biological driver,A disease driver that is of biological origin.
+http://purl.obolibrary.org/obo/DISDRIV_0000004,deficiency of biotin,"A nutrient deficiency of vitamin B7 (biotin) foods like eggs, milk, and bananas."
+http://purl.obolibrary.org/obo/DISDRIV_0000005,deficiency of choline,A nutrient deficiency.
+http://purl.obolibrary.org/obo/DISDRIV_0000006,chemical driver,A disease driver that is a chemical.
+http://purl.obolibrary.org/obo/ExO_0000007,ecological perturbations,"An exposure stressor that is a change in the distributions, abundance and relations of organisms and their interactions with the environment."
+http://purl.obolibrary.org/obo/ExO_0000013,acid rain,"An ecological perturbation that is acidic water, usually pH 2.5 to 4.5, which poisons the ecosystem and adversely affects plants, fishes, and mammals. It is caused by industrial pollutants, mainly sulfur oxides and nitrogen oxides, emitted into the atmosphere and returning to earth in the form of acidic rain water."
+http://purl.obolibrary.org/obo/ExO_0000014,climate change,"An ecological pertubation that is any significant change in measures of climate (such as temperature, precipitation, or wind) lasting for an extended period (decades or longer). It may result from natural factors such as changes in the sun's intensity, natural processes within the climate system such as changes in ocean circulation, or human activities."
+http://purl.obolibrary.org/obo/ExO_0000015,poverty,"A psychosocial agent that is a situation in which the level of living of an individual, family, or group is below the standard of the community. It is often related to a specific income level."
+http://purl.obolibrary.org/obo/FOODON_00001579,alcoholic beverage,"An alcoholic drink (or alcoholic beverage) is a drink that contains ethanol, a type of alcohol produced by fermentation of grains, fruits, or other sources of sugar."
+http://purl.obolibrary.org/obo/NCIT_C163032,botulinum toxin,"A biological driver that is botulinum toxin, caused by a toxin made by a bacterium called Clostridium botulinum."
