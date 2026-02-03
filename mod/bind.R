@@ -20,7 +20,7 @@ bind_en_es <- function(en_file, es_file, out_file) {
         rename_abbrev("en")
     es <- readr$read_csv(es_file, col_types = "c") |>
         rename_abbrev("es")
-    out <- bind_cols(en, es) |>
+    out <- dplyr$bind_cols(en, es) |>
         dplyr$mutate(class_match = class == clase)
 
     not_match <- sum(!out$class_match)
