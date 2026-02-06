@@ -78,7 +78,7 @@ get_import_version <- function(path) {
   version
 }
 
-standardize_in_part <- function(.df, translator, trans_date, status) {
+standardize_in_part <- function(.df) {
   dplyr::select(.df, -"class_es") |>
     tidyr::pivot_longer(
       cols = -"class_en",
@@ -87,15 +87,11 @@ standardize_in_part <- function(.df, translator, trans_date, status) {
       values_drop_na = TRUE
     ) |>
     dplyr::rename(
-      source_id = "class_en", source_text = "en", translation_text = "es"
+      subject_id = "class_en", source_value = "en", translation_value = "es"
     ) |>
     dplyr::mutate(
-      translator = translator,
-      translation_date = trans_date,
-      source_lang = "en",
-      translation_lang = "es",
-      status = status,
-      status_history = NA
+      source_language = "en",
+      translation_language = "es",
     )
 }
 
@@ -143,19 +139,17 @@ if (valid$status == "invalid") {
 
 
 # 2. standardize to "final" format & merge into single data.frame
-en_es <- purrr:::map(
-  list(labdef, syn),
-  ~ standardize_in_part(
-    .x,
-    translator = "The Spanish Group LLC (https://thespanishgroup.org/)",
-    trans_date = "2024-05-21",
-    status = "MANUALLY TRANSLATED"
-  )
-) |>
+en_es <- purrr:::map(list(labdef, syn), ~ standardize_in_part(.x)) |>
   dplyr::bind_rows() |>
   dplyr::mutate(
-    translator_info = "Translator: Alexander Largaespada; Reviewer: Salvador G. Ordorica",
-    source_id = mod$general$uri_curie(source_id, to = "curie")
+    subject_id = mod$general$uri_curie(subject_id, to = "curie"),
+    translator = "Alexander Largaespada",
+    translator_expertise = "PROFESSIONAL_TRANSLATOR",
+    translation_provider = "The Spanish Group LLC (https://thespanishgroup.org/)",
+    translation_date = "2024-05-21",
+    translation_status = "CANDIDATE",
+    comment = "certified by Salvador G. Ordorica (ATA #267262)",
+    status_history = NA
   )
 
 
@@ -196,21 +190,24 @@ ont_data <- purrr::map(
       deprecated = ifelse(is.na(.data$deprecated), FALSE, .data$deprecated)
     )
 ) |>
-  dplyr::bind_rows(.id = "ontology")
+  dplyr::bind_rows(.id = "source") |>
+  dplyr::mutate(
+    source = paste0("http://purl.obolibrary.org/obo/", .data$source, ".owl")
+  )
 
 # 3b. validate ontology data
-# confirm source_lang is "en" or NA only, then drop it
-if(!all(is.na(ont_data$source_lang) | ont_data$source_lang == "en")) {
-  stop("Unexpected source_lang values in ontology data")
+# confirm source_language is "en" or NA only, then drop it
+if(!all(is.na(ont_data$source_language) | ont_data$source_language == "en")) {
+  stop("Unexpected source_language values in ontology data")
 }
 ont_df <- ont_data |>
   # drop text expected to be untranslated (obsolete, ontology metadata)
   #  --> not submitted to TSG
   dplyr::filter(
-    !stringr::str_detect(.data$source_id, ".owl$"),
+    !stringr::str_detect(.data$subject_id, ".owl$"),
     !deprecated
   ) |>
-  dplyr::select(-"source_lang", -"deprecated")
+  dplyr::select(-"source_language", -"deprecated")
 
 
 # 4. merge translation & ontology data, and validate
@@ -218,28 +215,28 @@ ont_df <- ont_data |>
 full_df <- dplyr::full_join(
   en_es,
   ont_df,
-  by = c("source_id", "source_text")
+  by = c("subject_id", "source_value")
 ) |>
   # ignore non-DISDRIV terms that were translated
   dplyr::filter(
     stringr::str_detect(
-      .data$source_id,
+      .data$subject_id,
       paste0(stringr::str_to_upper(ontologies), collapse = "|")
     )
   )
 
 # 4b. validate
-# 4b-i. check all source_id/source_text pairs have matching ontology data
+# 4b-i. check all subject_id/source_value pairs have matching ontology data
 invalid <- dplyr::filter(
   full_df,
-  is.na(.data$translation_text) | is.na(.data$predicate),
+  is.na(.data$translation_value) | is.na(.data$predicate_id),
   # 3 additional CHEBI terms got pulled in from CHEBI import, not DISDRIV
-  # !stringr::str_detect(.data$source_id, "obo:CHEBI_(35681|36835|8884)$")
+  # !stringr::str_detect(.data$subject_id, "obo:CHEBI_(35681|36835|8884)$")
 )
 if (nrow(invalid) > 0) {
   stop(
-    "Some source_id/source_text pairs do not have matching ontology data:\n  ",
-    paste0(invalid$source_id, collapse = ", ")
+    "Some subject_id/source_value pairs do not have matching ontology data:\n  ",
+    paste0(invalid$subject_id, collapse = ", ")
   )
 }
 
@@ -247,7 +244,7 @@ if (nrow(invalid) > 0) {
 invalid <- dplyr::mutate(
   full_df,
   expected_type = dplyr::case_match(
-    .data$predicate,
+    .data$predicate_id,
     "rdfs:label" ~ "label",
     "IAO:0000115" ~ "definition",
     "oboInOwl:hasExactSynonym" ~ "syn",
@@ -260,8 +257,8 @@ invalid <- dplyr::mutate(
   dplyr::filter(.data$type != .data$expected_type)
 if (nrow(invalid) > 0) {
   stop(
-    "Some text 'type' values do not match expected predicate types:\n  ",
-    paste0(invalid$source_id, " (", invalid$predicate, " != ", invalid$type, ")", collapse = ", ")
+    "Some text 'type' values do not match expected predicate_id types:\n  ",
+    paste0(invalid$subject_id, " (", invalid$predicate_id, " != ", invalid$type, ")", collapse = ", ")
   )
 }
 
@@ -270,15 +267,10 @@ if (nrow(invalid) > 0) {
 #   --> official columns to be added with or after automated scoring:
 #        "auto_review_score", "final_reviewer", "review_notes"
 stdd_records <- full_df |>
-  dplyr::relocate("predicate", .after = "source_id") |>
-  dplyr::relocate(
-    "synonym_type", "source_version", "translator_info",
-    .before = "status_history"
-  ) |>
-  dplyr::relocate("ontology", "type", .before = 1) |>
+  dplyr::relocate(dplyr::any_of(mod$babelonplus$col_order)) |>
   dplyr::arrange(
-    .data$ontology, .data$type,
-    .data$source_id, .data$predicate, .data$source_text
+    .data$source, .data$type,
+    .data$subject_id, .data$predicate_id, .data$source_value
   )
 
 readr::write_tsv(stdd_records, output_file)

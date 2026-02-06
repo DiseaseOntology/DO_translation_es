@@ -104,8 +104,8 @@ create_robot_template <- function(.df, path = NULL) {
 #' [langMatches](https://www.w3.org/TR/sparql11-query/#func-langMatches)
 #' function internally).
 #'
-#' @returns A tibble with 6 columns: `source_id`, `predicate`, `source_text`,
-#' `source_lang`, `synonym_type` (only applicable when predicate is an
+#' @returns A tibble with 6 columns: `subject_id`, `predicate_id`, `source_value`,
+#' `source_language`, `synonym_type` (only applicable when predicate_id is an
 #' `oboInOwl` synonym scope), and `deprecated`.
 #'
 #' @family ROBOT-requiring functions
@@ -136,10 +136,10 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "any") {
     PREFIX obo: <http://purl.obolibrary.org/obo/>
     PREFIX oboInOwl: <http://www.geneontology.org/formats/oboInOwl#>
 
-    SELECT ?source_id ?predicate ?source_text ?source_lang ?synonym_type ?deprecated
+    SELECT ?subject_id ?predicate_id ?source_value ?source_language ?synonym_type ?deprecated
     WHERE {
       {
-        VALUES ?predicate {
+        VALUES ?predicate_id {
           rdfs:label
           obo:IAO_0000115
           oboInOwl:hasExactSynonym
@@ -148,36 +148,36 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "any") {
           oboInOwl:hasRelatedSynonym
         }
 
-        ?source_id a owl:Class ;
-          ?predicate ?text .
+        ?subject_id a owl:Class ;
+          ?predicate_id ?text .
 
         !<<lang_filter>>!
-        BIND(str(?text) AS ?source_text)
-        BIND(lang(?text) AS ?source_lang)
-        OPTIONAL { ?source_id owl:deprecated ?deprecated }
+        BIND(str(?text) AS ?source_value)
+        BIND(lang(?text) AS ?source_language)
+        OPTIONAL { ?subject_id owl:deprecated ?deprecated }
         OPTIONAL {
-          [] owl:annotatedSource ?source_id ;
-            owl:annotatedProperty ?predicate ;
+          [] owl:annotatedSource ?subject_id ;
+            owl:annotatedProperty ?predicate_id ;
             owl:annotatedTarget ?text ;
             oboInOwl:hasSynonymType ?synonym_type .
         }
       }
       UNION
       {
-        VALUES ?predicate {
+        VALUES ?predicate_id {
           dc:description
           rdfs:comment
         }
 
-        ?source_id a owl:Ontology .
+        ?subject_id a owl:Ontology .
 
         OPTIONAL {
-          ?source_id ?predicate ?text .
+          ?subject_id ?predicate_id ?text .
           !<<lang_filter>>!
         }
 
-        BIND(str(?text) AS ?source_text)
-        BIND(lang(?text) AS ?source_lang)
+        BIND(str(?text) AS ?source_value)
+        BIND(lang(?text) AS ?source_language)
       }
     }')
 
@@ -197,7 +197,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "any") {
   out <- readr$read_tsv(save, show_col_types = FALSE)
   if (nrow(out) == 0) {
     out <- c(rep(list(character(0)), 3), list(logical(0)))
-    names(out) <- c("source_id", "predicate", "source_text", "source_lang",
+    names(out) <- c("subject_id", "predicate_id", "source_value", "source_language",
                     "synonym_type", "deprecated")
     return(tibble$as_tibble(out))
   }
@@ -212,7 +212,7 @@ get_obo_text <- function(path, save = NULL, id_as = "curie", lang = "any") {
     out <- out |>
       dplyr$mutate(
         dplyr$across(
-          c("source_id", "predicate", "synonym_type"),
+          c("subject_id", "predicate_id", "synonym_type"),
           general$uri_curie
         )
       )

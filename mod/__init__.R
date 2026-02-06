@@ -1,5 +1,6 @@
 #' @export
 box::use(
+    ./babelonplus,
     ./bind,
     ./general,
     ./gs_review,
