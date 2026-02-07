@@ -271,6 +271,10 @@ pct_match <- function(x, y, digits = 2, na = "omit") {
 #'
 #' @param x A character vector of URIs or CURIEs.
 #' @param to The desired output format, either "curie" or "uri".
+#' @param prefix_map A named character vector of prefix mappings to be added to
+#' or replace default mappings. Names should be the URI prefixes and values the
+#' corresponding CURIE prefixes. These mappings will override any default
+#' mappings for the same URI.
 #' @param bracket Whether to include angle brackets around the output.
 #'
 #' @returns A character vector of the converted URIs or CURIEs.
@@ -299,7 +303,7 @@ pct_match <- function(x, y, digits = 2, na = "omit") {
 #'
 #' @md
 #' @export
-uri_curie <- function(x, to = "curie", bracket = FALSE) {
+uri_curie <- function(x, to = "curie", prefix_map = NULL, bracket = FALSE) {
   box::use(purrr, stringr)
 
   to <- match.arg(to, c("curie", "uri"))
@@ -307,20 +311,27 @@ uri_curie <- function(x, to = "curie", bracket = FALSE) {
   sanitized <- stringr$str_trim(x) |>
     stringr$str_remove_all("^<|>$")
 
-  recode_vctr <- c(
-    `http://www.geneontology.org/formats/oboInOwl#` = "oboInOwl:",
-    `http://www.w3.org/1999/02/22-rdf-syntax-ns#` = "rdf:",
-    `http://www.w3.org/2000/01/rdf-schema#` = "rdfs:",
-    `http://www.w3.org/2004/02/skos/core#` = "skos:",
-    `http://purl.obolibrary.org/obo/DOID_` = "DOID:",
-    `http://purl.obolibrary.org/obo/IAO_` = "IAO:",
-    `http://www.w3.org/2001/XMLSchema#` = "xsd:",
-    `http://purl.org/dc/elements/1.1/` = "dc:",
-    `http://purl.obolibrary.org/obo/` = "obo:",
-    `http://www.w3.org/2002/07/owl#` = "owl:",
-    `http://purl.org/dc/terms/` = "terms:"
+  prefixes <- c(
+    `http://www.geneontology.org/formats/oboInOwl#` = "oboInOwl",
+    `http://www.w3.org/1999/02/22-rdf-syntax-ns#` = "rdf",
+    `http://www.w3.org/2000/01/rdf-schema#` = "rdfs",
+    `http://www.w3.org/2004/02/skos/core#` = "skos",
+    `http://purl.obolibrary.org/obo/DOID_` = "DOID",
+    `http://purl.obolibrary.org/obo/IAO_` = "IAO",
+    `http://www.w3.org/2001/XMLSchema#` = "xsd",
+    `http://purl.org/dc/elements/1.1/` = "dc",
+    `http://purl.obolibrary.org/obo/` = "obo",
+    `http://www.w3.org/2002/07/owl#` = "owl",
+    `http://purl.org/dc/terms/` = "terms"
   )
 
+  if (!is.null(prefix_map)) {
+    prefixes[names(prefix_map)] <- prefix_map
+  }
+
+  recode_vctr <- paste0(prefixes, ":")
+  # restore names lost by paste
+  names(recode_vctr) <- names(prefixes)
   if (to == "uri") {
     recode_vctr <- purrr$set_names(names(recode_vctr), recode_vctr)
   }
