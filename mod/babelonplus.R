@@ -1,28 +1,8 @@
-box::use(tibble)
+box::use(here, dplyr)
+load(here$here("mod", "data", "babelonplus.rda"))
 
-#' all possible columns for standardized translation data (v2 = babelonplus)
-#' @export
-col_order <- c(
-  "subject_id", "predicate_id", "source_language", "source_value",
-  "translation_language", "translation_value", "translator",
-  "translator_expertise", "translation_date", "translation_provider",
-  "translation_status", "translation_confidence", "confidence_details",
-  "reviewer", "reviewer_expertise", "comment", "status_history",
-  "backtranslation", "backtranslator", "backtranslation_date",
-  "source", "source_version", "synonym_type", "match_id"
-)
-
-# captures required columns and establishes set order for reproducibility
-match_cols <- tibble$tribble(
-  ~ type, ~ col_nm,
-  "uri", "subject_id",
-  "uri", "predicate_id",
-  "string", "source_language",
-  "string", "source_value",
-  "string", "translation_language",
-  "string", "translation_value",
-  "uri/string", "translator"
-)
+# bp_order 1-7 identify "core" columns for match_id generation
+bp_core <- dplyr$filter(babelonplus, .data$order <= 7)
 
 
 #' Calculate `match_id`
@@ -40,7 +20,7 @@ match_cols <- tibble$tribble(
 #' @section Core Columns:
 #' The following columns are currently considered among the core set and are
 #' used to generate `match_id`:
-#' `r paste0("* ", match_cols, collapse = "\n")`
+#' `r paste0("* ", bp_core, collapse = "\n")`
 #'
 #' @md
 #' @export
@@ -52,11 +32,11 @@ calc_match_id <- function(.df) {
 
   # cols to expand to URIs
   uri_cols <- dplyr$filter(
-    match_cols,
-    stringr$str_detect(.data$type, "uri")
-  )$col_nm
+    bp_core,
+    stringr$str_detect(.data$datatype, "uri")
+  )$col
 
-  match_df <- dplyr$select(.df, dplyr$all_of(match_cols$col_nm)) |>
+  match_df <- dplyr$select(.df, dplyr$all_of(bp_core$col)) |>
     dplyr$mutate(
       dplyr$across(dplyr$all_of(uri_cols), ~ general$uri_curie(.x, to = "uri"))
     )
@@ -65,14 +45,15 @@ calc_match_id <- function(.df) {
   if (any(missing)) {
     n <- sum(missing)
     if (n > 10) {
-      n_list <- paste0(c(which(missing)[1:10], "..."), collapse = ", ")
+      n_list <- paste0(
+        paste0(c(which(missing)[1:10]), collapse = ", "),
+        " (+", n - 10, " more)"
+      )
     } else {
       n_list <- paste0(which(missing), collapse = ", ")
     }
     stop(
-      "Cannot calculate match_id: core columns contain NA values in ",
-      n,
-      "rows:\n  ",
+      "Cannot calculate match_id. Core columns contain NA values in row(s): ",
       n_list
     )
   }
