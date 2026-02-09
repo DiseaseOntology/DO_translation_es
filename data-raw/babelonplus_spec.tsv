@@ -1,0 +1,26 @@
+col	order	datatype	value	init_req	review_order
+subject_id	1	uri		always	3
+predicate_id	2	uri		always	4
+source_language	3	lang_tag		always	1
+source_value	4	string		translate	6
+translation_language	5	lang_tag		always	2
+translation_value	6	string		backtranslate	7
+translator	7	uri/string		backtranslate-optional	8
+translator_expertise	8	one_value	ALGORITHM, DOMAIN_EXPERT, DOMAIN_STUDENT, LAYPERSON, PROFESSIONAL_TRANSLATOR, TECHNICAL_SPECIALIST	backtranslate-optional	
+translation_date	9	date		backtranslate-optional	9
+translation_provider	10	uri/string		backtranslate-optional	
+translation_status	11	one_value	UNTRANSLATED, AUTO_APPROVED, DEPRECATED, CANDIDATE, OFFICIAL, NOT_TRANSLATED	backtranslate-optional	10
+translation_confidence	12	float		backtranslate-optional	11
+source	13	uri		optional	
+source_version	14	uri		optional	
+comment	15	string		optional	13
+confidence_details	16	yaml		never	
+reviewer	17	uri/string		never	12
+reviewer_expertise	18	one_value		never	
+status_history	19	yaml		never	
+backtranslation	20	string		never	5
+backtranslator	21	uri/string		never	
+backtranslation_date	22	date		never	
+synonym_type	23	uri		never	
+match_id	24	string		never	
+backtranslation_precision					

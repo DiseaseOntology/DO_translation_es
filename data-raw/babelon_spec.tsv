@@ -1,0 +1,25 @@
+col	order	datatype	value
+subject_id	3	uri	
+predicate_id	4	uri	
+source_language	1	lang_tag	
+source_value	2	string	
+translation_language	5	lang_tag	
+translation_value	6	string	
+translator	8	uri	
+translator_expertise	9	one_value	ALGORITHM, DOMAIN_EXPERT, DOMAIN_STUDENT, LAYPERSON, PROFESSIONAL_TRANSLATOR, TECHNICAL_SPECIALIST
+translation_date	10	date	
+translation_provider		uri	
+translation_status	7	one_value	CANDIDATE, OFFICIAL, NOT_TRANSLATED
+translation_confidence	11	float	
+source	15	uri	
+source_version	16	uri	
+comment	14	string	
+translation_type	13	one_value	AUGMENTATION, CORRECTION, TRANSLATION
+translation_precision	12	one_value	BROADER, CLOSE, EXACT, NARROWER
+profile_id			
+profile_version			
+translation_predicate_id			
+translation_source_language			
+translation_source_value			
+translation_subject_id			
+translations			
